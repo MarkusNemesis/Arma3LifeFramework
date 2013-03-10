@@ -17,3 +17,5 @@ _slot = objnull;
 } foreach Server_PlayerRegistry
 
 // Run cleanup code below
+waituntil {alive _slot};
+_slot setposASL getposASL Shared_SpawnHaven;

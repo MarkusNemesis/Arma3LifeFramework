@@ -7,10 +7,17 @@ If it's not a server, it's a client and runs the clientInit.
 Return:
 */
 
+Client_InitComplete = false;
+Server_InitComplete = false;
+
 if (isServer) then 
-{ 
-    if (!isDedicated) then {execVM "client\clientInit.sqf";}; // 'server' is a client hosting the mission. Run both main loops. 
-    execVM "server\serverInit.sqf";
+{
+    execVM "server\serverInit.sqf"; 
+    if (!isDedicated) then 
+	{
+        waituntil {Server_InitComplete};
+    	execVM "client\clientInit.sqf";
+    }; // 'server' is a client hosting the mission. Run both main loops. 
 };
 
 if (!isServer) then {

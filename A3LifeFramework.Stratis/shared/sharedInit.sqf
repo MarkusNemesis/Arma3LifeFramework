@@ -6,7 +6,7 @@ Desc: Initialises all things that are shared between the client and server names
 */
 
 private ["_runTime"];
-_runTime =+ time;
+_runTime =+ diag_tickTime;
 
 // Init shared constant variables
 call compile preprocessFileLineNumbers "shared\sharedConstants.sqf";
@@ -15,5 +15,5 @@ call compile preprocessFileLineNumbers "shared\sharedConstants.sqf";
 call compile preprocessFileLineNumbers "shared\functions\sharedInitFunctions.sqf";
 
 // leave last
-_runTime = time - _runTime;
+_runTime = diag_tickTime - _runTime;
 diag_log format ["MV: shared INIT: FINISHED, Time taken: %1", _runTime];

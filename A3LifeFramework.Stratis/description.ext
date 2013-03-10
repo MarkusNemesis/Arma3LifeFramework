@@ -1,7 +1,7 @@
 class Header {
 	gameType = DM;
 	minPlayers = 1;
-	maxPlayers = 40;
+	maxPlayers = 48;
 };
 
 respawn = "BASE";

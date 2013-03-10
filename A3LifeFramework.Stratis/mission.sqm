@@ -19,15 +19,14 @@ class Mission
 	{
 		briefingName="A3 Mission Framework 0.1v";
 		briefingDescription="by Markus.Davey";
-		resistanceWest=0;
-		startWeather=0;
+		resistanceEast=1;
+		timeOfChanges=2460;
+		startWeather=0.17999999;
 		startWind=0.099999994;
-		startWaves=1;
-		forecastWeather=0;
+		forecastWeather=0.39999998;
 		forecastWind=0.099999994;
-		forecastWaves=1;
+		forecastWaves=0;
 		forecastLightnings=0.099999994;
-		wavesForced=1;
 		year=1992;
 		month=8;
 		day=14;
@@ -898,28 +897,28 @@ class Mission
 		items=4;
 		class Item0
 		{
-			position[]={7060.1064,13.770226,5947.5903};
+			position[]={100, 100, 0};
 			name="respawn_civilian";
 			markerType="RECTANGLE";
 			type="Empty";
 		};
 		class Item1
 		{
-			position[]={7060.1064,13.472908,5949.5908};
+			position[]={100, 100, 0};
 			name="respawn_guerrila";
 			markerType="RECTANGLE";
 			type="Empty";
 		};
 		class Item2
 		{
-			position[]={7062.1074,13.34768,5949.5918};
+			position[]={100, 100, 0};
 			name="respawn_east";
 			markerType="RECTANGLE";
 			type="Empty";
 		};
 		class Item3
 		{
-			position[]={7062.1016,13.625659,5947.5996};
+			position[]={100, 100, 0};
 			name="respawn_west";
 			markerType="RECTANGLE";
 			type="Empty";

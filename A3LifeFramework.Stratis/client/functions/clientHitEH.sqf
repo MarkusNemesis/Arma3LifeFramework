@@ -35,7 +35,7 @@ if (alive player) then
 	// If the name isn't found, just add to the array.
 	if (!_found) then {Client_HitArray set [count Client_HitArray, [str name _hiter,  _dmg]]; diag_log "Adding new entry";};
 	
-	diag_log format ["%1 : %2", str name _hitee, [str name _hiter,  _dmg]];
+	diag_log format ["%1 : %2", str name _hitee, [name _hiter,  _dmg]];
 	diag_log format ["%1", Client_HitArray];
 };
 // Return
