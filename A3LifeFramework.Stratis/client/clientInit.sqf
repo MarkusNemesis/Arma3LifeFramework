@@ -52,7 +52,7 @@ finishMissionInit;
 
 //
 
-call MV_fnc_GetPlayers; // Gets the player names.
+call MV_Shared_fnc_GetPlayers; // Gets the player names.
 
 // Create player spawn event
 ["MV_Client_fnc_SpawnPlayer", [], 1] call MV_Client_fnc_AddEvent; 

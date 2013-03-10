@@ -44,5 +44,5 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here.
     _runPrior = _runPrior + 1;
     if (_runPrior > PRIOR_RANGE) then {_runPrior = 1;};
     _pFrame = diag_frameno;
-    waituntil {diag_frameno > _pFrame; sleep 0.3ms;}; // Main loop runs once per tick. Let the scheduler recycle
+    waituntil {diag_frameno > _pFrame; sleep 0.01;}; // Main loop runs once per tick. Let the scheduler recycle
 };

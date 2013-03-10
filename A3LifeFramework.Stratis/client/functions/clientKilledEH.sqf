@@ -41,7 +41,7 @@ for "_i" from count Client_HitArray - 1 to 0 do
 Client_HitArray = _sortedHitArray;
 
 // Find out which did what percentage of damage.
-private[, '_resultArray', '_i'];
+private['_resultArray', '_i'];
 _resultArray = [];
 _i = 0;
 

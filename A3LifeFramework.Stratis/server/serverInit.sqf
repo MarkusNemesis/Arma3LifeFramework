@@ -14,7 +14,7 @@ diag_log "MV: SERVER INIT: STARTED";
 call compile preprocessFileLineNumbers "server\functions\serverInitFunctions.sqf";
 
 // Initialize shared resources only if the server is dedicated. Otherwise the client and server will both init shared.
-if (isDedicated) {call compile preprocessFileLineNumbers "Shared\sharedInit.sqf";};
+if (isDedicated) then {call compile preprocessFileLineNumbers "Shared\sharedInit.sqf";};
 
 // init Params
 call MV_Shared_fnc_initParams;
@@ -29,7 +29,7 @@ OnPlayerConnected "[_id, _name, _uid] execVM MV_Server_fnc_OnPlayerConnected;";
 OnPlayerDisconnected "[_id, _name, _uid] execVM MV_Server_fnc_OnPlayerDisconnected;";
 
 // -------- CODE AFTER THIS POINT IS RAN DURING MISSION TIME --------
-waituntil {time > 0;sleep 0.3ms;}; // Checks if the mission has actually started.
+waituntil {time > 0;sleep 0.01;}; // Checks if the mission has actually started.
 
 
 // Init playerslots
