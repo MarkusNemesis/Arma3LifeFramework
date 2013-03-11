@@ -44,8 +44,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
     // -------- Run Priority 4 - Runs every 4 frames --------
     if (_runPrior % 4 == 0) then
     {
-        // Run the garbage collector
-        call MV_Client_fnc_RunGarbageCollector;
+        
     };
     
     // -------- Run Priority 8 - Runs every 8 frames --------

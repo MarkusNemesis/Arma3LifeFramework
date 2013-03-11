@@ -17,13 +17,13 @@ _found = false;
 if (alive player) then
 {
 	{
-	    diag_log format ["Select: %1 Hitter: %2", _x select 0, str name _hiter];
-	    if (_x select 0 == str name _hiter && !_found) then
+	    diag_log format ["Select: %1 Hitter: %2", _x select 0, name _hiter];
+	    if (_x select 0 == name _hiter && !_found) then
 	    {
 	        diag_log "Updating entry";
 	        private ['_tmpEntry'];
 	        // Create new entry
-	        _tmpEntry = [str name _hiter,  (_dmg + (_x select 1))];
+	        _tmpEntry = [name _hiter,  (_dmg + (_x select 1))];
 	        // Remove old entry
 	        Client_HitArray set [_forEachIndex, objnull];
 	        Client_HitArray = Client_HitArray - [objnull];
@@ -33,9 +33,9 @@ if (alive player) then
 	    };
 	} foreach Client_HitArray;
 	// If the name isn't found, just add to the array.
-	if (!_found) then {Client_HitArray set [count Client_HitArray, [str name _hiter,  _dmg]]; diag_log "Adding new entry";};
+	if (!_found) then {Client_HitArray set [count Client_HitArray, [name _hiter,  _dmg]]; diag_log "Adding new entry";};
 	
-	diag_log format ["%1 : %2", str name _hitee, [name _hiter,  _dmg]];
+	diag_log format ["%1 : %2", name _hitee, [name _hiter,  _dmg]];
 	diag_log format ["%1", Client_HitArray];
 };
 // Return

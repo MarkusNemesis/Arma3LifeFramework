@@ -14,6 +14,9 @@ diag_log format ["onPlayerConnected: %1, %2, %3", _id, _name, _uid];
 // Ensure player name __SERVER__ is ignored.
 if (_name == "__SERVER__") exitwith {};
 
+// Checks if the mission has actually started. Otherwise players wont be initialised yet.
+//waituntil {time > 0}; 
+
 // Find the player's slot name.
 {
     if (_name == name _x) exitwith {_slotname = str _x};

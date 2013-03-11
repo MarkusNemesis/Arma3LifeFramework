@@ -14,7 +14,7 @@ _slot = objnull;
 // Fetch player's slot from the Server_PlayerRegistry
 {
     if ((_id == _x select 0) && (_name == _x select 1)) exitwith {call compile format ["_slot = %1", _x select 1]};
-} foreach Server_PlayerRegistry
+} foreach Server_PlayerRegistry;
 
 // Run cleanup code below
 waituntil {alive _slot};

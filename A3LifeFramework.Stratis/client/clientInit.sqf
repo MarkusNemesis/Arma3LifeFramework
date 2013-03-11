@@ -18,17 +18,18 @@ call compile preprocessFileLineNumbers "Client\functions\clientInitFunctions.sqf
 if (!isServer) then {call compile preprocessFileLineNumbers "Shared\sharedInit.sqf"};
 
 // Client constants
-Client_PlayerName = str name player;
+Client_PlayerName = name player;
 Client_PlayerSide = side player;
 Client_PlayerSideStr = str Client_PlayerSide;
 //
 // Init client globals
-Client_PlayerGarbageCollection = []; // This variable is filled with objects to be cleaned up / managed after a set time. [obj, cleandelay]
 Client_PlayerDeathObjectCollection = []; // This variable is filled with objects that are handled immediatly upon the death of the player.
+Client_SpawnType = "first";
 Client_PlayerSpawned = false;
 Client_HitArray = []; // Stores all the 'hits' the player receives and is collated on player death and sent to the server the top 3 damage sources by %.
 Client_EventArray = []; // Client_EventArray elements contain: ["function_name", [args], priority]
 Client_ObjectCount = 0; // All objects created by the client's locality are set a name [PlayerName-ObjectNumber] via setVehicleInit and sent to server via _object setvehicleinit "Shared_SpawnHaven = this";
+Client_Inventory = [];
 
 // Public Variables
 KillMessageBroadcast = "";

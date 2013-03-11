@@ -14,4 +14,6 @@ Desc: Iterates through the entire garbage array and deletes from the mission obj
 		_unit setPos [0,0,0];
 		deleteVehicle _unit;
     };
-} foreach Client_PlayerGarbageCollection;
+    _x = objnull;
+    Server_GarbageCollection = Server_GarbageCollection - [objnull];
+} foreach Server_GarbageCollection;

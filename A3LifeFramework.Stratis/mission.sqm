@@ -6,12 +6,18 @@ class Mission
 		"a3_characters_f_blufor",
 		"a3_map_stratis",
 		"A3_Characters_F_OPFOR",
-		"A3_Characters_F_Civil"
+		"A3_Characters_F_Civil",
+		"A3_Soft_F_Offroad",
+		"A3_Soft_F_Quadbike",
+		"A3_Soft_F_Hunter"
 	};
 	addOnsAuto[]=
 	{
 		"A3_Characters_F_BLUFOR",
 		"A3_Characters_F_Civil",
+		"A3_Soft_F_Offroad",
+		"A3_Soft_F_Quadbike",
+		"A3_Soft_F_Hunter",
 		"a3_map_stratis"
 	};
 	randomSeed=13141332;
@@ -35,7 +41,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=45;
+		items=47;
 		class Item0
 		{
 			side="WEST";
@@ -891,37 +897,131 @@ class Mission
 				};
 			};
 		};
+		class Item45
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2822.0776,4.2525635,6125.687};
+					azimut=179.08;
+					id=45;
+					side="CIV";
+					vehicle="C_man_1_1_F";
+					leader=1;
+					skill=0.60000002;
+					text="CarStoreCiv1";
+					init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
+				};
+			};
+		};
+		class Item46
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2139.2297,8.7188644,5363.6841};
+					azimut=184.31665;
+					id=46;
+					side="WEST";
+					vehicle="B_Soldier_F";
+					leader=1;
+					skill=0.60000002;
+					text="CarStoreCop1";
+					init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
+				};
+			};
+		};
+	};
+	class Vehicles
+	{
+		items=3;
+		class Item0
+		{
+			position[]={2818.4741,2.3985376,6119.1157};
+			azimut=153.60001;
+			id=47;
+			side="EMPTY";
+			vehicle="c_offroad";
+			skill=0.60000002;
+			init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
+		};
+		class Item1
+		{
+			position[]={2826.4253,2.4499793,6118.3687};
+			azimut=-147.547;
+			id=48;
+			side="EMPTY";
+			vehicle="B_Quadbike_F";
+			skill=0.60000002;
+			init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
+		};
+		class Item2
+		{
+			position[]={2140.8347,8.7216167,5367.3535};
+			azimut=451.61169;
+			id=49;
+			side="EMPTY";
+			vehicle="B_Hunter_F";
+			leader=1;
+			skill=0.60000002;
+			text="PropHunter";
+			init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
+		};
 	};
 	class Markers
 	{
-		items=4;
+		items=6;
 		class Item0
 		{
-			position[]={100, 100, 0};
+			position[]={100,100,0};
 			name="respawn_civilian";
 			markerType="RECTANGLE";
 			type="Empty";
 		};
 		class Item1
 		{
-			position[]={100, 100, 0};
+			position[]={100,100,0};
 			name="respawn_guerrila";
 			markerType="RECTANGLE";
 			type="Empty";
 		};
 		class Item2
 		{
-			position[]={100, 100, 0};
+			position[]={100,100,0};
 			name="respawn_east";
 			markerType="RECTANGLE";
 			type="Empty";
 		};
 		class Item3
 		{
-			position[]={100, 100, 0};
+			position[]={100,100,0};
 			name="respawn_west";
 			markerType="RECTANGLE";
 			type="Empty";
+		};
+		class Item4
+		{
+			position[]={2783.8877,1.2707129,6100.0918};
+			name="Spawn_CIV";
+			markerType="RECTANGLE";
+			type="mil_start";
+			angle=133.927;
+		};
+		class Item5
+		{
+			position[]={2140.1157,8.7484131,5348.519};
+			name="Spawn_BLU";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=2;
+			b=2;
+			angle=6;
 		};
 	};
 };

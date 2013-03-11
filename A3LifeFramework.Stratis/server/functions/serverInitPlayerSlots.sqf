@@ -20,6 +20,7 @@ _players = _this select 0;
     
     // Put the AI inside the spawn haven.
     _x setposASL getposASL Shared_SpawnHaven;
-    diag_log format ["Moving slot %1 to spawn haven", name _x];
+    //diag_log format ["Moving slot %1 to spawn haven", name _x];
+    
 } forEach _players;
 

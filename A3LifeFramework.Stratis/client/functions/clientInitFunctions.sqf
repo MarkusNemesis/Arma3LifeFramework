@@ -15,7 +15,6 @@ MV_Client_fnc_InitEventHandlers = Compile preprocessFile "client\functions\clien
 MV_Client_fnc_KilledEH = Compile preprocessFile "client\functions\clientKilledEH.sqf";
 MV_Client_fnc_RespawnEH = Compile preprocessFile "client\functions\clientRespawnEH.sqf";
 MV_Client_fnc_HitEH = Compile preprocessFile "client\functions\clientHitEH.sqf";
-MV_Client_fnc_RunGarbageCollector = Compile preprocessFile "client\functions\clientRunGarbageCollector.sqf";
 MV_Client_fnc_KillMessage = Compile preprocessFile "client\functions\clientKillMessage.sqf";
 
 // MV_Client_fnc_ = Compile preprocessFile "client\functions\client.sqf";
