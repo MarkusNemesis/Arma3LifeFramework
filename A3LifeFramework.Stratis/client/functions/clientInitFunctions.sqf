@@ -6,15 +6,20 @@ Desc: declares and compiles all the client specific functions.
 Return:
 */
 
-MV_Client_fnc_AddEvent = Compile preprocessFile "client\functions\clientAddEvent.sqf";
-MV_Client_fnc_RemoveEvent = Compile preprocessFile "client\functions\clientRemoveEvent.sqf";
-MV_Client_fnc_SpawnPlayer = Compile preprocessFile "client\functions\clientSpawnPlayer.sqf";
-MV_Client_fnc_AddGarbage = Compile preprocessFile "client\functions\clientAddGarbage.sqf";
-MV_Client_fnc_AddDeathObject = Compile preprocessFile "client\functions\clientAddDeathObject.sqf";
-MV_Client_fnc_InitEventHandlers = Compile preprocessFile "client\functions\clientInitEventHandlers.sqf";
-MV_Client_fnc_KilledEH = Compile preprocessFile "client\functions\clientKilledEH.sqf";
-MV_Client_fnc_RespawnEH = Compile preprocessFile "client\functions\clientRespawnEH.sqf";
-MV_Client_fnc_HitEH = Compile preprocessFile "client\functions\clientHitEH.sqf";
-MV_Client_fnc_KillMessage = Compile preprocessFile "client\functions\clientKillMessage.sqf";
+// General
+MV_Client_fnc_AddEvent = Compile preprocessFileLineNumbers "client\functions\clientAddEvent.sqf";
+MV_Client_fnc_RemoveEvent = Compile preprocessFileLineNumbers "client\functions\clientRemoveEvent.sqf";
+MV_Client_fnc_SpawnPlayer = Compile preprocessFileLineNumbers "client\functions\clientSpawnPlayer.sqf";
+MV_Client_fnc_AddGarbage = Compile preprocessFileLineNumbers "client\functions\clientAddGarbage.sqf";
+MV_Client_fnc_AddDeathObject = Compile preprocessFileLineNumbers "client\functions\clientAddDeathObject.sqf";
+MV_Client_fnc_KillMessage = Compile preprocessFileLineNumbers "client\functions\clientKillMessage.sqf";
 
-// MV_Client_fnc_ = Compile preprocessFile "client\functions\client.sqf";
+// Event Handlers
+MV_Client_fnc_InitEventHandlers = Compile preprocessFileLineNumbers "client\functions\clientInitEventHandlers.sqf";
+MV_Client_fnc_KilledEH = Compile preprocessFileLineNumbers "client\functions\clientKilledEH.sqf";
+MV_Client_fnc_RespawnEH = Compile preprocessFileLineNumbers "client\functions\clientRespawnEH.sqf";
+MV_Client_fnc_HitEH = Compile preprocessFileLineNumbers "client\functions\clientHitEH.sqf";
+MV_Client_fnc_OnKeyPressEH = Compile preprocessFileLineNumbers "client\functions\clientOnKeyPressEH.sqf";
+
+
+// MV_Client_fnc_ = Compile preprocessFileLineNumbers "client\functions\";

@@ -12,10 +12,10 @@ waitUntil {!isNull player}; // Make sure the player exists before starting.
 diag_log "MV: CLIENT INIT: STARTED";
 
 // Init client functions
-call compile preprocessFileLineNumbers "Client\functions\clientInitFunctions.sqf";
+call compile preprocessFile "Client\functions\clientInitFunctions.sqf";
 
 // Initialize shared resources only if not a server. Otherwise the client and server will both init shared.
-if (!isServer) then {call compile preprocessFileLineNumbers "Shared\sharedInit.sqf"};
+if (!isServer) then {call compile preprocessFile "Shared\sharedInit.sqf"};
 
 // Client constants
 Client_PlayerName = name player;
@@ -30,6 +30,7 @@ Client_HitArray = []; // Stores all the 'hits' the player receives and is collat
 Client_EventArray = []; // Client_EventArray elements contain: ["function_name", [args], priority]
 Client_ObjectCount = 0; // All objects created by the client's locality are set a name [PlayerName-ObjectNumber] via setVehicleInit and sent to server via _object setvehicleinit "Shared_SpawnHaven = this";
 Client_Inventory = [];
+Client_CustomKeysEnabled = true;
 
 // Public Variables
 KillMessageBroadcast = "";
@@ -55,11 +56,15 @@ waituntil {time > 0}; // Checks if the mission has actually started.
 finishMissionInit;
 //
 
-call MV_Shared_fnc_GetPlayers; // Gets the player names.
+// Start KeyDown event handler
+(findDisplay 46) displaySetEventHandler ["KeyDown","_this call MV_Client_fnc_OnKeyPressEH;"];
+
+// Gets the player names.
+call MV_Shared_fnc_GetPlayers; 
 
 // Create player spawn event
 ["MV_Client_fnc_SpawnPlayer", [], 1] call MV_Client_fnc_AddEvent; 
-// call MV_Client_fnc_SpawnPlayer;
+
 // YOU MUST Leave this last. This calls the clientCore mainloop.
 _runTime = diag_tickTime - _runTime;
 diag_log format ["MV: CLIENT INIT: FINISHED, Time taken: %1", _runTime];

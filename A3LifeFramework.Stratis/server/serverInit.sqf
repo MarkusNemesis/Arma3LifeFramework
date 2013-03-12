@@ -11,10 +11,10 @@ _runTime =+ diag_tickTime;
 diag_log "MV: SERVER INIT: STARTED";
 
 // Init server functions
-call compile preprocessFileLineNumbers "server\functions\serverInitFunctions.sqf";
+call compile preprocessFile "server\functions\serverInitFunctions.sqf";
 
 // Initialize shared resources
-call compile preprocessFileLineNumbers "Shared\sharedInit.sqf";
+call compile preprocessFile "Shared\sharedInit.sqf";
 
 // init Params
 call MV_Shared_fnc_initParams;
@@ -42,12 +42,15 @@ Server_InitComplete = true;
 // -------- CODE AFTER THIS POINT IS RAN DURING MISSION TIME --------
 waituntil {time > 0;}; // Checks if the mission has actually started.
 
+// Init stores:
+call Compile preprocessFile "server\functions\serverInitStores.sqf";
+
 // Init playerslots
 call MV_Shared_fnc_GetPlayers;
-[MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV] call MV_Server_fnc_initPlayerSlots;
+[MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV] call Compile preprocessFile "Server\functions\ServerInitPlayerSlots.sqf";
 
 
 // YOU MUST Leave this last. This calls the serverCore mainloop.
 _runTime = diag_tickTime - _runTime;
 diag_log format ["MV: SERVER INIT: FINISHED, Time taken: %1", _runTime];
-call compile preprocessFileLineNumbers "server\serverCore.sqf";
+call compile preprocessFile "server\serverCore.sqf";

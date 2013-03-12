@@ -39,7 +39,7 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here.
     // -------- Run Priority 8 - Runs every 8 frames --------
     if (_runPrior % 8 == 0) then
     {
-		call MV_Server_fnc_InitWorldProps;
+        if (time > 3 && time < 5) then {call MV_Server_fnc_InitWorldProps;};
     };
     
     // Leave this last.

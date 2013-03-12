@@ -5,5 +5,5 @@ Skype: markus.davey
 Desc: Adds the prop to the prop array
 */
 
-waituntil {time > 5};
+waituntil {time > 3};
 Server_InitPropsArray set [count Server_InitPropsArray, _this];

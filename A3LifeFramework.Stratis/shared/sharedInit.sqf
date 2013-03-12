@@ -9,10 +9,10 @@ private ["_runTime"];
 _runTime =+ diag_tickTime;
 
 // Init shared constant variables
-call compile preprocessFileLineNumbers "shared\sharedConstants.sqf";
+call compile preprocessFile "shared\sharedConstants.sqf";
 
 // Init shared functions
-call compile preprocessFileLineNumbers "shared\functions\sharedInitFunctions.sqf";
+call compile preprocessFile "shared\functions\sharedInitFunctions.sqf";
 
 // leave last
 _runTime = diag_tickTime - _runTime;
