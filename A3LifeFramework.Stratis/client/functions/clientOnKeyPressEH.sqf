@@ -28,31 +28,19 @@ if (Client_CustomKeysEnabled) then
         titleText ["Custom keys Disabled", "PLAIN DOWN", 0.5];
     };
     
-    // E pressed
+    // ---------------- Interact key [E] ----------------
     if (_key == 18) then
     { 
 		// If the player is on foot and pressing E
 		if (vehicle player == player) then
 		{
-		    // ---------------- Interface with stores ----------------
+		    // ---------------- Interact with Stores/GetInVehicles ----------------
             private ["_pDistance", "_found", "_fArray"];
-            
-		    
-		    // ---------------- Interface with Vehicles ----------------
-		    // Getting into vehicles
-		    if (_target distance player < 5) then
-		    {
-			    if (_target emptyPositions "Driver" > 0) then
-			    {
-			        player action ["getInDriver", _target];
-			    } else {
-		            if (_target emptyPositions "Cargo" > 0) then
-			    	{
-			        	player action ["getInCargo", _target];
-			    	};
-		        };
-		    };
-		    
+            diag_log "PreHandler";
+            if (_target getVariable "isInteractable" && player distance _target < 5) then
+            {
+                [_target] call MV_Client_fnc_int_Handler;
+            };
 		};
 		
 		// If User presses E and they're inside a vehicle, and it's not locked, then getout.

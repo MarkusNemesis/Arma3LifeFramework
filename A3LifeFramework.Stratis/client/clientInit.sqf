@@ -59,6 +59,9 @@ finishMissionInit;
 // Start KeyDown event handler
 (findDisplay 46) displaySetEventHandler ["KeyDown","_this call MV_Client_fnc_OnKeyPressEH;"];
 
+// Load interaction functions
+call compile preprocessFile "Client\functions\interactions\clientInitInteractions.sqf";
+
 // Gets the player names.
 call MV_Shared_fnc_GetPlayers; 
 

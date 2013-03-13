@@ -33,7 +33,7 @@ class Mission
 		forecastWind=0.099999994;
 		forecastWaves=0;
 		forecastLightnings=0.099999994;
-		year=1992;
+		year=2035;
 		month=8;
 		day=14;
 		hour=12;
@@ -56,7 +56,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAYER COMMANDER";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_1";
 				};
 			};
@@ -75,7 +75,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_2";
 				};
 			};
@@ -94,7 +94,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_3";
 				};
 			};
@@ -113,7 +113,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_4";
 				};
 			};
@@ -132,7 +132,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_5";
 				};
 			};
@@ -151,7 +151,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_6";
 				};
 			};
@@ -170,7 +170,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_7";
 				};
 			};
@@ -189,7 +189,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_8";
 				};
 			};
@@ -208,7 +208,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_9";
 				};
 			};
@@ -227,7 +227,7 @@ class Mission
 					vehicle="B_Soldier_TL_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="BLU_P_10";
 				};
 			};
@@ -246,7 +246,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_1";
 				};
 			};
@@ -265,7 +265,7 @@ class Mission
 					vehicle="C_man_polo_1_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_2";
 				};
 			};
@@ -284,7 +284,7 @@ class Mission
 					vehicle="C_man_polo_6_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_7";
 				};
 			};
@@ -303,7 +303,7 @@ class Mission
 					vehicle="C_man_polo_2_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_3";
 				};
 			};
@@ -322,7 +322,7 @@ class Mission
 					vehicle="C_man_polo_3_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_4";
 				};
 			};
@@ -341,7 +341,7 @@ class Mission
 					vehicle="C_man_polo_4_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_5";
 				};
 			};
@@ -360,7 +360,7 @@ class Mission
 					vehicle="C_man_polo_5_F";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_6";
 				};
 			};
@@ -379,7 +379,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_8";
 				};
 			};
@@ -398,7 +398,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_9";
 				};
 			};
@@ -417,7 +417,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_10";
 				};
 			};
@@ -436,7 +436,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_11";
 				};
 			};
@@ -455,7 +455,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_12";
 				};
 			};
@@ -474,7 +474,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_13";
 				};
 			};
@@ -493,7 +493,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_14";
 				};
 			};
@@ -512,7 +512,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_15";
 				};
 			};
@@ -531,7 +531,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_16";
 				};
 			};
@@ -550,7 +550,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_17";
 				};
 			};
@@ -569,7 +569,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_18";
 				};
 			};
@@ -588,7 +588,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_19";
 				};
 			};
@@ -607,7 +607,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_20";
 				};
 			};
@@ -626,7 +626,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_21";
 				};
 			};
@@ -645,7 +645,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_22";
 				};
 			};
@@ -664,7 +664,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_23";
 				};
 			};
@@ -683,7 +683,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_24";
 				};
 			};
@@ -702,7 +702,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_25";
 				};
 			};
@@ -721,7 +721,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_26";
 				};
 			};
@@ -740,7 +740,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_27";
 				};
 			};
@@ -759,7 +759,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_28";
 				};
 			};
@@ -778,7 +778,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_29";
 				};
 			};
@@ -797,7 +797,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_30";
 				};
 			};
@@ -816,7 +816,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_31";
 				};
 			};
@@ -835,7 +835,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_32";
 				};
 			};
@@ -854,7 +854,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_33";
 				};
 			};
@@ -873,7 +873,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_34";
 				};
 			};
@@ -892,7 +892,7 @@ class Mission
 					vehicle="C_man_1";
 					player="PLAY CDG";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CIV_P_35";
 				};
 			};
@@ -911,7 +911,7 @@ class Mission
 					side="CIV";
 					vehicle="C_man_1_1_F";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CarStoreCiv1";
 					init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
 				};
@@ -931,7 +931,7 @@ class Mission
 					side="WEST";
 					vehicle="B_Soldier_F";
 					leader=1;
-					skill=0.60000002;
+					skill=1;
 					text="CarStoreCop1";
 					init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
 				};
@@ -948,7 +948,7 @@ class Mission
 			id=47;
 			side="EMPTY";
 			vehicle="c_offroad";
-			skill=0.60000002;
+			skill=1;
 			init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
 		};
 		class Item1
@@ -958,7 +958,7 @@ class Mission
 			id=48;
 			side="EMPTY";
 			vehicle="B_Quadbike_F";
-			skill=0.60000002;
+			skill=1;
 			init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
 		};
 		class Item2
@@ -969,7 +969,7 @@ class Mission
 			side="EMPTY";
 			vehicle="B_Hunter_F";
 			leader=1;
-			skill=0.60000002;
+			skill=1;
 			text="PropHunter";
 			init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
 		};

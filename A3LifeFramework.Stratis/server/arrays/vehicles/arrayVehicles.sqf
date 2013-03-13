@@ -10,8 +10,10 @@ Format:
 // Don't forget to end each entry with a comma, EXCEPT the last entry.
 
 Array_Vehicles = [
-	["c_offroad", 8000, true],
+	["c_offroad",8000, true],
 	["B_Quadbike_F", 4500, true],
     ["B_Hunter_F", 13000, true]
     
 ]; // End of array
+
+publicvariable "Array_Vehicles";

@@ -14,3 +14,6 @@ enableItemsDropping = 0;
 
 // Parameters
 #include "Rsc\parameters.hpp"
+
+// UI
+#include "rsc\ui\uiIncludes.hpp"
