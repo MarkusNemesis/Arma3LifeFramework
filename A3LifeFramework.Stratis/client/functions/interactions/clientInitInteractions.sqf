@@ -9,5 +9,7 @@ Return:
 MV_Client_fnc_int_Handler = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionHandler.sqf";
 MV_Client_fnc_int_VehicleStore = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionVehicleStore.sqf";
 MV_Client_fnc_int_BuyVehicle = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionBuyVehicle.sqf";
+MV_Client_fnc_int_MessageBox = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionsMessagebox.sqf";
+
 
 // MV_Client_fnc_int_ = Compile preprocessFileLineNumbers "client\functions\interactions\";

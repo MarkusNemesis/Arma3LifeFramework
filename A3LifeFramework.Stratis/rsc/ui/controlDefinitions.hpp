@@ -62,7 +62,7 @@ class MV_Button : RscButton
 	idc = -1;
 	type = CT_BUTTON;
 	style = ST_CENTER;
-	
+	colorText[] = {MV_COLOUR_MAROON};
 };
 
 class MV_Label : RscText

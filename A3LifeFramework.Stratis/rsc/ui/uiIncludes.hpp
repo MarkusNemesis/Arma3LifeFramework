@@ -1129,8 +1129,18 @@ class RscControlsGroup
 
 // ------------ END OF DEFINES ------------
 
+
+// --- Grid Macros
+#define GUI_GRID_X	(0)
+#define GUI_GRID_Y	(0)
+#define GUI_GRID_W	(0.025)
+#define GUI_GRID_H	(0.04)
+#define GUI_GRID_WAbs	(1)
+#define GUI_GRID_HAbs	(1)
+// --- End of Grid Macros
+
 #include "controlDefinitions.hpp"
 
 #include "ui_vehicleShop.hpp"
-
+#include "ui_messageBox1.hpp"
 //#include ""

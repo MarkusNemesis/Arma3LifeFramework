@@ -58,6 +58,7 @@ _pMoney = player getVariable "Money";
 _pMoneyPrev = -1;
 _sCName = '';
 _sPrice = "ERROR";
+
 // -- On first run, all fields in this loop will be run. Effectively initialising the controls.
 while {dialog && alive player} do
 {
@@ -89,15 +90,9 @@ while {dialog && alive player} do
     };
     
     // TODO put 'setaction' for 'buy vehicle' button
-	buttonsetaction [1993, format ["[%1, %2] call MV_Client_fnc_int_BuyVehicle"], netID _sObj, _sCName];
+	buttonsetaction [1993, format ["[%1, %2] call MV_Client_fnc_int_BuyVehicle"], netID _sObj, _lbSel, _sPrice, (_sArr select _lbSel) select 0]; // NetID, Index, price, stock
     
     // ---- Leave last
     _fNo = diag_frameno;
     waituntil {diag_frameno > _fNo;}; // Runs the dialog once per frame.
 };
-
-// ----- CRUDE VEHICLE SPAWN IMPLEMENTATION --------
-
-//private ['_veh', '_classname'];
-//_classname = (_sArr select lbCurSel 1992) select 0;
-//buttonsetaction [1993, format ["[str %1] call MV_Client_fnc_SpawnVehicle"], _classname];
