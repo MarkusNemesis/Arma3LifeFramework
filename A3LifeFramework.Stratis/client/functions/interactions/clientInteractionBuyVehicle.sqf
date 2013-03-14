@@ -15,11 +15,12 @@ _vPrice = _this select 2;
 _vStock = _this select 3;
 _pMoney = player getVariable "Money";
 
-// TODO move string info to string table and localise
-if (_vStock <= 0) then {["Information", "You do not have enough money to buy this item"] spawn MV_Client_fnc_int_MessageBox;}; // Error out to the user, saying that there's no stock remaining for that item. TODO create UI message box dialog.
+//diag_log format ["BuyVehicle: Obj: %1, Index: %2, Price: %3, "]
 
-if (_pMoney > _vPrice) then
-{
-    // -- User can afford this item. 
-    
-};
+// TODO move string info to string table and localise
+if (_vStock <= 0) exitwith {["Information", "There is not enough of this item in stock"] spawn MV_Client_fnc_int_MessageBox;}; // Error out to the user, saying that there's no stock remaining for that item. TODO create UI message box dialog.
+
+if (_pMoney < _vPrice) exitwith {["Information", "You do not have enough money to buy this item"] spawn MV_Client_fnc_int_MessageBox;};
+
+// -- Item is in stock, and user has enough money
+

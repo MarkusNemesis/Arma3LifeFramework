@@ -31,6 +31,7 @@ if (Client_CustomKeysEnabled) then
     // ---------------- Interact key [E] ----------------
     if (_key == 18) then
     {
+        if (dialog) exitwith{}; // Cannot use interact key whilst in a dialog.
         // If the player is on foot and pressing E
 		if (vehicle player == player) then
 		{

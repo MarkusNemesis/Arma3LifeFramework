@@ -6,6 +6,7 @@ class ui_messageBox1 {
 	idd = 1409;
 	movingEnable = false;
 	enableSimulation = true;
+	onUnload = "Client_isMessageBox = false;";
 	controlsBackground[] = 
 	{
 		MBX_BG,
@@ -35,7 +36,7 @@ class ui_messageBox1 {
 		h = 7.5 * GUI_GRID_H;
 		sizeEx = 0.6 * GUI_GRID_H;
 	};
-	class MBX_Text: MV_Label
+	class MBX_Text: MV_MultiLine
 	{
 		idc = 1998;
 		x = 11 * GUI_GRID_W + GUI_GRID_X;
@@ -43,6 +44,7 @@ class ui_messageBox1 {
 		w = 18 * GUI_GRID_W;
 		h = 4.2 * GUI_GRID_H;
 		sizeEx = 0.6 * GUI_GRID_H;
+		style = ST_CENTER;
 	};
 	class MBX_Button: MV_Button
 	{
@@ -52,7 +54,7 @@ class ui_messageBox1 {
 		w = 6.9 * GUI_GRID_W;
 		h = 1.5 * GUI_GRID_H;
 		sizeEx = 0.6 * GUI_GRID_H;
-		action = "closeDialog 0;";
 		text = "Okay";
+		action = "closeDialog 0;";
 	};
 };

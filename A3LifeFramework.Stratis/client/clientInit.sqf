@@ -31,6 +31,7 @@ Client_EventArray = []; // Client_EventArray elements contain: ["function_name",
 Client_ObjectCount = 0; // All objects created by the client's locality are set a name [PlayerName-ObjectNumber] via setVehicleInit and sent to server via _object setvehicleinit "Shared_SpawnHaven = this";
 Client_Inventory = [];
 Client_CustomKeysEnabled = true;
+Client_isMessageBox = false; // Is true when there's a message box open. Helps in stopping loops from running whilst their dialog is not open due to a message.
 
 // Public Variables
 KillMessageBroadcast = "";
@@ -73,9 +74,6 @@ call MV_Shared_fnc_GetPlayers;
 
 // ---- Create player spawn event
 ["MV_Client_fnc_SpawnPlayer", [], 1] call MV_Client_fnc_AddEvent; 
-
-// TODO REMOVE THIS
-group player reveal [CarStoreCop1, 4];
 
 // ---- YOU MUST Leave this last. This calls the clientCore mainloop.
 _runTime = diag_tickTime - _runTime;

@@ -65,6 +65,13 @@ class MV_Button : RscButton
 	colorText[] = {MV_COLOUR_MAROON};
 };
 
+class MV_MultiLine : RscText
+{
+	idc = -1;
+	colorText[] = {MV_COLOUR_MAROON};
+	style = ST_MULTI;
+};
+
 class MV_Label : RscText
 {
 	idc = -1;
