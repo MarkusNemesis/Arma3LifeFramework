@@ -51,10 +51,15 @@ waitUntil{!isnil 'Shared_SpawnHaven'};
 
 
 Client_InitComplete = true;
+player setVariable ['clientInitComplete', true, true];
 // **** CODE AFTER THIS POINT IS RAN DURING MISSION TIME ****
 waituntil {time > 0}; // Checks if the mission has actually started.
 finishMissionInit;
 //
+
+// -- Wait until the server has initialised the client's player data.
+// TODO show some kind of 'wait' screen, if this takes time.
+waituntil {player getvariable "clientInitCompleteAck"};
 
 // Start KeyDown event handler
 (findDisplay 46) displaySetEventHandler ["KeyDown","_this call MV_Client_fnc_OnKeyPressEH;"];

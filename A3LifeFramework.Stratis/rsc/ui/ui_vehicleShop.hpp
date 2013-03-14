@@ -66,38 +66,35 @@ class ui_vehicleStore
 		w = 7 * GUI_GRID_W;
 		h = 1.5 * GUI_GRID_H;
 	};
-	class lblCurrentMoney: MV_Label
+	class lblCurrentMoney: MV_LabelRight
 	{
 		idc = 1994;
-		text = "Current Money: $10000"; //--- ToDo: Localize;
+		text = "Current Money: $0"; //--- ToDo: Localize;
 		x = 13 * GUI_GRID_W + GUI_GRID_X;
 		y = 1 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7.9 * GUI_GRID_W;
 		h = 1 * GUI_GRID_H;
 		sizeEx = 0.6 * GUI_GRID_H;
-		style = ST_RIGHT;
 	};
-	class lblCurrentCost: MV_Label
+	class lblCurrentCost: MV_LabelRight
 	{
 		idc = 1995;
-		text = "Current Cost: $5000"; //--- ToDo: Localize;
+		text = "Current Cost: $0"; //--- ToDo: Localize;
 		x = 13 * GUI_GRID_W + GUI_GRID_X;
 		y = 2 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7.9 * GUI_GRID_W;
 		h = 1 * GUI_GRID_H;
 		sizeEx = 0.6 * GUI_GRID_H;
-		style = ST_RIGHT;
 	};
-	class lblRemaining: MV_Label
+	class lblRemaining: MV_LabelRight
 	{
 		idc = 1996;
-		text = "Money Remaining: $5000"; //--- ToDo: Localize;
+		text = "Money Remaining: $0"; //--- ToDo: Localize;
 		x = 13 * GUI_GRID_W + GUI_GRID_X;
 		y = 3 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7.9 * GUI_GRID_W;
 		h = 1 * GUI_GRID_H;
 		sizeEx = 0.6 * GUI_GRID_H;
-		style = ST_RIGHT;
 	};
 };
 ////////////////////////////////////////////////////////

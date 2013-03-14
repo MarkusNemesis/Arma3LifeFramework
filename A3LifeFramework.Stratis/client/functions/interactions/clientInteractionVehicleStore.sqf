@@ -26,7 +26,6 @@ createdialog "ui_vehicleStore";
     _vStock = 0;
     
     // TODO move this to a function sharedVehicleFetchPrice
-    
     {
         _x2 = _x;
         diag_log format ["%1 vs %2", _vCName, _x2 select 0];
@@ -38,44 +37,61 @@ createdialog "ui_vehicleStore";
         };
         if (_found) exitwith {};
     } foreach Array_Vehicles;
-    
+
     _vTName = getText (configFile >> 'CfgVehicles' >> _vCName >> "displayName");
-    
     _text = format ["%1, Stock: %2, $%3", _vTName, _vStock, _vPrice];
     lbAdd [1992, _text];
 } foreach _sArr;
 
-// -- Set Frame title
+// ---- Set Frame title
 ctrlSetText [1997, _sName];
 
-// TODO put 'setaction' for 'buy vehicle' button
-
-// Init pre-selections
+// ---- Init pre-selections
 lbSetCurSel [1992, 0];
 
-// Run the dialog update loop
-private ['_fNo', '_lbSel', '_lbSelPrev'];
+// ---- Run the dialog update loop
+private ['_fNo', '_lbSel', '_lbSelPrev', '_pMoney', '_pMoneyPrev', '_sCName', '_sPrice'];
 _fNo = diag_frameno;
 _lbSel = lbCurSel 1992;
 _lbSelPrev = -1;
-
+_pMoney = player getVariable "Money";
+_pMoneyPrev = -1;
+_sCName = '';
+_sPrice = "ERROR";
+// -- On first run, all fields in this loop will be run. Effectively initialising the controls.
 while {dialog && alive player} do
 {
+    // ---- Current Money Changed
+    _pMoney = player getVariable "Money";
+    if (_pMoney != _pMoneyPrev) then
+    {
+		ctrlSetText [1994, format ["Current Money: $%1", _pMoney]];
+        _pMoneyPrev = _pMoney;
+    };
+	
     // ---- LB Selection Changed
     _lbSel = lbCurSel 1992;
     if (_lbSel != _lbSelPrev) then
     {
-        private ['_sCName', '_sPrice'];
         // -- Get vehicle's class name
         _sCName = (_sArr select _lbSel) select 0;
-        
         // -- Get the vehicle's price
-        _sPrice = "ERROR";
         {if ((_x select 0) == _sCName) exitwith {_sPrice = _x select 1;} } foreach Array_Vehicles;
+        
+        // -- Set Cost label
         ctrlSetText [1995, format ["Cost: $%1", _sPrice]];
-        // TODO Update current money and money remaining labels
+        
+        // -- Set Money Remaining label
+		ctrlSetText [1996, format ["Money Remaining: $%1", _pMoney - _sPrice]];
+        
+        // Leave last
+        _lbSelPrev = _lbSel;
     };
-    // Leave last
+    
+    // TODO put 'setaction' for 'buy vehicle' button
+	buttonsetaction [1993, format ["[%1, %2] call MV_Client_fnc_int_BuyVehicle"], netID _sObj, _sCName];
+    
+    // ---- Leave last
     _fNo = diag_frameno;
     waituntil {diag_frameno > _fNo;}; // Runs the dialog once per frame.
 };

@@ -1,9 +1,10 @@
 class Header {
-	gameType = DM;
+	gameType = TEAM;
 	minPlayers = 1;
 	maxPlayers = 48;
 };
 
+disabledAI = true;
 respawn = "BASE";
 respawnDelay = 15;
 respawnDialog = 1;

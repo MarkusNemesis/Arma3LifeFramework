@@ -2,6 +2,7 @@
 Created: 14/03/2013
 Author: Markus Davey
 Skype: markus.davey
-Desc: 
+Desc:
+Params: keeperNetID, vehicleStrClassName 
 Return:
 */
