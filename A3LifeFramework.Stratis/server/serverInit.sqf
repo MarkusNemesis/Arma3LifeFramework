@@ -22,6 +22,7 @@ call MV_Shared_fnc_initParams;
 // Init global variables
 Server_GarbageCollection = []; // This variable is filled with objects to be cleaned up / managed after a set time. [obj, cleandelay]
 Server_PlayerRegistry = []; // Format: [id, playerName, UID, playerSlot];
+Server_PlayerData = []; // Format: [id, playerName, playerSlot, bFirstJoin, [Variables e.g. ["Money", 15000], ["KeyChain", [Car1, Car2]], etc]]; Saved on player disconnect
 Server_InitPropsArray = []; // Use init line: if (isServer) then {this execVM "server\functions\serverAddProp.sqf";};
 Server_PropsArray = []; // Contains all the static world props. 
 

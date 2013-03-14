@@ -30,14 +30,18 @@ if (Client_CustomKeysEnabled) then
     
     // ---------------- Interact key [E] ----------------
     if (_key == 18) then
-    { 
+    {
+        private ['_isInteractable'];
+        _isInteractable = _target getVariable "isInteractable";
+        if (isnil ('_isInteractable')) then {_isInteractable = false;};
+		if (!(_isInteractable)) exitwith {diag_log format ["%1 is not interactable", _target]};
 		// If the player is on foot and pressing E
 		if (vehicle player == player) then
 		{
 		    // ---------------- Interact with Stores/GetInVehicles ----------------
             private ["_pDistance", "_found", "_fArray"];
-            diag_log "PreHandler";
-            if (_target getVariable "isInteractable" && player distance _target < 5) then
+            diag_log "Pre Interact Handler";
+            if (player distance _target < 5) then
             {
                 [_target] call MV_Client_fnc_int_Handler;
             };

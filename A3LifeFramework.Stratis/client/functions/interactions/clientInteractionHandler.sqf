@@ -16,8 +16,8 @@ diag_log format ["Interaction handler triggered: obj: %1, type: %2, filter: %3",
 // Check if the client's side is allowed to interact with this object
 if (Client_PlayerSide in _iFilter) then
 {
+    diag_log "Client's interaction side access passed";
     // Client can interact with this object
-    diag_log _iType;
     switch (_iType) do
     {
         // Car stores

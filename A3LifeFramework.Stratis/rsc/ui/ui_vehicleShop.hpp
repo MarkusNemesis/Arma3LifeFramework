@@ -40,7 +40,7 @@ class ui_vehicleStore
 	};
 	class BGFrame: MV_GUIFrame
 	{
-		idc = -1;
+		idc = 1997;
 		text = "Vehicle Store"; //--- ToDo: Localize;
 		x = 0.5 * GUI_GRID_W + GUI_GRID_X;
 		y = 0.3 * GUI_GRID_H + GUI_GRID_Y;

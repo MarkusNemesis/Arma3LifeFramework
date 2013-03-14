@@ -24,3 +24,19 @@ if (_name == "__SERVER__") exitwith {};
 
 //Add player to the Server_PlayerRegistry
 Server_PlayerRegistry set [count Server_PlayerRegistry, [_id, _name, _uid, _slotname]];
+
+// ---- Check if the player has played before in this session. iterate through Server_PlayerData
+/*[id, playerName, playerSlot, bFirstJoin, [Variables e.g. ["Money", 15000], ["KeyChain", [Car1, Car2]], etc]];*/
+private ['_found'];
+_found = false;
+{
+    if (_id == (_x select 0) && _name == (_x select 1)) exitwith {_found = true};
+} foreach Server_PlayerData;
+
+// -- Init first time joiner
+if (!_found) then
+{
+    
+};
+
+// TODO Initiate player, set player variable "initComplete" true.

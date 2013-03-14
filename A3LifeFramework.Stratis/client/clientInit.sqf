@@ -62,13 +62,17 @@ finishMissionInit;
 // Load interaction functions
 call compile preprocessFile "Client\functions\interactions\clientInitInteractions.sqf";
 
-// Gets the player names.
+// ---- Gets the player names.
 call MV_Shared_fnc_GetPlayers; 
 
-// Create player spawn event
+
+// ---- Create player spawn event
 ["MV_Client_fnc_SpawnPlayer", [], 1] call MV_Client_fnc_AddEvent; 
 
-// YOU MUST Leave this last. This calls the clientCore mainloop.
+// TODO REMOVE THIS
+group player reveal [CarStoreCop1, 4];
+
+// ---- YOU MUST Leave this last. This calls the clientCore mainloop.
 _runTime = diag_tickTime - _runTime;
 diag_log format ["MV: CLIENT INIT: FINISHED, Time taken: %1", _runTime];
 call compile preprocessFileLineNumbers "Client\clientCore.sqf";
