@@ -976,7 +976,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=6;
+		items=7;
 		class Item0
 		{
 			position[]={100,100,0};
@@ -1022,6 +1022,13 @@ class Mission
 			a=2;
 			b=2;
 			angle=6;
+		};
+		class Item6
+		{
+			position[]={2821.5813,2.0231891,6111.0527};
+			name="CarStoreCiv1_Spawn";
+			type="Empty";
+			angle=128.17322;
 		};
 	};
 };

@@ -16,16 +16,18 @@ if (_name == "__SERVER__") exitwith {};
 
 
 // ---- Find the player's slot name. Keep trying to find it until it does.
-_retryCount = 0;
-while {_slotname == "" && _retryCount < 30} do
-{
+waituntil {Shared_isGetPlayers;};
+
+//_retryCount = 0;
+//while {_slotname == "" && _retryCount < 30} do
+//{
 	{
 	    if (_name == name _x) exitwith {_slotname = str _x};
 	} foreach MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV;
-    diag_log format ["MV: serverOnPlayerConnected: Searching Player Slot. Name: %1, RetryCount: %2", _slotName, _retryCount];
-    _retryCount = _retryCount + 1;
-    sleep 0.5;
-};
+    //diag_log format ["MV: serverOnPlayerConnected: Searching Player Slot. Name: %1, RetryCount: %2", _slotName, _retryCount];
+    //_retryCount = _retryCount + 1;
+    //sleep 0.5;
+//};
 // ---- Add player to the Server_PlayerRegistry
 Server_PlayerRegistry set [count Server_PlayerRegistry, [_id, _name, _uid, _slotname]];
 

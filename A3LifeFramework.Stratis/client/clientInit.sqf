@@ -19,6 +19,7 @@ if (!isServer) then {call compile preprocessFile "Shared\sharedInit.sqf"};
 
 // Client constants
 Client_PlayerName = name player;
+Client_PlayerSlotStr = str player;
 Client_PlayerSide = side player;
 Client_PlayerSideStr = str Client_PlayerSide;
 //
@@ -32,6 +33,8 @@ Client_ObjectCount = 0; // All objects created by the client's locality are set 
 Client_Inventory = [];
 Client_CustomKeysEnabled = true;
 Client_isMessageBox = false; // Is true when there's a message box open. Helps in stopping loops from running whilst their dialog is not open due to a message.
+// Declare client's commVar
+call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
 
 // Public Variables
 KillMessageBroadcast = "";

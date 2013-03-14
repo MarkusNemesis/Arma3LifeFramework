@@ -19,9 +19,17 @@ _tTime = 0;
 diag_log "MV: STARTING SERVER MAINLOOP";
 while {true} do // This is the main loop. EVERYTHING serverside happens here.
 {
-    // -------- Run Priority 1 - Runs every frame --------
     _tTime = diag_ticktime;
-    
+    // -------- Run Priority 1 - Runs every frame --------
+    {
+        private ['_fname', '_args', '_priority'];
+        _fname = _x select 0;
+        _args = _x select 1;
+        _priority = _x select 2;
+        call compile format ["_args call %1", _fname];
+        diag_log format ["MV: SERVER: Running event from array: %1 , %2", _fname, _args];
+        [_forEachIndex] call MV_Server_fnc_RemoveEvent;
+    } foreach Server_EventArray;
     
     // -------- Run Priority 2 - Runs every 2 frames --------
     if (_runPrior % 2 == 0) then

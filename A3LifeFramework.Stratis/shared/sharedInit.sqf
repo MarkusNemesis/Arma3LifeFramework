@@ -14,6 +14,9 @@ call compile preprocessFile "shared\sharedConstants.sqf";
 // Init shared functions
 call compile preprocessFile "shared\functions\sharedInitFunctions.sqf";
 
+// Shared Variables
+Shared_isGetPlayers = false; // True when sharedGetPlayers.sqf has run
+
 // leave last
 _runTime = diag_tickTime - _runTime;
 diag_log format ["MV: shared INIT: FINISHED, Time taken: %1", _runTime];

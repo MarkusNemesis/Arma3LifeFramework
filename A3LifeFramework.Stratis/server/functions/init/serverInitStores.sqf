@@ -7,7 +7,7 @@ setVariable must be public.
 Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All define how the client handles them on interaction.
 */
 
-call Compile preprocessFile "server\functions\serverInitArrays.sqf";
+call Compile preprocessFile "server\functions\init\serverInitArrays.sqf";
 
 // ------------------- Init vehicle stores -------------------
 //[ownerObj, [[VehiclesToSell, StockLevel]], [AccessArray], themeName, StoreName];
@@ -19,17 +19,25 @@ call Compile preprocessFile "server\functions\serverInitArrays.sqf";
     _theme = _x select 3; // Cop theme initialises the unit to look like a Peacekeeper
     _mTxt = _x select 4; 
     
+    // -- Set Variables
     _oObj setVariable ["isInteractable", true, true]; // Whether the object is interactable.
 	_oObj setVariable ["interactType", "typeVehicleStore", true]; // Contains the interactType. Defines how the client handles this interaction.
 	_oObj setVariable ["storeArray", _sArr, true]; // Contains what the store sells.
 	_oObj setVariable ["interactFilter", _accArr, true]; // Contains the 'sides' that can interact with this object
     _oObj setVariable ["mouseOverText", _mTxt, true]; // Text that shows on mouse over.
     
+    // -- Disable AI
+    _oObj disableAI "FSM";
+    _oObj disableAI "TARGET";
+    _oObj disableAI "AUTOTARGET";
+    _oObj disableAI "MOVE";
+    _oObj disableAI "ANIM";
+    
     switch (_theme) do
     {
         case "CivStore":
         {
-            // Do nothing
+            // Do nothing... Yet
         };
         case "CopStore":
         {

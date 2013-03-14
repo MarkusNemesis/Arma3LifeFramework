@@ -8,7 +8,7 @@ Params: keeperNetID, vehicleIndex, vehiclePrice
 Return: 
 */
 
-private ['_sObj', '_vIndex', '_vPrice', '_vStock', '_pMoney'];
+private ['_sObj', '_vIndex', '_vPrice', '_vStock', '_pMoney', '_eString'];
 _sObj = objectFromNetId (_this select 0);
 _vIndex = _this select 1;
 _vPrice = _this select 2;
@@ -22,5 +22,7 @@ if (_vStock <= 0) exitwith {["Information", "There is not enough of this item in
 
 if (_pMoney < _vPrice) exitwith {["Information", "You do not have enough money to buy this item"] spawn MV_Client_fnc_int_MessageBox;};
 
-// -- Item is in stock, and user has enough money
+// -- Item is in stock, and user has enough money, send event to server.
+_eString = format ["[BuyVehicle, [%1, %2]]", _this select 0, _vIndex];
 
+call compile format ["%1_CommVar = '%2';", Client_PlayerSlotStr, _eString]; // TODO make this a function?

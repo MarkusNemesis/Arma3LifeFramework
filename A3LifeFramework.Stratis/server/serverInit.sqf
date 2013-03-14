@@ -11,7 +11,7 @@ _runTime =+ diag_tickTime;
 diag_log "MV: SERVER INIT: STARTED";
 
 // Init server functions
-call compile preprocessFile "server\functions\serverInitFunctions.sqf";
+call compile preprocessFile "server\functions\init\serverInitFunctions.sqf";
 
 // Initialize shared resources
 call compile preprocessFile "Shared\sharedInit.sqf";
@@ -20,6 +20,7 @@ call compile preprocessFile "Shared\sharedInit.sqf";
 call MV_Shared_fnc_initParams;
 
 // Init global variables
+Server_EventArray = []; // Server_EventArray elements contain: ["function_name", [args], priority]
 Server_GarbageCollection = []; // This variable is filled with objects to be cleaned up / managed after a set time. [obj, cleandelay]
 Server_PlayerRegistry = []; // Format: [id, playerName, UID, playerSlot];
 Server_PlayerData = []; // Format: [id, playerName, playerSlot, [Variables e.g. ["Money", 15000], ["KeyChain", [Car1, Car2]], etc]]; Saved on player disconnect
@@ -44,11 +45,12 @@ Server_InitComplete = true;
 waituntil {time > 0;}; // Checks if the mission has actually started.
 
 // Init stores:
-call Compile preprocessFile "server\functions\serverInitStores.sqf";
+call Compile preprocessFile "server\functions\init\serverInitStores.sqf";
 
 // Init playerslots
 call MV_Shared_fnc_GetPlayers;
-[MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV] call Compile preprocessFile "Server\functions\ServerInitPlayerSlots.sqf";
+
+[MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV] call Compile preprocessFile "Server\functions\init\ServerInitPlayerSlots.sqf";
 
 
 // YOU MUST Leave this last. This calls the serverCore mainloop.

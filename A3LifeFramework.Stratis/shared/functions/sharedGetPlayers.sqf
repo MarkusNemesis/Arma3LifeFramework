@@ -36,3 +36,5 @@ while {!isnil format  ["CIV_P_%1", _i]} do
     MV_Shared_PLAYERS_CIV set [count MV_Shared_PLAYERS_CIV, vehicle call compile format ["CIV_P_%1", _i]];
     _i = _i + 1;
 };
+
+Shared_isGetPlayers = true;
