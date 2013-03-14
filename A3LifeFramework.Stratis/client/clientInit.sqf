@@ -19,6 +19,7 @@ if (!isServer) then {call compile preprocessFile "Shared\sharedInit.sqf"};
 
 // Client constants
 Client_PlayerName = name player;
+Client_PlayerSlot = player;
 Client_PlayerSlotStr = str player;
 Client_PlayerSide = side player;
 Client_PlayerSideStr = str Client_PlayerSide;

@@ -16,15 +16,16 @@ switch (_eType) do
 {
     case "BuyVehicle":
     {
-        private ['_sObj', '_vIndex', '_vCName', '_sArr', '_vPrice', '_sPos'];
+        private ['_sObj', '_vIndex', '_pObj', '_vCName', '_sArr', '_vPrice', '_sPos'];
         _sObj = objectFromNetId (_vParams select 0);
         _vIndex = _vParams select 1;
+        _pObj = _vParams select 2;
 		_sArr = _sObj getVariable "storeArray";
         _vCName = (_sArr select _vIndex) select 0;
         {if ((_x select 0) == _vCName) exitwith {_vPrice = _x select 1;}} foreach Array_Vehicles; // TODO - Move this line to a shared function.
         //Get spawn position - select 5
         _sPos = getMarkerPos (_sArr select 5);
-        ['MV_Server_fnc_BuyVehicle', [_vCName, _vPrice, _sPos]] call MV_Server_fnc_AddEvent;
+        ['MV_Server_fnc_BuyVehicle', [_vCName, _vPrice, _sPos, _sObj, _pObj]] call MV_Server_fnc_AddEvent;
     };
     
     /*

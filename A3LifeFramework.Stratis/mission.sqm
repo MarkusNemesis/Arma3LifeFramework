@@ -926,7 +926,7 @@ class Mission
 				class Item0
 				{
 					position[]={2139.5686,8.7197113,5363.6841};
-					azimut=184.31665;
+					azimut=184.317;
 					id=46;
 					side="WEST";
 					vehicle="B_Soldier_F";
@@ -976,7 +976,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=7;
+		items=8;
 		class Item0
 		{
 			position[]={100,100,0};
@@ -1009,19 +1009,15 @@ class Mission
 		{
 			position[]={2783.8877,1.2707129,6100.0918};
 			name="Spawn_CIV";
-			markerType="RECTANGLE";
-			type="mil_start";
+			type="Empty";
 			angle=133.927;
 		};
 		class Item5
 		{
-			position[]={2139.3613,8.728219,5360.0737};
+			position[]={2138.6575,8.746644,5347.7344};
 			name="Spawn_BLU";
-			markerType="RECTANGLE";
 			type="Empty";
-			a=2;
-			b=2;
-			angle=6;
+			angle=4.9627328;
 		};
 		class Item6
 		{
@@ -1029,6 +1025,13 @@ class Mission
 			name="CarStoreCiv1_Spawn";
 			type="Empty";
 			angle=128.17322;
+		};
+		class Item7
+		{
+			position[]={2151.7158,8.7299995,5366.0112};
+			name="CarStoreCop1_Spawn";
+			type="Empty";
+			angle=4.6634898;
 		};
 	};
 };
