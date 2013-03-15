@@ -6,17 +6,47 @@ Desc: Manages the charging, creation and initialisation of client bought vehicle
 */
 //[_vCName, _vPrice, _sPos, _sObj, _playerSlot];
 /*
-1. Deduct price from player's 'money' variable. create function "serverUpdatePlayerMoney.sqf"
+1. Deduct price from player's 'money' variable. x
 2. Update store's stock level. create function "serverUpdateStoreArray" which reimposes the entire array (Dirty, but maintains indexes etc).
 3. 
 4. 
 */
-private ['_vCName', '_vPrice', '_sPos', '_sObj', '_pObj'];
+private ['_vCName', '_vPrice', '_sObj', '_pObj', '_spawnMarker'];
 
 _vCName = _this select 0;
 _vPrice = _this select 1;
-_sPos = _this select 2;
-_sObj = _this select 3;
-_pObj = _this select 4;
+_sObj = _this select 2;
+_pObj = _this select 3;
+_spawnMarker = _sObj getVariable "spawnObjectServer";
 
-// TODO finish this function.
+// -- Deduct money from player
+_pFunds = [_pObj] call MV_Server_fnc_GetPlayerFunds;
+[_pObj, _pFunds - _vPrice] call MV_Server_fnc_SetPlayerFunds;
+
+// -- Update store's stock level
+[_sobj, [_vCName, -1]] call MV_Server_fnc_AdjustStoreStock; // Hardcoded -1 as you can only buy cars singularly.
+
+// -- Spawn the vehicle! Spawns on the store's spawn marker.
+private ['_spVeh', '_sPos', '_kChain'];
+_sPos = (getmarkerpos _spawnMarker); //findemptyposition[0, 3, _vCName];
+_spVeh = createVehicle [_vCName, [7090,5936,0], [], 0, "NONE"];
+_spVeh lock true;
+
+// -- Position the vehicle
+_spVeh setposATL [(_sPos select 0) + (random 3), (_sPos select 1) + (random 3), (_sPos select 2)];
+_spVeh setdir (markerdir _spawnMarker);
+
+// -- Set the vehicle's variables
+_spVeh setVariable ["isInteractable", true, true];
+_spVeh setVariable ["interactType", "typeVehicle", true];
+
+// -- Set the vehicle's initline to have it interactable by the player instantly.
+_spVeh setvehicleinit "clearWeaponCargo this; clearMagazineCargo this; clearItemCargo this; player reveal this;";
+processinitcommands;
+
+// -- Add vehicle to the player's keychain
+_kChain = _pObj getVariable "KeyChainServer";
+_kChain set [count _kChain, netID _spVeh];
+
+_pObj setVariable ["KeyChain", _kChain, true];
+_pObj setVariable ["KeyChainServer", _kChain];

@@ -37,6 +37,7 @@ OnPlayerDisconnected "[_id, _name, _uid] execVM ""Server\functions\serverOnPlaye
 private ["_vName", "_object"];
 _object = "Land_Cargo_HQ_V1_F" createvehicle [100, 100, 100]; 
 _object setposASL [-1000, -1000, 0];
+_object allowdamage false;
 _object setvehicleinit "Shared_SpawnHaven = this";
 processinitcommands;
 

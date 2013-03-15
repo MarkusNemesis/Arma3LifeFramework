@@ -12,7 +12,7 @@ _shift = _this select 2;
 _ctrl = _this select 3;
 _alt = _this select 4;
 
-//diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
+diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
 
 
 
@@ -35,6 +35,7 @@ if (Client_CustomKeysEnabled) then
         // If the player is on foot and pressing E
 		if (vehicle player == player) then
 		{
+            if (player distance _target > 5) exitwith {};
 	        private ['_isInteractable'];
 	        _isInteractable = _target getVariable "isInteractable";
 	        if (isnil ('_isInteractable')) then {_isInteractable = false;};
@@ -42,10 +43,7 @@ if (Client_CustomKeysEnabled) then
 		    // ---------------- Interact with Stores/GetInVehicles ----------------
             private ["_pDistance", "_found", "_fArray"];
             diag_log "Pre Interact Handler";
-            if (player distance _target < 5) then
-            {
-                [_target] call MV_Client_fnc_int_Handler;
-            };
+            [_target] call MV_Client_fnc_int_Handler;
 		};
 		
 		// If User presses E and they're inside a vehicle, and it's not locked, then getout.
@@ -54,6 +52,16 @@ if (Client_CustomKeysEnabled) then
 		    if (locked vehicle player == 1) then {player action ["getOut", vehicle player];};
 		};
 	};
+    
+    if (_key == 38) then
+    {
+        if (vehicle player == player) then
+		{
+	        [_target] call MV_Client_fnc_int_ToggleVehicleLock;
+        } else {
+            [vehicle player] call MV_Client_fnc_int_ToggleVehicleLock;
+        };
+    };
 } else {
 	if (_key == 15) then
     {

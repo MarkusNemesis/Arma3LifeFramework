@@ -12,19 +12,30 @@ call Compile preprocessFile "server\functions\init\serverInitArrays.sqf";
 // ------------------- Init vehicle stores -------------------
 //[ownerObj, [[VehiclesToSell, StockLevel]], [AccessArray], themeName, StoreName];
 {
-    private ['_oObj', '_sArr', '_accArr', '_theme', '_mTxt'];
+    private ['_oObj', '_sArr', '_accArr', '_theme', '_mTxt', '_spawnObject'];
     _oObj = _x select 0;
     _sArr = _x select 1;
     _accArr = _x select 2;
     _theme = _x select 3; // Cop theme initialises the unit to look like a Peacekeeper
     _mTxt = _x select 4; 
+    _spawnObject = _x select 5;
     
-    // -- Set Variables
+    // -- Set Public Variables
     _oObj setVariable ["isInteractable", true, true]; // Whether the object is interactable.
 	_oObj setVariable ["interactType", "typeVehicleStore", true]; // Contains the interactType. Defines how the client handles this interaction.
 	_oObj setVariable ["storeArray", _sArr, true]; // Contains what the store sells.
 	_oObj setVariable ["interactFilter", _accArr, true]; // Contains the 'sides' that can interact with this object
     _oObj setVariable ["mouseOverText", _mTxt, true]; // Text that shows on mouse over.
+    
+    
+    // -- Set Serverside Variables
+    _oObj setVariable ["isInteractableServer", true];
+	_oObj setVariable ["interactTypeServer", "typeVehicleStore"];
+	_oObj setVariable ["storeArrayServer", _sArr];
+	_oObj setVariable ["interactFilterServer", _accArr];
+    _oObj setVariable ["mouseOverTextServer", _mTxt];
+    _oObj setVariable ["spawnObjectServer", _spawnObject];
+    
     
     // -- Disable AI
     _oObj disableAI "FSM";

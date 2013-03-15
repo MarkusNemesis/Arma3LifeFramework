@@ -40,7 +40,9 @@ call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
 // Public Variables
 KillMessageBroadcast = "";
 //
+
 setViewDistance 2000;
+setterraingrid 50;
 
 // init Params
 call MV_Shared_fnc_initParams;

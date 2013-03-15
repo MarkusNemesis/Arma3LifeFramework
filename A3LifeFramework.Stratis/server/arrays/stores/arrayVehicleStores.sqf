@@ -16,6 +16,7 @@ themeName is a string that defines the store. "CopStore" will set the store keep
 // TODO change storeName to stringtable entries
 Array_Store_Vehicles = [
 	[CarStoreCiv1, [["c_offroad", 30], ["B_Quadbike_F", 100]], [civilian], "CivStore", "Jamie's Used Autos", "CarStoreCiv1_Spawn"],
-    [CarStoreCop1, [["B_Hunter_F", 45]], [west], "CopStore", "UN Vehicle Quartermaster"]
-];
-
+    [CarStoreCop1, [["B_Hunter_F", 45]], [west], "CopStore", "UN Vehicle Quartermaster", "CarStoreCop1_Spawn"]
+    
+    
+]; // End array

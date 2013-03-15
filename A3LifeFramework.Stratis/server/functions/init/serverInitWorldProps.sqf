@@ -7,7 +7,7 @@ Sets simulation off and allowdamage false
 */
 
 {
-    if (_x isKindOf "CAManBase") then {_this switchMove "AidlPercMstpSnonWnonDnon_Player";};
+    if (_x isKindOf "CAManBase") then {_x switchMove "AidlPercMstpSnonWnonDnon_Player";};
     _x setvehicleinit "this allowdamage false; this enablesimulation false; this lock true; clearWeaponCargo this; clearMagazineCargo this; clearItemCargo this;";
     Server_PropsArray set [count Server_PropsArray, _x];
     _x = objnull;

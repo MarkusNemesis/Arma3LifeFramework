@@ -15,5 +15,9 @@ MV_Server_fnc_CommVarEH = Compile preprocessFileLineNumbers "Server\functions\se
 MV_Server_fnc_BuyVehicle = Compile preprocessFileLineNumbers "Server\functions\serverBuyVehicle.sqf";
 MV_Server_fnc_AddEvent = Compile preprocessFileLineNumbers "Server\functions\serverAddEvent.sqf";
 MV_Server_fnc_RemoveEvent = Compile preprocessFileLineNumbers "Server\functions\serverRemoveEvent.sqf";
+MV_Server_fnc_GetPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverGetPlayerFunds.sqf";
+MV_Server_fnc_SetPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverSetPlayerFunds.sqf";
+MV_Server_fnc_AdjustStoreStock = Compile preprocessFileLineNumbers "Server\functions\serverAdjustStoreStock.sqf";
+
 
 //MV_Server_fnc_ = Compile preprocessFileLineNumbers "Server\functions\";

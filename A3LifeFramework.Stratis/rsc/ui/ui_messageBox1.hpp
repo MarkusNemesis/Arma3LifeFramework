@@ -7,6 +7,7 @@ class ui_messageBox1 {
 	movingEnable = false;
 	enableSimulation = true;
 	onUnload = "Client_isMessageBox = false;";
+	onLoad = "Client_isMessageBox = true;";
 	controlsBackground[] = 
 	{
 		MBX_BG,

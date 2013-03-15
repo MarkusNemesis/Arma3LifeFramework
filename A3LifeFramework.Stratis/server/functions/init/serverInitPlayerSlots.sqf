@@ -21,11 +21,5 @@ _players = _this select 0;
     _x disableAI "MOVE";
     _x disableAI "ANIM";
     
-    // Put the AI inside the spawn haven.
-    _x setposASL getposASL Shared_SpawnHaven;
-    
-    // Init Player CommVars
-    format ["%1_CommVar", str _x] addPublicVariableEventHandler {[_this select 1] spawn MV_Server_fnc_CommVarEH;};
-    
 } forEach _players;
 
