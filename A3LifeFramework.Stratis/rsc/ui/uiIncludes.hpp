@@ -1138,9 +1138,10 @@ class RscControlsGroup
 #define GUI_GRID_WAbs	(1)
 #define GUI_GRID_HAbs	(1)
 // --- End of Grid Macros
-
 #include "controlDefinitions.hpp"
-
+// -- Titles
+#include "ui_titles.hpp"
+// -- UI dialogs
 #include "ui_vehicleShop.hpp"
 #include "ui_messageBox1.hpp"
 //#include ""

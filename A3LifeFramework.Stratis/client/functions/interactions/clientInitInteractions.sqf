@@ -11,5 +11,7 @@ MV_Client_fnc_int_VehicleStore = Compile preprocessFileLineNumbers "client\funct
 MV_Client_fnc_int_BuyVehicle = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionBuyVehicle.sqf";
 MV_Client_fnc_int_MessageBox = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionsMessagebox.sqf";
 MV_Client_fnc_int_ToggleVehicleLock = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionToggleVehicleLock.sqf";
+MV_Client_fnc_int_HUD = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionHUD.sqf";
+
 
 // MV_Client_fnc_int_ = Compile preprocessFileLineNumbers "client\functions\interactions\";

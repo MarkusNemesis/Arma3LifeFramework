@@ -21,6 +21,7 @@ _spawnMarker = _sObj getVariable "spawnObjectServer";
 
 // -- Deduct money from player
 _pFunds = [_pObj] call MV_Server_fnc_GetPlayerFunds;
+if (_pFunds < _vPrice) exitwith {diag_log format ["ERROR: serverBuyVehicle: Player %1 has insufficient funds to purchase %2.", name _pObj, _vCName]};
 [_pObj, _pFunds - _vPrice] call MV_Server_fnc_SetPlayerFunds;
 
 // -- Update store's stock level
@@ -33,12 +34,14 @@ _spVeh = createVehicle [_vCName, [7090,5936,0], [], 0, "NONE"];
 _spVeh lock true;
 
 // -- Position the vehicle
-_spVeh setposATL [(_sPos select 0) + (random 3), (_sPos select 1) + (random 3), (_sPos select 2)];
+_spVeh setposATL [(_sPos select 0) + (random 5), (_sPos select 1) + (random 5), (_sPos select 2)];
 _spVeh setdir (markerdir _spawnMarker);
 
 // -- Set the vehicle's variables
 _spVeh setVariable ["isInteractable", true, true];
 _spVeh setVariable ["interactType", "typeVehicle", true];
+_spVeh setVariable ["isInteractableServer", true];
+_spVeh setVariable ["interactTypeServer", "typeVehicle"];
 
 // -- Set the vehicle's initline to have it interactable by the player instantly.
 _spVeh setvehicleinit "clearWeaponCargo this; clearMagazineCargo this; clearItemCargo this; player reveal this;";

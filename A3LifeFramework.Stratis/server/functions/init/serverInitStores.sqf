@@ -7,8 +7,6 @@ setVariable must be public.
 Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All define how the client handles them on interaction.
 */
 
-call Compile preprocessFile "server\functions\init\serverInitArrays.sqf";
-
 // ------------------- Init vehicle stores -------------------
 //[ownerObj, [[VehiclesToSell, StockLevel]], [AccessArray], themeName, StoreName];
 {

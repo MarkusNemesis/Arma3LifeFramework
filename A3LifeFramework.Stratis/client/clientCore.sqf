@@ -29,7 +29,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
         [_forEachIndex] call MV_Client_fnc_RemoveEvent;
     } foreach Client_EventArray;
     
-    // Check if the player is spawned
+    // -- Check if the player is spawned
     if (Client_PlayerSpawned) then
     {
 		
@@ -38,7 +38,15 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
     // -------- Run Priority 2 - Runs every 2 frames --------
     if (_runPrior % 2 == 0) then
     {
-        
+        // -- Check if the player is spawned
+	    if (Client_PlayerSpawned) then
+	    {
+            if (Client_CustomKeysEnabled) then
+            {
+				// -- Interaction Floaty text
+	            [] spawn MV_Client_fnc_int_HUD;
+            };
+	    };
     };
     
     // -------- Run Priority 4 - Runs every 4 frames --------
@@ -50,7 +58,11 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
     // -------- Run Priority 8 - Runs every 8 frames --------
     if (_runPrior % 8 == 0) then
     {
-		
+        if (Client_PlayerSpawned) then
+	    {
+			// -- 'reveal's to the player all interactable objects within interact distance (5 m)
+	        [] call MV_Client_fnc_InteractableAwareness;
+        };
     };
     
     // Leave this last.

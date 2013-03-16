@@ -14,6 +14,9 @@ call compile preprocessFile "shared\sharedConstants.sqf";
 // Init shared functions
 call compile preprocessFile "shared\functions\sharedInitFunctions.sqf";
 
+// -- Init Arrays
+call Compile preprocessFile "shared\functions\init\sharedInitArrays.sqf";
+
 // Shared Variables
 Shared_isGetPlayers = false; // True when sharedGetPlayers.sqf has run
 

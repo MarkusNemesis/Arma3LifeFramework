@@ -13,6 +13,9 @@ MV_Client_fnc_SpawnPlayer = Compile preprocessFileLineNumbers "client\functions\
 MV_Client_fnc_AddGarbage = Compile preprocessFileLineNumbers "client\functions\clientAddGarbage.sqf";
 MV_Client_fnc_AddDeathObject = Compile preprocessFileLineNumbers "client\functions\clientAddDeathObject.sqf";
 MV_Client_fnc_KillMessage = Compile preprocessFileLineNumbers "client\functions\clientKillMessage.sqf";
+MV_Client_fnc_InteractableAwareness = Compile preprocessFileLineNumbers "client\functions\clientInteractableAwareness.sqf";
+
+
 
 // Event Handlers
 MV_Client_fnc_InitEventHandlers = Compile preprocessFileLineNumbers "client\functions\clientInitEventHandlers.sqf";

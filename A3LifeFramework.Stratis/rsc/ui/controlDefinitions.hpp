@@ -6,6 +6,7 @@ Desc: defines the controls that can be used in the the creation of dialogs.
 */
 //#include ""
 
+#define MV_COLOUR_GREEN 0, 1, 0, 1
 #define MV_COLOUR_MAROON 0.75, 0, 0, 1
 #define MV_COLOUR_DARKMIDGREY 0.25, 0.25, 0.25, 0.75
 #define MV_COLOUR_DARKGREY 0.1, 0.1, 0.1, 0.75
@@ -82,6 +83,14 @@ class MV_LabelRight : MV_Label
 {
 	idc = -1;
 	style = ST_RIGHT;
+};
+
+class MV_title_InteractText : RscText
+{
+	idc = -1;
+	style = ST_CENTER;
+	colorText[] = {MV_COLOUR_GREEN};
+	//colorText[] = {MV_COLOUR_MAROON};
 };
 
 /*

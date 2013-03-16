@@ -28,7 +28,7 @@ _dialogHandler = createdialog "ui_vehicleStore";
     // TODO move this to a function sharedVehicleFetchPrice
     {
         _x2 = _x;
-        diag_log format ["%1 vs %2", _vCName, _x2 select 0];
+        //diag_log format ["%1 vs %2", _vCName, _x2 select 0];
         if (_vCName == (_x2 select 0)) then
         {
             _vPrice = _x2 select 1; // Get price from vehicle array

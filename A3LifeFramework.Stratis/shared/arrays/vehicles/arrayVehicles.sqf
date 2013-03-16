@@ -15,5 +15,3 @@ Array_Vehicles = [
     ["B_Hunter_F", 13000, true]
     
 ]; // End of array
-
-publicvariable "Array_Vehicles";

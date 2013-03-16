@@ -12,7 +12,7 @@ _shift = _this select 2;
 _ctrl = _this select 3;
 _alt = _this select 4;
 
-diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
+//diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
 
 
 
@@ -25,7 +25,7 @@ if (Client_CustomKeysEnabled) then
     if (_key == 15) then
     {
         Client_CustomKeysEnabled = false;
-        titleText ["Custom keys Disabled", "PLAIN DOWN", 0.5];
+        titleText ["Custom keys Disabled", "PLAIN DOWN", 0.5]; titleFadeOut 2048;
     };
     
     // ---------------- Interact key [E] ----------------
@@ -42,7 +42,7 @@ if (Client_CustomKeysEnabled) then
 			if (!(_isInteractable)) exitwith {diag_log format ["%1 is not interactable", _target]};
 		    // ---------------- Interact with Stores/GetInVehicles ----------------
             private ["_pDistance", "_found", "_fArray"];
-            diag_log "Pre Interact Handler";
+            //diag_log "Pre Interact Handler";
             [_target] call MV_Client_fnc_int_Handler;
 		};
 		
@@ -66,6 +66,6 @@ if (Client_CustomKeysEnabled) then
 	if (_key == 15) then
     {
         Client_CustomKeysEnabled = true;
-        titleText ["Custom keys Enabled", "PLAIN DOWN", 0.5];
+        titleText ["Custom keys Enabled", "PLAIN DOWN", 0.5]; titleFadeOut 1.5;
     };
 };
