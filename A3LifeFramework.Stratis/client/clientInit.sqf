@@ -75,7 +75,8 @@ waituntil {player getvariable "clientInitCompleteAck"};
 call compile preprocessFile "Client\functions\interactions\clientInitInteractions.sqf";
 
 // ---- Gets the player names.
-call MV_Shared_fnc_GetPlayers; 
+if (!isServer) then {call MV_Shared_fnc_GetPlayers;};
+
 
 
 // ---- Create player spawn event

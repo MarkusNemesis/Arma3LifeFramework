@@ -3,8 +3,9 @@ class Header {
 	minPlayers = 1;
 	maxPlayers = 48;
 };
+// -- Player slot counts for each team are in the sharedConstants.sqf file
 
-disabledAI = true;
+//disabledAI = true;
 respawn = "BASE";
 respawnDelay = 15;
 respawnDialog = 1;

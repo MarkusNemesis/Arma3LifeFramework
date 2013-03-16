@@ -21,5 +21,9 @@ _players = _this select 0;
     _x disableAI "MOVE";
     _x disableAI "ANIM";
     
+    // -- Put player object into the spawn haven.
+	_x setposASL getposASL Shared_SpawnHaven;
+    _x enablesimulation false;
+    
 } forEach _players;
 

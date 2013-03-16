@@ -17,6 +17,12 @@ MV_Shared_PLAYERS_OP = [];
 MV_Shared_PLAYERS_IND = [];
 MV_Shared_PLAYERS_CIV = [];
 
+// -- player slots per side
+BLU_PLAYERCOUNT = 10;
+OP_PLAYERCOUNT = 0;
+IND_PLAYERCOUNT = 0;
+CIV_PLAYERCOUNT = 35;
+
 // leave last
 _runTime = time - _runTime;
 diag_log format ["MV: sharedConstants INIT: FINISHED, Time taken: %1", _runTime];
