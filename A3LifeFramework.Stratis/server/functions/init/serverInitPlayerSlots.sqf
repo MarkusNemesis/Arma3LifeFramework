@@ -14,7 +14,7 @@ private ["_players"];
 _players = _this select 0;
 
 {
-    // Disable AI
+    // -- Disable AI
     _x disableAI "FSM";
     _x disableAI "TARGET";
     _x disableAI "AUTOTARGET";
@@ -23,7 +23,6 @@ _players = _this select 0;
     
     // -- Put player object into the spawn haven.
 	_x setposASL getposASL Shared_SpawnHaven;
-    _x enablesimulation false;
-    
+    _x setvehicleinit "this enablesimulation false; this allowdamage false;";
+	processinitcommands;
 } forEach _players;
-

@@ -52,4 +52,5 @@ switch (Client_PlayerSide) do
 
 
 // Leave last --------- Set player as spawned.
+//player enableSimulation true;
 Client_PlayerSpawned = true;

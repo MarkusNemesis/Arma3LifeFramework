@@ -14,20 +14,27 @@ diag_log format ["MV: serverOnPlayerConnected: %1, %2, %3", _id, _name, _uid];
 // ---- Ensure player name __SERVER__ is ignored.
 if (_name == "__SERVER__") exitwith {};
 
+call MV_Shared_fnc_GetPlayers;
+
 waituntil {shared_isGetPlayers};
 
 // ---- Find the player's slot name.
+_retryCount = 0;
+while {_slotname == "" && _retryCount < 30} do
 {
-    if (_name == name _x) exitwith {_slotname = str _x};
-} foreach MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV;
-
-if (_slotname == "") then {diag_log MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV;};
+	{
+	    if (_name == name _x) exitwith {_slotname = str _x};
+	} foreach (MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV);
+    _retryCount = _retryCount + 1;
+    sleep 0.5;
+};
+if (_slotname == "") exitwith {diag_log format ["MV: serverOnPlayerConnected: CRITICAL ERROR: %1, %2, %3 FAILED TO GET SLOT", _id, _name, _uid];};
 // ---- Add player to the Server_PlayerRegistry
 Server_PlayerRegistry set [count Server_PlayerRegistry, [_id, _name, _uid, _slotname]];
 
 // -- Init Player CommVars
 call compile format ["%1_CommVar = [];", _slotName];
-format ["%1_CommVar", _slotName] addPublicVariableEventHandler {[_this select 1] spawn MV_Server_fnc_CommVarEH; diag_log "Public Variable event";};
+format ["%1_CommVar", _slotName] addPublicVariableEventHandler {[_this select 1] spawn MV_Server_fnc_CommVarEH;};
 diag_log format ["PublicVar set for slot %1", _slotName];
 diag_log call compile format ["%1_CommVar", _slotName];
 
@@ -57,7 +64,7 @@ if (!_found) then
     _pObj setVariable ["BankMoneyServer", 0];
     _pObj setVariable ["KeyChainServer", []];
 } 
-else 
+else
 {
     diag_log format ["MV: serverOnPlayerConnected: Player %1 has returned. UID: %2", _name, _uid];
     // -- Init returned player
@@ -74,9 +81,8 @@ else
     _pObj setVariable ["KeyChainServer", _pVars select 2];
 };
 
-// -- Enable player's object simulation.
-_pObj enablesimulation true;
-
+_pObj setvehicleinit "this enablesimulation true; this allowdamage true;";
+processinitcommands;
 _pObj setVariable ["clientInitCompleteAck", true, true]; // Acknowledges to the client that it is inited on both client and server.
 
 

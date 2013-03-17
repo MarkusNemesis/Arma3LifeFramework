@@ -28,9 +28,7 @@ Client_PlayerSideStr = str Client_PlayerSide;
 Client_PlayerDeathObjectCollection = []; // This variable is filled with objects that are handled immediatly upon the death of the player.
 Client_SpawnType = "first";
 Client_PlayerSpawned = false;
-Client_HitArray = []; // Stores all the 'hits' the player receives and is collated on player death and sent to the server the top 3 damage sources by %.
 Client_EventArray = []; // Client_EventArray elements contain: ["function_name", [args], priority]
-Client_ObjectCount = 0; // All objects created by the client's locality are set a name [PlayerName-ObjectNumber] via setVehicleInit and sent to server via _object setvehicleinit "Shared_SpawnHaven = this";
 Client_Inventory = [];
 Client_CustomKeysEnabled = true;
 Client_isMessageBox = false; // Is true when there's a message box open. Helps in stopping loops from running whilst their dialog is not open due to a message.

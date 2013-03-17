@@ -27,7 +27,8 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here.
         _args = _x select 1;
         _priority = _x select 2;
         call compile format ["_args call %1", _fname];
-        diag_log format ["MV: SERVER: Running event from array: %1 , %2", _fname, _args];
+        if (format ["%1", _fname] == "any") exitwith {[_forEachIndex] call MV_Server_fnc_RemoveEvent;}; // -- Event is a null event, and thus removed.
+        diag_log format ["MV: SERVER: Running event from array: %1 , %2. Frame: %3, EventCount: %4", _fname, _args, diag_frameno, count Server_EventArray];
         [_forEachIndex] call MV_Server_fnc_RemoveEvent;
     } foreach Server_EventArray;
     

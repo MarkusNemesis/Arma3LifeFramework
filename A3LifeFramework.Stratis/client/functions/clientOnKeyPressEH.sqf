@@ -22,7 +22,7 @@ if (Client_CustomKeysEnabled) then
 	_target = cursorTarget;
 	
     // ---------------- Disable Custom Keys ----------------
-    if (_key == 15) then
+    if (_key == 15 && !_alt) then
     {
         Client_CustomKeysEnabled = false;
         titleText ["Custom keys Disabled", "PLAIN DOWN", 0.5]; titleFadeOut 2048;
@@ -49,10 +49,13 @@ if (Client_CustomKeysEnabled) then
 		// If User presses E and they're inside a vehicle, and it's not locked, then getout.
 		if (vehicle player != player) then
 		{
-		    if (locked vehicle player == 1) then {player action ["getOut", vehicle player];};
+		    if (locked vehicle player == 1) then 
+            {
+                player action ["getOut", vehicle player];
+            };
 		};
 	};
-    
+    // ---------------- Lock key [L] ----------------
     if (_key == 38) then
     {
         if (vehicle player == player) then
@@ -63,7 +66,7 @@ if (Client_CustomKeysEnabled) then
         };
     };
 } else {
-	if (_key == 15) then
+	if (_key == 15 && !_alt) then
     {
         Client_CustomKeysEnabled = true;
         titleText ["Custom keys Enabled", "PLAIN DOWN", 0.5]; titleFadeOut 1.5;

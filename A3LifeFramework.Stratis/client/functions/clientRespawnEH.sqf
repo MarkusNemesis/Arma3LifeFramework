@@ -14,7 +14,7 @@ _corpse = _this select 1;
 Client_HitArray = [];
 
 // Add previous body to the garbage collector
-[_corpse] call MV_Client_fnc_AddGarbage;
+//[_corpse] call MV_Client_fnc_AddGarbage; // -- See 'clientKilledEH.sqf'
 
 // Leave last
 ["MV_Client_fnc_SpawnPlayer", [], 1] call MV_Client_fnc_AddEvent;

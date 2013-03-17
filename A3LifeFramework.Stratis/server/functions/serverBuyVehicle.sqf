@@ -53,3 +53,6 @@ _kChain set [count _kChain, netID _spVeh];
 
 _pObj setVariable ["KeyChain", _kChain, true];
 _pObj setVariable ["KeyChainServer", _kChain];
+
+// -- Add the vehicle to the collector. It'll be by default assigned 30 minutes before it despawns. This delay is updated every time a user gets in or out of the vehicle
+[_spVeh] call MV_Server_fnc_AddGarbage;

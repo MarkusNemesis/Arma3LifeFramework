@@ -23,8 +23,7 @@ if (_vStock <= 0) exitwith {["Information", "There is not enough of this item in
 if (_pMoney < _vPrice) exitwith {["Information", "You do not have enough money to buy this item"] spawn MV_Client_fnc_int_MessageBox;};
 
 // -- Item is in stock, and user has enough money, send event to server.
-_eString = call compile format ["[""BuyVehicle"", [%1, %2, %3]]", str (_this select 0), _vIndex, Client_PlayerSlotStr];
+//_eString = call compile format ["[""BuyVehicle"", [%1, %2, %3]]", str (_this select 0), _vIndex, Client_PlayerSlotStr];
 
-call compile format ["%1_CommVar = %2;", Client_PlayerSlotStr, _eString]; // TODO make this a function?
-
-publicVariableServer format ["%1_CommVar", Client_PlayerSlotStr];
+//[_eString] call MV_Client_fnc_SendServerMessage;
+["BuyVehicle", [(_this select 0), _vIndex, netID player]] call MV_Client_fnc_SendServerMessage;

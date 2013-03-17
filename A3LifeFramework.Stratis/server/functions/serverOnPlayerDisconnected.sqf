@@ -19,3 +19,5 @@ _slot = objnull;
 // Run cleanup code below
 waituntil {alive _slot};
 _slot setposASL getposASL Shared_SpawnHaven;
+// -- Disable object simulation.
+//_slot enablesimulation false;

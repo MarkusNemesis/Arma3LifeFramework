@@ -11,26 +11,34 @@ private ['_vValue', '_eType', '_vParams'];
 _vValue = _this select 0;
 _eType = _vValue select 0;
 _vParams = _vValue select 1;
+diag_log format ["MV: serverCommVarEH: %1, %2, %3", _vValue, _eType, _vParams];
 
 switch (_eType) do
 {
+    // -- Client is buying a vehicle
     case "BuyVehicle":
     {
         private ['_sObj', '_vIndex', '_pObj', '_vCName', '_sArr', '_vPrice', '_sPos'];
         _sObj = objectFromNetId (_vParams select 0);
         _vIndex = _vParams select 1;
-        _pObj = _vParams select 2;
+        _pObj = objectFromNetId (_vParams select 2);
 		_sArr = _sObj getVariable "storeArrayServer";
         _vCName = (_sArr select _vIndex) select 0;
         {if ((_x select 0) == _vCName) exitwith {_vPrice = _x select 1;}} foreach Array_Vehicles; // TODO - Move this line to a shared function.
-		
+		diag_log _pObj;
         ['MV_Server_fnc_BuyVehicle', [_vCName, _vPrice, _sObj, _pObj]] call MV_Server_fnc_AddEvent;
     };
     
-    /*
-    case "":
-    {
-        
-    };
-    */
+    // -- Client has sent garbage for the collector.
+    case "AddGarbage":
+	{
+		private ['_nObj'];
+        [objectFromNetID (_vParams select 0)] call MV_Server_fnc_AddGarbage
+	};
+    
+    case "UpdateGarbage":
+	{
+		private ['_nObj'];
+        [objectFromNetID (_vParams select 0)] call MV_Server_fnc_UpdateGarbageObject
+	};
 };

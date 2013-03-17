@@ -8,6 +8,7 @@ Return: Player's on-hand money
 */
 
 private ['_pMoney'];
+_pMoney = 0;
 _pMoney = (_this select 0) getVariable "MoneyServer";
 
 // Return

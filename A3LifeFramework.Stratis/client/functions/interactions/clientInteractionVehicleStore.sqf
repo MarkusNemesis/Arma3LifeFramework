@@ -92,7 +92,7 @@ while {dialog && alive player} do
 	    };
 	    
 	    // TODO put 'setaction' for 'buy vehicle' button
-		buttonsetaction [1993, format ["[%1, %2, %3, %4] call MV_Client_fnc_int_BuyVehicle", str netID _sObj, _lbSel, _sPrice, (_sArr select _lbSel) select 1]]; // NetID, Index, price, stock
+		buttonsetaction [1993, format ["[%1, %2, %3, %4] call MV_Client_fnc_int_BuyVehicle; closedialog 0;", str netID _sObj, _lbSel, _sPrice, (_sArr select _lbSel) select 1]]; // NetID, Index, price, stock
     };
     // ---- Leave last
     _fNo = diag_frameno;

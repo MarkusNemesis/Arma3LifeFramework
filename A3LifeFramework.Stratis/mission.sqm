@@ -41,7 +41,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=47;
+		items=48;
 		class Item0
 		{
 			side="WEST";
@@ -937,6 +937,26 @@ class Mission
 				};
 			};
 		};
+		class Item47
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2829.1,0.00136685,6021.15}; // [2829.1,6021.15,0.00136685]
+					azimut=-82.652641;
+					id=47;
+					side="CIV";
+					vehicle="C_man_1_2_F";
+					leader=1;
+					skill=0.60000002;
+					text="BoatStoreCiv1";
+					init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
+				};
+			};
+		};
 	};
 	class Vehicles
 	{
@@ -945,7 +965,7 @@ class Mission
 		{
 			position[]={2818.4741,2.3985376,6119.1157};
 			azimut=153.60001;
-			id=47;
+			id=48;
 			side="EMPTY";
 			vehicle="c_offroad";
 			skill=1;
@@ -955,7 +975,7 @@ class Mission
 		{
 			position[]={2826.4253,2.4499793,6118.3687};
 			azimut=-147.547;
-			id=48;
+			id=49;
 			side="EMPTY";
 			vehicle="B_Quadbike_F";
 			skill=1;
@@ -965,7 +985,7 @@ class Mission
 		{
 			position[]={2140.8347,8.7216167,5367.3535};
 			azimut=451.61169;
-			id=49;
+			id=50;
 			side="EMPTY";
 			vehicle="B_Hunter_F";
 			leader=1;
@@ -976,7 +996,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=8;
+		items=9;
 		class Item0
 		{
 			position[]={100,100,0};
@@ -1032,6 +1052,12 @@ class Mission
 			name="CarStoreCop1_Spawn";
 			type="Empty";
 			angle=4.6634898;
+		};
+		class Item8
+		{
+			position[]={2800.66,0,6014.8}; //[2800.66,6014.8,-2.04988]
+			name="BoatStoreCiv1_Spawn";
+			type="Empty";
 		};
 	};
 };

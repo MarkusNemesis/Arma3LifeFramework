@@ -14,7 +14,7 @@ MV_Client_fnc_AddGarbage = Compile preprocessFileLineNumbers "client\functions\c
 MV_Client_fnc_AddDeathObject = Compile preprocessFileLineNumbers "client\functions\clientAddDeathObject.sqf";
 MV_Client_fnc_KillMessage = Compile preprocessFileLineNumbers "client\functions\clientKillMessage.sqf";
 MV_Client_fnc_InteractableAwareness = Compile preprocessFileLineNumbers "client\functions\clientInteractableAwareness.sqf";
-
+MV_Client_fnc_SendServerMessage = Compile preprocessFileLineNumbers "client\functions\clientSendServerMessage.sqf";
 
 
 // Event Handlers

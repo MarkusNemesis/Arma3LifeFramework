@@ -12,6 +12,7 @@ Format:
 Array_Vehicles = [
 	["c_offroad",8000, true],
 	["B_Quadbike_F", 4500, true],
-    ["B_Hunter_F", 13000, true]
-    
+    ["B_Hunter_F", 13000, true],
+    ["B_Assaultboat", 2000, true],
+    ["C_Rubberboat", 2000, true]
 ]; // End of array

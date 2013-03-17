@@ -9,9 +9,14 @@ Return:
 private ['_garbage', '_delay'];
 
 _garbage = _this;
-_delay = time + (60* 2); // 2 minutes
 
 {
+    _delay = time;
+	if (damage _x >= 1) then {
+		_delay = _delay + (60* 2); // -- If dead, give 2 mins
+	} else {
+	    _delay = _delay + (60* 30); // -- If alive, give 30 mins. TODO make these params set delays.
+	};
     Server_GarbageCollection set [count Server_GarbageCollection, [_x, _delay]];
-    diag_log format ["Server: Garbage added to collector: %1", _x];
+    diag_log format ["Server: Garbage added to collector: %1, %2", _x, _delay];
 } foreach _garbage;
