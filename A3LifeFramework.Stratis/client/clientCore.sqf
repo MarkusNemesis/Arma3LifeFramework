@@ -29,12 +29,12 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
         [_forEachIndex] call MV_Client_fnc_RemoveEvent;
     } foreach Client_EventArray;
     
-    // -- Check if the player is spawned
+    /* -- Check if the player is spawned
     if (Client_PlayerSpawned) then
     {
 		
     };
-    
+    */
     // -------- Run Priority 2 - Runs every 2 frames --------
     if (_runPrior % 2 == 0) then
     {
@@ -80,5 +80,5 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
     _runPrior = _runPrior + 1;
     if (_runPrior > PRIOR_RANGE) then {_runPrior = 1;};
     _pFrame = diag_frameno;
-    waituntil {diag_frameno > _pFrame;}; // Main loop runs once per tick.Let the scheduler recycle
+    waituntil {diag_frameno > _pFrame}; // Main loop runs once per tick.Let the scheduler recycle
 };

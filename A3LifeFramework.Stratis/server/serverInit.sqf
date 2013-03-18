@@ -24,7 +24,6 @@ Server_Health = ''; // Variable used for viewing how long a server tick takes, b
 Server_EventArray = []; // Server_EventArray elements contain: ["function_name", [args], priority]
 Server_GarbageCollection = []; // This variable is filled with objects to be cleaned up / managed after a set time. [obj, cleandelay]
 Server_PlayerRegistry = []; // Format: [id, playerName, UID, playerSlot];
-Server_PlayerData = []; // Format: [id, playerName, playerSlot, [Variables e.g. ["Money", 15000], ["KeyChain", [Car1, Car2]], etc]]; Saved on player disconnect
 Server_InitPropsArray = []; // Use init line: if (isServer) then {this execVM "server\functions\serverAddProp.sqf";};
 Server_PropsArray = []; // Contains all the static world props. 
 

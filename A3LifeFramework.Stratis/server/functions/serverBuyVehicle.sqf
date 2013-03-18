@@ -17,7 +17,7 @@ _vCName = _this select 0;
 _vPrice = _this select 1;
 _sObj = _this select 2;
 _pObj = _this select 3;
-_spawnMarker = _sObj getVariable "spawnObjectServer";
+_spawnMarker = [netId _sObj, "spawnObject"] call MV_Server_fnc_GetMissionVariable select 0; //_sObj getVariable "spawnObjectServer";
 _sStock = false;
 
 // -- Deduct money from player
@@ -37,7 +37,7 @@ if (!_sStock) exitwith {
 };
 
 // -- Spawn the vehicle! Spawns on the store's spawn marker.
-private ['_spVeh', '_sPos', '_kChain'];
+private ['_spVeh', '_sPos', '_kChain', '_vNID'];
 _sPos = (getmarkerpos _spawnMarker); //findemptyposition[0, 3, _vCName];
 _spVeh = createVehicle [_vCName, [7090,5936,0], [], 0, "NONE"];
 _spVeh lock true;
@@ -46,22 +46,28 @@ _spVeh lock true;
 _spVeh setposATL [(_sPos select 0) + (random 5), (_sPos select 1) + (random 5), (_sPos select 2)];
 _spVeh setdir (markerdir _spawnMarker);
 
+// -- init vehicle's missionNamespace variable
+_vNID = netid _spVeh;
+missionNamespace setVariable [format ["%1_missionVar", _vNID], []];
+
 // -- Set the vehicle's variables
 _spVeh setVariable ["isInteractable", true, true];
 _spVeh setVariable ["interactType", "typeVehicle", true];
-_spVeh setVariable ["isInteractableServer", true];
-_spVeh setVariable ["interactTypeServer", "typeVehicle"];
+
+[_vNID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
+[_vNID, ["interactType", ["typeVehicle"]]] call MV_Server_fnc_SetMissionVariable;
 
 // -- Set the vehicle's initline to have it interactable by the player instantly.
 _spVeh setvehicleinit "clearWeaponCargo this; clearMagazineCargo this; clearItemCargo this; player reveal this;";
 processinitcommands;
 
 // -- Add vehicle to the player's keychain
-_kChain = _pObj getVariable "KeyChainServer";
+_kChain = [getPlayerUID _pObj, "KeyChain"] call MV_Server_fnc_GetMissionVariable; //_pObj getVariable "KeyChainServer";
 _kChain set [count _kChain, netID _spVeh];
 
 _pObj setVariable ["KeyChain", _kChain, true];
-_pObj setVariable ["KeyChainServer", _kChain];
+[getPlayerUID _pObj, ["KeyChain", _kChain]] call MV_Server_fnc_SetMissionVariable;
+//_pObj setVariable ["KeyChainServer", _kChain];
 
 // -- Add the vehicle to the collector. It'll be by default assigned 30 minutes before it despawns. This delay is updated every time a user gets in or out of the vehicle
 [_spVeh] call MV_Server_fnc_AddGarbage;

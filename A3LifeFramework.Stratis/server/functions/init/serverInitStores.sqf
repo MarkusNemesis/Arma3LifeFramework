@@ -18,6 +18,7 @@ Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All de
     _mTxt = _x select 4; 
     _spawnObject = _x select 5;
     _hasMarker = _x select 6;
+	
     // -- Set Public Variables
     _oObj setVariable ["isInteractable", true, true]; // Whether the object is interactable.
 	_oObj setVariable ["interactType", "typeVehicleStore", true]; // Contains the interactType. Defines how the client handles this interaction.
@@ -27,13 +28,21 @@ Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All de
     
     
     // -- Set Serverside Variables
-    _oObj setVariable ["isInteractableServer", true];
-	_oObj setVariable ["interactTypeServer", "typeVehicleStore"];
-	_oObj setVariable ["storeArrayServer", _sArr];
-	_oObj setVariable ["interactFilterServer", _accArr];
-    _oObj setVariable ["mouseOverTextServer", _mTxt];
-    _oObj setVariable ["spawnObjectServer", _spawnObject];
-    
+	private ['_sNetID'];
+	_sNetID = netId _oObj;
+	
+	// -- init the object's mission variable
+	missionNamespace setVariable [format ["%1_missionVar", _sNetID], []];
+	
+	[_sNetID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
+	[_sNetID, ["interactType", ["typeVehicleStore"]]] call MV_Server_fnc_SetMissionVariable;
+	[_sNetID, ["storeArray", _sArr]] call MV_Server_fnc_SetMissionVariable;
+	[_sNetID, ["interactFilter", _accArr]] call MV_Server_fnc_SetMissionVariable;
+	[_sNetID, ["mouseOverText", [_mTxt]]] call MV_Server_fnc_SetMissionVariable;
+	[_sNetID, ["spawnObject", [_spawnObject]]] call MV_Server_fnc_SetMissionVariable;
+	
+	// [_sNetID, []] call MV_Server_fnc_SetMissionVariable;
+	//['netID/UID', ['arrayType', [content,array,etc]];
     
     // -- Disable AI
     _oObj disableAI "FSM";

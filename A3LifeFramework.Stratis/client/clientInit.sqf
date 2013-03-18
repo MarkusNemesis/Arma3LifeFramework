@@ -9,6 +9,7 @@ private ["_runTime"];
 _runTime =+ diag_tickTime;
 
 waitUntil {!isNull player}; // Make sure the player exists before starting.
+waitUntil {player getvariable "clientInitCompleteAck"};
 diag_log "MV: CLIENT INIT: STARTED";
 
 // Init client functions
@@ -65,10 +66,6 @@ player setVariable ['clientInitComplete', true, true];
 waituntil {time > 0}; // Checks if the mission has actually started.
 finishMissionInit;
 //
-
-// -- Wait until the server has initialised the client's player data.
-// TODO show some kind of 'wait' screen, if this takes time.
-waituntil {player getvariable "clientInitCompleteAck"};
 
 // Start KeyDown event handler
 (findDisplay 46) displaySetEventHandler ["KeyDown","_this call MV_Client_fnc_OnKeyPressEH;"];

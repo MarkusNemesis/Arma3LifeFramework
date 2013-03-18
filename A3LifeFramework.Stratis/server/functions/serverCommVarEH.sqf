@@ -22,7 +22,7 @@ switch (_eType) do
         _sObj = objectFromNetId (_vParams select 0);
         _vIndex = _vParams select 1;
         _pObj = objectFromNetId (_vParams select 2);
-		_sArr = _sObj getVariable "storeArrayServer";
+		_sArr = [netId _sObj, "storeArray"] call MV_Server_fnc_GetMissionVariable; // _sObj getVariable "storeArrayServer";
         _vCName = (_sArr select _vIndex) select 0;
         _vPrice = [_vCName] call MV_Shared_fnc_VehicleGetPrice;
         diag_log format ["MV: serverCommVarEH sending event: %1, %2, %3, %4", _vCName, _vPrice, _sObj, _pObj];

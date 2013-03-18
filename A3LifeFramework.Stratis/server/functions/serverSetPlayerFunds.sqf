@@ -6,5 +6,6 @@ Desc: Sets the player's on-hand money.
 Params: [pObj]
 */
 
+
 (_this select 0) setVariable ["Money", _this select 1, true];
-(_this select 0) setVariable ["MoneyServer", _this select 1, true];
+[getPlayerUID (_this select 0), ["Money", [_this select 1]]] call MV_Server_fnc_SetMissionVariable;

@@ -9,7 +9,7 @@ private ['_vValue', '_eType', '_vParams'];
 _vValue = _this select 0;
 _eType = _vValue select 0;
 _vParams = _vValue select 1;
-diag_log format ["MV: clientCommVarEH: %1, %2, %3", _vValue, _eType, _vParams];
+diag_log format ["MV: clientCommVarEH: %1", _vValue];
 
 switch (_eType) do
 {

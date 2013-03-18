@@ -9,7 +9,7 @@ Return: Player's on-hand money
 
 private ['_pMoney'];
 _pMoney = 0;
-_pMoney = (_this select 0) getVariable "MoneyServer";
+_pMoney = [getPlayerUID (_this select 0), "Money"] call MV_Server_fnc_GetMissionVariable select 0; //(_this select 0) getVariable "MoneyServer";
 
 // Return
-_pMoney 
+_pMoney

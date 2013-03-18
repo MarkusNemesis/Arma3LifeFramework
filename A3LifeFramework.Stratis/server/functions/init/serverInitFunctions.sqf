@@ -10,7 +10,10 @@ MV_Server_fnc_AddGarbage = Compile preprocessFileLineNumbers "server\functions\g
 MV_Server_fnc_RunGarbageCollector = Compile preprocessFileLineNumbers "Server\functions\garbageCollector\serverRunGarbageCollector.sqf";
 MV_Server_fnc_UpdateGarbageObject = Compile preprocessFileLineNumbers "Server\functions\garbageCollector\serverUpdateGarbageObject.sqf";
 
-//MV_Server_fnc_initPlayerSlots = Compile preprocessFileLineNumbers "Server\functions\init\ServerInitPlayerSlots.sqf"; defunct
+// -- Get/Set Server variables
+MV_Server_fnc_SetMissionVariable = Compile preprocessFileLineNumbers "Server\functions\missionVariables\serverSetMissionVariable.sqf";
+MV_Server_fnc_GetMissionVariable = Compile preprocessFileLineNumbers "Server\functions\missionVariables\serverGetMissionVariable.sqf";
+
 MV_Server_fnc_OnPlayerConnected = Compile preprocessFileLineNumbers "Server\functions\serverOnPlayerConnected.sqf";
 MV_Server_fnc_OnPlayerDisconnected = Compile preprocessFileLineNumbers "Server\functions\serverOnPlayerDisconnected.sqf";
 MV_Server_fnc_InitWorldProps = Compile preprocessFileLineNumbers "Server\functions\init\serverInitWorldProps.sqf";

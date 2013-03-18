@@ -20,4 +20,5 @@ _slot = objnull;
 waituntil {alive _slot};
 _slot setposASL getposASL Shared_SpawnHaven;
 // -- Disable object simulation.
-//_slot enablesimulation false;
+_slot setVehicleInit "this enableSimulation false;";
+processInitCommands;
