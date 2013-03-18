@@ -14,8 +14,8 @@ _uObj = _this select 0;
 _delay = time;
 
 if (_uObj iskindof "Man") exitwith {}; // -- We don't update creatures/people as they're only added when they're dead.
-
-if (damage _x >= 1) then 
+//diag_log format ["GCUpdate unit: %1", _x];
+if (damage _uObj >= 1) then 
 {
     _delay = _delay + 60*2; // Object is dead.
 }

@@ -2,7 +2,7 @@
 Created: 16/03/2013
 Author: Markus Davey
 Skype: markus.davey
-Desc: 'reveal's to the player all typically interactable objects within interact distance (5 m)
+Desc: 'reveal's to the player all typically interactable objects within interact distance
 */
 
 private ['_nTargs'];
@@ -15,6 +15,6 @@ _nTargs = player nearEntities 5; // TODO limit this to certain class types, base
 
 // -- iterate through the objects and 'reveal' only those which are interactable.
 {
-    if (_x getVariable "isInteractable" && _x != player) then {player reveal [_x, 4];};
+    if (_x getVariable "isInteractable" && _x != player) then {player reveal [_x, INT_RANGE];};
     // May not be resource wise to check if the player already knowsabout these objects. 
 } foreach _nTargs;

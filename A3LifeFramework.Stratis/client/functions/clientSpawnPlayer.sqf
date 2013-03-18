@@ -25,7 +25,7 @@ switch (Client_PlayerSide) do
         {
             //diag_log "Spawning for the first time";
             // TODO Play BLUFOR intro
-            _spawnPos = getmarkerpos "Spawn_BLU" findEmptyPosition[0, 10, "B_Soldier_F"];
+            _spawnPos = getmarkerpos "Spawn_BLU";// findEmptyPosition[0, 10, "B_Soldier_F"];
             player setposATL _spawnPos;
         	player setdir markerDir "Spawn_BLU";
             Client_SpawnType = "";
@@ -34,7 +34,7 @@ switch (Client_PlayerSide) do
             // TODO spawn BLUFOR at BLUFOR Hospital/MASH if they died.
             //diag_log "Unit has spawned before";
             //
-            _spawnPos = getmarkerpos "Spawn_BLU" findEmptyPosition[0, 10, "B_Soldier_F"];
+            _spawnPos = getmarkerpos "Spawn_BLU";// findEmptyPosition[0, 10, "B_Soldier_F"];
             player setposATL _spawnPos;
         	player setdir markerDir "Spawn_BLU";
         };
@@ -42,7 +42,7 @@ switch (Client_PlayerSide) do
     
     case civilian:
     {
-        _spawnPos = getmarkerpos "Spawn_CIV" findEmptyPosition[0, 10, "B_Soldier_F"];
+        _spawnPos = getmarkerpos "Spawn_CIV";// findEmptyPosition[0, 10, "B_Soldier_F"];
         player setposATL _spawnPos;
         player setdir markerDir "Spawn_CIV";
     };

@@ -48,6 +48,7 @@ _found = false;
 call compile format ["_pObj = %1", _slotname];
 
 {
+    diag_log format ["%1 vs %2, %3 vs %4", _uid, _x select 2, _name, _x select 1];
     if (_uid == (_x select 2) && _name == (_x select 1)) exitwith {_found = true;_pData = _x;};
 } foreach Server_PlayerData;
 
@@ -55,12 +56,12 @@ if (!_found) then
 {
     diag_log format ["MV: serverOnPlayerConnected: Player %1 has joined for the first time. UID: %2", _name, _uid];
     // -- Init first time joiner
-    _pObj setVariable ["Money", 15000, true]; // TODO make this a param option for how much money the client starts with.
+    _pObj setVariable ["Money", MV_Params_GPStartFunds, true];
     _pObj setVariable ["BankMoney", 0, true];
     _pObj setVariable ["KeyChain", [], true];
     
     // -- Serverside values
-    _pObj setVariable ["MoneyServer", 15000]; // TODO make this a param option for how much money the client starts with.
+    _pObj setVariable ["MoneyServer", MV_Params_GPStartFunds];
     _pObj setVariable ["BankMoneyServer", 0];
     _pObj setVariable ["KeyChainServer", []];
 } 
@@ -70,7 +71,7 @@ else
     // -- Init returned player
     private ['_pVars'];
     _pVars = _pData select 4;
-
+	
     _pObj setVariable ["Money", _pVars select 0, true];
     _pObj setVariable ["BankMoney", _pVars select 1, true];
     _pObj setVariable ["KeyChain", _pVars select 2, true];

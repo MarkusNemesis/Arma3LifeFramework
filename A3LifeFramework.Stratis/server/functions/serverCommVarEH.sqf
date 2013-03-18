@@ -24,9 +24,10 @@ switch (_eType) do
         _pObj = objectFromNetId (_vParams select 2);
 		_sArr = _sObj getVariable "storeArrayServer";
         _vCName = (_sArr select _vIndex) select 0;
-        {if ((_x select 0) == _vCName) exitwith {_vPrice = _x select 1;}} foreach Array_Vehicles; // TODO - Move this line to a shared function.
-		diag_log _pObj;
+        _vPrice = [_vCName] call MV_Shared_fnc_VehicleGetPrice;
+        diag_log format ["MV: serverCommVarEH sending event: %1, %2, %3, %4", _vCName, _vPrice, _sObj, _pObj];
         ['MV_Server_fnc_BuyVehicle', [_vCName, _vPrice, _sObj, _pObj]] call MV_Server_fnc_AddEvent;
+        diag_log Server_EventArray;
     };
     
     // -- Client has sent garbage for the collector.

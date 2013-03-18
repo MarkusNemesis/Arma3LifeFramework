@@ -10,7 +10,7 @@ disableSerialization;
 _cTarg = cursorTarget;
 
 // -- Check if player is within interaction range of this object.
-if (_cTarg distance player > 5) exitwith {}; // TODO make interact range a shared constant.
+if (_cTarg distance player > INT_RANGE) exitwith {};
 
 _iText = '';
 _iType = '';
@@ -34,17 +34,17 @@ if (_cTarg getVariable "isInteractable") then
 	                // -- If the vehicle is locked and the player has the key, show to unlock it.
 	                if ((netID _cTarg) in (player getVariable "KeyChain")) then
 	                {
-			    		_iText = "Press L to Unlock"; // TODO Localise
+			    		_iText = localize "STR_MV_INT_HUD_UNLOCK";
 	                };
 			    } else {
-			    	_iText = "Press E to Get in"; // TODO Localise
+			    	_iText = localize "STR_MV_INT_HUD_GETIN";
 			    };
 			};
 		};
 		
 		case "typeVehicleStore": // or "typeItemStore" etc.
 		{
-            _iText = "Press E to shop"; // TODO localise
+            _iText = localize "STR_MV_INT_HUD_SHOP";
 		};
 	};
     

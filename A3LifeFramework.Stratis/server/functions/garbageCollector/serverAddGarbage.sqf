@@ -13,9 +13,9 @@ _garbage = _this;
 {
     _delay = time;
 	if (damage _x >= 1) then {
-		_delay = _delay + (60* 2); // -- If dead, give 2 mins
+		_delay = _delay + (60* MV_Params_GCDelayCorpses); // -- If dead.
 	} else {
-	    _delay = _delay + (60* 30); // -- If alive, give 30 mins. TODO make these params set delays.
+	    _delay = _delay + (60* MV_Params_GCDelayVehicles); // -- If alive.
 	};
     Server_GarbageCollection set [count Server_GarbageCollection, [_x, _delay]];
     diag_log format ["Server: Garbage added to collector: %1, %2", _x, _delay];

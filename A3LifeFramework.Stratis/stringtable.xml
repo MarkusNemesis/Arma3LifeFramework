@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project name="A3LifeMissionFramework">
+  <Package name="General">
+	
+  </Package>
+  
+  <Package name="Interactions">
+	<Key ID="STR_MV_INT_INFORMATION">
+      <English>Information</English>
+    </Key>
+  
+	<Key ID="STR_MV_INT_ERRORCOOLDOWN">
+      <English>You can only purchase one vehicle every 10 seconds</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_ERRORNOSTOCK">
+      <English>There is not enough of this item in stock</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_ERRORNOFUNDS">
+      <English>You do not have enough money to buy this item</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_ERRORSERVER">
+      <English>Insufficient %1, please try again later</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_VEHPURCHASESUCCESS">
+      <English>Vehicle Purchase Successful</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_ERRORCANNOTEXITLOCKED">
+      <English>ERROR: You cannot enter/exit this vehicle, as it is locked</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_HUD_UNLOCK">
+      <English>Press L to Unlock</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_HUD_GETIN">
+      <English>Press E to Get in</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_HUD_SHOP">
+      <English>Press E to shop</English>
+    </Key>
+  </Package>
+  
+  <Package name="StoreNames">
+	<Key ID="STR_MV_STORES_CARSTORECIV1">
+      <English>Jamie's Used Autos</English>
+    </Key>
+	<Key ID="STR_MV_STORES_CARSTORECOP1">
+      <English>UN Vehicle Quartermaster</English>
+    </Key>
+	<Key ID="STR_MV_STORES_BOATSTORECIV1">
+      <English>'No-Holes' Inflatables</English>
+    </Key>
+	
+	</Package>
+</Project>
+
+
+
+<!--
+	<Key ID="STR_MV_STORES_">
+      <English></English>
+    </Key>
+
+	
+	<Key ID="STR_MV_INT_">
+      <English></English>
+    </Key>
+	
+	<Key ID="STR_MV_">
+      <English></English>
+    </Key>
+--!>

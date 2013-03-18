@@ -21,6 +21,6 @@ MV_Server_fnc_RemoveEvent = Compile preprocessFileLineNumbers "Server\functions\
 MV_Server_fnc_GetPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverGetPlayerFunds.sqf";
 MV_Server_fnc_SetPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverSetPlayerFunds.sqf";
 MV_Server_fnc_AdjustStoreStock = Compile preprocessFileLineNumbers "Server\functions\serverAdjustStoreStock.sqf";
-
+MV_Server_fnc_SendClientMessage = Compile preprocessFileLineNumbers "Server\functions\serverSendClientMessage.sqf";
 
 //MV_Server_fnc_ = Compile preprocessFileLineNumbers "Server\functions\";

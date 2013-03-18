@@ -20,6 +20,7 @@ call compile preprocessFile "Shared\sharedInit.sqf";
 call MV_Shared_fnc_initParams;
 
 // Init global variables
+Server_Health = ''; // Variable used for viewing how long a server tick takes, by adding 8 tick's processing time together and divding by 8.
 Server_EventArray = []; // Server_EventArray elements contain: ["function_name", [args], priority]
 Server_GarbageCollection = []; // This variable is filled with objects to be cleaned up / managed after a set time. [obj, cleandelay]
 Server_PlayerRegistry = []; // Format: [id, playerName, UID, playerSlot];

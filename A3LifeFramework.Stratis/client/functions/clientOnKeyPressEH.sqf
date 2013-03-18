@@ -35,7 +35,7 @@ if (Client_CustomKeysEnabled) then
         // If the player is on foot and pressing E
 		if (vehicle player == player) then
 		{
-            if (player distance _target > 5) exitwith {};
+            if (player distance _target > INT_RANGE) exitwith {};
 	        private ['_isInteractable'];
 	        _isInteractable = _target getVariable "isInteractable";
 	        if (isnil ('_isInteractable')) then {_isInteractable = false;};

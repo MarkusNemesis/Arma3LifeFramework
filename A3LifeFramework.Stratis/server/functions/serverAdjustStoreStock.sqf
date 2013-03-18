@@ -4,13 +4,15 @@ Author: Markus Davey
 Skype: markus.davey
 Desc: Reduces a specific store's stock of a specific item, by class name. Action is type specific.
 Params: [storeObj, [classname, quantity]]
+Return: Bool : Action successful - True when stock didn't go below 0 else false.
 */
 
-private ['_sObj', '_args', '_sType'];
+private ['_sObj', '_args', '_sType', '_aSuccess'];
 _sObj = _this select 0;
 _args = _this select 1;
 // Fetch interactType from serverside
 _sType = _sObj getVariable "interactTypeServer";
+_aSuccess = false;
 
 switch (_sType) do
 {
@@ -24,13 +26,18 @@ switch (_sType) do
         _qty = _args select 1; // Positive to add, negative to remove.
         // -- Find classname within store array
         {
-            // -- assign a new value to the index, using _x set [1, [(_x select 1) - _qty]];
-            if ((_x select 0) == _cName) exitwith {_x set [1, (_x select 1) + _qty];};
+            // -- assign a new value to the index
+            if ((_x select 0) == _cName) exitwith {
+                if ((_x select 1) + _qty > -1) then {
+                	_x set [1, (_x select 1) + _qty];
+                    _aSuccess = true;
+                };
+            };
         } foreach _sArr;
         // -- Update the server and public values for the store array
         _sObj setVariable ["storeArray", _sArr, true];
         _sObj setVariable ["storeArrayServer", _sArr];
 	};
-	
-    
 };
+
+_aSuccess

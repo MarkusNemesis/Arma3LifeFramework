@@ -32,9 +32,13 @@ Client_EventArray = []; // Client_EventArray elements contain: ["function_name",
 Client_Inventory = [];
 Client_CustomKeysEnabled = true;
 Client_isMessageBox = false; // Is true when there's a message box open. Helps in stopping loops from running whilst their dialog is not open due to a message.
+Client_VehicleBuyCooldown = time; // Used to limit how often players can buy vehicles. You can buy one every 10 or so seconds. Stops spamming.
+Client_InVehicle = false;
+Client_Vehicle = objnull;
+
 // Declare client's commVar
 call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
-
+format ["%1_CommVar", Client_PlayerSlotStr] addPublicVariableEventHandler {[_this select 1] call MV_Client_fnc_CommVarEH};
 // Public Variables
 KillMessageBroadcast = "";
 //

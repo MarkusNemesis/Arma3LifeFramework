@@ -17,10 +17,11 @@ _pMoney = player getVariable "Money";
 
 //diag_log format ["BuyVehicle: Obj: %1, Index: %2, Price: %3, "]
 
-// TODO move string info to string table and localise
-if (_vStock <= 0) exitwith {["Information", "There is not enough of this item in stock"] spawn MV_Client_fnc_int_MessageBox;}; // Error out to the user, saying that there's no stock remaining for that item. TODO create UI message box dialog.
+if (Client_VehicleBuyCooldown > time) exitwith {[localize "STR_MV_INT_INFORMATION", localize "STR_MV_INT_ERRORCOOLDOWN"] spawn MV_Client_fnc_int_MessageBox;};
 
-if (_pMoney < _vPrice) exitwith {["Information", "You do not have enough money to buy this item"] spawn MV_Client_fnc_int_MessageBox;};
+if (_vStock <= 0) exitwith {[localize "STR_MV_INT_INFORMATION", localize "STR_MV_INT_ERRORNOSTOCK"] spawn MV_Client_fnc_int_MessageBox;}; // Error out to the user, saying that there's no stock remaining for that item.
+
+if (_pMoney < _vPrice) exitwith {[localize "STR_MV_INT_INFORMATION", localize "STR_MV_INT_ERRORNOFUNDS"] spawn MV_Client_fnc_int_MessageBox;};
 
 // -- Item is in stock, and user has enough money, send event to server.
 //_eString = call compile format ["[""BuyVehicle"", [%1, %2, %3]]", str (_this select 0), _vIndex, Client_PlayerSlotStr];

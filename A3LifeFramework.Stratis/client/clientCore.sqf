@@ -62,7 +62,17 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
 	    {
 			// -- 'reveal's to the player all interactable objects within interact distance (5 m)
 	        [] call MV_Client_fnc_InteractableAwareness;
-            // -- TODO check if player is in a vehicle, and wasn't before. If so, run : ["UpdateGarbage", [netID vehicle player]] call MV_Client_fnc_SendServerMessage;
+            // --  check if player is in a vehicle, and wasn't before to update vehicle's garbage collection delay.
+            if (vehicle player != player) then // -- Player is in vehicle.
+            {
+                if (!Client_InVehicle) then {["UpdateGarbage", [netID vehicle player]] call MV_Client_fnc_SendServerMessage;};
+                Client_InVehicle = true;
+                Client_Vehicle = vehicle player;
+            } else {// -- If not in vehicle, but was, set Client_InVehicle = false and update garbage.
+                if (Client_InVehicle) then {["UpdateGarbage", [netID Client_Vehicle]] call MV_Client_fnc_SendServerMessage;};
+                Client_InVehicle = false;
+                Client_Vehicle = objnull;
+            };
         };
     };
     

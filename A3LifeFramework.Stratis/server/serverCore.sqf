@@ -9,17 +9,16 @@ This helps distribute functions across a spectrum of how often a function is ran
 This can off-set non time-critical functions, and leave more room for other more important events.
 */
 
-private ["_pFrame", "_runPrior", "_tTime", "_avgTTime"];
+private ["_pFrame", "_runPrior", "_tTime"];
 //
 _runPrior = 1;
 _pFrame = diag_frameno;
 _avgTTime = 0;
-_tTime = 0;
+_tTime = diag_ticktime;
 
 diag_log "MV: STARTING SERVER MAINLOOP";
 while {true} do // This is the main loop. EVERYTHING serverside happens here.
 {
-    _tTime = diag_ticktime;
     // -------- Run Priority 1 - Runs every frame --------
     {
         private ['_fname', '_args', '_priority'];
@@ -27,8 +26,8 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here.
         _args = _x select 1;
         _priority = _x select 2;
         call compile format ["_args call %1", _fname];
-        if (format ["%1", _fname] == "any") exitwith {[_forEachIndex] call MV_Server_fnc_RemoveEvent;}; // -- Event is a null event, and thus removed.
         diag_log format ["MV: SERVER: Running event from array: %1 , %2. Frame: %3, EventCount: %4", _fname, _args, diag_frameno, count Server_EventArray];
+        if (format ["%1", _fname] == "any") exitwith {[_forEachIndex] call MV_Server_fnc_RemoveEvent;}; // -- Event is a null event, and thus removed.
         [_forEachIndex] call MV_Server_fnc_RemoveEvent;
     } foreach Server_EventArray;
     
@@ -52,13 +51,14 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here.
     };
     
     // Leave this last.
-    _avgTTime = _avgTTime + (diag_ticktime - _tTime);
     _runPrior = _runPrior + 1;
     if (_runPrior > PRIOR_RANGE) then 
     {
         _runPrior = 1;
         //diag_log format ["Server: Mainloop tick time avg: %1ms", (_avgTTime / PRIOR_RANGE) * 1000];
-        _avgTTime = 0;
+        _tTime = diag_ticktime - _tTime;
+        Server_Health = format ["Server: Mainloop tick time avg: %1ms. FrameNo: %2", (_tTime / PRIOR_RANGE) * 1000, diag_frameno];
+        _tTime = diag_ticktime;
     };
     _pFrame = diag_frameno;
     waituntil {diag_frameno > _pFrame;}; // Main loop runs once per tick. Let the scheduler recycle

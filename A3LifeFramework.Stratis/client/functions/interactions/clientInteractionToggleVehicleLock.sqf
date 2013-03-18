@@ -7,7 +7,7 @@ Desc: Toggles the lock of the vehicle, and outputs to the player.
 
 private ['_obj', '_found', '_netID'];
 _obj = _this select 0;
-if (player distance _obj > 5) exitwith {};
+if (player distance _obj > INT_RANGE) exitwith {};
 
 _found = false;
 _netID = netID _obj;
@@ -17,9 +17,9 @@ if (_found) then
 {
     if (locked _obj > 1) then {
     	_obj lock false;
-        systemchat format ["MV: %1 Unlocked", typeof _obj]; // TODO Localise
+        systemchat format ["MV: %1 Unlocked", typeof _obj]; 
     } else {
     	_obj lock true;
-        systemchat format ["MV: %1 Locked", typeof _obj]; // TODO Localise
+        systemchat format ["MV: %1 Locked", typeof _obj]; 
     };
 };

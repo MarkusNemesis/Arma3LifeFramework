@@ -22,22 +22,14 @@ _dialogHandler = createdialog "ui_vehicleStore";
     _text = '';
     _vCName = _x1 select 0;
     _vTName = '';
-    _vPrice = '';
+    _vPrice = -1;
     _vStock = 0;
     
-    // TODO move this to a function sharedVehicleFetchPrice
-    {
-        _x2 = _x;
-        //diag_log format ["%1 vs %2", _vCName, _x2 select 0];
-        if (_vCName == (_x2 select 0)) then
-        {
-            _vPrice = _x2 select 1; // Get price from vehicle array
-            _vStock = _x1 select 1; // Get stock from store array
-            _found = true;
-        };
-        if (_found) exitwith {};
-    } foreach Array_Vehicles;
-
+    // -- Get the vehicle price.
+    _vPrice = [_vCName] call MV_Shared_fnc_VehicleGetPrice;
+	// -- If it found the price,  get the stock also.
+    if (_vPrice != -1) then {_vStock = _x1 select 1;}; 
+    
     _vTName = getText (configFile >> 'CfgVehicles' >> _vCName >> "displayName");
     _text = format ["%1, Stock: %2, $%3", _vTName, _vStock, _vPrice];
     lbAdd [1992, _text];
@@ -91,7 +83,6 @@ while {dialog && alive player} do
 	        _lbSelPrev = _lbSel;
 	    };
 	    
-	    // TODO put 'setaction' for 'buy vehicle' button
 		buttonsetaction [1993, format ["[%1, %2, %3, %4] call MV_Client_fnc_int_BuyVehicle; closedialog 0;", str netID _sObj, _lbSel, _sPrice, (_sArr select _lbSel) select 1]]; // NetID, Index, price, stock
     };
     // ---- Leave last

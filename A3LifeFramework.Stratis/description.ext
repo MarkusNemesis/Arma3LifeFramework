@@ -1,7 +1,7 @@
 class Header {
 	gameType = TEAM;
 	minPlayers = 1;
-	maxPlayers = 48;
+	maxPlayers = 45;
 };
 // -- Player slot counts for each team are in the sharedConstants.sqf file
 

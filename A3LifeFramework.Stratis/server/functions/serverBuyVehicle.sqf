@@ -11,21 +11,30 @@ Desc: Manages the charging, creation and initialisation of client bought vehicle
 3. 
 4. 
 */
-private ['_vCName', '_vPrice', '_sObj', '_pObj', '_spawnMarker'];
+private ['_vCName', '_vPrice', '_sObj', '_pObj', '_spawnMarker', '_sStock'];
 
 _vCName = _this select 0;
 _vPrice = _this select 1;
 _sObj = _this select 2;
 _pObj = _this select 3;
 _spawnMarker = _sObj getVariable "spawnObjectServer";
+_sStock = false;
 
 // -- Deduct money from player
 _pFunds = [_pObj] call MV_Server_fnc_GetPlayerFunds;
-if (_pFunds < _vPrice) exitwith {diag_log format ["ERROR: serverBuyVehicle: Player %1 has insufficient funds to purchase %2.", name _pObj, _vCName]};
+if (_pFunds < _vPrice) exitwith {
+    diag_log format ["ERROR: serverBuyVehicle: Player %1 has insufficient funds to purchase %2.", name _pObj, _vCName];
+    [_pObj, "BuyVehicleReturn", [false,'funds']] call MV_Server_fnc_SendClientMessage;
+};
 [_pObj, _pFunds - _vPrice] call MV_Server_fnc_SetPlayerFunds;
 
 // -- Update store's stock level
-[_sobj, [_vCName, -1]] call MV_Server_fnc_AdjustStoreStock; // Hardcoded -1 as you can only buy cars singularly.
+_sStock = [_sobj, [_vCName, -1]] call MV_Server_fnc_AdjustStoreStock; // Hardcoded -1 as you can only buy cars singularly.
+
+if (!_sStock) exitwith {
+    diag_log format ["ERROR: serverBuyVehicle: Player %1 has insufficient stock to purchase %2.", name _pObj, _vCName];
+    [_pObj, "BuyVehicleReturn", [false,'stock']] call MV_Server_fnc_SendClientMessage;
+};
 
 // -- Spawn the vehicle! Spawns on the store's spawn marker.
 private ['_spVeh', '_sPos', '_kChain'];
@@ -56,3 +65,6 @@ _pObj setVariable ["KeyChainServer", _kChain];
 
 // -- Add the vehicle to the collector. It'll be by default assigned 30 minutes before it despawns. This delay is updated every time a user gets in or out of the vehicle
 [_spVeh] call MV_Server_fnc_AddGarbage;
+
+// -- Send client success message
+[_pObj, "BuyVehicleReturn", [true]] call MV_Server_fnc_SendClientMessage;

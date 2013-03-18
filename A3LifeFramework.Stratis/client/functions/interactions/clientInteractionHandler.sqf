@@ -30,7 +30,7 @@ switch (_iType) do
     case "typeVehicle":
     {
         //diag_log "Attempting to enter vehicle";
-        if (locked _iObj > 1) exitwith {}; // TODO notify the player that the vehicle they're attempting to exit, is locked.
+        if (locked _iObj > 1) exitwith {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED"}; // notify the player that the vehicle is locked
 		if (_iObj emptyPositions "Driver" > 0) then
 		{
 		    player action ["getInDriver", _iObj];

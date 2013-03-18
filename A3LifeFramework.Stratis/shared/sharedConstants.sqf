@@ -23,6 +23,9 @@ OP_PLAYERCOUNT = 0;
 IND_PLAYERCOUNT = 0;
 CIV_PLAYERCOUNT = 35;
 
+// -- Interaction range
+INT_RANGE = 4;
+
 // leave last
 _runTime = time - _runTime;
 diag_log format ["MV: sharedConstants INIT: FINISHED, Time taken: %1", _runTime];

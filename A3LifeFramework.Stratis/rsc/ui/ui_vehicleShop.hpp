@@ -34,7 +34,7 @@ class ui_vehicleStore
 	class BGFrame: MV_GUIFrame
 	{
 		idc = 1997;
-		text = "Vehicle Store"; //--- ToDo: Localize;
+		text = "";
 		x = 0.5 * GUI_GRID_W + GUI_GRID_X;
 		y = 0.3 * GUI_GRID_H + GUI_GRID_Y;
 		w = 39 * GUI_GRID_W;
@@ -53,7 +53,7 @@ class ui_vehicleStore
 	class cmdBuy: MV_Button
 	{
 		idc = 1993;
-		text = "Buy Selected"; //--- ToDo: Localize;
+		text = "";
 		x = 3 * GUI_GRID_W + GUI_GRID_X;
 		y = 22.5 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7 * GUI_GRID_W;
@@ -62,7 +62,7 @@ class ui_vehicleStore
 	class lblCurrentMoney: MV_LabelRight
 	{
 		idc = 1994;
-		text = "Current Money: $0"; //--- ToDo: Localize;
+		text = "";
 		x = 13 * GUI_GRID_W + GUI_GRID_X;
 		y = 1 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7.9 * GUI_GRID_W;
@@ -72,7 +72,7 @@ class ui_vehicleStore
 	class lblCurrentCost: MV_LabelRight
 	{
 		idc = 1995;
-		text = "Current Cost: $0"; //--- ToDo: Localize;
+		text = "";
 		x = 13 * GUI_GRID_W + GUI_GRID_X;
 		y = 2 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7.9 * GUI_GRID_W;
@@ -82,7 +82,7 @@ class ui_vehicleStore
 	class lblRemaining: MV_LabelRight
 	{
 		idc = 1996;
-		text = "Money Remaining: $0"; //--- ToDo: Localize;
+		text = "";
 		x = 13 * GUI_GRID_W + GUI_GRID_X;
 		y = 3 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7.9 * GUI_GRID_W;

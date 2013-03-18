@@ -10,14 +10,14 @@ Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All de
 // ------------------- Init vehicle stores -------------------
 //[ownerObj, [[VehiclesToSell, StockLevel]], [AccessArray], themeName, StoreName];
 {
-    private ['_oObj', '_sArr', '_accArr', '_theme', '_mTxt', '_spawnObject'];
+    private ['_oObj', '_sArr', '_accArr', '_theme', '_mTxt', '_spawnObject', '_hasMarker'];
     _oObj = _x select 0;
     _sArr = _x select 1;
     _accArr = _x select 2;
     _theme = _x select 3; // Cop theme initialises the unit to look like a Peacekeeper
     _mTxt = _x select 4; 
     _spawnObject = _x select 5;
-    
+    _hasMarker = _x select 6;
     // -- Set Public Variables
     _oObj setVariable ["isInteractable", true, true]; // Whether the object is interactable.
 	_oObj setVariable ["interactType", "typeVehicleStore", true]; // Contains the interactType. Defines how the client handles this interaction.
@@ -52,5 +52,10 @@ Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All de
         {
             [_oObj, "PeaceKeeper1"] call MV_Shared_fnc_InitUnitUniform;
         };
+    };
+    if (_hasMarker) then {
+	    // -- Create marker
+	    _oObj setvehicleinit format ["_marker = createMarkerLocal ['%1marker', getposATL this]; _marker setMarkerShapeLocal 'ICON'; '%1marker' setMarkerTypeLocal 'mil_Pickup'; _marker setMarkerSizeLocal [0.5,0.5]; '%1marker' setMarkerTextLocal %2; '%1marker' setMarkerColorLocal 'ColorGreen';", _oObj, str _mTxt];
+	    processinitcommands;
     };
 } foreach Array_Store_Vehicles;

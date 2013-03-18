@@ -13,7 +13,7 @@ _msg = '';
 
 _msg = format ["[%1, %2]", str _tName, _mParams];
 
-diag_log format ["MV: clientSendServerMessage: Message:", _msg];
+diag_log format ["MV: clientSendServerMessage: Message: %1", _msg];
 
 call compile format ["%1_CommVar = %2;", Client_PlayerSlotStr, _msg];
 
