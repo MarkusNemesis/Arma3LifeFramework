@@ -1034,8 +1034,8 @@ class Mission
 		};
 		class Item5
 		{
-			position[]={2138.6575,8.746644,5347.7344};
-			name="Spawn_BLU";
+			position[]={2148,9.5,5342};
+			name="Spawn_BLU"; //[2148.04,5342.13,9.47173]
 			type="Empty";
 			angle=4.9627328;
 		};

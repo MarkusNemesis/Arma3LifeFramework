@@ -30,7 +30,7 @@
     </Key>
 	
 	<Key ID="STR_MV_INT_ERRORCANNOTEXITLOCKED">
-      <English>ERROR: You cannot enter/exit this vehicle, as it is locked</English>
+      <English>NOTICE: You cannot enter/exit this vehicle, as it is locked</English>
     </Key>
 	
 	<Key ID="STR_MV_INT_HUD_UNLOCK">

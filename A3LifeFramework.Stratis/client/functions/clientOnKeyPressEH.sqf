@@ -52,7 +52,7 @@ if (Client_CustomKeysEnabled) then
 		    if (locked vehicle player == 1) then 
             {
                 player action ["getOut", vehicle player];
-            };
+            } else {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED";}; // notify the player that the vehicle is locked};
 		};
 	};
     // ---------------- Lock key [L] ----------------

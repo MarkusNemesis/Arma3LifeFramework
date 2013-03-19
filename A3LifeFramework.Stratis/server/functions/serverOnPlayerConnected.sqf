@@ -60,7 +60,7 @@ if (!_found) then // -- If the player has connected for the first time this roun
 	[_uid, []] call MV_Server_fnc_SetMissionVariable;
 	['netID/UID', ['arrayType', [content,array,etc]];
 	*/
-} 
+}
 else // -- otherwise, they've been here before, so lets pick them back up where they left off.
 {
     diag_log format ["MV: serverOnPlayerConnected: Player %1 has returned. UID: %2", _name, _uid];

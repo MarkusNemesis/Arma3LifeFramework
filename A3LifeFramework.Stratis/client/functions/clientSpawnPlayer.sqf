@@ -7,6 +7,9 @@ Desc: Spawns the player.
 
 private['_spawnPos'];
 
+// -- Hide the world until player is spawned and camera preloaded
+titleText ["Loading...", "BLACK FADED"];
+
 // Test which side the player is, as to how to handle their spawning in.
 switch (Client_PlayerSide) do
 {
@@ -50,7 +53,7 @@ switch (Client_PlayerSide) do
     default {diag_log format["[MV ERROR] Player %1 joined non-supported side %2", Client_PlayerName, Client_PlayerSideStr];};
 };
 
-
+waitUntil {preloadCamera _spawnPos};
+titleText ["Loading Complete!", "BLACK IN", 0];
 // Leave last --------- Set player as spawned.
-//player enableSimulation true;
 Client_PlayerSpawned = true;
