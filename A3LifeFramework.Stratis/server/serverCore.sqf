@@ -58,6 +58,7 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here.
         //diag_log format ["Server: Mainloop tick time avg: %1ms", (_avgTTime / PRIOR_RANGE) * 1000];
         _tTime = diag_ticktime - _tTime;
         Server_Health = format ["Server: Mainloop tick time avg: %1ms. FrameNo: %2", (_tTime / PRIOR_RANGE) * 1000, diag_frameno];
+		publicVariable "Server_Health";
         _tTime = diag_ticktime;
     };
     _pFrame = diag_frameno;

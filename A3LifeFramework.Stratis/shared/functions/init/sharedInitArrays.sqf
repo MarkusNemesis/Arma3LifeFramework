@@ -14,5 +14,7 @@ call compile preprocessfile "shared\arrays\stores\arrayVehicleStores.sqf";
 // Vehicles
 call compile preprocessfile "shared\arrays\vehicles\arrayVehicles.sqf";
 
+// Items
+call compile preprocessfile "shared\arrays\items\arrayItems.sqf";
 
-//call compile preprocessfile "server\arrays\";
+//call compile preprocessfile "shared\arrays\";

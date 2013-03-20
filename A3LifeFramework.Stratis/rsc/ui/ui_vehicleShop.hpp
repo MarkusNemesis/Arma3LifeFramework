@@ -15,7 +15,6 @@ class ui_vehicleStore
 	objects[] = {};
 	controls[]=
 	{
-		
 		lbxForSale,
 		cmdBuy,
 		lblCurrentMoney,

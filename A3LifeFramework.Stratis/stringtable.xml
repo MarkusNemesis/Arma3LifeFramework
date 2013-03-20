@@ -46,6 +46,34 @@
     </Key>
   </Package>
   
+  <Package name="DialogText">
+	<Key ID="STR_MV_DG_INVENTORY">
+      <English>Inventory</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_ITEMS">
+      <English>Items</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_QTY">
+      <English>Quantity</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_USE">
+      <English>Use</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_DROP">
+      <English>Drop</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_ACTIONS">
+      <English>Actions</English>
+    </Key>
+	
+  </Package>
+  
+  
   <Package name="StoreNames">
 	<Key ID="STR_MV_STORES_CARSTORECIV1">
       <English>Jamie's Used Autos</English>
@@ -63,6 +91,11 @@
 
 
 <!--
+	<Key ID="STR_MV_DG_INVENTORY">
+      <English>Inventory</English>
+    </Key>
+
+
 	<Key ID="STR_MV_STORES_">
       <English></English>
     </Key>

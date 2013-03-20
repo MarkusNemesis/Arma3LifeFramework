@@ -38,7 +38,7 @@ class MV_GUIFrame : RscFrame
 class MV_ListBox : RscListbox
 {
 	idc = -1;
-	style = LB_MULTI;
+	style = LB_TEXTURES;
 	colorBackground[] = {MV_COLOUR_DARKMIDGREY};
 	colorText[] = {MV_COLOUR_MAROON};
 	
@@ -66,16 +66,24 @@ class MV_Button : RscButton
 	colorText[] = {MV_COLOUR_MAROON};
 };
 
+class MV_Button_sm : MV_Button
+{
+	idc = -1;
+	sizeEx = 0.7 * GUI_GRID_H;
+};
+
 class MV_MultiLine : RscText
 {
 	idc = -1;
 	colorText[] = {MV_COLOUR_MAROON};
 	style = ST_MULTI;
+	lineSpacing = 1;
 };
 
 class MV_Label : RscText
 {
 	idc = -1;
+	style = ST_LEFT;
 	colorText[] = {MV_COLOUR_MAROON};
 };
 
@@ -91,6 +99,25 @@ class MV_title_InteractText : RscText
 	style = ST_CENTER;
 	colorText[] = {MV_COLOUR_GREEN};
 	//colorText[] = {MV_COLOUR_MAROON};
+};
+
+class MV_Textbox : RscEdit
+{
+	idc = -1;
+	style = ST_LEFT;
+	colorText[] = {MV_COLOUR_MAROON};
+};
+
+class MV_SText : RscStructuredText
+{
+	idc = -1;
+	style = ST_LEFT;
+	colorText[] = {MV_COLOUR_MAROON};
+	class Attributes 
+	{
+		color = "#C00000";
+		size = 0.75;
+	};
 };
 
 /*

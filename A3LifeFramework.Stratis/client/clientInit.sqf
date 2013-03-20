@@ -18,6 +18,12 @@ call compile preprocessFile "Client\functions\clientInitFunctions.sqf";
 // Initialize shared resources only if not a server. Otherwise the client and server will both init shared.
 if (!isServer) then {call compile preprocessFile "Shared\sharedInit.sqf"};
 
+// -- Load interaction functions
+call compile preprocessFile "Client\functions\interactions\clientInitInteractions.sqf";
+
+// -- Load item use functions
+call compile preprocessFile "Client\functions\interactions\itemFunctions\initItemFunctions.sqf";
+
 // Client constants
 Client_PlayerName = name player;
 Client_PlayerSlot = player;
@@ -36,6 +42,9 @@ Client_isMessageBox = false; // Is true when there's a message box open. Helps i
 Client_VehicleBuyCooldown = time; // Used to limit how often players can buy vehicles. You can buy one every 10 or so seconds. Stops spamming.
 Client_InVehicle = false;
 Client_Vehicle = objnull;
+
+// TODO delete this and replace with client>server variable update requests system
+Client_tmp_Inventory = [['TestItem', 3], ['TestItem2', 5]];
 
 // Declare client's commVar
 call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
@@ -67,11 +76,8 @@ waituntil {time > 0}; // Checks if the mission has actually started.
 finishMissionInit;
 //
 
-// Start KeyDown event handler
-(findDisplay 46) displaySetEventHandler ["KeyDown","_this call MV_Client_fnc_OnKeyPressEH;"];
-
-// Load interaction functions
-call compile preprocessFile "Client\functions\interactions\clientInitInteractions.sqf";
+// -- Start KeyDown event handler
+(findDisplay 46) displayAddEventHandler ["KeyDown","_this call MV_Client_fnc_OnKeyPressEH;"];
 
 // ---- Gets the player names.
 if (!isServer) then {call MV_Shared_fnc_GetPlayers;};

@@ -10,5 +10,8 @@ MV_Shared_fnc_GetPlayers = Compile preprocessFileLineNumbers "shared\functions\s
 MV_Shared_fnc_SetSuperAI = Compile preprocessFileLineNumbers "shared\functions\sharedSetSuperAI.sqf";
 MV_Shared_fnc_InitUnitUniform = Compile preprocessFileLineNumbers "shared\functions\sharedInitUnitUniform.sqf";
 MV_Shared_fnc_VehicleGetPrice = Compile preprocessFileLineNumbers "shared\functions\sharedVehicleGetPrice.sqf";
+MV_Shared_fnc_GetItemInformation = Compile preprocessFileLineNumbers "shared\functions\sharedGetItemInformation.sqf";
+
+
 
 // MV_Shared_fnc_ = Compile preprocessFileLineNumbers "shared\functions\";

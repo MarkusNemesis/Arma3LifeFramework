@@ -5,13 +5,13 @@ Skype: markus.davey
 Desc: This script is called every time a key is pressed. Annoying, I know.
 */
 
-private ["_control", "_key", "_shift", "_ctrl", "_alt"];
+private ["_control", "_key", "_shift", "_ctrl", "_alt", '_handled'];
 _control = _this select 0;
 _key = _this select 1;
 _shift = _this select 2;
 _ctrl = _this select 3;
 _alt = _this select 4;
-
+_handled = false;
 //diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
 
 
@@ -26,6 +26,7 @@ if (Client_CustomKeysEnabled) then
     {
         Client_CustomKeysEnabled = false;
         titleText ["Custom keys Disabled", "PLAIN DOWN", 0.5]; titleFadeOut 2048;
+		_handled = true;
     };
     
     // ---------------- Interact key [E] ----------------
@@ -44,6 +45,7 @@ if (Client_CustomKeysEnabled) then
             private ["_pDistance", "_found", "_fArray"];
             //diag_log "Pre Interact Handler";
             [_target] call MV_Client_fnc_int_Handler;
+			_handled = true;
 		};
 		
 		// If User presses E and they're inside a vehicle, and it's not locked, then getout.
@@ -53,6 +55,7 @@ if (Client_CustomKeysEnabled) then
             {
                 player action ["getOut", vehicle player];
             } else {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED";}; // notify the player that the vehicle is locked};
+			_handled = true;
 		};
 	};
     // ---------------- Lock key [L] ----------------
@@ -61,14 +64,33 @@ if (Client_CustomKeysEnabled) then
         if (vehicle player == player) then
 		{
 	        [_target] call MV_Client_fnc_int_ToggleVehicleLock;
+			_handled = true;
         } else {
             [vehicle player] call MV_Client_fnc_int_ToggleVehicleLock;
+			_handled = true;
         };
     };
+	
+	// ---------------- Information key [1] ----------------
+	if (_key == 2) then
+	{
+		
+	};
+	
+	// ---------------- Inventory key [2] ----------------
+	if (_key == 3) then
+	{
+		[] spawn MV_Client_fnc_int_InteractionInventory;
+		_handled = true;
+	};
+	
 } else {
 	if (_key == 15 && !_alt) then
     {
         Client_CustomKeysEnabled = true;
         titleText ["Custom keys Enabled", "PLAIN DOWN", 0.5]; titleFadeOut 1.5;
+		_handled = true;
     };
 };
+
+_handled
