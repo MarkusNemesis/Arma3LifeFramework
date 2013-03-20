@@ -10,3 +10,5 @@ _args = _this;
 
 diag_log _args select 0;
 diag_log _args select 1;
+
+true

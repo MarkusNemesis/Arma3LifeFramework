@@ -50,7 +50,7 @@ if (!_found) then // -- If the player has connected for the first time this roun
     _pObj setVariable ["Money", MV_Params_GPStartFunds, true];
     _pObj setVariable ["BankMoney", 0, true];
     _pObj setVariable ["KeyChain", [], true];
-    
+	
     // -- Serverside values
 	[_uid, ["Money", [MV_Params_GPStartFunds]]] call MV_Server_fnc_SetMissionVariable;
 	[_uid, ["BankMoney", [0]]] call MV_Server_fnc_SetMissionVariable;
@@ -80,6 +80,10 @@ else // -- otherwise, they've been here before, so lets pick them back up where 
 	*/
 };
 
+// -- Init player's inventory as empty. They've joined so thus have lost whatever they had before.
+[_uid, ["Inventory", []]] call MV_Server_fnc_SetMissionVariable;
+_pObj setVariable ["Inventory", [], true];
+//
 _pObj setvehicleinit "this enablesimulation true; this allowdamage true;";
 processinitcommands;
 _pObj setVariable ["clientInitCompleteAck", true, true]; // Acknowledges to the client that it is inited on both client and server.

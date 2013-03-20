@@ -45,7 +45,6 @@ class ui_messageBox1 {
 		w = 18 * GUI_GRID_W;
 		h = 4.2 * GUI_GRID_H;
 		sizeEx = 0.6 * GUI_GRID_H;
-		style = ST_CENTER;
 	};
 	class MBX_Button: MV_Button
 	{

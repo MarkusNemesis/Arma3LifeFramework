@@ -22,11 +22,11 @@ if (!isServer) then {call compile preprocessFile "Shared\sharedInit.sqf"};
 call compile preprocessFile "Client\functions\interactions\clientInitInteractions.sqf";
 
 // -- Load item use functions
-call compile preprocessFile "Client\functions\interactions\itemFunctions\initItemFunctions.sqf";
+call compile preprocessFile "Client\functions\interactions\itemFunctions\clientInitItemFunctions.sqf";
 
 // Client constants
 Client_PlayerName = name player;
-Client_PlayerSlot = player;
+//Client_PlayerSlot = player;
 Client_PlayerSlotStr = str player;
 Client_PlayerSide = side player;
 Client_PlayerSideStr = str Client_PlayerSide;
@@ -36,15 +36,14 @@ Client_PlayerDeathObjectCollection = []; // This variable is filled with objects
 Client_SpawnType = "first";
 Client_PlayerSpawned = false;
 Client_EventArray = []; // Client_EventArray elements contain: ["function_name", [args], priority]
-Client_Inventory = [];
 Client_CustomKeysEnabled = true;
 Client_isMessageBox = false; // Is true when there's a message box open. Helps in stopping loops from running whilst their dialog is not open due to a message.
 Client_VehicleBuyCooldown = time; // Used to limit how often players can buy vehicles. You can buy one every 10 or so seconds. Stops spamming.
-Client_InVehicle = false;
+Client_InVehicle = false; // Used for updating the garbage collector on vehicle interactions.
 Client_Vehicle = objnull;
 
 // TODO delete this and replace with client>server variable update requests system
-Client_tmp_Inventory = [['TestItem', 3], ['TestItem2', 5]];
+//Client_tmp_Inventory = [['TestItem', 3], ['TestItem2', 5]];
 
 // Declare client's commVar
 call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
@@ -82,7 +81,8 @@ finishMissionInit;
 // ---- Gets the player names.
 if (!isServer) then {call MV_Shared_fnc_GetPlayers;};
 
-
+// TODO Remove this before final DEBUG
+[] spawn {while {true} do {hint Server_Health; sleep 0.25;};};
 
 // ---- Create player spawn event
 ["MV_Client_fnc_SpawnPlayer", [], 1] call MV_Client_fnc_AddEvent; 

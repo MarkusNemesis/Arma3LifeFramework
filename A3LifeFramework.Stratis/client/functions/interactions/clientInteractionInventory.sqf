@@ -11,9 +11,10 @@ Desc: Displays and runs the inventory UI
 	2.1 Done via uiNamespace variables set on the events within the dialog.hpp
 */
 disableSerialization;
-private ['_fNo', '_iArray', '_infoArr', '_bool'];
+private ['_fNo', '_iArray', '_infoArr', '_bool', '_pInv'];
 _fNo = diag_frameno;
-_iArray = [["Money", player getVariable "Money"]]; {_iArray set [count _iArray, _x]} foreach Client_tmp_Inventory; // TODO remove and replace with return value from server.
+_pInv = player getVariable "Inventory";
+_iArray = [["Money", player getVariable "Money"]]; {_iArray set [count _iArray, _x]} foreach _pInv; // TODO Work out a better way to put the money before the rest of the array.
 // -- Display Dialog
 _bool = createDialog "ui_inventory";
 
@@ -27,6 +28,8 @@ lbSetCurSel [2001, 0];
 
 // -- Predefine uiNamespace variables.
 uiNamespace setVariable ['inventory_lbxSelChanged', true];
+uiNamespace setVariable ['inventory_cmdUse', false];
+uiNamespace setVariable ['inventory_cmdDrop', false];
 //
 while {!isnull (findDisplay 1410)} do
 {
@@ -37,16 +40,35 @@ while {!isnull (findDisplay 1410)} do
 			// -- Set the text inside the infobox with handy information of the selected item.
 			_infoArr = [(_iArray select (lbCurSel 2001)) select 0] call MV_Shared_fnc_GetItemInformation;
 			if (count _infoArr > 0) then
-			{// TODO Localise these text values.
+			{
 				private ['_iDesc', '_iUnits', '_estVal', '_sTxt'];
-				_iDesc = parseText format ["Description:<br />%1<br />", _infoArr select 5];
-				_iUnits = parseText format ["m3:<br />%1<br />",_infoArr select 1];
-				_estVal = parseText format ["Approx. Value/unit:<br />%1<br />",_infoArr select 2];
+				_iDesc = parseText format ["%1:<br />%2<br />", localize "STR_MV_DG_DESC",_infoArr select 5];
+				_iUnits = parseText format ["%1:<br />%2<br />", localize "STR_MV_DG_VOLUME", _infoArr select 1];
+				_estVal = parseText format ["%1:<br />%2<br />", localize "STR_MV_DG_APPROXVALUE", _infoArr select 2];
 				
 				_sTxt = composeText [_iUnits, _estVal, _iDesc];
 				((findDisplay 1410) displayctrl 2003) ctrlSetStructuredText _sTxt;
 			};
 			uiNamespace setVariable ['inventory_lbxSelChanged', false];
+		};
+		
+		if (uiNamespace getVariable 'inventory_cmdUse') then
+		{
+			private ['_iSel', '_iInfo', '_iName', '_qty'];
+			uiNamespace setVariable ['inventory_cmdUse', false];
+			// -- Get the item index
+			_iSel = lbCurSel 2001;
+			// -- Get item name, qty
+			_iName = (_iArray select _iSel) select 0;
+			_qty = parseNumber (ctrlText 2006);
+			// -- Validate qty
+			if (_qty <= 0) exitwith
+			{
+				["Error", format [localize "STR_MV_INT_ERRORINVALIDQTY", _qty, _iName]] spawn MV_Client_fnc_int_MessageBox;
+			};
+			
+			// -- Send event to server for the use of this item
+			["UseItem", [netID player ,_iName, _qty]] call MV_Client_fnc_SendServerMessage;
 		};
 		
 		// -- Leave last

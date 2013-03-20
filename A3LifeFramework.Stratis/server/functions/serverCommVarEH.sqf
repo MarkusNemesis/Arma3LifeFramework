@@ -42,4 +42,14 @@ switch (_eType) do
 		private ['_nObj'];
         [objectFromNetID (_vParams select 0)] call MV_Server_fnc_UpdateGarbageObject
 	};
+	
+	case "UseItem":
+	{
+		private ['_pObj', '_itemName', '_qty'];
+		_pObj = objectFromNetId (_vParams select 0);
+		_itemName = _vParams select 1;
+		_qty = _vParams select 2;
+		// TODO serverside inventory validation
+		[_pObj, "UseItemReturn", [true,_itemName, _qty]] call MV_Server_fnc_SendClientMessage;
+	};
 };

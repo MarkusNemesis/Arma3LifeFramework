@@ -33,6 +33,18 @@
       <English>NOTICE: You cannot enter/exit this vehicle, as it is locked</English>
     </Key>
 	
+	<Key ID="STR_MV_INT_ERRORITEMNOUSE">
+      <English>You cannot use the item %1 in this way</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_ERRORINVALIDQTY">
+      <English>You cannot use %1 of item %2. Please use a valid quantity</English>
+    </Key>
+	
+	<Key ID="STR_MV_INT_ERRORNOITEM">
+      <English>You cannot use %1, because you don't have one</English>
+    </Key>
+	
 	<Key ID="STR_MV_INT_HUD_UNLOCK">
       <English>Press L to Unlock</English>
     </Key>
@@ -69,6 +81,18 @@
 	
 	<Key ID="STR_MV_DG_ACTIONS">
       <English>Actions</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_VOLUME">
+      <English>Volume (cc)</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_DESC">
+      <English>Description</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_APPROXVALUE">
+      <English>Approx. Value</English>
     </Key>
 	
   </Package>
