@@ -95,6 +95,10 @@
       <English>Approx. Value</English>
     </Key>
 	
+	<Key ID="STR_MV_DG_BUY">
+      <English>Buy</English>
+    </Key>
+	
   </Package>
   
   

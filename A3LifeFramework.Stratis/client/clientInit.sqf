@@ -42,9 +42,6 @@ Client_VehicleBuyCooldown = time; // Used to limit how often players can buy veh
 Client_InVehicle = false; // Used for updating the garbage collector on vehicle interactions.
 Client_Vehicle = objnull;
 
-// TODO delete this and replace with client>server variable update requests system
-//Client_tmp_Inventory = [['TestItem', 3], ['TestItem2', 5]];
-
 // Declare client's commVar
 call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
 format ["%1_CommVar", Client_PlayerSlotStr] addPublicVariableEventHandler {[_this select 1] call MV_Client_fnc_CommVarEH};

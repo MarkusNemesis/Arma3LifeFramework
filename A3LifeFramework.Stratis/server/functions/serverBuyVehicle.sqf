@@ -43,7 +43,7 @@ _spVeh = createVehicle [_vCName, [7090,5936,0], [], 0, "NONE"];
 _spVeh lock true;
 
 // -- Position the vehicle
-_spVeh setposATL [(_sPos select 0) + (random 5), (_sPos select 1) + (random 5), (_sPos select 2)];
+_spVeh setpos [(_sPos select 0) + (random 5), (_sPos select 1) + (random 5), (_sPos select 2)]; // TODO implement AGL method
 _spVeh setdir (markerdir _spawnMarker);
 
 // -- init vehicle's missionNamespace variable

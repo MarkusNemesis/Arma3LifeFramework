@@ -80,8 +80,10 @@ if (Client_CustomKeysEnabled) then
 	// ---------------- Inventory key [2] ----------------
 	if (_key == 3) then
 	{
-		[] spawn MV_Client_fnc_int_InteractionInventory;
-		_handled = true;
+		if (!dialog) then {
+			[] spawn MV_Client_fnc_int_InteractionInventory;
+			_handled = true;
+		};
 	};
 	
 } else {

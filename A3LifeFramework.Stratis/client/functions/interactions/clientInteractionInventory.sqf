@@ -13,8 +13,9 @@ Desc: Displays and runs the inventory UI
 disableSerialization;
 private ['_fNo', '_iArray', '_infoArr', '_bool', '_pInv'];
 _fNo = diag_frameno;
-_pInv = player getVariable "Inventory";
-_iArray = [["Money", player getVariable "Money"]]; {_iArray set [count _iArray, _x]} foreach _pInv; // TODO Work out a better way to put the money before the rest of the array.
+//_pInv = player getVariable "Inventory";
+//_iArray = [["Money", player getVariable "Money"]]; {_iArray set [count _iArray, _x]} foreach _pInv; // TODO Work out a better way to put the money before the rest of the array.
+_iArray = player getVariable "Inventory";
 // -- Display Dialog
 _bool = createDialog "ui_inventory";
 
@@ -54,15 +55,16 @@ while {!isnull (findDisplay 1410)} do
 		
 		if (uiNamespace getVariable 'inventory_cmdUse') then
 		{
-			private ['_iSel', '_iInfo', '_iName', '_qty'];
+			private ['_iSel', '_iInfo', '_iName', '_qty', '_iArrayEntry'];
 			uiNamespace setVariable ['inventory_cmdUse', false];
 			// -- Get the item index
 			_iSel = lbCurSel 2001;
 			// -- Get item name, qty
 			_iName = (_iArray select _iSel) select 0;
 			_qty = parseNumber (ctrlText 2006);
+			_iArrayEntry = [_iName, _iArray] call MV_Shared_fnc_SearchInventory;
 			// -- Validate qty
-			if (_qty <= 0) exitwith
+			if (_qty <= 0 or _qty > (_iArrayEntry select 1)) exitwith
 			{
 				["Error", format [localize "STR_MV_INT_ERRORINVALIDQTY", _qty, _iName]] spawn MV_Client_fnc_int_MessageBox;
 			};

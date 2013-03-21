@@ -57,6 +57,7 @@ class ui_vehicleStore
 		y = 22.5 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7 * GUI_GRID_W;
 		h = 1.5 * GUI_GRID_H;
+		text = $STR_MV_DG_BUY;
 	};
 	class lblCurrentMoney: MV_LabelRight
 	{

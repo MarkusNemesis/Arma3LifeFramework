@@ -45,11 +45,10 @@ switch (_eType) do
 	
 	case "UseItem":
 	{
-		private ['_pObj', '_itemName', '_qty'];
+		private ['_pObj', '_iName', '_qty'];
 		_pObj = objectFromNetId (_vParams select 0);
-		_itemName = _vParams select 1;
+		_iName = _vParams select 1;
 		_qty = _vParams select 2;
-		// TODO serverside inventory validation
-		[_pObj, "UseItemReturn", [true,_itemName, _qty]] call MV_Server_fnc_SendClientMessage;
+		[_pObj, _iName, _qty] call MV_Server_fnc_ValidateItemUse;
 	};
 };
