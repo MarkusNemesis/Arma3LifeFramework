@@ -52,7 +52,6 @@ class ui_vehicleStore
 	class cmdBuy: MV_Button
 	{
 		idc = 1993;
-		text = "";
 		x = 3 * GUI_GRID_W + GUI_GRID_X;
 		y = 22.5 * GUI_GRID_H + GUI_GRID_Y;
 		w = 7 * GUI_GRID_W;

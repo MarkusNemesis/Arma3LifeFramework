@@ -13,8 +13,6 @@ Desc: Displays and runs the inventory UI
 disableSerialization;
 private ['_fNo', '_iArray', '_infoArr', '_bool', '_pInv'];
 _fNo = diag_frameno;
-//_pInv = player getVariable "Inventory";
-//_iArray = [["Money", player getVariable "Money"]]; {_iArray set [count _iArray, _x]} foreach _pInv; // TODO Work out a better way to put the money before the rest of the array.
 _iArray = player getVariable "Inventory";
 // -- Display Dialog
 _bool = createDialog "ui_inventory";
@@ -55,6 +53,9 @@ while {!isnull (findDisplay 1410)} do
 		
 		if (uiNamespace getVariable 'inventory_cmdUse') then
 		{
+			// -- If the client is already using an item. Error out.
+			if (Client_UsingItem) exitwith {["Error", format [localize "STR_MV_INT_ERRORALREADYUSINGITEM", _iName]] spawn MV_Client_fnc_int_MessageBox;};
+			// -- otherwise, start the 'use' validation process.
 			private ['_iSel', '_iInfo', '_iName', '_qty', '_iArrayEntry'];
 			uiNamespace setVariable ['inventory_cmdUse', false];
 			// -- Get the item index
@@ -68,7 +69,6 @@ while {!isnull (findDisplay 1410)} do
 			{
 				["Error", format [localize "STR_MV_INT_ERRORINVALIDQTY", _qty, _iName]] spawn MV_Client_fnc_int_MessageBox;
 			};
-			
 			// -- Send event to server for the use of this item
 			["UseItem", [netID player ,_iName, _qty]] call MV_Client_fnc_SendServerMessage;
 		};

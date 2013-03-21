@@ -29,4 +29,4 @@ _fnc = _iInfo select 4;
 diag_log _fnc;
 
 // -- Call the function for this item, and pass it's arguments.
-call compile format ["[_iName, _qty, _args] call %1", _fnc];
+call compile format ["[_iName, _qty, _args] spawn %1", _fnc];

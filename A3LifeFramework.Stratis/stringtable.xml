@@ -4,59 +4,83 @@
 	
   </Package>
   
-  <Package name="Interactions">
-	<Key ID="STR_MV_INT_INFORMATION">
-      <English>Information</English>
-    </Key>
+	<Package name="Interactions">
+		<Key ID="STR_MV_INT_INFORMATION">
+		  <English>Information</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORCOOLDOWN">
+		  <English>You can only purchase one vehicle every 10 seconds</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORNOSTOCK">
+		  <English>There is not enough of this item in stock</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORNOFUNDS">
+		  <English>You do not have enough money to buy this item</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORSERVER">
+		  <English>Insufficient %1, please try again later</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_VEHPURCHASESUCCESS">
+		  <English>Vehicle Purchase Successful</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORCANNOTEXITLOCKED">
+		  <English>NOTICE: You cannot enter/exit this vehicle, as it is locked</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORITEMNOUSE">
+		  <English>You cannot use the item %1 in this way</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORINVALIDQTY">
+		  <English>You cannot use %1 of item %2. Please use a valid quantity</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORNOITEM">
+		  <English>You cannot use %1, because you don't have one</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_ERRORALREADYUSINGITEM">
+		  <English>You cannot use %1, because you are already using an item.</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_HUD_UNLOCK">
+		  <English>Press L to Unlock</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_HUD_GETIN">
+		  <English>Press E to Get in</English>
+		</Key>
+
+		<Key ID="STR_MV_INT_HUD_SHOP">
+		  <English>Press E to shop</English>
+		</Key>
+	
+	</Package>
   
-	<Key ID="STR_MV_INT_ERRORCOOLDOWN">
-      <English>You can only purchase one vehicle every 10 seconds</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_ERRORNOSTOCK">
-      <English>There is not enough of this item in stock</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_ERRORNOFUNDS">
-      <English>You do not have enough money to buy this item</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_ERRORSERVER">
-      <English>Insufficient %1, please try again later</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_VEHPURCHASESUCCESS">
-      <English>Vehicle Purchase Successful</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_ERRORCANNOTEXITLOCKED">
-      <English>NOTICE: You cannot enter/exit this vehicle, as it is locked</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_ERRORITEMNOUSE">
-      <English>You cannot use the item %1 in this way</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_ERRORINVALIDQTY">
-      <English>You cannot use %1 of item %2. Please use a valid quantity</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_ERRORNOITEM">
-      <English>You cannot use %1, because you don't have one</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_HUD_UNLOCK">
-      <English>Press L to Unlock</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_HUD_GETIN">
-      <English>Press E to Get in</English>
-    </Key>
-	
-	<Key ID="STR_MV_INT_HUD_SHOP">
-      <English>Press E to shop</English>
-    </Key>
-  </Package>
+	<Package name="Items">
+		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDLOCKED">
+		  <English>You cannot repair that vehicle, as it is locked.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDCANNOTREPAIR">
+		  <English>You cannot repair this type of vehicle.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDNOVEHICLE">
+		  <English>You cannot repair nothing. Please look at the vehicle you wish to repair, and try again.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDDISTANCE">
+		  <English>You cannot repair that vehicle, as it is too far away.</English>
+		</Key>
+		
+	</Package>
   
   <Package name="DialogText">
 	<Key ID="STR_MV_DG_INVENTORY">

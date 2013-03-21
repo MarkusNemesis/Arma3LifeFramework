@@ -41,6 +41,7 @@ Client_isMessageBox = false; // Is true when there's a message box open. Helps i
 Client_VehicleBuyCooldown = time; // Used to limit how often players can buy vehicles. You can buy one every 10 or so seconds. Stops spamming.
 Client_InVehicle = false; // Used for updating the garbage collector on vehicle interactions.
 Client_Vehicle = objnull;
+Client_UsingItem = false;
 
 // Declare client's commVar
 call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
