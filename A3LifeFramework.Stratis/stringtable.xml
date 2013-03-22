@@ -80,6 +80,10 @@
 		  <English>You cannot repair that vehicle, as it is too far away.</English>
 		</Key>
 		
+		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDINTERRUPTED">
+		  <English>You fail to repair the vehicle, as you were interrupted.</English>
+		</Key>
+		
 	</Package>
   
   <Package name="DialogText">

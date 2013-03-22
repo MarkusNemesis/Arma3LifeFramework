@@ -25,7 +25,9 @@ MV_Server_fnc_GetPlayerFunds = Compile preprocessFileLineNumbers "Server\functio
 MV_Server_fnc_SetPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverSetPlayerFunds.sqf";
 MV_Server_fnc_AdjustStoreStock = Compile preprocessFileLineNumbers "Server\functions\serverAdjustStoreStock.sqf";
 MV_Server_fnc_SendClientMessage = Compile preprocessFileLineNumbers "Server\functions\serverSendClientMessage.sqf";
-MV_Server_fnc_ValidateItemUse = Compile preprocessFileLineNumbers "Server\functions\serverValidateItemUse.sqf";
 
+// -- Item handling
+MV_Server_fnc_ValidateItemUse = Compile preprocessFileLineNumbers "Server\functions\serverValidateItemUse.sqf";
+//MV_Server_fnc_ItemUseEvents = Compile preprocessFileLineNumbers "Server\functions\serverItemUseEvents.sqf"; redacted
 
 //MV_Server_fnc_ = Compile preprocessFileLineNumbers "Server\functions\";

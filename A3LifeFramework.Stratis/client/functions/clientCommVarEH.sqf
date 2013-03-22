@@ -25,6 +25,7 @@ switch (_eType) do
             // -- Purchase was successful, hint to the client.
             hint localize "STR_MV_INT_VEHPURCHASESUCCESS";
             Client_VehicleBuyCooldown = time + 10; // -- Add 10 second cooldown for buying vehicles.
+			player switchMove MV_Shared_ANIMATION_BUY;
         };
     };
 	
@@ -49,4 +50,15 @@ switch (_eType) do
 			[_item, _qty] call MV_Client_fnc_int_InteractionUseItem;
 		};
 	};
+	/*
+	case "UseItemEvent":
+	{
+		private ['_iName', '_action', '_aArgs'];
+		_iName = _vParams select 1;
+		_action = _vParams select 2;
+		_aArgs = _vParams select 3; // -- args like 'qty' etc. and Anything item specific.
+		diag_log format ["MV: clientCommVarEH: UseItemEvent: iName: %1, action: %2, aArgs: %3", _iName, _action, _aArgs];
+		[_iName, _action, _aArgs] call MV_Client_fnc_int_ItemUseEvents;
+	};
+	*/
 };

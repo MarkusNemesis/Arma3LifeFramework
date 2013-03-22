@@ -26,7 +26,7 @@ _iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
 _args = _iInfo select 3;
 _fnc = _iInfo select 4;
 
-diag_log _fnc;
+diag_log format ["MV: clientInteractionUseItem: iName: %1, qty: %2, args: %3, fnc: %4", _iName, _qty, _args, _fnc];
 
 // -- Call the function for this item, and pass it's arguments.
 call compile format ["[_iName, _qty, _args] spawn %1", _fnc];

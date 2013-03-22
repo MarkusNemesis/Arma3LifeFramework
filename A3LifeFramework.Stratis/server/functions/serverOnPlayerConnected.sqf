@@ -78,8 +78,8 @@ else // -- otherwise, they've been here before, so lets pick them back up where 
 // -- Init player's inventory as empty. They've joined so thus have lost whatever they had before.
 private ['_iMoney'];
 _iMoney = [_uid, "Money"] call MV_Server_fnc_GetMissionVariable select 0;
-[_uid, ["Inventory", [["Money", _iMoney]]]] call MV_Server_fnc_SetMissionVariable;
-_pObj setVariable ["Inventory", [["Money", _iMoney]], true];
+[_uid, ["Inventory", [["Money", _iMoney], ["Light Repair Kit", 5]]]] call MV_Server_fnc_SetMissionVariable;
+_pObj setVariable ["Inventory", [["Money", _iMoney], ["Light Repair Kit", 5]], true];
 //
 _pObj setvehicleinit "this enablesimulation true; this allowdamage true;";
 processinitcommands;

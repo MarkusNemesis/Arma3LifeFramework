@@ -14,7 +14,7 @@ _qty = _this select 2;
 _return = false;
 
 _pInventory = [getPlayerUID _pObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
-diag_log _pInventory;
+//diag_log _pInventory;
 _itemArray = [_iName, _pInventory] call MV_Shared_fnc_SearchInventory;
 // -- If not found in inventory
 if (count _itemArray == 0) exitwith {[_pObj, "UseItemReturn", [false , 'i', _iName]] call MV_Server_fnc_SendClientMessage;};

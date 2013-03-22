@@ -3,6 +3,9 @@ for as long as the following terms are met:
 0. All author attributions are left intact.
 1. Parties who modify this package do not take credit for it's entirety. 
 2. Contents are not used for any commercial or military implementation.
+3. Contents are not modified to a degree that run-time performance 
+is degraded to that of 50% less than original implementation, causing
+defamation to original author.
 
 End of Terms
 

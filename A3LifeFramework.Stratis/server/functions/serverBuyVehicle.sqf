@@ -72,5 +72,8 @@ _pObj setVariable ["KeyChain", _kChain, true];
 // -- Add the vehicle to the collector. It'll be by default assigned 30 minutes before it despawns. This delay is updated every time a user gets in or out of the vehicle
 [_spVeh] call MV_Server_fnc_AddGarbage;
 
+// -- Set the vehicle to be owned by the player who bought it.
+//_spVeh setOwner (owner _pObj);
+
 // -- Send client success message
 [_pObj, "BuyVehicleReturn", [true]] call MV_Server_fnc_SendClientMessage;
