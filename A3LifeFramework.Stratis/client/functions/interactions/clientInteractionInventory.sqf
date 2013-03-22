@@ -53,11 +53,11 @@ while {!isnull (findDisplay 1410)} do
 		
 		if (uiNamespace getVariable 'inventory_cmdUse') then
 		{
+			uiNamespace setVariable ['inventory_cmdUse', false];
 			// -- If the client is already using an item. Error out.
 			if (Client_UsingItem) exitwith {["Error", format [localize "STR_MV_INT_ERRORALREADYUSINGITEM", _iName]] spawn MV_Client_fnc_int_MessageBox;};
 			// -- otherwise, start the 'use' validation process.
 			private ['_iSel', '_iInfo', '_iName', '_qty', '_iArrayEntry'];
-			uiNamespace setVariable ['inventory_cmdUse', false];
 			// -- Get the item index
 			_iSel = lbCurSel 2001;
 			// -- Get item name, qty

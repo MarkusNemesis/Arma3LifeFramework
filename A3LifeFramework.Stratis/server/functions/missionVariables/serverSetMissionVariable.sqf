@@ -1,4 +1,4 @@
-/* serverSetVariable script
+/* serverSetMissionVariable script
 Created: 19/03/2013
 Author: Markus Davey
 Skype: markus.davey
@@ -22,6 +22,9 @@ _mArray = [];
 // -- Find the array that contains the type of array we're after.
 //diag_log format ["MV: User's varname is: %1", _mVarName];
 _mArray = missionNamespace getVariable _mVarName;
+
+if (isnil "_mArray") exitwith {diag_log format ["MV: serverSetMissionVariable: ERROR: %1 has no missionVar. Args: %2", _ID, _args];};
+
 {
 	if ((_x select 0) == (_args select 0)) exitwith 
 	{

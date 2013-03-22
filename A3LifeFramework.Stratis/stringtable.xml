@@ -84,6 +84,10 @@
 		  <English>You fail to repair the vehicle, as you were interrupted.</English>
 		</Key>
 		
+		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDINVALIDKIT">
+		  <English>This repair kit is too simple for this kind vehicle.</English>
+		</Key>
+		
 	</Package>
   
   <Package name="DialogText">

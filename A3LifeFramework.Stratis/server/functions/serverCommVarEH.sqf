@@ -54,6 +54,13 @@ switch (_eType) do
 		[_pObj, _iName, _qty] call MV_Server_fnc_ValidateItemUse;
 	};
 	
+	case "RemoveItem":
+	{
+		private ['_pObj', '_iName', '_qty'];
+		_pObj = objectFromNetId (_vParams select 0);
+		[_pObj, _iName, _qty] call MV_Server_fnc_RemoveInventoryItem;
+	};
+	
 	/* -- Called when an item is wanting to do an action, ie, 'repair' or 'stun' etc. Validates item ownership before execution.
 	case "UseItemEvent":
 	{
