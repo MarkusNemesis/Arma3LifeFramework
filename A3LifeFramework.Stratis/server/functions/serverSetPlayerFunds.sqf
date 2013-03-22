@@ -20,5 +20,5 @@ _iInv = [getPlayerUID _pObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 	};
 } foreach _iInv;
 
-[_this select 0, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
+[getPlayerUID _pObj, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
 _pObj setVariable ["Inventory", _iInv, true];

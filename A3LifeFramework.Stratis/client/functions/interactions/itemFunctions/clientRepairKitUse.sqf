@@ -19,6 +19,8 @@ _rAmount = _args select 1;
 _rTime = _args select 2;
 _rTarg = cursorTarget;
 
+if (_qty > 1) then {_qty = 1}; // -- Limit Qty to 1, as you only use one at a time.
+
 // -- Is it a vehicle?
 if (!(_rTarg isKindOf "LandVehicle" or _rTarg isKindOf "Air" or _rTarg isKindOf "Ship")) exitwith {["Error", localize "STR_MV_ITEM_REPAIRKITFAILEDNOVEHICLE"] spawn MV_Client_fnc_int_MessageBox; Client_UsingItem = false;};
 
@@ -34,7 +36,7 @@ _vInfo = [typeof _rTarg] call MV_Shared_fnc_GetVehicleArrayInfo;
 if (count _vInfo == 0 or !(_rTarg getVariable "isInteractable")) exitwith {["Error", localize "STR_MV_ITEM_REPAIRKITFAILEDCANNOTREPAIR"] spawn MV_Client_fnc_int_MessageBox; Client_UsingItem = false;};
 
 // -- Is this kit large enough?
-if ((_vInfo select 2) > _repairScale) exitwith {["Error", localize "STR_MV_ITEM_REPAIRKITFAILEDINVALIDKIT"] spawn MV_Client_fnc_int_MessageBox; Client_UsingItem = false;};
+if ((_vInfo select 3) > _repairScale) exitwith {["Error", localize "STR_MV_ITEM_REPAIRKITFAILEDINVALIDKIT"] spawn MV_Client_fnc_int_MessageBox; Client_UsingItem = false;};
 
 // -- It's in range, it's a vehicle, it's unlocked, you have a valid kit and the vehicle is in the vehicle array. So repair it!
 private ['_eTime', '_fNo', '_anim'];

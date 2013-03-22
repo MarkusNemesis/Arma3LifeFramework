@@ -9,18 +9,18 @@ Example: [_pObj, "Money", _qty] call MV_Server_fnc_RemoveInventoryItem;
 */
 
 private ['_pObj', '_iName', '_qty', '_iInv', '_id'];
-_id = (_this select 0);
-_pObj = objectFromNetId _id;
+_pObj = _this select 0;
 _iName = _this select 1;
 _qty = _this select 2;
-
+_id = 0;
 if (_qty < 1) then {_qty = 1;};
-
 // -- Get the object's inventory.
+
 if (isPlayer _pObj) then {
 	_id = getPlayerUID _pObj;
 	_iInv = [getPlayerUID _pObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 } else {
+	_id = netID _pObj;
 	_iInv = [(_this select 0), "Inventory"] call MV_Server_fnc_GetMissionVariable;
 };
 
@@ -40,5 +40,5 @@ if (isPlayer _pObj) then {
 	};
 } foreach _iInv;
 
-[_id select 0, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
-_pObj setVariable ["Inventory", _iInv];
+[_id, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
+_pObj setVariable ["Inventory", _iInv, true];

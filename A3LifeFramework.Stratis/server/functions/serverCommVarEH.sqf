@@ -58,6 +58,8 @@ switch (_eType) do
 	{
 		private ['_pObj', '_iName', '_qty'];
 		_pObj = objectFromNetId (_vParams select 0);
+		_iName = _vParams select 1;
+		_qty = _vParams select 2;
 		[_pObj, _iName, _qty] call MV_Server_fnc_RemoveInventoryItem;
 	};
 	
