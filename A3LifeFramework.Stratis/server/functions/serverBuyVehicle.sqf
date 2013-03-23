@@ -5,12 +5,6 @@ Skype: markus.davey
 Desc: Manages the charging, creation and initialisation of client bought vehicles.
 */
 //[_vCName, _vPrice, _sPos, _sObj, _playerSlot];
-/*
-1. Deduct price from player's 'money' variable. x
-2. Update store's stock level. create function "serverUpdateStoreArray" which reimposes the entire array (Dirty, but maintains indexes etc).
-3. 
-4. 
-*/
 private ['_vCName', '_vPrice', '_sObj', '_pObj', '_spawnMarker', '_sStock'];
 
 _vCName = _this select 0;
@@ -39,11 +33,12 @@ if (!_sStock) exitwith {
 // -- Spawn the vehicle! Spawns on the store's spawn marker.
 private ['_spVeh', '_sPos', '_kChain', '_vNID'];
 _sPos = (getmarkerpos _spawnMarker); //findemptyposition[0, 3, _vCName];
-_spVeh = createVehicle [_vCName, [7090,5936,0], [], 0, "NONE"];
+_spVeh = createVehicle [_vCName, _sPos, [], 0, "CAN_COLLIDE"];
+//_spVeh = createVehicle [_vCName, [7090,5936,0], [], 0, "CAN_COLLIDE"];
 _spVeh lock true;
 
 // -- Position the vehicle
-_spVeh setpos [(_sPos select 0) + (random 5), (_sPos select 1) + (random 5), (_sPos select 2)]; // TODO implement AGL method
+//_spVeh setpos [(_sPos select 0) + (random 5), (_sPos select 1) + (random 5), (_sPos select 2)]; // TODO implement AGL method
 _spVeh setdir (markerdir _spawnMarker);
 
 // -- init vehicle's missionNamespace variable

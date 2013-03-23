@@ -54,6 +54,25 @@ switch (_eType) do
 		[_pObj, _iName, _qty] call MV_Server_fnc_ValidateItemUse;
 	};
 	
+	case "DropItem":
+	{
+		private ['_Obj', '_iName', '_qty'];
+		_Obj = objectFromNetId (_vParams select 0);
+		_iName = _vParams select 1;
+		_qty = _vParams select 2;
+		[_Obj, _iName, _qty] call MV_Server_fnc_DropItem;
+	};
+	
+	case "TransferItem":
+	{
+		private ['_Obj', '_iName', '_qty', '_pileObj'];
+		_Obj = objectFromNetId (_vParams select 0);
+		_iName = _vParams select 1;
+		_qty = _vParams select 2;
+		_pileObj = objectFromNetId (_vParams select 3);
+		[_Obj, _iName, _qty, _pileObj] call MV_Server_fnc_TransferItem;
+	};
+	
 	case "RemoveItem":
 	{
 		private ['_pObj', '_iName', '_qty'];

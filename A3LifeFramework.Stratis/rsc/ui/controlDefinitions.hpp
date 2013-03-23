@@ -93,6 +93,12 @@ class MV_LabelRight : MV_Label
 	style = ST_RIGHT;
 };
 
+class MV_LabelCentre : MV_Label
+{
+	idc = -1;
+	style = ST_CENTER;
+};
+
 class MV_title_InteractText : RscText
 {
 	idc = -1;

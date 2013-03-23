@@ -30,6 +30,9 @@ MV_Server_fnc_SendClientMessage = Compile preprocessFileLineNumbers "Server\func
 MV_Server_fnc_ValidateItemUse = Compile preprocessFileLineNumbers "Server\functions\serverValidateItemUse.sqf";
 //MV_Server_fnc_ItemUseEvents = Compile preprocessFileLineNumbers "Server\functions\serverItemUseEvents.sqf"; redacted
 MV_Server_fnc_RemoveInventoryItem = Compile preprocessFileLineNumbers "Server\functions\serverRemoveInventoryItem.sqf";
+MV_Server_fnc_DropItem = Compile preprocessFileLineNumbers "Server\functions\serverDropItem.sqf";
+MV_Server_fnc_TransferItem = Compile preprocessFileLineNumbers "Server\functions\serverTransferItem.sqf";
+MV_Server_fnc_AddInventoryItem = Compile preprocessFileLineNumbers "Server\functions\serverAddInventoryItem.sqf";
 
 
 //MV_Server_fnc_ = Compile preprocessFileLineNumbers "Server\functions\";

@@ -1,11 +1,11 @@
-/* serverRemoveInventoryItem script
-Created: 22/03/2013
+/* serverAddInventoryItem script
+Created: 24/03/2013
 Author: Markus Davey
 Skype: markus.davey
-Desc: Removes an item + specified quantity from a user's inventory.
+Desc: Adds an item + specified quantity from a user's inventory.
 Params: [User, item, quantity]
 Return: null
-Example: [_pObj, "Money", _qty] call MV_Server_fnc_RemoveInventoryItem;
+Example: [_pObj, "Money", _qty] call MV_Server_fnc_AddInventoryItem;
 */
 
 private ['_pObj', '_iName', '_qty', '_iInv', '_id'];
@@ -25,20 +25,21 @@ if (isPlayer _pObj) then {
 };
 
 // -- Find the entry in the inventory.
+private ['_found'];
+_found = false;
 {
 	if (_iName == _x select 0) exitwith { // -- Item found
 		private ['_cQty'];
 		_cQty = _x select 1;
-		// -- If we have more than what we're subtracting, then update the entry.
-		if (_cQty > _qty) then {
-			_x set [1, _cQty - _qty];
-		} else { // Else remove the entry.
-			if ((_cQty - _qty) < 0) then {diag_log format ["MV: serverRemoveInventoryItem: ADMIN NOTICE: Player/Object %1 just removed more of item %2 than they had.", _pObj, _iName];};
-			_iInv set [_foreachindex, objnull];
-			_iInv = _iInv - [objnull];
-		};
+		_x set [1, _cQty + _qty];
+		_found = true;
 	};
 } foreach _iInv;
+
+if (!_found) then // -- Item wasn't found, so add it to the array.
+{
+	_iInv set [count _iInv, [_iName, _qty]];
+};
 
 [_id, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
 _pObj setVariable ["Inventory", _iInv, true];

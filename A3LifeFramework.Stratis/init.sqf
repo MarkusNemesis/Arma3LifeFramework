@@ -9,7 +9,7 @@ Return:
 
 Client_InitComplete = false;
 Server_InitComplete = false;
-
+enableEnvironment false;
 if (isServer) then 
 {
     execVM "server\serverInit.sqf"; 

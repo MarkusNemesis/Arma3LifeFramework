@@ -49,6 +49,18 @@
 		  <English>You cannot use %1, because you are already using an item.</English>
 		</Key>
 
+		<Key ID="STR_MV_INT_ERRORDROPNOITEM">
+		  <English>You cannot drop %1, because you either don't have one, or you don't have %2 of it to drop.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_ERRORDROPINVALIDQTY">
+		  <English>You cannot drop %1 of item %2. Please use a valid quantity</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_ERRORPILENOVOL">
+		  <English>You cannot drop %1 of item %2, because it cannot fit in the pile.</English>
+		</Key>
+		
 		<Key ID="STR_MV_INT_HUD_UNLOCK">
 		  <English>Press L to Unlock</English>
 		</Key>
@@ -131,6 +143,18 @@
       <English>Buy</English>
     </Key>
 	
+	<Key ID="STR_MV_DG_TOINVENTORY">
+      <English>&lt;- To Inventory</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_TOPILE">
+      <English>To Pile -&gt;</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_PILE">
+      <English>Pile</English>
+    </Key>
+
   </Package>
   
   

@@ -3,15 +3,10 @@ Created: 20/03/2013
 Author: Markus Davey
 Skype: markus.davey
 Desc: 
+Called by clientCommVarEH, event "UseItemReturn".
+Inventory has been validated by both client and server at this point.
 Return:
-1. Validate Quantity
-2. Send servermessage to install 'use' event into server eventArray.
-3. Server runs event
-	3.1 Checks if user has inventory item
-		3.1.1 If false, send clientMessage "UseItemReturn", [false, "i", 'itemName']. Displays error messagebox about lacking the item.
-	3.2 Checks if user has enough of that item
-		3.2.1 If false, send clientMessage "UseItemReturn", [false, "q", 'itemName', qty]. Displays error messagebox about insufficient quantity.
-4. Sends clientMessage "UseItemReturn", [true, "itemName", qty]
+Params: ['_iName', '_qty'];
 */
 diag_log format ["MV: clientInteractionUseItem: %1", _this];
 private ['_iName', '_qty', '_iInfo', '_args', '_fnc'];

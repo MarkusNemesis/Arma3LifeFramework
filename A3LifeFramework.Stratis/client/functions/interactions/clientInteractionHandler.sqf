@@ -43,4 +43,10 @@ switch (_iType) do
 			};
 		};
     };
+	
+	case "typePile":
+	{
+		// -- Open ui_inventoryPileInteract
+		[_iObj] spawn MV_Client_fnc_int_PileInventory;
+	};
 }; //End switch

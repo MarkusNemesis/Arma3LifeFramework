@@ -13,6 +13,8 @@ MV_Shared_fnc_VehicleGetPrice = Compile preprocessFileLineNumbers "shared\functi
 MV_Shared_fnc_GetItemInformation = Compile preprocessFileLineNumbers "shared\functions\sharedGetItemInformation.sqf";
 MV_Shared_fnc_SearchInventory = Compile preprocessFileLineNumbers "shared\functions\sharedSearchInventory.sqf";
 MV_Shared_fnc_GetVehicleArrayInfo = Compile preprocessFileLineNumbers "shared\functions\sharedGetVehicleArrayInfo.sqf";
+MV_Shared_fnc_InventoryHasItem = Compile preprocessFileLineNumbers "shared\functions\sharedInventoryHasItem.sqf";
+MV_Shared_fnc_GetCurrentInventoryVolume = Compile preprocessFileLineNumbers "shared\functions\sharedGetCurrentInventoryVolume.sqf";
 
 
 // MV_Shared_fnc_ = Compile preprocessFileLineNumbers "shared\functions\";

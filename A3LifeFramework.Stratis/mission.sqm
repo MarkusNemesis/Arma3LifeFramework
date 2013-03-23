@@ -925,8 +925,8 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={2139.5686,8.7197113,5363.6841};
-					azimut=184.317;
+					position[]={5014.5356,208.19591,5895.3877};
+					azimut=361.00439;
 					id=46;
 					side="WEST";
 					vehicle="B_Soldier_F";
@@ -945,7 +945,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={2829.1,0.00136685,6021.15}; // [2829.1,6021.15,0.00136685]
+					position[]={2829.1001,0.00136685,6021.1499};
 					azimut=-82.652641;
 					id=47;
 					side="CIV";
@@ -983,8 +983,8 @@ class Mission
 		};
 		class Item2
 		{
-			position[]={2140.8347,8.7216167,5367.3535};
-			azimut=451.61169;
+			position[]={5014.4946,208.07176,5890.6294};
+			azimut=359.54373;
 			id=50;
 			side="EMPTY";
 			vehicle="B_Hunter_F";
@@ -1034,10 +1034,10 @@ class Mission
 		};
 		class Item5
 		{
-			position[]={2148,9.5,5342};
-			name="Spawn_BLU"; //[2148.04,5342.13,9.47173]
+			position[]={4986.5698,208.39815,5916.6401};
+			name="Spawn_BLU";
 			type="Empty";
-			angle=4.9627328;
+			angle=-31.300323;
 		};
 		class Item6
 		{
@@ -1048,14 +1048,14 @@ class Mission
 		};
 		class Item7
 		{
-			position[]={2151.7158,8.7299995,5366.0112};
+			position[]={5014.5854,208.35701,5900.0015};
 			name="CarStoreCop1_Spawn";
 			type="Empty";
-			angle=4.6634898;
+			angle=454.51553;
 		};
 		class Item8
 		{
-			position[]={2800.66,0,6014.8}; //[2800.66,6014.8,-2.04988]
+			position[]={2800.6599,0,6014.7998};
 			name="BoatStoreCiv1_Spawn";
 			type="Empty";
 		};

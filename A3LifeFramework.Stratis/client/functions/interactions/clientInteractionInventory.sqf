@@ -11,7 +11,7 @@ Desc: Displays and runs the inventory UI
 	2.1 Done via uiNamespace variables set on the events within the dialog.hpp
 */
 disableSerialization;
-private ['_fNo', '_iArray', '_infoArr', '_bool', '_pInv'];
+private ['_fNo', '_iArray', '_infoArr', '_bool'];
 _fNo = diag_frameno;
 _iArray = player getVariable "Inventory";
 // -- Display Dialog
@@ -36,6 +36,7 @@ while {!isnull (findDisplay 1410)} do
 	{
 		if (uiNamespace getVariable "inventory_lbxSelChanged") then
 		{
+			uiNamespace setVariable ['inventory_lbxSelChanged', false];
 			// -- Set the text inside the infobox with handy information of the selected item.
 			_infoArr = [(_iArray select (lbCurSel 2001)) select 0] call MV_Shared_fnc_GetItemInformation;
 			if (count _infoArr > 0) then
@@ -48,7 +49,6 @@ while {!isnull (findDisplay 1410)} do
 				_sTxt = composeText [_iUnits, _estVal, _iDesc];
 				((findDisplay 1410) displayctrl 2003) ctrlSetStructuredText _sTxt;
 			};
-			uiNamespace setVariable ['inventory_lbxSelChanged', false];
 		};
 		
 		if (uiNamespace getVariable 'inventory_cmdUse') then
@@ -69,8 +69,22 @@ while {!isnull (findDisplay 1410)} do
 			{
 				["Error", format [localize "STR_MV_INT_ERRORINVALIDQTY", _qty, _iName]] spawn MV_Client_fnc_int_MessageBox;
 			};
+			closeDialog 0;
 			// -- Send event to server for the use of this item
 			["UseItem", [netID player ,_iName, _qty]] call MV_Client_fnc_SendServerMessage;
+		};
+		
+		if (uiNamespace getVariable 'inventory_cmdDrop') then
+		{
+			uiNamespace setVariable ['inventory_cmdDrop', false];
+			private ['_iSel', '_iInfo', '_iName', '_qty'];
+			// -- Get the item index
+			_iSel = lbCurSel 2001;
+			// -- Get item name, qty
+			_iName = (_iArray select _iSel) select 0;
+			_qty = parseNumber (ctrlText 2006);
+			closeDialog 0;
+			[_iName, _qty] call MV_Client_fnc_int_DropItem;
 		};
 		
 		// -- Leave last

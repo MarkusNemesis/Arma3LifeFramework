@@ -47,7 +47,7 @@ switch (_eType) do
 			_item = _vParams select 1;
 			_qty = _vParams select 2;
 			diag_log format ["%1, %2", _item, _qty];
-			[_item, _qty] call MV_Client_fnc_int_InteractionUseItem;
+			[_item, _qty] call MV_Client_fnc_int_UseItem;
 		};
 	};
 	/*
