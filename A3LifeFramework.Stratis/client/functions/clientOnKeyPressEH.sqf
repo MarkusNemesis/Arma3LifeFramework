@@ -25,7 +25,7 @@ if (Client_CustomKeysEnabled) then
     if (_key == 15 && !_alt) then
     {
         Client_CustomKeysEnabled = false;
-        titleText ["Custom keys Disabled", "PLAIN DOWN", 0.5]; titleFadeOut 2048;
+        titleText ["Custom keys Disabled", "PLAIN DOWN", 0.5]; titleFadeOut 4096;
 		_handled = true;
     };
     
@@ -62,11 +62,11 @@ if (Client_CustomKeysEnabled) then
     if (_key == 38) then
     {
         if (vehicle player == player) then
-		{
-	        [_target] call MV_Client_fnc_int_ToggleVehicleLock;
+		{// -- On foot
+	        [_target, 'key'] call MV_Client_fnc_int_ToggleVehicleLock;
 			_handled = true;
-        } else {
-            [vehicle player] call MV_Client_fnc_int_ToggleVehicleLock;
+        } else { // -- In vehicle.
+            [vehicle player, 'key'] call MV_Client_fnc_int_ToggleVehicleLock;
 			_handled = true;
         };
     };

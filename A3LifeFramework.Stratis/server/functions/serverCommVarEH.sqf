@@ -86,6 +86,32 @@ switch (_eType) do
 		['MV_Server_fnc_RemoveInventoryItem', [_pObj, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
+	case "lockRequest":
+	{
+		private ['_pObj', '_veh', '_lType']; // -- _lType is the 'locking type', be it 'remote' or 'key'. Dictates whether to check for int distance, or remote distance. TODO implement remote locking.
+		_pObj = objectFromNetId (_vParams select 0);
+		_veh = objectFromNetId (_vParams select 1);
+		_lType = _vParams select 2;
+		// -- Check if the player has this vehicle in their keychain.
+		private ['_pChain', '_validDistance'];
+		if (_lType == 'remote') then {_validDistance = REMOTE_KEY_RANGE} else {_validDistance = INT_RANGE};
+		_pChain = [getPlayerUID _pObj, "keychain"] call MV_Server_fnc_GetMissionVariable;
+		if ((_vParams select 1) in _pChain) then
+		{
+			if (_pObj distance _veh > _validDistance) exitwith {}; // -- User is too far away from vehicle to interact with it.
+			if (_lType == 'remote') then {
+				// -- Remote lock code here.
+			};
+			if (local _veh) then { // -- Vehicle is local to the server, unlock it.
+				if (locked _veh > 1) then {_veh lock false;} else {_veh lock true;};
+			} else { // -- Send CommVar message to vehicle owner to unlock the vehicle.
+				[_veh, "silentLock", [netID _veh]] call MV_Server_fnc_SendClientMessage;
+			};
+			// -- Send message to unlock request client that the vehicle is now un/locked.
+			[_pObj, "lockReturn", [netID _veh]] call MV_Server_fnc_SendClientMessage;
+		};
+	};
+	
 	/* -- Called when an item is wanting to do an action, ie, 'repair' or 'stun' etc. Validates item ownership before execution.
 	case "UseItemEvent":
 	{

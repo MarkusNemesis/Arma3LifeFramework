@@ -62,7 +62,7 @@ while {!isnull (findDisplay 1410)} do
 			_iSel = lbCurSel 2001;
 			// -- Get item name, qty
 			_iName = (_iArray select _iSel) select 0;
-			_qty = parseNumber (ctrlText 2006);
+			_qty = round parseNumber (ctrlText 2006);
 			_iArrayEntry = [_iName, _iArray] call MV_Shared_fnc_SearchInventory;
 			// -- Validate qty
 			if (_qty <= 0 or _qty > (_iArrayEntry select 1)) exitwith
@@ -82,7 +82,7 @@ while {!isnull (findDisplay 1410)} do
 			_iSel = lbCurSel 2001;
 			// -- Get item name, qty
 			_iName = (_iArray select _iSel) select 0;
-			_qty = parseNumber (ctrlText 2006);
+			_qty = round parseNumber (ctrlText 2006);
 			closeDialog 0;
 			[_iName, _qty] call MV_Client_fnc_int_DropItem;
 		};

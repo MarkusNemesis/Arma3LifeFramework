@@ -59,12 +59,12 @@ switch (_eType) do
 		if (!_valid) then
 		{ // -- Transfer failed.
 			if (_reason == 'q' or _reason == 'i') exitwith {["Error", format [localize "STR_MV_INT_ERRORPILENOITEM", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
-			if (_reason == 'v') exitwith {["Error", format [localize "STR_MV_INT_ERRORPILENOVOL", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
+			if (_reason == 'v') exitwith {["Error", format [localize "STR_MV_INT_ERRORSTORAGENOVOL", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
 			if (_reason == 'ni') exitwith {["Error", format [localize "STR_MV_INT_ERRORPILENOINVENTORY"]] spawn MV_Client_fnc_int_MessageBox;};
 		}
 		else
 		{ // -- Succeeded.
-			uiNamespace setVariable ["inventoryPile_updateLists", true]; // [true , _iName, _qty, netID _objA, netid _ObjB]
+			uiNamespace setVariable ["inventoryStorage_updateLists", true]; // [true , _iName, _qty, netID _objA, netid _ObjB]
 			private ['_iName', '_qty', '_objA', '_objB'];
 			_iName = _vParams select 1;
 			_qty = _vParams select 2;
@@ -74,6 +74,24 @@ switch (_eType) do
 			if ((typeOf _objA) == MV_Shared_DROPPILECLASS) then {_objA = "Item Pile"} else {_objA = name _objA;};
 			if ((typeOf _objB) == MV_Shared_DROPPILECLASS) then {_objB = "Item Pile"} else {_objB = name _objB;};
 			systemChat format [localize "STR_MV_INT_SUCCESSPILETRANSFER",_qty, _iName, _objA, _objB];
+		};
+	};
+	
+	case "silentLock":
+	{ // -- Called when the server wants to unlock a vehicle that is within this user's locality.
+		private ['_veh'];
+		_veh = objectFromNetId (_vParams select 0);
+		if (locked _veh > 1) then {_veh lock false;} else {_veh lock true;};
+	};
+	
+	case "lockReturn":
+	{ // -- Called when the server wants to unlock a vehicle that is within this user's locality.
+		private ['_veh'];
+		_veh = objectFromNetId (_vParams select 0);
+		if (locked _veh > 1) then {
+			systemchat format ["MV: %1 Unlocked", typeof _veh];
+		} else {
+			systemchat format ["MV: %1 Locked", typeof _veh]; 
 		};
 	};
 	

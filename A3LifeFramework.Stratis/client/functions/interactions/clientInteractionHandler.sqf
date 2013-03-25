@@ -28,7 +28,8 @@ switch (_iType) do
     
     // Unlock vehicle
     case "typeVehicle":
-    {
+    {	
+		// -- Todo make support for vehicle inventories. :S
         //diag_log "Attempting to enter vehicle";
         if (locked _iObj > 1) exitwith {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED"}; // notify the player that the vehicle is locked
 		if (_iObj emptyPositions "Driver" > 0) then
@@ -46,7 +47,7 @@ switch (_iType) do
 	
 	case "typePile":
 	{
-		// -- Open ui_inventoryPileInteract
-		[_iObj] spawn MV_Client_fnc_int_PileInventory;
+		// -- Open ui_inventoryStorageInteract
+		[_iObj] spawn MV_Client_fnc_int_StorageInventory;
 	};
 }; //End switch

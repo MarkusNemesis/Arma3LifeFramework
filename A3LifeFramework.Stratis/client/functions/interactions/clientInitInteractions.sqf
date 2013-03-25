@@ -16,7 +16,7 @@ MV_Client_fnc_int_Inventory = Compile preprocessFileLineNumbers "client\function
 MV_Client_fnc_int_UseItem = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionUseItem.sqf";
 //MV_Client_fnc_int_ItemUseEvents = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionItemUseEvents.sqf"; redacted
 MV_Client_fnc_int_DropItem = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionDropItem.sqf";
-MV_Client_fnc_int_PileInventory = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionPileInventory.sqf";
+MV_Client_fnc_int_StorageInventory = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionStorageInventory.sqf";
 
 
 // MV_Client_fnc_int_ = Compile preprocessFileLineNumbers "client\functions\interactions\";

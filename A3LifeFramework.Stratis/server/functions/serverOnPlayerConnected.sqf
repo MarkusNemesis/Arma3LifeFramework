@@ -51,11 +51,13 @@ if (!_found) then // -- If the player has connected for the first time this roun
     _pObj setVariable ["Money", MV_Params_GPStartFunds, true];
     _pObj setVariable ["BankMoney", 0, true];
     _pObj setVariable ["KeyChain", [], true];
+	_pObj setVariable ["storageVolume", MV_Shared_PLAYERVOLUME, true];
 	
     // -- Serverside values
 	[_uid, ["Money", [MV_Params_GPStartFunds]]] call MV_Server_fnc_SetMissionVariable;
 	[_uid, ["BankMoney", [0]]] call MV_Server_fnc_SetMissionVariable;
 	[_uid, ["KeyChain", []]] call MV_Server_fnc_SetMissionVariable;
+	[_uid, ["storageVolume", [MV_Shared_PLAYERVOLUME]]] call MV_Server_fnc_SetMissionVariable;
 	
 	/*
 	[_uid, []] call MV_Server_fnc_SetMissionVariable;

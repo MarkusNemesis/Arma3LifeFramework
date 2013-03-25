@@ -24,5 +24,7 @@ MV_Client_fnc_RespawnEH = Compile preprocessFileLineNumbers "client\functions\cl
 MV_Client_fnc_HitEH = Compile preprocessFileLineNumbers "client\functions\clientHitEH.sqf";
 MV_Client_fnc_OnKeyPressEH = Compile preprocessFileLineNumbers "client\functions\clientOnKeyPressEH.sqf";
 MV_Client_fnc_CommVarEH = Compile preprocessFileLineNumbers "client\functions\clientCommVarEH.sqf";
+MV_Client_fnc_PublicCommVarEH = Compile preprocessFileLineNumbers "client\functions\clientPublicCommVarEH.sqf";
+
 
 // MV_Client_fnc_ = Compile preprocessFileLineNumbers "client\functions\";

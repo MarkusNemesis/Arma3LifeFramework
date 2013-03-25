@@ -25,6 +25,7 @@ CIV_PLAYERCOUNT = 35;
 
 // -- Interaction range
 INT_RANGE = 4;
+REMOTE_KEY_RANGE = 20;
 
 MV_Shared_PLAYERVOLUME = 25000; // -- 25,000 cc
 MV_Shared_PILEVOLUME = 100000; // -- 100,000 cc

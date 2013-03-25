@@ -5,7 +5,6 @@ Skype: markus.davey
 Desc: Handles the dropping of items. Called by the serverCommVarEH, under event 'DropItem'.
 1. Checks if user has the item and the qty wanting to be dropped.
 2. Creates the 'pile' object.
-	2.1 If there's already a pile that isn't full within interact range of the player, then put the items in that.
 3. Sets the pile to be interactable
 4. Set the pile's inventory.
 Params: [_Obj, _iName, _qty]
@@ -37,6 +36,8 @@ if (!isnil "_pInv") then
 		_Pile setVariable ['isInteractable', true, true];
 		_Pile setVariable ['interactType', "typePile", true];
 		_Pile setVariable ['Inventory', [[_iName, _qty]], true];
+		_Pile setVariable ['storageVolume', MV_Shared_PILEVOLUME, true];
+		
 		// -- Set server missionNamespace variables
 		private ['_pID'];
 		_pID = netID _Pile;
@@ -44,6 +45,7 @@ if (!isnil "_pInv") then
 		[_pID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
 		[_pID, ["interactType", ['typePile']]] call MV_Server_fnc_SetMissionVariable;
 		[_pID, ["Inventory", [[_iName, _qty]]]] call MV_Server_fnc_SetMissionVariable;
+		[_pID, ["storageVolume", [MV_Shared_PILEVOLUME]]] call MV_Server_fnc_SetMissionVariable;
 		
 		// -- Set vehicle init.
 		_Pile setvehicleinit "this allowDamage false;";

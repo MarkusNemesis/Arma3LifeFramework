@@ -57,7 +57,7 @@
 		  <English>You cannot drop %1 of item %2. Please use a valid quantity</English>
 		</Key>
 		
-		<Key ID="STR_MV_INT_ERRORPILENOVOL">
+		<Key ID="STR_MV_INT_ERRORSTORAGENOVOL">
 		  <English>You cannot transfer %1 of item %2, because it cannot fit.</English>
 		</Key>
 		

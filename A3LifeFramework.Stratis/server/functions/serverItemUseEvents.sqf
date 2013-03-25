@@ -37,26 +37,12 @@ switch (_action) do
 		
 		if (!local _rVeh) exitwith {
 			// -- Repair needs locality, so thus, off to the client it goes. 
-			["UseItemEvent", [netID player, _iName, _action, _aArgs]] call MV_Client_fnc_SendServerMessage;
+			["UseItemEvent", [_rVeh, _iName, _action, _aArgs]] call MV_Server_fnc_SendClientMessage;
 		}; // ELSE the server does it here and now.
 		
 		// -- Get item info to get repair arguments.
 		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
-		// -- Apply repair to vehicle. Repairs 'hitEngine' and 'hitFuel' to half. Checks if those values are < .5, if so, left alone. Replaces all wheels.
-		_rCoverage = (_iInfo select 3) select 1;
-		_rLvl = 1 - _rCoverage;
-		_rParts = [];
-		// -- _rCoverage dictates the level of repair that the vehicle will get, per part, as well as the number of parts repaired.
-		if (_rCoverage >= 0.1) then {_rParts = _rParts + ["LBWHEEL", "LFWHEEL", "RFWHEEL", "RBWHEEL"];};
-		if (_rCoverage >= 0.25) then {_rParts = _rParts + ["Fuel","Engine"];};
-		// -- Set vehicle to be owned by the server.
-		{
-			private ['_p'];
-			_p = format ['Hit%1', _x];
-			if ((_rVeh getHitPointDamage _p) > _rCoverage) then
-			{
-				_rVeh setHitPointDamage [_p, (_rLvl)];
-			};
-		} foreach _rParts;
+		// -- Call the repair function.
+		[(_iInfo select 3) select 1, _rVeh] call MV_Shared_fnc_ItemRepairVehicle;
 	};
 };

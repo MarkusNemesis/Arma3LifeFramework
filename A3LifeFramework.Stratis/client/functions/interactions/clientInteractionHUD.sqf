@@ -30,6 +30,7 @@ if (_cTarg getVariable "isInteractable") then
 		{
             if (vehicle player == player) then // -- If not in a vehicle
 			{
+				if (damage _cTarg >= 1) exitwith {}; // -- Vehicle isn't alive, so thus not interactable.
 	            if (locked _cTarg > 1) then {
 	                // -- If the vehicle is locked and the player has the key, show to unlock it.
 	                if ((netID _cTarg) in (player getVariable "KeyChain")) then
@@ -55,7 +56,7 @@ if (_cTarg getVariable "isInteractable") then
 	};
     
 	// -- For now, we'll only show "Press E to interact". Future may expand functionality. IE, Item objects, "Press E to pickup"
-    cutRsc ["ui_interactHUDText", "PLAIN", 0];
+    10 cutRsc ["ui_interactHUDText", "PLAIN", 0];
     _dialog = uiNamespace getVariable "Client_UI_interactFloatyText";
     if (!isNull _dialog) then
     {

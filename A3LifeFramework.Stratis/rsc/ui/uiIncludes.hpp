@@ -1145,6 +1145,6 @@ class RscControlsGroup
 #include "ui_vehicleShop.hpp"
 #include "ui_messageBox1.hpp"
 #include "ui_inventory.hpp"
-#include "ui_inventoryPileInteract.hpp"
+#include "ui_inventoryStorageInteract.hpp"
 
 //#include ""

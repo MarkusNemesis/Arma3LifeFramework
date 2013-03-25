@@ -31,7 +31,7 @@ if (!_sStock) exitwith {
 };
 
 // -- Spawn the vehicle! Spawns on the store's spawn marker.
-private ['_spVeh', '_sPos', '_kChain', '_vNID'];
+private ['_spVeh', '_sPos', '_kChain', '_vNID', '_vInfo'];
 _sPos = (getmarkerpos _spawnMarker); //findemptyposition[0, 3, _vCName];
 _spVeh = createVehicle [_vCName, _sPos, [], 0, "CAN_COLLIDE"];
 //_spVeh = createVehicle [_vCName, [7090,5936,0], [], 0, "CAN_COLLIDE"];
@@ -45,12 +45,16 @@ _spVeh setdir (markerdir _spawnMarker);
 _vNID = netid _spVeh;
 missionNamespace setVariable [format ["%1_missionVar", _vNID], []];
 
+_vInfo = [_vCName] call MV_Shared_fnc_GetVehicleArrayInfo;
+
 // -- Set the vehicle's variables
 _spVeh setVariable ["isInteractable", true, true];
 _spVeh setVariable ["interactType", "typeVehicle", true];
+_spVeh setVariable ["storageVolume", _vInfo select 4, true];
 
 [_vNID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
 [_vNID, ["interactType", ["typeVehicle"]]] call MV_Server_fnc_SetMissionVariable;
+[_vNID, ["storageVolume", [_vInfo select 4]]] call MV_Server_fnc_SetMissionVariable;
 
 // -- Set the vehicle's initline to have it interactable by the player instantly.
 _spVeh setvehicleinit "clearWeaponCargo this; clearMagazineCargo this; clearItemCargo this; player reveal this;";

@@ -1,10 +1,10 @@
-class ui_inventoryPileInteract
+class ui_inventoryStorageInteract
 {
 	idd = 1411;
 	movingEnable = false;
 	enableSimulation = true;
-	onLoad = "uiNamespace setVariable ['inventoryPile_isDisplayed', true];";
-	onUnload = "uiNamespace setVariable ['inventoryPile_isDisplayed', false];";
+	onLoad = "uiNamespace setVariable ['inventoryStorage_isDisplayed', true];";
+	onUnload = "uiNamespace setVariable ['inventoryStorage_isDisplayed', false];";
 	controlsBackground[] = 
 	{
 		BG,
@@ -83,7 +83,7 @@ class ui_inventoryPileInteract
 		y = 8 * GUI_GRID_H + GUI_GRID_Y;
 		w = 6.8 * GUI_GRID_W;
 		h = 2 * GUI_GRID_H;
-		action = "uiNamespace setVariable ['inventoryPile_cmdToPile', true];";
+		action = "uiNamespace setVariable ['inventoryStorage_cmdToStorage', true];";
 	};
 	class cmdToInventory: MV_Button
 	{
@@ -93,7 +93,7 @@ class ui_inventoryPileInteract
 		y = 10.96 * GUI_GRID_H + GUI_GRID_Y;
 		w = 6.8 * GUI_GRID_W;
 		h = 2 * GUI_GRID_H;
-		action = "uiNamespace setVariable ['inventoryPile_cmdToInventory', true];";
+		action = "uiNamespace setVariable ['inventoryStorage_cmdToInventory', true];";
 	};
 	class lblInvCapacity: MV_LabelCentre
 	{
