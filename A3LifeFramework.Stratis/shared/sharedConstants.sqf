@@ -18,16 +18,16 @@ MV_Shared_PLAYERS_IND = [];
 MV_Shared_PLAYERS_CIV = [];
 
 // -- player slots per side
-#define BLU_PLAYERCOUNT 10
-#define OP_PLAYERCOUNT 0
-#define IND_PLAYERCOUNT 0
-#define CIV_PLAYERCOUNT 35
+BLU_PLAYERCOUNT = 10;
+OP_PLAYERCOUNT = 0;
+IND_PLAYERCOUNT = 0;
+CIV_PLAYERCOUNT = 35;
 
 // -- Interaction range
-#define INT_RANGE 4
+INT_RANGE = 4;
 
-#define MV_Shared_PLAYERVOLUME 25000 // -- 25,000 cc
-#define MV_Shared_PILEVOLUME 100000 // -- 100,000 cc
+MV_Shared_PLAYERVOLUME = 25000; // -- 25,000 cc
+MV_Shared_PILEVOLUME = 100000; // -- 100,000 cc
 
 // -- Animations
 MV_Shared_ANIMATION_BUY = "AinvPercMstpSnonWnonDnon_Putdown_AmovPercMstpSnonWnonDnon";

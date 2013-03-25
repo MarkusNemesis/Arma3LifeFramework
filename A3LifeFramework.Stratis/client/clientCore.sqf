@@ -24,6 +24,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
         _fname = _x select 0;
         _args = _x select 1;
         _priority = _x select 2;
+		if (isnil '_fname') exitwith {[_forEachIndex] call MV_Client_fnc_RemoveEvent;}; // -- Event is a null event, and thus removed.
         call compile format ["_args call %1", _fname]; //_args call _fName;
         diag_log format ["Running event from array: %1 , %2", _fname, _args];
         [_forEachIndex] call MV_Client_fnc_RemoveEvent;

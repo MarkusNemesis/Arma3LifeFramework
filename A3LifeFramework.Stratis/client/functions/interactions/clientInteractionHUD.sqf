@@ -46,6 +46,12 @@ if (_cTarg getVariable "isInteractable") then
 		{
             _iText = localize "STR_MV_INT_HUD_SHOP";
 		};
+		
+		case "typePile":
+		{
+			_iText = localize "STR_MV_INT_HUD_PILE";
+		};
+		
 	};
     
 	// -- For now, we'll only show "Press E to interact". Future may expand functionality. IE, Item objects, "Press E to pickup"

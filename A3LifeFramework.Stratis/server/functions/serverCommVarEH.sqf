@@ -51,7 +51,8 @@ switch (_eType) do
 		_pObj = objectFromNetId (_vParams select 0);
 		_iName = _vParams select 1;
 		_qty = _vParams select 2;
-		[_pObj, _iName, _qty] call MV_Server_fnc_ValidateItemUse;
+		//[_pObj, _iName, _qty] call MV_Server_fnc_ValidateItemUse;
+		['MV_Server_fnc_ValidateItemUse', [_pObj, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "DropItem":
@@ -60,7 +61,8 @@ switch (_eType) do
 		_Obj = objectFromNetId (_vParams select 0);
 		_iName = _vParams select 1;
 		_qty = _vParams select 2;
-		[_Obj, _iName, _qty] call MV_Server_fnc_DropItem;
+		//[_Obj, _iName, _qty] call MV_Server_fnc_DropItem;
+		['MV_Server_fnc_DropItem', [_Obj, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "TransferItem":
@@ -70,7 +72,8 @@ switch (_eType) do
 		_iName = _vParams select 1;
 		_qty = _vParams select 2;
 		_pileObj = objectFromNetId (_vParams select 3);
-		[_Obj, _iName, _qty, _pileObj] call MV_Server_fnc_TransferItem;
+		//[_Obj, _iName, _qty, _pileObj] call MV_Server_fnc_TransferItem;
+		['MV_Server_fnc_TransferItem', [_Obj, _iName, _qty, _pileObj]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "RemoveItem":
@@ -79,7 +82,8 @@ switch (_eType) do
 		_pObj = objectFromNetId (_vParams select 0);
 		_iName = _vParams select 1;
 		_qty = _vParams select 2;
-		[_pObj, _iName, _qty] call MV_Server_fnc_RemoveInventoryItem;
+		//[_pObj, _iName, _qty] call MV_Server_fnc_RemoveInventoryItem;
+		['MV_Server_fnc_RemoveInventoryItem', [_pObj, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
 	/* -- Called when an item is wanting to do an action, ie, 'repair' or 'stun' etc. Validates item ownership before execution.

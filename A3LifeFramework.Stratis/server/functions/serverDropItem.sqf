@@ -22,8 +22,6 @@ if (_qty <= 0) exitwith {diag_log format ["MV: serverDropItem: ADMIN: Object %1 
 if (isPlayer _Obj) then {_id = getPlayerUID _Obj;} else {_id = netId _Obj;};
 _pInv = [_id, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 
-// TODO - Put items in pre-existing pile, if one is within interact range and has enough capacity.
-
 if (!isnil "_pInv") then
 {
 	private ['_Pile'];
@@ -42,8 +40,9 @@ if (!isnil "_pInv") then
 		// -- Set server missionNamespace variables
 		private ['_pID'];
 		_pID = netID _Pile;
+		missionNamespace setVariable [format ["%1_missionVar", _pID], []];
 		[_pID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
-		[_pID, ["interactType", [typePile]]] call MV_Server_fnc_SetMissionVariable;
+		[_pID, ["interactType", ['typePile']]] call MV_Server_fnc_SetMissionVariable;
 		[_pID, ["Inventory", [[_iName, _qty]]]] call MV_Server_fnc_SetMissionVariable;
 		
 		// -- Set vehicle init.

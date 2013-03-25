@@ -20,7 +20,7 @@ switch (_eType) do
         _pSuccess = _vParams select 0;
         if (!_pSuccess) then {
             _eType = _vParams select 1; // -- Either 'stock' or 'funds'
-            ["Server", format [localize "STR_MV_INT_ERRORSERVER", _eType]] spawn MV_Client_fnc_int_MessageBox;
+            ["Server", format [localize "STR_MV_INT_ERRORBUYVEHICLE", _eType]] spawn MV_Client_fnc_int_MessageBox;
         } else {
             // -- Purchase was successful, hint to the client.
             hint localize "STR_MV_INT_VEHPURCHASESUCCESS";
@@ -50,6 +50,33 @@ switch (_eType) do
 			[_item, _qty] call MV_Client_fnc_int_UseItem;
 		};
 	};
+	
+	case "TransferItemReturn":
+	{
+		private ['_valid'];
+		_valid = (_vParams select 0);
+		diag_log format ['Valid: %1', _valid];
+		if (!_valid) then
+		{ // -- Transfer failed.
+			if (_reason == 'q' or _reason == 'i') exitwith {["Error", format [localize "STR_MV_INT_ERRORPILENOITEM", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
+			if (_reason == 'v') exitwith {["Error", format [localize "STR_MV_INT_ERRORPILENOVOL", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
+			if (_reason == 'ni') exitwith {["Error", format [localize "STR_MV_INT_ERRORPILENOINVENTORY"]] spawn MV_Client_fnc_int_MessageBox;};
+		}
+		else
+		{ // -- Succeeded.
+			uiNamespace setVariable ["inventoryPile_updateLists", true]; // [true , _iName, _qty, netID _objA, netid _ObjB]
+			private ['_iName', '_qty', '_objA', '_objB'];
+			_iName = _vParams select 1;
+			_qty = _vParams select 2;
+			_objA = objectFromNetId (_vParams select 3);
+			_objB = objectFromNetId (_vParams select 4);
+			// -- If it's an item pile, output the item pile name. Else, name of player.
+			if ((typeOf _objA) == MV_Shared_DROPPILECLASS) then {_objA = "Item Pile"} else {_objA = name _objA;};
+			if ((typeOf _objB) == MV_Shared_DROPPILECLASS) then {_objB = "Item Pile"} else {_objB = name _objB;};
+			systemChat format [localize "STR_MV_INT_SUCCESSPILETRANSFER",_qty, _iName, _objA, _objB];
+		};
+	};
+	
 	/*
 	case "UseItemEvent":
 	{

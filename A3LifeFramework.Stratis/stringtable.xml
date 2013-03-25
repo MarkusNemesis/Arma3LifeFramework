@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project name="A3LifeMissionFramework">
-  <Package name="General">
-	
-  </Package>
+	<Package name="General">
+		
+	</Package>
   
 	<Package name="Interactions">
 		<Key ID="STR_MV_INT_INFORMATION">
@@ -21,7 +21,7 @@
 		  <English>You do not have enough money to buy this item</English>
 		</Key>
 
-		<Key ID="STR_MV_INT_ERRORSERVER">
+		<Key ID="STR_MV_INT_ERRORBUYVEHICLE">
 		  <English>Insufficient %1, please try again later</English>
 		</Key>
 
@@ -58,7 +58,19 @@
 		</Key>
 		
 		<Key ID="STR_MV_INT_ERRORPILENOVOL">
-		  <English>You cannot drop %1 of item %2, because it cannot fit in the pile.</English>
+		  <English>You cannot transfer %1 of item %2, because it cannot fit.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_ERRORPILENOITEM">
+		  <English>You cannot transfer %1 of item %2, because the item doesn't exist, or there's too few of them.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_ERRORPILENOINVENTORY">
+		  <English>You cannot transfer with this object, because it does not exist.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_SUCCESSPILETRANSFER">
+		  <English>You successfully transfered %1 %2 from %3 to %4.</English>
 		</Key>
 		
 		<Key ID="STR_MV_INT_HUD_UNLOCK">
@@ -71,6 +83,10 @@
 
 		<Key ID="STR_MV_INT_HUD_SHOP">
 		  <English>Press E to shop</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_HUD_PILE">
+		  <English>Press E to open item pile</English>
 		</Key>
 	
 	</Package>
@@ -153,6 +169,10 @@
 	
 	<Key ID="STR_MV_DG_PILE">
       <English>Pile</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_TRANSFERITEMS">
+      <English>Transfer Items</English>
     </Key>
 
   </Package>

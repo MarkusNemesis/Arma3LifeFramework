@@ -35,6 +35,7 @@ class ui_inventoryPileInteract
 	class BG_Frame: MV_GUIFrame
 	{
 		idc = -1;
+		text = $STR_MV_DG_TRANSFERITEMS;
 		x = 0.4 * GUI_GRID_W + GUI_GRID_X;
 		y = 0.4 * GUI_GRID_H + GUI_GRID_Y;
 		w = 39.2 * GUI_GRID_W;
