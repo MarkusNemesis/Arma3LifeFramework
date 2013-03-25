@@ -84,6 +84,10 @@ while {!isnull (findDisplay 1411)} do
 				_storageInvVol = _storageInvVol + (_tItemVol * _tiQty);
 			} foreach _storageInv;
 			
+			// -- Set list box selections
+			lbSetCurSel [2009, 0];
+			lbSetCurSel [2010, 0];
+			
 			// -- Update volume labels
 			ctrlSetText [2013, format ["Volume: %1 / %2 cc [%3%4]", _playerInvVol, _playerMaxVol, (_playerInvVol / _playerMaxVol) * 100, "%"]];
 			ctrlSetText [2014, format ["Volume: %1 / %2 cc [%3%4]", _storageInvVol, _storageMaxVol, (_storageInvVol / _storageMaxVol) * 100, "%"]];

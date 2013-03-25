@@ -7,11 +7,12 @@ If the item isn't found, or specifics aren't met, then the server will send a me
 Params: playerObj, itemName, actionStr, actionArgsArray
 Return: 
 */
-private ['_pObj', '_iName', '_action', '_aArgs', '_itemArray', '_pInventory'];
+private ['_pObj', '_iName', '_action', '_aArgs', '_itemArray', '_pInventory', '_intRange'];
 _pObj = _this select 0;
 _iName = _this select 1;
 _action = _this select 2;
 _aArgs = _this select 3;
+_intRange = (missionNamespace getVariable "INT_RANGE");
 // -- Get player's inventory.
 
 diag_log format ["MV: serverItemUseEvents: pObj: %1, iName: %2, action: %3, args: %4", _pObj, _iName, _action, _aArgs];
@@ -33,10 +34,10 @@ switch (_action) do
 		_rVeh = objectFromNetId (_aArgs select 0);
 		
 		// -- Check if vehicle being repaired is in range of user.
-		if ((_pobj distance _rVeh) > INT_RANGE) exitwith {diag_log "Out of range";}; // ERROR: vehicle out of range.
+		if ((_pobj distance _rVeh) > _intRange) exitwith {diag_log "Out of range";}; // ERROR: vehicle out of range.
 		
 		if (!local _rVeh) exitwith {
-			// -- Repair needs locality, so thus, off to the client it goes. 
+			// -- Repair needs locality, so thus, off to the owning client it goes. 
 			["UseItemEvent", [_rVeh, _iName, _action, _aArgs]] call MV_Server_fnc_SendClientMessage;
 		}; // ELSE the server does it here and now.
 		

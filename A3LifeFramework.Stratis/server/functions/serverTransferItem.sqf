@@ -34,9 +34,9 @@ if (!_hasItem) exitwith {
 private ['_objBInv', '_ObjBVol', '_ObjBMaxVol', '_transVol'];
 if ((typeOf _ObjB) == MV_Shared_DROPPILECLASS) then 
 {
-	_ObjBMaxVol = MV_Shared_PILEVOLUME;
+	_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PILEVOLUME");
 } else {
-	if (isPlayer _objB) exitWith {_ObjBMaxVol = MV_Shared_PLAYERVOLUME;}; // -- TODO 'set' player's max volume via missionwariable, and retrieve it where needed, ie, here.
+	if (isPlayer _objB) exitWith {_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PLAYERVOLUME");}; // -- TODO 'set' player's max volume via missionvariable, and retrieve it where needed, ie, here.
 
 	if (_ObjB isKindOf "LandVehicle" or _ObjB isKindOf "Air" or _ObjB isKindOf "Ship") exitwith
 	{

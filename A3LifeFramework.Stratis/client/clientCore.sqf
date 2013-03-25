@@ -9,12 +9,13 @@ This helps distribute functions across a spectrum of how often a function is ran
 This can off-set non time-critical functions, and leave more room for other more important events.
 */
 
-private ["_pFrame", "_runPrior"];
+private ["_pFrame", "_runPrior", '_pRange', '_iRange'];
 
 //
 _runPrior = 1;
 _pFrame = diag_frameno;
-
+_pRange = (missionNamespace getVariable "PRIOR_RANGE");
+_iRange = (missionNamespace getVariable "INT_RANGE"); // -- Interaction range.
 diag_log "MV: STARTING CLIENT MAINLOOP";
 while {true} do // This is the main loop. EVERYTHING clientside happens here.
 {
@@ -62,7 +63,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
         if (Client_PlayerSpawned) then
 	    {
 			// -- 'reveal's to the player all interactable objects within interact distance (5 m)
-	        [] call MV_Client_fnc_InteractableAwareness;
+	        [_iRange] call MV_Client_fnc_InteractableAwareness;
             // --  check if player is in a vehicle, and wasn't before to update vehicle's garbage collection delay.
             if (vehicle player != player) then // -- Player is in vehicle.
             {

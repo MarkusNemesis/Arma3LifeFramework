@@ -17,6 +17,7 @@ switch (_action) do
 	// -- Do repair on vehicle.
 	case "RKRep":
 	{
+		/*
 		diag_log "Doing action RKRep";
 		private ['_rVeh', '_iInfo', '_rCoverage', '_rLvl', '_rParts'];
 		_rVeh = objectFromNetId (_aArgs select 1);
@@ -37,5 +38,12 @@ switch (_action) do
 				_rVeh setHitPointDamage [_p, (_rLvl)];
 			};
 		} foreach _rParts;
+		*/
+		private ['_iInfo', '_rVeh'];
+		_rVeh = objectFromNetId (_aArgs select 1);
+		// -- Get item info to get repair arguments.
+		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
+		// -- Call the repair function.
+		[(_iInfo select 3) select 1, _rVeh] call MV_Shared_fnc_ItemRepairVehicle;
 	};
 };

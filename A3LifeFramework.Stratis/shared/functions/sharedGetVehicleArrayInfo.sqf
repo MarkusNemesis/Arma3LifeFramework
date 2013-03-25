@@ -7,10 +7,11 @@ Params: ["vehicleClassname"]
 Return: vehicle Info array. (See shared/arrays/vehicles)
 */
 
-private ['_vClass', '_return'];
+private ['_vClass', '_return', '_vArray'];
 _vClass = _this select 0;
 _return = [];
-{ if ((_x select 0) == _vClass) exitwith {_return = _x;}; } foreach Array_Vehicles;
+_vArray = missionNamespace getVariable "Array_Vehicles";
+{ if ((_x select 0) == _vClass) exitwith {_return = _x;}; } foreach _vArray;
 
 // -- Leave last
 _return

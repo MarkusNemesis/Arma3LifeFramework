@@ -36,7 +36,7 @@ if (!isnil "_pInv") then
 		_Pile setVariable ['isInteractable', true, true];
 		_Pile setVariable ['interactType', "typePile", true];
 		_Pile setVariable ['Inventory', [[_iName, _qty]], true];
-		_Pile setVariable ['storageVolume', MV_Shared_PILEVOLUME, true];
+		_Pile setVariable ['storageVolume', (missionNamespace getVariable "MV_Shared_PILEVOLUME"), true];
 		
 		// -- Set server missionNamespace variables
 		private ['_pID'];
@@ -45,7 +45,7 @@ if (!isnil "_pInv") then
 		[_pID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
 		[_pID, ["interactType", ['typePile']]] call MV_Server_fnc_SetMissionVariable;
 		[_pID, ["Inventory", [[_iName, _qty]]]] call MV_Server_fnc_SetMissionVariable;
-		[_pID, ["storageVolume", [MV_Shared_PILEVOLUME]]] call MV_Server_fnc_SetMissionVariable;
+		[_pID, ["storageVolume", [(missionNamespace getVariable "MV_Shared_PILEVOLUME")]]] call MV_Server_fnc_SetMissionVariable;
 		
 		// -- Set vehicle init.
 		_Pile setvehicleinit "this allowDamage false;";

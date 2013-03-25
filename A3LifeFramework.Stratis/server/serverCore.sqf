@@ -9,13 +9,13 @@ This helps distribute functions across a spectrum of how often a function is ran
 This can off-set non time-critical functions, and leave more room for other more important events.
 */
 
-private ["_pFrame", "_runPrior", "_tTime"];
+private ["_pFrame", "_runPrior", "_tTime", '_pRange'];
 //
 _runPrior = 1;
 _pFrame = diag_frameno;
 _avgTTime = 0;
 _tTime = diag_ticktime;
-
+_pRange = (missionNamespace getVariable "PRIOR_RANGE");
 diag_log "MV: STARTING SERVER MAINLOOP";
 while {true} do // This is the main loop. EVERYTHING serverside happens here.
 {
@@ -52,12 +52,12 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here.
     
     // Leave this last.
     _runPrior = _runPrior + 1;
-    if (_runPrior > PRIOR_RANGE) then 
+    if (_runPrior > _pRange) then 
     {
         _runPrior = 1;
-        //diag_log format ["Server: Mainloop tick time avg: %1ms", (_avgTTime / PRIOR_RANGE) * 1000];
+        //diag_log format ["Server: Mainloop tick time avg: %1ms", (_avgTTime / _pRange) * 1000];
         _tTime = diag_ticktime - _tTime;
-        Server_Health = format ["Server: Mainloop tick time avg: %1ms. FrameNo: %2", (_tTime / PRIOR_RANGE) * 1000, diag_frameno];
+        Server_Health = format ["Server: Mainloop tick time avg: %1ms. FrameNo: %2", (_tTime / _pRange) * 1000, diag_frameno];
 		publicVariable "Server_Health";
         _tTime = diag_ticktime;
     };

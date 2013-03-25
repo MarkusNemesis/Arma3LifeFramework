@@ -4,6 +4,8 @@ Author: Markus Davey
 Skype: markus.davey
 Desc: Runs when a player connects to the server. Stores their name, slotname, etc.
 */
+
+//
 private ['_id','_name','_uid', '_slotName', '_retryCount', '_pObj'];
 _id = _this select 0;
 _name = _this select 1;
@@ -30,6 +32,13 @@ while {_slotname == "" && _retryCount < 30} do
 };
 if (_slotname == "") exitwith {diag_log format ["MV: serverOnPlayerConnected: CRITICAL ERROR: %1, %2, %3 FAILED TO GET SLOT", _id, _name, _uid];};
 
+// -- Init Player CommVar
+call compile format ["%1_CommVar = [];", _slotName];
+format ["%1_CommVar", _slotName] addPublicVariableEventHandler {[_this select 1] spawn MV_Server_fnc_CommVarEH;};
+diag_log format ["PublicVar set: %1_CommVar", _slotName];
+
+
+
 // ---- Check if the player has played before in this session. iterate through Server_PlayerRegistry
 private ['_found', '_prIndex'];
 _found = false;
@@ -51,13 +60,13 @@ if (!_found) then // -- If the player has connected for the first time this roun
     _pObj setVariable ["Money", MV_Params_GPStartFunds, true];
     _pObj setVariable ["BankMoney", 0, true];
     _pObj setVariable ["KeyChain", [], true];
-	_pObj setVariable ["storageVolume", MV_Shared_PLAYERVOLUME, true];
+	_pObj setVariable ["storageVolume", (missionNamespace getVariable "MV_Shared_PLAYERVOLUME"), true];
 	
     // -- Serverside values
 	[_uid, ["Money", [MV_Params_GPStartFunds]]] call MV_Server_fnc_SetMissionVariable;
 	[_uid, ["BankMoney", [0]]] call MV_Server_fnc_SetMissionVariable;
 	[_uid, ["KeyChain", []]] call MV_Server_fnc_SetMissionVariable;
-	[_uid, ["storageVolume", [MV_Shared_PLAYERVOLUME]]] call MV_Server_fnc_SetMissionVariable;
+	[_uid, ["storageVolume", [(missionNamespace getVariable "MV_Shared_PLAYERVOLUME")]]] call MV_Server_fnc_SetMissionVariable;
 	
 	/*
 	[_uid, []] call MV_Server_fnc_SetMissionVariable;
@@ -86,12 +95,3 @@ _pObj setVariable ["Inventory", [["Money", _iMoney], ["Light Repair Kit", 5]], t
 _pObj setvehicleinit "this enablesimulation true; this allowdamage true;";
 processinitcommands;
 _pObj setVariable ["clientInitCompleteAck", true, true]; // Acknowledges to the client that it is inited on both client and server.
-
-//sleep 2; // -- A temporary workaround due to no dedicated server. This allows the server publicvariable EH to take precedence over the clients, due to which was executed first, etc.
-
-// -- Init Player CommVars
-call compile format ["%1_CommVar = [];", _slotName];
-format ["%1_CommVar", _slotName] addPublicVariableEventHandler {[_this select 1] spawn MV_Server_fnc_CommVarEH;};
-diag_log format ["PublicVar set: %1_CommVar", _slotName];
-
-

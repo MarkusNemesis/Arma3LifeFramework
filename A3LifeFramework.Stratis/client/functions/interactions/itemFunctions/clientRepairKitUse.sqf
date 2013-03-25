@@ -8,10 +8,11 @@ Return:
 */
 diag_log format ["MV: clientRepairKitUse: %1", _this];
 Client_UsingItem = true;
-private ['_iName', '_qty', '_args', '_return'];
+private ['_iName', '_qty', '_args', '_return', '_intRange'];
 _iName = _this select 0;
 _qty = _this select 1;
 _args = _this select 2;
+_intRange = (missionNamespace getVariable "INT_RANGE");
 
 // -- Body:
 private ['_repairScale', '_rTarg', '_vInfo', '_rTime'];
@@ -26,7 +27,7 @@ if (_qty > 1) then {_qty = 1}; // -- Limit Qty to 1, as you only use one at a ti
 if (!(_rTarg isKindOf "LandVehicle" or _rTarg isKindOf "Air" or _rTarg isKindOf "Ship")) exitwith {["Error", localize "STR_MV_ITEM_REPAIRKITFAILEDNOVEHICLE"] spawn MV_Client_fnc_int_MessageBox; Client_UsingItem = false;};
 
 // -- Is it close enough?
-if ((player distance _rTarg) > INT_RANGE) exitwith {["Error", localize "STR_MV_ITEM_REPAIRKITFAILEDDISTANCE"] spawn MV_Client_fnc_int_MessageBox; Client_UsingItem = false;};
+if ((player distance _rTarg) > _intRange) exitwith {["Error", localize "STR_MV_ITEM_REPAIRKITFAILEDDISTANCE"] spawn MV_Client_fnc_int_MessageBox; Client_UsingItem = false;};
 
 // -- Is the vehicle unlocked?
 if (locked _rTarg > 1) exitwith {["Error", localize "STR_MV_ITEM_REPAIRKITFAILEDLOCKED"] spawn MV_Client_fnc_int_MessageBox; Client_UsingItem = false;};
@@ -50,7 +51,7 @@ while {time < _eTime} do
 {
 	// -- Player stops playing the 'repair' animation. Thus, they have been interrupted. ERROR out.
 	if ((animationState player) != _anim) exitwith {11 cutText [localize "STR_MV_ITEM_REPAIRKITFAILEDINTERRUPTED", "PLAIN"]; Client_UsingItem = false;};
-	if ((player distance _rTarg) > INT_RANGE) exitwith {11 cutText [localize "STR_MV_ITEM_REPAIRKITFAILEDDISTANCE", "PLAIN"]; Client_UsingItem = false;};
+	if ((player distance _rTarg) > _intRange) exitwith {11 cutText [localize "STR_MV_ITEM_REPAIRKITFAILEDDISTANCE", "PLAIN"]; Client_UsingItem = false;};
 	
 	// -- Leave last
 	waitUntil {_fNo < diag_frameno};
@@ -64,8 +65,14 @@ if (!Client_UsingItem) exitwith {systemChat "You fail to repair this object, as 
 //player switchMove "";
 ["AnimationEvent", [netID player, '', 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
 // -- Action successful, repair vehicle.
-[_rAmount, _rTarg] call MV_Shared_fnc_ItemRepairVehicle;
+if (local _rTarg) then {
+	[_rAmount, _rTarg] call MV_Shared_fnc_ItemRepairVehicle;
+} else {
+	["UseItemEvent", [netID player, _iName, 'RKRep', [netId _rTarg]]] call MV_Client_fnc_SendServerMessage;
+};
 
 // -- Remove item from player inventory
 ["RemoveItem", [netID player, _iName, _qty]] call MV_Client_fnc_SendServerMessage;
+
+//
 Client_UsingItem = false;

@@ -5,10 +5,11 @@ Skype: markus.davey
 Desc: Toggles the lock of the vehicle, and outputs to the player.
 */
 
-private ['_obj', '_lType', '_found', '_netID'];
+private ['_obj', '_lType', '_found', '_netID', '_intRange'];
 _obj = _this select 0;
 _lType = _this select 1;
-if (player distance _obj > INT_RANGE) exitwith {};
+_intRange = (missionNamespace getVariable "INT_RANGE");
+if (player distance _obj > _intRange) exitwith {};
 
 _found = false;
 _netID = netID _obj;

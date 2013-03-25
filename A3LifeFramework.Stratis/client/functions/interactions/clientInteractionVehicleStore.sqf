@@ -42,7 +42,7 @@ ctrlSetText [1997, _sName];
 lbSetCurSel [1992, 0];
 
 // ---- Run the dialog update loop
-private ['_fNo', '_lbSel', '_lbSelPrev', '_pMoney', '_pMoneyPrev', '_sCName', '_sPrice'];
+private ['_fNo', '_lbSel', '_lbSelPrev', '_pMoney', '_pMoneyPrev', '_sCName', '_sPrice', '_vArray'];
 _fNo = diag_frameno;
 _lbSel = lbCurSel 1992;
 _lbSelPrev = -1;
@@ -50,6 +50,7 @@ _pMoney = player getVariable "Money";
 _pMoneyPrev = -1;
 _sCName = '';
 _sPrice = "ERROR";
+_vArray = missionNamespace getVariable "Array_Vehicles";
 
 // -- On first run, all fields in this loop will be run. Effectively initialising the controls.
 while {dialog && alive player} do
@@ -71,7 +72,7 @@ while {dialog && alive player} do
 	        // -- Get vehicle's class name
 	        _sCName = (_sArr select _lbSel) select 0;
 	        // -- Get the vehicle's price
-	        {if ((_x select 0) == _sCName) exitwith {_sPrice = _x select 1;} } foreach Array_Vehicles;
+	        {if ((_x select 0) == _sCName) exitwith {_sPrice = _x select 1;} } foreach _vArray;
 	        
 	        // -- Set Cost label
 	        ctrlSetText [1995, format ["Cost: $%1", _sPrice]];

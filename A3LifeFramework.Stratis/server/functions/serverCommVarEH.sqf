@@ -93,8 +93,10 @@ switch (_eType) do
 		_veh = objectFromNetId (_vParams select 1);
 		_lType = _vParams select 2;
 		// -- Check if the player has this vehicle in their keychain.
-		private ['_pChain', '_validDistance'];
-		if (_lType == 'remote') then {_validDistance = REMOTE_KEY_RANGE} else {_validDistance = INT_RANGE};
+		private ['_pChain', '_validDistance', '_intRange', '_remoteKeyRange'];
+		_intRange = (missionNamespace getVariable "INT_RANGE");
+		_remoteKeyRange = (missionNamespace getVariable "REMOTE_KEY_RANGE");
+		if (_lType == 'remote') then {_validDistance = _remoteKeyRange} else {_validDistance = _intRange};
 		_pChain = [getPlayerUID _pObj, "keychain"] call MV_Server_fnc_GetMissionVariable;
 		if ((_vParams select 1) in _pChain) then
 		{
@@ -112,16 +114,15 @@ switch (_eType) do
 		};
 	};
 	
-	/* -- Called when an item is wanting to do an action, ie, 'repair' or 'stun' etc. Validates item ownership before execution.
+	// -- Called when an item is wanting to do an action, ie, 'repair' or 'stun' etc. Validates item ownership before execution.
 	case "UseItemEvent":
 	{
 		private ['_pObj', '_iName', '_action', '_aArgs'];
 		_pObj = objectFromNetId (_vParams select 0);
 		_iName = _vParams select 1;
 		_action = _vParams select 2;
-		_aArgs = _vParams select 3; // -- args like 'qty' etc. and Anything item specific.
+		_aArgs = _vParams select 3; // -- args like 'qty' or vehicle etc. and Anything item specific.
 		diag_log format ["MV: serverCommVarEH: UseItemEvent: pobj: %1, iName: %2, action: %3, aArgs: %4", _pObj, _iName, _action, _aArgs];
 		[_pObj, _iName, _action, _aArgs] call MV_Server_fnc_ItemUseEvents;
 	};
-	*/
 };

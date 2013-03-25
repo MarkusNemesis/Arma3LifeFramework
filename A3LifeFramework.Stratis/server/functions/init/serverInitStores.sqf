@@ -7,6 +7,9 @@ setVariable must be public.
 Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All define how the client handles them on interaction.
 */
 
+private ['_Array_Store_Vehicles'];
+_Array_Store_Vehicles = missionNamespace getVariable "Array_Store_Vehicles";
+
 // ------------------- Init vehicle stores -------------------
 //[ownerObj, [[VehiclesToSell, StockLevel]], [AccessArray], themeName, StoreName];
 {
@@ -67,4 +70,4 @@ Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All de
 	    _oObj setvehicleinit format ["_marker = createMarkerLocal ['%1marker', getposATL this]; _marker setMarkerShapeLocal 'ICON'; '%1marker' setMarkerTypeLocal 'mil_Pickup'; _marker setMarkerSizeLocal [0.5,0.5]; '%1marker' setMarkerTextLocal %2; '%1marker' setMarkerColorLocal 'ColorGreen';", _oObj, str _mTxt];
 	    processinitcommands;
     };
-} foreach Array_Store_Vehicles;
+} foreach _Array_Store_Vehicles;

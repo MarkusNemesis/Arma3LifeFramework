@@ -25,7 +25,7 @@ switch (_eType) do
             // -- Purchase was successful, hint to the client.
             hint localize "STR_MV_INT_VEHPURCHASESUCCESS";
             Client_VehicleBuyCooldown = time + 10; // -- Add 10 second cooldown for buying vehicles.
-			player switchMove MV_Shared_ANIMATION_BUY;
+			player switchMove (missionNamespace getVariable "MV_Shared_ANIMATION_BUY"); // TODO make this broadcast over network. Though, tbh, it can just stay client 'fluff'.
         };
     };
 	
@@ -95,7 +95,6 @@ switch (_eType) do
 		};
 	};
 	
-	/*
 	case "UseItemEvent":
 	{
 		private ['_iName', '_action', '_aArgs'];
@@ -105,5 +104,5 @@ switch (_eType) do
 		diag_log format ["MV: clientCommVarEH: UseItemEvent: iName: %1, action: %2, aArgs: %3", _iName, _action, _aArgs];
 		[_iName, _action, _aArgs] call MV_Client_fnc_int_ItemUseEvents;
 	};
-	*/
+	
 };

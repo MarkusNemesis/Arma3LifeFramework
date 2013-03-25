@@ -9,7 +9,6 @@ private ["_runTime"];
 _runTime =+ diag_tickTime;
 
 waitUntil {!isNull player}; // Make sure the player exists before starting.
-waitUntil {player getvariable "clientInitCompleteAck"};
 diag_log "MV: CLIENT INIT: STARTED";
 
 // Init client functions
@@ -67,9 +66,10 @@ waitUntil{!isnil 'Shared_SpawnHaven'};
 
 
 Client_InitComplete = true;
-player setVariable ['clientInitComplete', true, true];
+//player setVariable ['clientInitComplete', true, true];
 // **** CODE AFTER THIS POINT IS RAN DURING MISSION TIME ****
 waituntil {time > 0}; // Checks if the mission has actually started.
+startLoadingScreen ["Loading..."];
 finishMissionInit;
 //
 
@@ -82,10 +82,16 @@ if (!isServer) then {call MV_Shared_fnc_GetPlayers;};
 // TODO Remove this before final DEBUG
 [] spawn {while {true} do {hint Server_Health; sleep 0.25;};};
 
+// -- Only start when the server has finished initializing the player's connection.
+waitUntil {player getvariable "clientInitCompleteAck"};
+
 // ---- Create player spawn event
 ["MV_Client_fnc_SpawnPlayer", [], 1] call MV_Client_fnc_AddEvent; 
 
 // ---- YOU MUST Leave this last. This calls the clientCore mainloop.
 _runTime = diag_tickTime - _runTime;
 diag_log format ["MV: CLIENT INIT: FINISHED, Time taken: %1", _runTime];
+//
+endLoadingScreen;
+//
 call compile preprocessFileLineNumbers "Client\clientCore.sqf";

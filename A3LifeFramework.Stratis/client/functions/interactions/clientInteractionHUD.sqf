@@ -5,12 +5,12 @@ Skype: markus.davey
 Desc: Handles the display of text when mousing over an interactable object.
 */
 
-private ['_cTarg', '_iType', '_iFilter', '_dialog', '_iText'];
+private ['_cTarg', '_iType', '_iFilter', '_dialog', '_iText', '_intRange'];
 disableSerialization;
 _cTarg = cursorTarget;
-
+_intRange = (missionNamespace getVariable "INT_RANGE");
 // -- Check if player is within interaction range of this object.
-if (_cTarg distance player > INT_RANGE) exitwith {};
+if (_cTarg distance player > _intRange) exitwith {};
 
 _iText = '';
 _iType = '';
