@@ -34,5 +34,8 @@ MV_Server_fnc_DropItem = Compile preprocessFileLineNumbers "Server\functions\ser
 MV_Server_fnc_TransferItem = Compile preprocessFileLineNumbers "Server\functions\serverTransferItem.sqf";
 MV_Server_fnc_AddInventoryItem = Compile preprocessFileLineNumbers "Server\functions\serverAddInventoryItem.sqf";
 
+// -- ATM interaction
+MV_Server_fnc_ATMAction = Compile preprocessFileLineNumbers "Server\functions\serverATMAction.sqf";
+
 
 //MV_Server_fnc_ = Compile preprocessFileLineNumbers "Server\functions\";

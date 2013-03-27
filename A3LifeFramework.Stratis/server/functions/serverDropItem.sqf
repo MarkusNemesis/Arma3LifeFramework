@@ -31,7 +31,7 @@ if (!isnil "_pInv") then
 		[_Obj, _iName, _qty] call MV_Server_fnc_RemoveInventoryItem;
 		diag_log "MV: serverDropItem: Creating pile.";
 		// -- Create the pile and assign it it's inventory.
-		_Pile = createVehicle [MV_Shared_DROPPILECLASS, getposATL _obj, [], 0, "CAN_COLLIDE"];
+		_Pile = createVehicle [(missionNamespace getVariable "MV_Shared_DROPPILECLASS"), getposATL _obj, [], 0, "CAN_COLLIDE"];
 		// -- Set global publics
 		_Pile setVariable ['isInteractable', true, true];
 		_Pile setVariable ['interactType', "typePile", true];

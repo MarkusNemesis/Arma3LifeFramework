@@ -1,17 +1,4 @@
-You are free to copy, modify and redistribute the content of this package
-for as long as the following terms are met:
-0. All author attributions are left intact.
-1. Parties who modify this package do not take credit for it's entirety. 
-2. Contents are not used for any commercial or military implementation.
-3. Contents are not modified to a degree that run-time performance 
-is degraded to that of 50% less than original implementation, causing
-defamation to original author.
-
-End of Terms
-
----------------
-
-Author: Markus Davey,
-Alias: Radioman,
-Skype: Markus.Davey,
-Year: 2013
+Arma 3 Life Framework by Markus Davey is licensed under a 
+Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+Based on a work at https://github.com/MarkusNemesis/Arma3LifeFramework
+To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/.

@@ -9,7 +9,8 @@ class Mission
 		"A3_Characters_F_Civil",
 		"A3_Soft_F_Offroad",
 		"A3_Soft_F_Quadbike",
-		"A3_Soft_F_Hunter"
+		"A3_Soft_F_Hunter",
+		"A3_Structures_F_Furniture"
 	};
 	addOnsAuto[]=
 	{
@@ -18,6 +19,7 @@ class Mission
 		"A3_Soft_F_Offroad",
 		"A3_Soft_F_Quadbike",
 		"A3_Soft_F_Hunter",
+		"A3_Structures_F_Furniture",
 		"a3_map_stratis"
 	};
 	randomSeed=13141332;
@@ -960,7 +962,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=3;
+		items=4;
 		class Item0
 		{
 			position[]={2818.4741,2.3985376,6119.1157};
@@ -992,6 +994,16 @@ class Mission
 			skill=1;
 			text="PropHunter";
 			init="if (isServer) then {this execVM ""server\functions\serverAddProp.sqf"";};";
+		};
+		class Item3
+		{
+			position[]={2884.44,4.51421,6081.8};
+			id=51;
+			side="EMPTY";
+			vehicle="Land_CashDesk_F";
+			skill=0.60000002;
+			text="ATM1";
+			angle=210.238;
 		};
 	};
 	class Markers

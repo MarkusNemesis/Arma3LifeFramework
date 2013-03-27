@@ -34,7 +34,7 @@ if (_slotname == "") exitwith {diag_log format ["MV: serverOnPlayerConnected: CR
 
 // -- Init Player CommVar
 call compile format ["%1_CommVar = [];", _slotName];
-format ["%1_CommVar", _slotName] addPublicVariableEventHandler {[_this select 1] spawn MV_Server_fnc_CommVarEH;};
+format ["%1_CommVar", _slotName] addPublicVariableEventHandler {[_this select 1] call MV_Server_fnc_CommVarEH;};
 diag_log format ["PublicVar set: %1_CommVar", _slotName];
 
 

@@ -61,6 +61,7 @@ missionNamespace setVariable ["MV_Shared_ANIMATION_BUY", "AinvPercMstpSnonWnonDn
 // -- Game object classes
 //MV_Shared_DROPPILECLASS = "Land_Sack_F";
 missionNamespace setVariable ["MV_Shared_DROPPILECLASS", "Land_Sack_F"];
+//missionNamespace setVariable ["MV_Shared_ATMCLASS", "Land_CashDesk_F"]; // Commented due to ATMs not being of fixed class.
 
 // leave last
 _runTime = time - _runTime;

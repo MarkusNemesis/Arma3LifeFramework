@@ -45,8 +45,10 @@ Server_InitComplete = true;
 // -------- CODE AFTER THIS POINT IS RAN DURING MISSION TIME --------
 waituntil {time > 0;}; // Checks if the mission has actually started.
 
-// Init stores:
+// -- Init stores:
 call Compile preprocessFile "server\functions\init\serverInitStores.sqf";
+// -- Init ATMs
+call compile preprocessFile "server\functions\init\serverInitATMs.sqf";
 
 // Init playerslots
 call MV_Shared_fnc_GetPlayers;

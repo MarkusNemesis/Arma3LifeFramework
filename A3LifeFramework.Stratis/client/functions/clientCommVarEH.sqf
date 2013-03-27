@@ -65,14 +65,15 @@ switch (_eType) do
 		else
 		{ // -- Succeeded.
 			uiNamespace setVariable ["inventoryStorage_updateLists", true]; // [true , _iName, _qty, netID _objA, netid _ObjB]
-			private ['_iName', '_qty', '_objA', '_objB'];
+			private ['_iName', '_qty', '_objA', '_objB', '_pileCName'];
 			_iName = _vParams select 1;
 			_qty = _vParams select 2;
 			_objA = objectFromNetId (_vParams select 3);
 			_objB = objectFromNetId (_vParams select 4);
+			_pileCName = (missionNamespace getVariable "MV_Shared_DROPPILECLASS");
 			// -- If it's an item pile, output the item pile name. Else, name of player.
-			if ((typeOf _objA) == MV_Shared_DROPPILECLASS) then {_objA = "Item Pile"} else {_objA = name _objA;};
-			if ((typeOf _objB) == MV_Shared_DROPPILECLASS) then {_objB = "Item Pile"} else {_objB = name _objB;};
+			if ((typeOf _objA) == _pileCName) then {_objA = "Item Pile"} else {_objA = name _objA;};
+			if ((typeOf _objB) == _pileCName) then {_objB = "Item Pile"} else {_objB = name _objB;};
 			systemChat format [localize "STR_MV_INT_SUCCESSPILETRANSFER",_qty, _iName, _objA, _objB];
 		};
 	};
@@ -103,6 +104,20 @@ switch (_eType) do
 		_aArgs = _vParams select 3; // -- args like 'qty' etc. and Anything item specific.
 		diag_log format ["MV: clientCommVarEH: UseItemEvent: iName: %1, action: %2, aArgs: %3", _iName, _action, _aArgs];
 		[_iName, _action, _aArgs] call MV_Client_fnc_int_ItemUseEvents;
+	};
+	
+	case "ATMActionReturn":
+	{
+		private ['_success', '_action', '_qty', '_sString'];
+		_success = _vParams select 0;
+		_action = _vParams select 1;
+		if (_action == 'withdraw') then {_sString = localize 'STR_MV_INT_SUCCESSATMWITHDRAW'} else {_sString = localize 'STR_MV_INT_SUCCESSATMDEPOSIT'};
+		if (_success) then {
+			_qty = _vParams select 2;
+			systemChat format [_sString, _qty];
+		} else {
+			systemChat format [localize 'STR_MV_INT_FAILATMTRANSACTION', _qty];
+		};
 	};
 	
 };

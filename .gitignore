@@ -4,3 +4,7 @@
 *.devhax
 *.txt
 *.project
+~*.*
+*.tmp
+todo.rtf
+*.old

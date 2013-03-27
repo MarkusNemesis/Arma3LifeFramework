@@ -18,9 +18,6 @@ _iFilter = [];
 
 if (_cTarg getVariable "isInteractable") then
 {
-    // -- Check if the player can interact with this type of object.
-    _iFilter = _cTarg getVariable "interactFilter";
-	if (!(Client_PlayerSide in _iFilter or "ALL" in _iFilter)) exitwith {};
     
     // -- Switch to handle interaction types
     _iType = _cTarg getVariable "interactType";
@@ -45,12 +42,20 @@ if (_cTarg getVariable "isInteractable") then
 		
 		case "typeVehicleStore": // or "typeItemStore" etc.
 		{
+		// -- Check if the player can interact with this type of object.
+		_iFilter = _cTarg getVariable "interactFilter";
+		if (!(Client_PlayerSide in _iFilter or "ALL" in _iFilter)) exitwith {};
             _iText = localize "STR_MV_INT_HUD_SHOP";
 		};
 		
 		case "typePile":
 		{
 			_iText = localize "STR_MV_INT_HUD_PILE";
+		};
+		
+		case "typeATM":
+		{
+			_iText = localize "STR_MV_INT_HUD_ATM";
 		};
 		
 	};

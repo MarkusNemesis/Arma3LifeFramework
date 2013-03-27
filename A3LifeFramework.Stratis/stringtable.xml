@@ -73,6 +73,18 @@
 		  <English>You successfully transfered %1 %2 from %3 to %4.</English>
 		</Key>
 		
+		<Key ID="STR_MV_INT_SUCCESSATMWITHDRAW">
+		  <English>You successfully withdrew $%1 from the ATM.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_SUCCESSATMDEPOSIT">
+		  <English>You successfully deposited $%1 into the ATM.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_FAILATMTRANSACTION">
+		  <English>You failed to complete the transaction, as you have not entered a valid amount of money.</English>
+		</Key>
+		
 		<Key ID="STR_MV_INT_HUD_UNLOCK">
 		  <English>Press L to Unlock</English>
 		</Key>
@@ -87,6 +99,10 @@
 		
 		<Key ID="STR_MV_INT_HUD_PILE">
 		  <English>Press E to open item pile</English>
+		</Key>
+	
+		<Key ID="STR_MV_INT_HUD_ATM">
+		  <English>Press E to use the ATM</English>
 		</Key>
 	
 	</Package>
@@ -175,6 +191,17 @@
       <English>Transfer Items</English>
     </Key>
 
+	<Key ID="STR_MV_DG_ATMTITLE">
+      <English>Stratibank: ATM</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_WITHDRAW">
+      <English>Withdraw</English>
+    </Key>
+	
+	<Key ID="STR_MV_DG_DEPOSIT">
+      <English>Deposit</English>
+    </Key>
   </Package>
   
   

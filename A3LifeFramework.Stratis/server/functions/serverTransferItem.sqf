@@ -32,7 +32,7 @@ if (!_hasItem) exitwith {
 
 // -- Check if _objB has enough volume to accept the items.
 private ['_objBInv', '_ObjBVol', '_ObjBMaxVol', '_transVol'];
-if ((typeOf _ObjB) == MV_Shared_DROPPILECLASS) then 
+if ((typeOf _ObjB) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then 
 {
 	_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PILEVOLUME");
 } else {

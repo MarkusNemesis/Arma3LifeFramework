@@ -46,7 +46,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
             if (Client_CustomKeysEnabled) then
             {
 				// -- Interaction Floaty text
-	            [] spawn MV_Client_fnc_int_HUD;
+	            [] call MV_Client_fnc_int_HUD;
             };
 	    };
     };

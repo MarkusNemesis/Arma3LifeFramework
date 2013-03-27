@@ -125,4 +125,19 @@ switch (_eType) do
 		diag_log format ["MV: serverCommVarEH: UseItemEvent: pobj: %1, iName: %2, action: %3, aArgs: %4", _pObj, _iName, _action, _aArgs];
 		[_pObj, _iName, _action, _aArgs] call MV_Server_fnc_ItemUseEvents;
 	};
+	
+	// -- Called when a player is wanting to either deposit or withdraw money from an ATM.
+	case "atmAction":
+	{
+		private ['_pObj', '_qty', '_action'];
+		_pObj = objectFromNetId (_vParams select 0);
+		_qty = _vParams select 1;
+		_action = _vParams select 2;
+		// -- add to event queue, as this needs to be done in series.
+		['MV_Server_fnc_ATMAction', [_pObj, _qty, _action]] call MV_Server_fnc_AddEvent;
+	};
 };
+
+
+
+

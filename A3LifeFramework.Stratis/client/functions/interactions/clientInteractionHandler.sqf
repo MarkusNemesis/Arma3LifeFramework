@@ -50,4 +50,9 @@ switch (_iType) do
 		// -- Open ui_inventoryStorageInteract
 		[_iObj] spawn MV_Client_fnc_int_StorageInventory;
 	};
+	
+	case "typeATM":
+	{
+		[_iObj] spawn MV_Client_fnc_int_ATM;
+	};
 }; //End switch
