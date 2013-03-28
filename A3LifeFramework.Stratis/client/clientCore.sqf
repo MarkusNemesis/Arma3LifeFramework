@@ -82,5 +82,6 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
     _runPrior = _runPrior + 1;
     if (_runPrior > PRIOR_RANGE) then {_runPrior = 1;};
     _pFrame = diag_frameno;
+	Sleep 0.001
     waituntil {diag_frameno > _pFrame}; // Main loop runs once per tick.Let the scheduler recycle
 };
