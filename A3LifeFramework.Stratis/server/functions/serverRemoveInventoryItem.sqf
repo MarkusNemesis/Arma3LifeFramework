@@ -16,7 +16,7 @@ _id = 0;
 if (_qty < 1) then {_qty = 1;};
 // -- Get the object's inventory.
 
-if (isPlayer _pObj) then {
+if ([_pObj] call MV_Shared_fnc_isPlayerOnFoot) then {
 	_id = getPlayerUID _pObj;
 	_iInv = [getPlayerUID _pObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 } else {

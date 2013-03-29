@@ -36,6 +36,10 @@ if (_cTarg getVariable "isInteractable") then
 	                };
 			    } else {
 			    	_iText = localize "STR_MV_INT_HUD_GETIN";
+					if ((netID _cTarg) in (player getVariable "KeyChain")) then
+	                {
+			    		_iText = composeText [_iText, lineBreak, localize 'STR_MV_INT_HUD_VEHSTORAGE'];
+	                };
 			    };
 			};
 		};
@@ -65,7 +69,7 @@ if (_cTarg getVariable "isInteractable") then
     _dialog = uiNamespace getVariable "Client_UI_interactFloatyText";
     if (!isNull _dialog) then
     {
-    	(_dialog displayctrl 2000) ctrlSetText _iText;
+    	(_dialog displayctrl 2000) ctrlSetStructuredText (composeText [_iText]);
     } else {diag_log "ERROR: InteractionHUD Display is null!"};
 } else {
     cutRsc ["", "PLAIN", 0];

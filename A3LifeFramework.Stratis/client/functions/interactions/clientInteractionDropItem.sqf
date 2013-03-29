@@ -22,6 +22,8 @@ _iName = _this select 0;
 _qty = _this select 1;
 _pInv = player getVariable "Inventory";
 
+if (vehicle player != player) exitwith {["Error",localize "STR_MV_INT_ERRORDROPINVEHICLE"] spawn MV_Client_fnc_int_MessageBox;};
+
 // -- Validate Quantity
 if (_qty <= 0) exitwith {["Error", format [localize "STR_MV_INT_ERRORDROPINVALIDQTY", _qty, _iName]] spawn MV_Client_fnc_int_MessageBox;};
 

@@ -51,10 +51,12 @@ _vInfo = [_vCName] call MV_Shared_fnc_GetVehicleArrayInfo;
 _spVeh setVariable ["isInteractable", true, true];
 _spVeh setVariable ["interactType", "typeVehicle", true];
 _spVeh setVariable ["storageVolume", _vInfo select 4, true];
+_spVeh setVariable ["inventory", [], true];
 
 [_vNID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
 [_vNID, ["interactType", ["typeVehicle"]]] call MV_Server_fnc_SetMissionVariable;
 [_vNID, ["storageVolume", [_vInfo select 4]]] call MV_Server_fnc_SetMissionVariable;
+[_vNID, ["inventory", []]] call MV_Server_fnc_SetMissionVariable;
 
 // -- Set the vehicle's initline to have it interactable by the player instantly.
 _spVeh setvehicleinit "clearWeaponCargo this; clearMagazineCargo this; clearItemCargo this; player reveal this;";

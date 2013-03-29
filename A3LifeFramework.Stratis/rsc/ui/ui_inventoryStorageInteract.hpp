@@ -52,8 +52,7 @@ class ui_inventoryStorageInteract
 	};
 	class Pile_Frame: MV_GUIFrame
 	{
-		idc = -1;
-		text = $STR_MV_DG_PILE;
+		idc = 2022;
 		x = 24 * GUI_GRID_W + GUI_GRID_X;
 		y = 1.1 * GUI_GRID_H + GUI_GRID_Y;
 		w = 15.6 * GUI_GRID_W;

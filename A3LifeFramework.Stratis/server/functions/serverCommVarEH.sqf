@@ -11,7 +11,7 @@ private ['_vValue', '_eType', '_vParams'];
 _vValue = _this select 0;
 _eType = _vValue select 0;
 _vParams = _vValue select 1;
-diag_log format ["MV: serverCommVarEH: %1, %2, %3", _vValue, _eType, _vParams];
+diag_log format ["MV: serverCommVarEH: %1", _vValue];
 
 switch (_eType) do
 {
@@ -73,7 +73,7 @@ switch (_eType) do
 		_qty = _vParams select 2;
 		_pileObj = objectFromNetId (_vParams select 3);
 		//[_Obj, _iName, _qty, _pileObj] call MV_Server_fnc_TransferItem;
-		['MV_Server_fnc_TransferItem', [_Obj, _iName, _qty, _pileObj]] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_TransferItem', [netid _Obj, _iName, _qty, netid _pileObj]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "RemoveItem":

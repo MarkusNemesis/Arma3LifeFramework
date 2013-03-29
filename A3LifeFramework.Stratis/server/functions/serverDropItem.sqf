@@ -16,7 +16,7 @@ _iName = _this select 1;
 _qty = _this select 2;
 _id = '';
 
-if (_qty <= 0) exitwith {diag_log format ["MV: serverDropItem: ADMIN: Object %1 attempted to drop %2 of item %3", name _Obj, _qty, _iName];};
+if (_qty <= 0) exitwith {diag_log format ["MV: serverDropItem: ADMIN: Object %1 attempted to drop %2 of item %3, which they do not have!", name _Obj, _qty, _iName];};
 
 if (isPlayer _Obj) then {_id = getPlayerUID _Obj;} else {_id = netId _Obj;};
 _pInv = [_id, "Inventory"] call MV_Server_fnc_GetMissionVariable;

@@ -99,12 +99,19 @@ class MV_LabelCentre : MV_Label
 	style = ST_CENTER;
 };
 
-class MV_title_InteractText : RscText
+class MV_title_InteractText : RscStructuredText
 {
 	idc = -1;
 	style = ST_CENTER;
 	colorText[] = {MV_COLOUR_GREEN};
 	//colorText[] = {MV_COLOUR_MAROON};
+	class Attributes 
+	{
+		color = "#00FF00";
+		size = 0.75;
+		align = "center";
+		valign = "middle";
+	};
 };
 
 class MV_Textbox : RscEdit
@@ -123,6 +130,8 @@ class MV_SText : RscStructuredText
 	{
 		color = "#C00000";
 		size = 0.75;
+		align = "center";
+		valign = "middle";
 	};
 };
 

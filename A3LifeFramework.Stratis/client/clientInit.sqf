@@ -41,6 +41,7 @@ Client_VehicleBuyCooldown = time; // Used to limit how often players can buy veh
 Client_InVehicle = false; // Used for updating the garbage collector on vehicle interactions.
 Client_Vehicle = objnull;
 Client_UsingItem = false;
+Client_TransactionCooldown = time; // -- used to limit how often players can transfer/drop items. Limit is set at author's discretion. 
 
 // Declare client's commVar
 call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];

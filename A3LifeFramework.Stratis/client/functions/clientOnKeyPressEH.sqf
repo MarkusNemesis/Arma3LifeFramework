@@ -45,7 +45,7 @@ if (Client_CustomKeysEnabled) then
 		    // ---------------- Interact with Stores/GetInVehicles ----------------
             private ["_pDistance", "_found", "_fArray"];
             //diag_log "Pre Interact Handler";
-            [_target] call MV_Client_fnc_int_Handler;
+            [_target, _shift] call MV_Client_fnc_int_Handler;
 			_handled = true;
 		};
 		
@@ -54,22 +54,27 @@ if (Client_CustomKeysEnabled) then
 		{
 		    if (locked vehicle player == 1) then 
             {
+				if (_shift) exitWith 
+				{
+					if (netId (vehicle player) in (player getVariable "KeyChain")) then {[(vehicle player)] spawn MV_Client_fnc_int_StorageInventory} else {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED";};
+					_handled = true;
+				};
                 player action ["getOut", vehicle player];
             } else {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED";}; // notify the player that the vehicle is locked};
 			_handled = true;
 		};
 	};
+	
     // ---------------- Lock key [L] ----------------
     if (_key == 38) then
     {
         if (vehicle player == player) then
 		{// -- On foot
 	        [_target, 'key'] call MV_Client_fnc_int_ToggleVehicleLock;
-			_handled = true;
         } else { // -- In vehicle.
             [vehicle player, 'key'] call MV_Client_fnc_int_ToggleVehicleLock;
-			_handled = true;
         };
+		_handled = true;
     };
 	
 	// ---------------- Information key [1] ----------------

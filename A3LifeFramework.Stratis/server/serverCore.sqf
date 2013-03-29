@@ -17,10 +17,11 @@ _avgTTime = 0;
 _tTime = diag_ticktime;
 _pRange = (missionNamespace getVariable "PRIOR_RANGE");
 diag_log "MV: STARTING SERVER MAINLOOP";
-while {true} do // This is the main loop. EVERYTHING serverside happens here.
+while {true} do // This is the main loop. EVERYTHING serverside happens here, with the exception of event handler calls.
 {
     // -------- Run Priority 1 - Runs every frame --------
     {
+		if (isnil '_x') exitwith {}; // -- Somehow, this can happen....
         private ['_fname', '_args', '_priority'];
         _fname = _x select 0;
         _args = _x select 1;
@@ -60,6 +61,7 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here.
         Server_Health = format ["Server: Mainloop tick time avg: %1ms. FrameNo: %2", (_tTime / _pRange) * 1000, diag_frameno];
 		publicVariable "Server_Health";
         _tTime = diag_ticktime;
+		if ((diag_frameno - _pFrame) > 1) then {diag_log format ["MV: serverCore: WARN: Loop skipped %1 frames!", diag_frameno - _pFrame];};
     };
     _pFrame = diag_frameno;
 	Sleep 0.001;

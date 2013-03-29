@@ -16,7 +16,7 @@ MV_Shared_fnc_GetVehicleArrayInfo = Compile preprocessFileLineNumbers "shared\fu
 MV_Shared_fnc_InventoryHasItem = Compile preprocessFileLineNumbers "shared\functions\sharedInventoryHasItem.sqf";
 MV_Shared_fnc_GetCurrentInventoryVolume = Compile preprocessFileLineNumbers "shared\functions\sharedGetCurrentInventoryVolume.sqf";
 MV_Shared_fnc_SendPublicMessage = Compile preprocessFileLineNumbers "shared\functions\sharedSendPublicMessage.sqf";
-
+MV_Shared_fnc_isPlayerOnFoot = Compile preprocessFileLineNumbers "shared\functions\sharedisPlayerOnFoot.sqf";
 
 // -- Item use functions
 MV_Shared_fnc_ItemRepairVehicle = Compile preprocessFileLineNumbers "shared\functions\itemsFunctions\sharedItemRepairVehicle.sqf";

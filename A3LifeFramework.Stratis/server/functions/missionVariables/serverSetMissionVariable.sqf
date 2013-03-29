@@ -11,7 +11,7 @@ Example: [_sNetID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVari
 
 Objects need to init their variable before it can be used: Use missionNamespace setVariable [format ["%1_missionVar", id], []];
 */
-
+diag_log format ['MV: serverSetVariable: %1', _this];
 private ['_ID', '_args', '_mVarName','_mArray', '_found'];
 
 _ID = _this select 0;

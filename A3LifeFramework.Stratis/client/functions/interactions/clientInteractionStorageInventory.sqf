@@ -47,6 +47,9 @@ lbSetCurSel [2010, 0];
 ctrlSetText [2013, format ["Volume: %1 / %2 cc [%3%4]", _playerInvVol, _playerMaxVol, (_playerInvVol / _playerMaxVol) * 100, "%"]];
 ctrlSetText [2014, format ["Volume: %1 / %2 cc [%3%4]", _storageInvVol, _storageMaxVol, (_storageInvVol / _storageMaxVol) * 100, "%"]];
 
+// -- Set storage frame title
+if ((typeof _storageObj) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then {ctrlSetText [2022, STR_MV_DG_PILE]} else {ctrlSetText [2022, typeof _storageObj]};
+
 // -- Predefine uiNamespace variables
 uiNamespace setVariable ['inventoryStorage_cmdToStorage', false];
 uiNamespace setVariable ['inventoryStorage_cmdToInventory', false];
@@ -97,6 +100,7 @@ while {!isnull (findDisplay 1411)} do
 		{
 			uiNamespace setVariable ['inventoryStorage_cmdToStorage', false];
 			private ['_tqty', '_iName', '_qty', '_lbxInvCurSel', '_hasItem', '_tvol'];
+			if (lbsize 2009 < 1) exitwith {};
 			_lbxInvCurSel = lbCurSel 2009;
 			if (isnil '_lbxInvCurSel') exitwith {};
 			_iName = ((_iArray select _lbxInvCurSel) select 0);
@@ -111,14 +115,20 @@ while {!isnull (findDisplay 1411)} do
 			_tvol = (([_iName] call MV_Shared_fnc_GetItemInformation) select 1) * _tqty;
 			if (((_storageMaxVol - _storageInvVol) - _tvol) < 0) exitwith {["Error", format [localize "STR_MV_INT_ERRORSTORAGENOVOL", _tqty, _iName]] spawn MV_Client_fnc_int_MessageBox;};
 			
-			// -- User has the item, has the qty required and the pile has enough room to recieve the transfer. Send message to server "TransferItem"
-			["TransferItem", [netID player ,_iName, _tqty, netID _storageObj]] call MV_Client_fnc_SendServerMessage;
+			// -- User has the item, has the qty required and the pile has enough room to recieve the transfer. Send message to server "TransferItem".
+			if (Client_TransactionCooldown < time) then {
+				["TransferItem", [netID player ,_iName, _tqty, netID _storageObj]] call MV_Client_fnc_SendServerMessage;
+			} else {
+				["Error", localize "STR_MV_INT_ERRORDROPCOOLDOWN"] spawn MV_Client_fnc_int_MessageBox;
+			};
+			
 		};
 		
 		if (uiNamespace getVariable "inventoryStorage_cmdToInventory") then
 		{
 			uiNamespace setVariable ['inventoryStorage_cmdToInventory', false];
 			private ['_tqty', '_iName', '_qty', '_lbxInvCurSel', '_hasItem', '_tvol'];
+			if (lbsize 2010 < 1) exitwith {};
 			_lbxInvCurSel = lbCurSel 2010;
 			_iName = ((_storageInv select _lbxInvCurSel) select 0);
 			_qty = ((_storageInv select _lbxInvCurSel) select 1);
@@ -133,7 +143,11 @@ while {!isnull (findDisplay 1411)} do
 			if (((_playerMaxVol - _playerInvVol) - _tvol) < 0) exitwith {["Error", format [localize "STR_MV_INT_ERRORSTORAGENOVOL", _tqty, _iName]] spawn MV_Client_fnc_int_MessageBox;};
 			
 			// -- User has the item, has the qty required and the pile has enough room to recieve the transfer. Send message to server "TransferItem"
-			["TransferItem", [netID _storageObj ,_iName, _tqty, netID player]] call MV_Client_fnc_SendServerMessage;
+			if (Client_TransactionCooldown < time) then {
+				["TransferItem", [netID _storageObj ,_iName, _tqty, netID player]] call MV_Client_fnc_SendServerMessage;
+			} else {
+				["Error", localize "STR_MV_INT_ERRORDROPCOOLDOWN"] spawn MV_Client_fnc_int_MessageBox;
+			};
 		};
 		
 		// -- Leave last

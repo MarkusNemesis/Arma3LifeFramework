@@ -31,7 +31,7 @@ Server_PropsArray = []; // Contains all the static world props.
 OnPlayerConnected "[_id, _name, _uid] execVM ""Server\functions\serverOnPlayerConnected.sqf"";";
 
 // OnPlayerDisconnected
-OnPlayerDisconnected "[_id, _name, _uid] execVM ""Server\functions\serverOnPlayerDisconnected.sqf"";";
+OnPlayerDisconnected "[_id, _name, _uid] execVM ""Server\functions\serverOnPlayerDisconnected.sqf""; diag_log 'Running OPDC';";
 
 // Create spawn haven
 private ["_vName", "_object"];

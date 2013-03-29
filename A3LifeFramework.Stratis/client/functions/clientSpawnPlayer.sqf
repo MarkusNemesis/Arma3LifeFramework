@@ -52,7 +52,7 @@ switch (Client_PlayerSide) do
     
     default {diag_log format["[MV ERROR] Player %1 joined non-supported side %2", Client_PlayerName, Client_PlayerSideStr];};
 };
-
+diag_log format ["MV: clientSpawnPlayer: Spawn pos is: %1", _spawnPos];
 waitUntil {preloadCamera _spawnPos};
 titleText ["Loading Complete!", "BLACK IN", 0];
 // Leave last --------- Set player as spawned.

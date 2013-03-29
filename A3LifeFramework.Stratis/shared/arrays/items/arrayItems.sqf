@@ -26,7 +26,7 @@ _Array_Items = [
 	['TestItem2', 5, 50, ["Args array test2", "Hello world Again"], 'MV_Client_fnc_Use_TestUse', "This is also a test object. It also tests things"],
 	['Small Spare Tyre Kit', 10000, 250, [1, 0.1, 15], 'MV_Client_fnc_Use_TestUse', "Replaces a small land vehicle's wheels with flimsy replacements for temporary use."], // Args: Repair scale 1 (vehicle size), repair coverage (0.1 = wheels) and repair time 15s
 	['Light Repair Kit', 15000, 400, [1, 0.25, 15], 'MV_Client_fnc_Use_RepairKitUse', "Repairs small land and sea vehicles to running condition. Use only for cursory repairs."], // Args: Repair scale 1 (vehicle size), repair coverage (0.25 = fuel, engine, wheels) and repair time 15s
-	['Fishing net (Small)', 10000, 75, [20, ], 'useFunction', "A small fishing net, for use on small boats / dinghys. Perfect for the casual fisherman or budding entrepreneur."] // Args: Fish depth: 20, Size, (sml, med, lar)
+	['Fishing net (Small)', 10000, 75, [20, 'sml', 10000], 'useFunction', "A small fishing net, for use on small boats / dinghys. Perfect for the casual fisherman or budding entrepreneur."] // Args: Fish depth: 20, Size, (sml, med, lar), net catch volume
 ]; // End array
 
 missionNamespace setVariable ["Array_Items", _Array_Items];

@@ -30,7 +30,7 @@
 		</Key>
 
 		<Key ID="STR_MV_INT_ERRORCANNOTEXITLOCKED">
-		  <English>NOTICE: You cannot enter/exit this vehicle, as it is locked</English>
+		  <English>NOTICE: You cannot do that with this vehicle, as it is locked</English>
 		</Key>
 
 		<Key ID="STR_MV_INT_ERRORITEMNOUSE">
@@ -57,6 +57,10 @@
 		  <English>You cannot drop %1 of item %2. Please use a valid quantity</English>
 		</Key>
 		
+		<Key ID="STR_MV_INT_ERRORDROPINVEHICLE">
+		  <English>You cannot drop items whilst within a vehicle.</English>
+		</Key>
+		
 		<Key ID="STR_MV_INT_ERRORSTORAGENOVOL">
 		  <English>You cannot transfer %1 of item %2, because it cannot fit.</English>
 		</Key>
@@ -71,6 +75,10 @@
 		
 		<Key ID="STR_MV_INT_SUCCESSPILETRANSFER">
 		  <English>You successfully transfered %1 %2 from %3 to %4.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_ERRORDROPCOOLDOWN">
+		  <English>You cannot drop an item so soon after your last. Please wait a few seconds.</English>
 		</Key>
 		
 		<Key ID="STR_MV_INT_SUCCESSATMWITHDRAW">
@@ -91,6 +99,10 @@
 
 		<Key ID="STR_MV_INT_HUD_GETIN">
 		  <English>Press E to Get in</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_HUD_VEHSTORAGE">
+		  <English>Press Shift-E to open vehicle inventory</English>
 		</Key>
 
 		<Key ID="STR_MV_INT_HUD_SHOP">

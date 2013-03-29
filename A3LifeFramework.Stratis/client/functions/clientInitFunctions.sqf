@@ -6,6 +6,9 @@ Desc: declares and compiles all the client specific functions.
 Return:
 */
 
+// Get/Set client variables
+
+
 // General
 MV_Client_fnc_AddEvent = Compile preprocessFileLineNumbers "client\functions\clientAddEvent.sqf";
 MV_Client_fnc_RemoveEvent = Compile preprocessFileLineNumbers "client\functions\clientRemoveEvent.sqf";

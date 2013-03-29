@@ -13,6 +13,14 @@ diag_log format ["MV: clientCommVarEH: %1", _vValue];
 
 switch (_eType) do
 {
+	// -- Called when the server sends a variable update. Used to sync variable changes by the server, to that respective client. SYNCS ONLY TO ONE CLIENT, NOT ALL.
+	case: "vU":
+	{
+		private ['_variable', '_args'];
+		_variable = _vParams select 0;
+		_args = _vParams select 1;
+	};
+	
     // -- Return status of the clients vehicle purchase attempt.
     case "BuyVehicleReturn":
     {
@@ -61,6 +69,8 @@ switch (_eType) do
 			if (_reason == 'q' or _reason == 'i') exitwith {["Error", format [localize "STR_MV_INT_ERRORPILENOITEM", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
 			if (_reason == 'v') exitwith {["Error", format [localize "STR_MV_INT_ERRORSTORAGENOVOL", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
 			if (_reason == 'ni') exitwith {["Error", format [localize "STR_MV_INT_ERRORPILENOINVENTORY"]] spawn MV_Client_fnc_int_MessageBox;};
+			// -- Set cooldown, at least stops server message spam.
+			Client_TransactionCooldown = time + 1;
 		}
 		else
 		{ // -- Succeeded.
@@ -75,6 +85,8 @@ switch (_eType) do
 			if ((typeOf _objA) == _pileCName) then {_objA = "Item Pile"} else {_objA = name _objA;};
 			if ((typeOf _objB) == _pileCName) then {_objB = "Item Pile"} else {_objB = name _objB;};
 			systemChat format [localize "STR_MV_INT_SUCCESSPILETRANSFER",_qty, _iName, _objA, _objB];
+			// -- Set cooldown
+			Client_TransactionCooldown = time + 3;
 		};
 	};
 	
@@ -115,6 +127,7 @@ switch (_eType) do
 		if (_success) then {
 			_qty = _vParams select 2;
 			systemChat format [_sString, _qty];
+			player switchMove (missionNamespace getVariable "MV_Shared_ANIMATION_BUY"); // TODO maybe put this across the network.... maybe.
 		} else {
 			systemChat format [localize 'STR_MV_INT_FAILATMTRANSACTION', _qty];
 		};

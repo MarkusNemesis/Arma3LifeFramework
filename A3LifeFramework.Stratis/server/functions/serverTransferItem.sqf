@@ -10,18 +10,19 @@ Params: ['_objA', '_iName', '_qty', '_objB']
 
 private ['_objA', '_iName', '_qty', '_objB', '_oAID', '_oBID', '_arrPlayers'];
 
-_objA = _this select 0;
+_objA = objectFromNetId (_this select 0);
 _iName = _this select 1;
 _qty = _this select 2;
-_objB = _this select 3;
+_objB = objectFromNetId (_this select 3);
 _oAID = 0;
 _oBID = 0;
 _arrPlayers = [];
-if (isplayer _objA) then {_oAID = getPlayerUID _objA; _arrPlayers = _arrPlayers + [_objA];} else {_oAID = netID _objA};
-if (isplayer _objB) then {_oBID = getPlayerUID _objB; _arrPlayers = _arrPlayers + [_objB];} else {_oBID = netID _objB};
+if ([_objA] call MV_Shared_fnc_isPlayerOnFoot) then {_oAID = getPlayerUID _objA; _arrPlayers = _arrPlayers + [_objA];} else {_oAID = _this select 0};
+if ([_objB] call MV_Shared_fnc_isPlayerOnFoot) then {_oBID = getPlayerUID _objB; _arrPlayers = _arrPlayers + [_objB];} else {_oBID = _this select 3};
 
 // -- Check if _objA has the item that is to be sent.
 private ['_objAInv', '_hasItem'];
+
 _objAInv = [_oAID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 _hasItem = [_objAInv, _iName, _qty] call MV_Shared_fnc_InventoryHasItem;
 
@@ -36,7 +37,7 @@ if ((typeOf _ObjB) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) 
 {
 	_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PILEVOLUME");
 } else {
-	if (isPlayer _objB) exitWith {_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PLAYERVOLUME");}; // -- TODO 'set' player's max volume via missionvariable, and retrieve it where needed, ie, here.
+	if ([_objB] call MV_Shared_fnc_isPlayerOnFoot) exitWith {_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PLAYERVOLUME");};
 
 	if (_ObjB isKindOf "LandVehicle" or _ObjB isKindOf "Air" or _ObjB isKindOf "Ship") exitwith
 	{
@@ -46,6 +47,7 @@ if ((typeOf _ObjB) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) 
 		if (!isnil '_vInfo') then {_ObjBMaxVol = _vInfo select 4;};
 	};
 };
+
 if (isnil '_objBMaxVol') exitwith {
 	diag_log format ["MV: serverTransferItem: _objBMaxVol is nil"];
 	{[_x, "TransferItemReturn", [false , 'ni']] call MV_Server_fnc_SendClientMessage;} foreach _arrPlayers;
