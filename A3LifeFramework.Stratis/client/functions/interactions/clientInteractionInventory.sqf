@@ -17,8 +17,6 @@ _iArray = player getVariable "Inventory";
 // -- Display Dialog
 _bool = createDialog "ui_inventory";
 
-// -- Get all the inventory items and put them into the list.
-//lbadd [2001, format ["%1, Qty: %2", "Money", player getVariable "Money"]]; // TODO localise and get variable by request
 {
 	lbAdd [2001, format ["%1, Qty: %2", _x select 0, _x select 1]];
 } foreach _iArray;

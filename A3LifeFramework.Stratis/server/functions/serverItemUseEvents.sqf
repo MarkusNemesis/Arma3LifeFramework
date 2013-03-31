@@ -30,7 +30,7 @@ switch (_action) do
 	case "RKRep":
 	{
 		diag_log "Doing action RKRep";
-		private ['_rVeh', '_iInfo', '_rCoverage', '_rLvl', '_rParts'];
+		private ['_rVeh', '_iInfo'];
 		_rVeh = objectFromNetId (_aArgs select 0);
 		
 		// -- Check if vehicle being repaired is in range of user.
@@ -45,5 +45,27 @@ switch (_action) do
 		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
 		// -- Call the repair function.
 		[(_iInfo select 3) select 1, _rVeh] call MV_Shared_fnc_ItemRepairVehicle;
+	};
+	
+	case "DeployNet":
+	{
+		diag_log "Deploying net";
+		private ['_veh', '_iInfo', '_isDeployed'];
+		_veh = objectFromNetId (_aArgs select 0);
+		// -- Is the player in a boat
+		if (_pObj != driver _veh) exitwith {diag_log "Player not in boat"}; // TODO error out, not in boat.
+		// -- Is the boat already using a net.
+		_isDeployed = _veh getVariable 'NetDeployed';
+		if (isnil '_isDeployed') then {_isDeployed = false};
+		if (_isDeployed) exitwith {diag_log 'Boat already has a net, doofus!'}; // TODO error out, already a net.
+		// -- Get item info
+		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
+		// -- Set the boat's variables to contain that it's deployed and the net's name.
+		_veh setVariable ['NetDeployed', [true, _iName, 0, []], true];
+		[_aArgs select 0, ['NetDeployed', [true, _iName, 0 []]]] call MV_Server_fnc_SetMissionVariable;
+		// -- Return to the player that the item use was successful.
+		["UseItemEvent", [_pObj, _iName, "DNet", _aArgs]] call MV_Server_fnc_SendClientMessage;
+		// -- Add the item use event to the server mainloop event array.
+		['MV_Server_fnc_IEvent_Fishing', [netID _pObj, netID _veh, _pObj getPosASL, _pObj getPosASL]] call MV_Server_fnc_AddEvent;
 	};
 };

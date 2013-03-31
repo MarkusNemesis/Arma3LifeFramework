@@ -34,12 +34,8 @@ if (!_sStock) exitwith {
 private ['_spVeh', '_sPos', '_kChain', '_vNID', '_vInfo'];
 _sPos = (getmarkerpos _spawnMarker); //findemptyposition[0, 3, _vCName];
 _spVeh = createVehicle [_vCName, _sPos, [], 0, "CAN_COLLIDE"];
-//_spVeh = createVehicle [_vCName, [7090,5936,0], [], 0, "CAN_COLLIDE"];
-_spVeh lock true;
-
-// -- Position the vehicle
-//_spVeh setpos [(_sPos select 0) + (random 5), (_sPos select 1) + (random 5), (_sPos select 2)]; // TODO implement AGL method
 _spVeh setdir (markerdir _spawnMarker);
+_spVeh lock true;
 
 // -- init vehicle's missionNamespace variable
 _vNID = netid _spVeh;

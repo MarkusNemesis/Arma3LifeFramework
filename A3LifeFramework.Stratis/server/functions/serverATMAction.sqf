@@ -29,7 +29,7 @@ switch (_action) do
 {
 	case "withdraw":
 	{
-		if (_qty < 0 || _qty > _pbMoney) exitwith {diag_log format ["MV: serverATMAction: ADMIN: Error! player %1 attempted to withdraw $%2, bypassing client validation!", name _pObj, _qty];[_pObj, "ATMActionReturn", [false, _action]] call MV_Server_fnc_SendClientMessage;}; // -- TODO send player errormessage. Invalid qty. Or, just not....
+		if (_qty < 0 || _qty > _pbMoney) exitwith {diag_log format ["MV: serverATMAction: ADMIN: Error! player %1 attempted to withdraw $%2, bypassing client validation!", name _pObj, _qty];[_pObj, "ATMActionReturn", [false, _action]] call MV_Server_fnc_SendClientMessage;};
 		// -- Subtract the money from the player's bank account.
 		[getPlayerUID _pObj, ["bankmoney", [(_pbMoney - _qty)]]] call MV_Server_fnc_SetMissionVariable;
 		_pObj setVariable ["bankmoney", (_pbMoney - _qty), true];
@@ -40,7 +40,7 @@ switch (_action) do
 	
 	case "deposit":
 	{
-		if (_qty < 0 || _qty > _pwMoney) exitwith {diag_log format ["MV: serverATMAction: ADMIN: Error! player %1 attempted to deposit $%2, bypassing client validation!", name _pObj, _qty];[_pObj, "ATMActionReturn", [false, _action]] call MV_Server_fnc_SendClientMessage;}; // -- TODO send player errormessage. Invalid qty. Or, just not....
+		if (_qty < 0 || _qty > _pwMoney) exitwith {diag_log format ["MV: serverATMAction: ADMIN: Error! player %1 attempted to deposit $%2, bypassing client validation!", name _pObj, _qty];[_pObj, "ATMActionReturn", [false, _action]] call MV_Server_fnc_SendClientMessage;};
 		// -- Subtract the money from the player's wallet.
 		[_pObj, _pwMoney - _qty] call MV_Server_fnc_SetPlayerFunds;
 		

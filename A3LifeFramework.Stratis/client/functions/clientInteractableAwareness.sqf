@@ -8,7 +8,7 @@ Desc: 'reveal's to the player all typically interactable objects within interact
 private ['_nTargs', '_iRange'];
 _iRange = _this select 0;
 // -- Gets all near objects/targets
-_nTargs = player nearEntities 5; // TODO limit this to certain class types, based off what will be typically interactable with.
+_nTargs = player nearEntities 5; // TODO limit this to certain class types, based off what will be typically interactable with. OR convert back to 'lineIntersectsWith' when it gets fixed.
 
 // -- Debugging
 //diag_log format ["MV: clientInteractableAwareness: %1", _nTargs];

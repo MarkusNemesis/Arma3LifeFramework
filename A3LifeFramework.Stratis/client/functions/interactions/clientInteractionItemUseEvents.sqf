@@ -17,33 +17,25 @@ switch (_action) do
 	// -- Do repair on vehicle.
 	case "RKRep":
 	{
-		/*
-		diag_log "Doing action RKRep";
-		private ['_rVeh', '_iInfo', '_rCoverage', '_rLvl', '_rParts'];
-		_rVeh = objectFromNetId (_aArgs select 1);
-		// -- Get item info to get repair arguments.
-		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
-		// -- Apply repair to vehicle. Repairs 'hitEngine' and 'hitFuel' to half. Checks if those values are < .5, if so, left alone. Replaces all wheels.
-		_rCoverage = (_iInfo select 3) select 1;
-		_rLvl = 1 - _rCoverage;
-		_rParts = [];
-		if (_rCoverage >= 0.1) then {_rParts = _rParts + ["LBWHEEL", "LFWHEEL", "RFWHEEL", "RBWHEEL"];};
-		if (_rCoverage >= 0.25) then {_rParts = _rParts + ["Fuel","Engine"];};
-		// -- Set vehicle to be owned by the server.
-		{
-			private ['_p'];
-			_p = format ['Hit%1', _x];
-			if ((_rVeh getHitPointDamage _p) > _rCoverage) then
-			{
-				_rVeh setHitPointDamage [_p, (_rLvl)];
-			};
-		} foreach _rParts;
-		*/
 		private ['_iInfo', '_rVeh'];
 		_rVeh = objectFromNetId (_aArgs select 1);
 		// -- Get item info to get repair arguments.
 		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
 		// -- Call the repair function.
 		[(_iInfo select 3) select 1, _rVeh] call MV_Shared_fnc_ItemRepairVehicle;
+	};
+	
+	case "DNet":
+	{
+		private ['_iInfo'];
+		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
+		systemChat format ["You successfully deployed the net. Be sure to stay just below %1 KM/h and at a depth greater than %2, or you'll be forced to recall your net.", 10, (_iInfo select 3) select 0];
+		// -- TODO add 'fish finder', water depth gauge and net capacity bar/metre.
+	};
+	
+	case "DNetCyc":
+	{
+		// -- Runs when a net completes a 5 second serverside event cycle. Either notifies the player of it's ship's inventory status, or that they've gone too fast / ran aground / etc and the net has been recalled.
+		// -- TODO this
 	};
 };
