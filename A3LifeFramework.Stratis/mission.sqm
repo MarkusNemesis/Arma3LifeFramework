@@ -1070,6 +1070,7 @@ class Mission
 			position[]={2800.6599,0,6014.7998};
 			name="BoatStoreCiv1_Spawn";
 			type="Empty";
+			angle=262.0;
 		};
 	};
 };

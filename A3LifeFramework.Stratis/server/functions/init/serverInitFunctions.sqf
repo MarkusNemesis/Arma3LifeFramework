@@ -35,7 +35,10 @@ MV_Server_fnc_TransferItem = Compile preprocessFileLineNumbers "Server\functions
 MV_Server_fnc_AddInventoryItem = Compile preprocessFileLineNumbers "Server\functions\serverAddInventoryItem.sqf";
 
 // -- Item events
+// - Fishing
 MV_Server_fnc_IEvent_Fishing = Compile preprocessFileLineNumbers "Server\functions\itemEvents\serverItemEventFishing.sqf";
+MV_Server_fnc_IEvent_FishingRecallNet = Compile preprocessFileLineNumbers "Server\functions\itemEvents\serverItemEventFishingRecallNet.sqf";
+
 
 // -- ATM interaction
 MV_Server_fnc_ATMAction = Compile preprocessFileLineNumbers "Server\functions\serverATMAction.sqf";

@@ -14,8 +14,8 @@ _Array_Vehicles = [
 	["c_offroad",8000, true, 1, 750000],
 	["B_Quadbike_F", 4500, true, 1, 10000],
     ["B_Hunter_F", 13000, true, 2, 500000],
-    ["B_Assaultboat", 2000, true,1, 35000],
-    ["C_Rubberboat", 2000, true,1, 35000]
+    ["B_Assaultboat", 2000, true,1, 37500],
+    ["C_Rubberboat", 2000, true,1, 37500]
 ]; // End of array
 
 missionNamespace setVariable ["Array_Vehicles", _Array_Vehicles];

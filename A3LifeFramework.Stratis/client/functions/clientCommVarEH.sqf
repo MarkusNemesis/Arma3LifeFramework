@@ -14,7 +14,7 @@ diag_log format ["MV: clientCommVarEH: %1", _vValue];
 switch (_eType) do
 {
 	// -- Called when the server sends a variable update. Used to sync variable changes by the server, to that respective client. SYNCS ONLY TO ONE CLIENT, NOT ALL.
-	case: "vU":
+	case "vU":
 	{
 		private ['_variable', '_args'];
 		_variable = _vParams select 0;
@@ -111,10 +111,10 @@ switch (_eType) do
 	case "UseItemEvent":
 	{
 		private ['_iName', '_action', '_aArgs'];
-		_iName = _vParams select 1;
-		_action = _vParams select 2;
-		_aArgs = _vParams select 3; // -- args like 'qty' etc. and Anything item specific.
-		diag_log format ["MV: clientCommVarEH: UseItemEvent: iName: %1, action: %2, aArgs: %3", _iName, _action, _aArgs];
+		_iName = _vParams select 0;
+		_action = _vParams select 1;
+		_aArgs = _vParams select 2; // -- args like 'qty' etc. and Anything item specific.
+		
 		[_iName, _action, _aArgs] call MV_Client_fnc_int_ItemUseEvents;
 	};
 	

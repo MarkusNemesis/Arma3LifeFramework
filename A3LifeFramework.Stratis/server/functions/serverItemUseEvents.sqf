@@ -38,7 +38,7 @@ switch (_action) do
 		
 		if (!local _rVeh) exitwith {
 			// -- Repair needs locality, so thus, off to the owning client it goes. 
-			["UseItemEvent", [_rVeh, _iName, _action, _aArgs]] call MV_Server_fnc_SendClientMessage;
+			[_rVeh, "UseItemEvent", [_iName, _action, _aArgs]] call MV_Server_fnc_SendClientMessage;
 		}; // ELSE the server does it here and now.
 		
 		// -- Get item info to get repair arguments.
@@ -56,16 +56,16 @@ switch (_action) do
 		if (_pObj != driver _veh) exitwith {diag_log "Player not in boat"}; // TODO error out, not in boat.
 		// -- Is the boat already using a net.
 		_isDeployed = _veh getVariable 'NetDeployed';
-		if (isnil '_isDeployed') then {_isDeployed = false};
+		if (isnil '_isDeployed') then {_isDeployed = false} else {_isDeployed = _isDeployed select 0};
 		if (_isDeployed) exitwith {diag_log 'Boat already has a net, doofus!'}; // TODO error out, already a net.
 		// -- Get item info
 		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
 		// -- Set the boat's variables to contain that it's deployed and the net's name.
-		_veh setVariable ['NetDeployed', [true, _iName, 0, []], true];
-		[_aArgs select 0, ['NetDeployed', [true, _iName, 0 []]]] call MV_Server_fnc_SetMissionVariable;
+		_veh setVariable ['NetDeployed', [true, _iName, []], true];
+		[_aArgs select 0, ['NetDeployed', [true, _iName, []]]] call MV_Server_fnc_SetMissionVariable;
 		// -- Return to the player that the item use was successful.
-		["UseItemEvent", [_pObj, _iName, "DNet", _aArgs]] call MV_Server_fnc_SendClientMessage;
+		[_pObj, "UseItemEvent", [_iName, "DNet", _aArgs]] call MV_Server_fnc_SendClientMessage;
 		// -- Add the item use event to the server mainloop event array.
-		['MV_Server_fnc_IEvent_Fishing', [netID _pObj, netID _veh, _pObj getPosASL, _pObj getPosASL]] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_IEvent_Fishing', [netID _pObj, netID _veh, getPosASL _pObj, getPosASL _pObj], time + 5] call MV_Server_fnc_AddEvent;
 	};
 };
