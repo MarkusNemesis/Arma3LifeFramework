@@ -61,10 +61,10 @@ else // -- Deploy the net.
 	_mDepth = _args select 0;
 	diag_log format ['_nDepth: %1, _mDepth: %2', _nDepth, _mDepth];
 	if (_nDepth < _mDepth) exitwith {diag_log 'Too shallow!';Client_UsingItem = false;}; // TODO error out, water too shallow.
-	
-	// -- Send server message to deploy the net.
-	["UseItemEvent", [netID player, _iName, 'DeployNet', [netId _useVehicle]]] call MV_Client_fnc_SendServerMessage;
 };
+
+// -- Send server message to deploy/recall the net.
+["UseItemEvent", [netID player, _iName, 'DeployNet', [netId _useVehicle]]] call MV_Client_fnc_SendServerMessage;
 
 // -- Leave last
 Client_UsingItem = false;

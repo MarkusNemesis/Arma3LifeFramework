@@ -45,6 +45,11 @@ _depth = 0;
 _mDepth = 0;
 _isValid = [true];
 
+// -- Get the net's array.
+_netVar = _fBoat getVariable 'NetDeployed';
+
+if (!(_netVar select 0)) exitwith {}; // -- Exit gracefully, as the user has stopped fishing in one way shape or form.
+
 // -- Constants
 #define BASECATCHVOL 500 // -- cc
 _fishArr = ['Blowfish', 'Whiting', 'Herring', 'Sardines', 'Atlantic Bonito', 'Anchovies', 'European Hake', 'Gilt-Headed Bream', 'European Seabass', 'Atlantic Bluefin Tuna'];
@@ -63,7 +68,6 @@ if (_bSpeed > MAXNETSPEED) then {diag_log "User went too fast."; _isValid = [fal
 diag_log format ["Distance: %1, Speed: %2", (_prevPos distance _cPos), _bSpeed];
 
 // -- Get item data
-_netVar = _fBoat getVariable 'NetDeployed';
 _iInfo = [_netVar select 1] call MV_Shared_fnc_GetItemInformation;
 
 // -- If the max depth the net can go is GREATER than the current depth, then the net will strike the seabed. So thus, recalling the net.

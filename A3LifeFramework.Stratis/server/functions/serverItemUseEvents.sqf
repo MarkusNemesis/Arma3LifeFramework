@@ -57,7 +57,10 @@ switch (_action) do
 		// -- Is the boat already using a net.
 		_isDeployed = _veh getVariable 'NetDeployed';
 		if (isnil '_isDeployed') then {_isDeployed = false} else {_isDeployed = _isDeployed select 0};
-		if (_isDeployed) exitwith {diag_log 'Boat already has a net, doofus!'}; // TODO error out, already a net.
+		if (_isDeployed) exitwith {
+			diag_log 'Boat already has a net, recalling.';
+			[_veh] call MV_Server_fnc_IEvent_FishingRecallNet;
+		};
 		// -- Get item info
 		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
 		// -- Set the boat's variables to contain that it's deployed and the net's name.
