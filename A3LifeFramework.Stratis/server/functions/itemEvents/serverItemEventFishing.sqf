@@ -46,8 +46,8 @@ _mDepth = 0;
 _isValid = [true];
 
 // -- Get the net's array.
-_netVar = _fBoat getVariable 'NetDeployed';
-
+_netVar = [netid _fboat, "NetDeployed"] call MV_Server_fnc_GetMissionVariable;//_fBoat getVariable 'NetDeployed';
+diag_log format ['MV: serverItemEventFishing: isDeployed: %1', _netVar select 0];
 if (!(_netVar select 0)) exitwith {}; // -- Exit gracefully, as the user has stopped fishing in one way shape or form.
 
 // -- Constants
@@ -79,24 +79,25 @@ private ['_netVol', '_netMaxVol', '_remNetVol', '_netInventory'];
 _netVol = 0;
 _netMaxVol = 0;
 _netInventory = [];
+
 // -- Get the current inventory of the net
 _netInventory = _netVar select 2;
+
 // -- Calculate it's current volume.
 {_netVol = _netVol + (_x select 1);} foreach _netInventory;
 _netMaxVol = (_iInfo select 3) select 2;
 _remNetVol = _netMaxVol - _netVol;
+
 // -- See if this fishing cycle could possibly overflow the net.
-if (_remNetVol < BASECATCHVOL) then {_isValid = [false, 'ofl']};
+if (_remNetVol < BASECATCHVOL) then {_isValid = [false, 'r']};
 
 if (!(_isValid select 0)) exitwith 
 {
 	private ['_iName'];
 	_iName = _netVar select 1;
-	// -- TODO recall net, empty net's inventory into vehicle inventory, round down if it doesn't fit, etc.
-	// -- Actual catch qty is based upon array round (catchCC / itemVol). ie 42256cc / 1000 = 42 units of fish
 	
 	// -- Recall the net
-	[_fBoat] call MV_Server_fnc_IEvent_FishingRecallNet;
+	[_fBoat, _pobj, 'na'] call MV_Server_fnc_IEvent_FishingRecallNet;
 	
 	// -- send error to player that they've left their position as driver of the boat or gone too fast, or too shallow or that the net is full and that the net has been recalled.
 	[_pobj, "UseItemEvent", [_iName, 'DNetCyc', _isValid]] call MV_Server_fnc_SendClientMessage;
@@ -108,7 +109,6 @@ _gridAbundance = 1; // -- TODO implement actual grid abundance system.
 _speedMul = (_bSpeed / MAXNETSPEED);
 _catchMul = _speedMul * _gridAbundance;
 
-// -- TODO, calculate fish in this cycle.
 // -- Add the fish from this cycle to the net's array. This loop will add in order of lowest depth to highest. It will also only add up to the depth the net goes down to.
 diag_log format ["_catchMul: %1 across %2 types of fish.", _catchMul, (_mDepth / 10)+ 1];
 diag_log format ["_gridAbundance: %1, _speedMul: %2, _catchMul: %3", _gridAbundance, _speedMul, _catchMul];
@@ -134,7 +134,6 @@ _netVar set [2, _netInventory];
 _fBoat setVariable ['NetDeployed', _netVar, true];
 [netid _fBoat, ['NetDeployed', _netVar]] call MV_Server_fnc_SetMissionVariable;
 
-
 // -- Send client message about cycle's results.
 _cCatch = 0;
 {_cCatch = _cCatch + (_x select 1);} foreach _netInventory;
@@ -142,11 +141,10 @@ _cCatch = 0;
 // -- Leave last
 if (_cCatch >= _netMaxVol) then 
 {// -- Net is full, output it to the vehicle's inventory.
-	[_fBoat] call MV_Server_fnc_IEvent_FishingRecallNet;
-	[_pobj, "UseItemEvent", [_iName, 'DNetCyc', [false, 'r', (floor (_cCatch / 100)) * 100]]] call MV_Server_fnc_SendClientMessage;
+	[_fBoat, _pobj, 'f'] call MV_Server_fnc_IEvent_FishingRecallNet;
 } else {
 	_cCatch = round (_cCatch - _netVol);
-	[_pobj, "UseItemEvent", [_netVar select 1, 'DNetCyc', [true, _cCatch]]] call MV_Server_fnc_SendClientMessage;
+	[_pobj, "UseItemEvent", [_netVar select 1, 'DNetCyc', [true, _cCatch, _netMaxVol - _cCatch]]] call MV_Server_fnc_SendClientMessage;
 	// -- Readd to the event array to run in 5 seconds time.
 	['MV_Server_fnc_IEvent_Fishing', [netid _pObj, netID _fBoat, _cPos], time + 5] call MV_Server_fnc_AddEvent;
 };

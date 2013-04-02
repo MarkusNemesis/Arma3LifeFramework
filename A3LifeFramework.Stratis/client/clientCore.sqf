@@ -20,6 +20,26 @@ diag_log "MV: STARTING CLIENT MAINLOOP";
 while {true} do // This is the main loop. EVERYTHING clientside happens here.
 {
     // -------- Run Priority 1 - Runs every frame --------
+	{
+		if (!isnil '_x') then { // -- Somehow, this can happen....
+			private ['_fname', '_args', '_eTime'];
+			_fname = _x select 0;
+			_args = _x select 1;
+			_eTime = _x select 2;
+			if (!isnil '_fname') then {
+				if (_eTime < time) then { // -- Call only when it's ready to be.
+					diag_log format ["MV: CLIENT: Running event from array: %1 , %2. Frame: %3, EventCount: %4", _fname, _args, diag_frameno, count Client_EventArray];
+					call compile format ["_args call %1", _fname];
+					[_forEachIndex] call MV_Client_fnc_RemoveEvent;
+				}; 
+			} else {
+				[_forEachIndex] call MV_Client_fnc_RemoveEvent;
+			}; // -- Event is a null event, and thus removed.
+			
+		};
+    } foreach Client_EventArray;
+	
+	/* Old event loop.
     {
         private ['_fname', '_args', '_priority'];
         _fname = _x select 0;
@@ -30,7 +50,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
         diag_log format ["Running event from array: %1 , %2", _fname, _args];
         [_forEachIndex] call MV_Client_fnc_RemoveEvent;
     } foreach Client_EventArray;
-    
+    */
     /* -- Check if the player is spawned
     if (Client_PlayerSpawned) then
     {

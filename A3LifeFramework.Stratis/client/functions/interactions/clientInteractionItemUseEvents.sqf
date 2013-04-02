@@ -41,11 +41,12 @@ switch (_action) do
 		_valid = _aArgs select 0;
 		if (_valid) then
 		{
-			private ['_cCatch', '_iName', '_iInfo'];
+			private ['_cCatch', '_iName', '_iInfo', '_remVol'];
 			_cCatch = _aArgs select 1;
+			_remVol = _aArgs select 2;
 			_iName = ((vehicle player) getVariable 'NetDeployed') select 1;
 			_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
-			systemChat format ['Your net catches %1 cc of fish. The net has %2 cc remaining to be filled.', _cCatch, ((_iInfo select 3) select 2) - _cCatch];// -- TODO Localize
+			systemChat format [localize 'STR_MV_ITEM_FISHNETUSECATCHVALID', _cCatch, _remVol];
 		}
 		else
 		{
@@ -57,37 +58,39 @@ switch (_action) do
 			{
 				case 'ofl':
 				{
-					_eString = "You recall your net as it is full."; // -- TODO Localize
+					_eString = localize 'STR_MV_ITEM_FISHNETOVERFLOW';
 				};
 				
 				case 'tf':
 				{
-					_eString = "You recall your net because you were going too fast.";// -- TODO Localize
+					_eString = localize 'STR_MV_ITEM_FISHNETTOOFAST';
 				};
 				
 				case 'shl':
 				{
-					_eString = "You recall your net because you were going into too shallow waters.";// -- TODO Localize
+					_eString = localize 'STR_MV_ITEM_FISHNETTOOSHALLOW';
 				};
 				
 				case 'nd':
 				{
-					_eString = "You recall your net because you are no longer at the helm.";// -- TODO Localize
+					_eString = localize 'STR_MV_ITEM_FISHNETNOTDRIVER';
 				};
 				
 				case 'r':
 				{
 					private ['_cVol'];
 					_cVol = _aArgs select 2;
-					_eString = format ["You recall your net and empty it's contents into your boat's inventory. Netting in a total of %1 cc of fish.", _cVol]; // -- TODO Localize
+					_eString = format [localize 'STR_MV_ITEM_FISHNETRECALL', _cVol];
 				};
 				
 				case 'f':
 				{
-					_eString = "You recall your net and empty it's contents into your boat's inventory. Your boat's inventory is too full to hold what's been caught, so the remaining are released back into the ocean."; // -- TODO Localize
+					private ['_cVol'];
+					_cVol = _aArgs select 2;
+					_eString = format [localize 'STR_MV_ITEM_FISHNETRECALLFULLINV', _cVol];
 				};
 			};
-			systemchat _eString;// -- TODO Localize
+			systemchat _eString;
 		};
 	};
 };

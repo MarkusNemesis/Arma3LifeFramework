@@ -58,7 +58,7 @@ while {time < _eTime} do
 	_fNo = diag_frameno;
 };
 // -- If the client got interrupted, this'll be false. So, exit the script.
-if (!Client_UsingItem) exitwith {systemChat "You fail to repair this object, as you were interrupted, or it went out of range."}; // TODO localise
+if (!Client_UsingItem) exitwith {systemChat localize 'STR_MV_ITEM_REPAIRKITFAILEDINTERRUPTED';};
 
 // -- Leave last
 // -- Reset user animation

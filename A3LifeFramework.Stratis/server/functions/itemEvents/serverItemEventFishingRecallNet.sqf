@@ -19,9 +19,12 @@ Desc: MV_Server_fnc_IEvent_FishingRecallNet
 2. Pulls in the fishing net, sets it's deploy state false.
 Params: [objBoat]
 */
+diag_log format ['MV: serverItemEventFishingRecallNet: %1', _this];
 
-private ['_fBoat', '_fBoatVol', '_fBoatInv', '_fBoatVolMax', '_fBoatRemVol', '_nInv'];
+private ['_fBoat', '_pobj', '_rReason', '_fBoatVol', '_fBoatInv', '_fBoatVolMax', '_fBoatRemVol', '_nInv', '_cVol'];
 _fBoat = _this select 0;
+_pobj = _this select 1;
+_rReason = _this select 2;
 
 // ---- Empty net's inventory to boat's inventory.
 // -- Get boat's max volume and current volume.
@@ -32,22 +35,42 @@ _fBoatRemVol = _fBoatVolMax - _fBoatVol;
 // -- Get the net's inventory.
 _nInv = ([netID _fBoat, "NetDeployed"] call MV_Server_fnc_GetMissionVariable) select 2;
 {
-	private ['_fishType', '_fishVol', '_qty'];
+	private ['_fishType', '_fishVol', '_qty', '_tvol'];
 	_fishType = _x select 0;
 	_fishVol = _x select 1;
+	_tvol = 0;
 	_qty = 0;
 	if (_fBoatRemVol < _fishVol) exitwith 
 	{// -- Boat's inventory doesn't have enough room for all of this fish.
-		if ((floor (_fBoatRemVol / 100)) > 0) then {[_fBoat, _fishType, floor (_fBoatRemVol / 100)] call MV_Server_fnc_AddInventoryItem;};
-		// -- TODO message to player that the boat's inventory is full, and that remaining fish in the net have been released back.
-		[_pobj, "UseItemEvent", [_iName, 'DNetCyc', [false, 'f']]] call MV_Server_fnc_SendClientMessage;
+		_tvol =  floor (_fBoatRemVol / 100);
+		if (_tvol > 0) then 
+		{
+			[_fBoat, _fishType, _tvol] call MV_Server_fnc_AddInventoryItem;
+			_cVol = _cVol + _tvol;
+		};
 	};
 	// -- else carry on.
 	_qty = floor (_fishVol / 100);
 	[_fBoat, _fishType, _qty] call MV_Server_fnc_AddInventoryItem;
 	_fBoatRemVol = _fBoatRemVol - (_qty * 100);
+	_cVol = _cVol + _qty;
 } foreach _nInv;
 
 // -- Recall the net
 _fBoat setVariable ['NetDeployed', [false], true];
 [netID _fBoat, ['NetDeployed', [false]]] call MV_Server_fnc_SetMissionVariable;
+
+// -- Message the client.
+switch (_rReason) do
+{	
+	// -- Recall
+	case 'r':
+	{
+		[_pobj, "UseItemEvent", [_iName, 'DNetCyc', [false, 'r', _cVol]]] call MV_Server_fnc_SendClientMessage;
+	};
+	// -- Full
+	case 'f':
+	{
+		[_pobj, "UseItemEvent", [_iName, 'DNetCyc', [false, 'f', _cVol]]] call MV_Server_fnc_SendClientMessage;
+	};
+};

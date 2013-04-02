@@ -53,14 +53,15 @@ switch (_action) do
 		private ['_veh', '_iInfo', '_isDeployed'];
 		_veh = objectFromNetId (_aArgs select 0);
 		// -- Is the player in a boat
-		if (_pObj != driver _veh) exitwith {diag_log "Player not in boat"}; // TODO error out, not in boat.
+		if (_pObj != driver _veh) exitwith {diag_log "Player not in boat"};
 		// -- Is the boat already using a net.
-		_isDeployed = _veh getVariable 'NetDeployed';
-		if (isnil '_isDeployed') then {_isDeployed = false} else {_isDeployed = _isDeployed select 0};
-		if (_isDeployed) exitwith {
-			diag_log 'Boat already has a net, recalling.';
-			[_veh] call MV_Server_fnc_IEvent_FishingRecallNet;
+		_isDeployed = [netid _veh, "NetDeployed"] call MV_Server_fnc_GetMissionVariable;//_veh getVariable 'NetDeployed';
+		if (isnil '_isDeployed') then {_isDeployed = false} else 
+		{
+			if ((typeName _isDeployed) != "ARRAY") exitwith {_isDeployed = false};
+			_isDeployed = _isDeployed select 0
 		};
+		if (_isDeployed) exitwith {};
 		// -- Get item info
 		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
 		// -- Set the boat's variables to contain that it's deployed and the net's name.
@@ -70,5 +71,21 @@ switch (_action) do
 		[_pObj, "UseItemEvent", [_iName, "DNet", _aArgs]] call MV_Server_fnc_SendClientMessage;
 		// -- Add the item use event to the server mainloop event array.
 		['MV_Server_fnc_IEvent_Fishing', [netID _pObj, netID _veh, getPosASL _pObj, getPosASL _pObj], time + 5] call MV_Server_fnc_AddEvent;
+	};
+	
+	case "RecallNet":
+	{
+		private ['_veh', '_isDeployed'];
+		_veh = objectFromNetId (_aArgs select 0);
+		_isDeployed = [netid _veh, "NetDeployed"] call MV_Server_fnc_GetMissionVariable;
+		if (isnil '_isDeployed') then {_isDeployed = false} else 
+		{
+			if ((typeName _isDeployed) != "ARRAY") exitwith {_isDeployed = false};
+			_isDeployed = _isDeployed select 0
+		};
+		if (_isDeployed) exitwith {
+			diag_log 'Recalling net.';
+			[_veh, _pObj, 'r'] call MV_Server_fnc_IEvent_FishingRecallNet;
+		};
 	};
 };

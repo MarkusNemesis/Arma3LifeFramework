@@ -136,12 +136,60 @@
 		  <English>You cannot repair that vehicle, as it is too far away.</English>
 		</Key>
 		
-		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDINTERRUPTED">
-		  <English>You fail to repair the vehicle, as you were interrupted.</English>
-		</Key>
-		
 		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDINVALIDKIT">
 		  <English>This repair kit is too simple for this kind vehicle.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_REPAIRKITFAILEDINTERRUPTED">
+		  <English>You fail to repair this object, as you were interrupted, or it went out of range.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETOVERFLOW">
+		  <English>You recall your net as it is full.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETTOOFAST">
+		  <English>You recall your net because you were going too fast.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETTOOSHALLOW">
+		  <English>You recall your net because you were going into too shallow waters.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETNOTDRIVER">
+		  <English>You recall your net because you are no longer at the helm.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETRECALL">
+		  <English>You recall your net and empty it's contents into your boat's inventory. Netting in a total of %1 cc of fish.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETRECALLFULLINV">
+		  <English>You recall your net and manage to empty %1 cc of it, filling the remaining space. The remaining are released back into the ocean.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETUSENOTBOAT">
+		  <English>You cannot deploy a fishing net without being aboard a boat!</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETUSENOTDRIVER">
+		  <English>You cannot deploy a fish net unless you're at the helm!</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETUSENOKEYS">
+		  <English>You can't deploy a net on a boat you don't have the keys for!</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETUSENOTONWATER">
+		  <English>You can't fish on land! Get some water under you!</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETUSETOOSHALLOW">
+		  <English>You cannot deploy that size of net here. It's simply too shallow. Try a depth greater than %1.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_FISHNETUSECATCHVALID">
+		  <English>Your net catches %1 cc of fish. The net has %2 cc remaining to be filled.</English>
 		</Key>
 		
 	</Package>

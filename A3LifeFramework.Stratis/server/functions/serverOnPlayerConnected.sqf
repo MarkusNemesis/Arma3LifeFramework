@@ -92,7 +92,7 @@ private ['_iMoney', '_iInv'];
 _iMoney = [_uid, "Money"] call MV_Server_fnc_GetMissionVariable select 0;
 
 // _iInv = [["Money", _iMoney]];
-_iInv = [["Money", _iMoney], ["Light Repair Kit", 1], ['Fishing net (Small)', 5]]; // -- TODO Remove this, as it's for debugging.
+_iInv = [["Money", _iMoney], ["Light Repair Kit", 1], ['Fishing net (Small)', 1]]; // -- TODO Remove this, as it's for debugging.
 
 [_uid, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
 _pObj setVariable ["Inventory", _iInv, true];

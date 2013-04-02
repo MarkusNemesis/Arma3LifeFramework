@@ -40,8 +40,23 @@ _Array_ATMs = missionNamespace getVariable "Array_ATMs";
 	
 	// -- Init the ATM like a prop.
 	private ['_initString'];
-	// -- TODO clean up this massive hell of a mess below.... Why the...
-	_initString = format ["%1 %2", format ["_marker = createMarkerLocal ['%1marker', getposATL this]; _marker setMarkerShapeLocal 'ICON'; '%1marker' setMarkerTypeLocal 'mil_box'; _marker setMarkerSizeLocal [0.5,0.5]; '%1marker' setMarkerTextLocal 'ATM'; '%1marker' setMarkerColorLocal 'ColorGreen';", _atm],"this allowdamage false; this lock true; clearWeaponCargo this; clearMagazineCargo this; clearItemCargo this; if (this isKindOf 'Man') then {this switchMove 'AidlPercMstpSnonWnonDnon_Player';}; this enablesimulation false;"];
+	
+	_initString = format [
+	"
+		_marker = createMarkerLocal ['%1marker', getposATL this]; 
+		_marker setMarkerShapeLocal 'ICON'; 
+		'%1marker' setMarkerTypeLocal 'mil_box'; 
+		_marker setMarkerSizeLocal [0.5,0.5]; 
+		'%1marker' setMarkerTextLocal 'ATM'; 
+		'%1marker' setMarkerColorLocal 'ColorGreen';
+		this allowdamage false; 
+		this lock true; 
+		clearWeaponCargo this; 
+		clearMagazineCargo this; 
+		clearItemCargo this; 
+		if (this isKindOf 'Man') then {this switchMove 'AidlPercMstpSnonWnonDnon_Player';}; 
+		this enablesimulation false;
+	", _atm];
 	_atm setvehicleinit _initString;
 	processinitcommands;
 	
