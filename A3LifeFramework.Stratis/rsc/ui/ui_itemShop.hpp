@@ -105,7 +105,7 @@ class ui_itemShop
 	class cmdBuySell: MV_Button
 	{// -- Buys/sells the selected item at the entered qty.
 		idc = 2025;
-		text = "Buy/Sell"; //--- ToDo: Localize;
+		text = "Buy"; //--- ToDo: Localize;
 		x = 27 * GUI_GRID_W + GUI_GRID_X;
 		y = 4 * GUI_GRID_H + GUI_GRID_Y;
 		w = 8.9 * GUI_GRID_W;
@@ -124,7 +124,7 @@ class ui_itemShop
 	class cmdToggleMode: MV_Button
 	{// -- Switches the mode of the UI between buy and sell modes.
 		idc = 2026;
-		//text = "Buy/Sell Mode"; //--- ToDo: Localize;
+		text = "To Buy Mode"; //--- ToDo: Localize;
 		x = 1 * GUI_GRID_W + GUI_GRID_X;
 		y = 10 * GUI_GRID_H + GUI_GRID_Y;
 		w = 8 * GUI_GRID_W;

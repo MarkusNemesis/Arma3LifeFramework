@@ -29,7 +29,7 @@ Params: [storeObj]
 
 disableSerialization;
 
-private ['_sObj', '_dsp', '_fNo', '_uiMode', '_selObj', '_selInventory'];
+private ['_sObj', '_dsp', '_fNo', '_uiMode', '_uiModeChanged', '_selObj', '_selInventory'];
 _sObj = _this select 0;
 _dsp = findDisplay 1414;
 _fNo = diag_frameno;
@@ -57,9 +57,11 @@ uiNamespace setVariable ['itemShop_cmdBuySell', false];
 private ['_tIndex', '_pKeychain'];
 _tIndex = -1;
 _pKeychain = player getVariable 'Keychain';
+
 // -- add player as topmost entry.
 _tIndex = _lbxInvSelect lbadd (name player);
 _lbxInvSelect lbSetData [_tIndex, netId player];
+
 // -- Go through the player's keychain, resolve the netIDs to objects, get distances, if within INVRANGE, add to list and add to array. format: vName, Dist Xm
 {
 	private ['_tObj', '_tDist'];
@@ -71,11 +73,12 @@ _lbxInvSelect lbSetData [_tIndex, netId player];
 		_lbxInvSelect lbSetData [_tIndex, _x];
 	};
 } foreach _pKeychain;
+
 // -- set cursel to index 0.
 _lbxInvSelect lbSetCurSel 0;
 
 // ---- init controls
-// todo populate store listbox with store's items array. Itemname, qty: stock
+// -- populate store listbox with store's items array. Itemname, qty: stock
 private ['_sArr'];
 _sArr = _sObj getVariable "storeArray";
 {
@@ -85,8 +88,9 @@ _sArr = _sObj getVariable "storeArray";
 	_tIPrice = [_tItemName] call MV_Shared_fnc_ItemGetPrice;
 	_lbxInventoryStore lbAdd format ['%1, Stock: %2, $%3', _tItemName, _tIStock];
 } foreach _sArr;
-// todo set cursel index 0 on store array listbox.
 
+// -- set cursel index 0 on store array listbox.
+_lbxInventoryStore lbSetCurSel 0;
 
 while {!isnull _dsp} do
 {
@@ -98,15 +102,28 @@ while {!isnull _dsp} do
 			
 			if (_uiMode) then // -- it's BUYMODE, change to SELL mode.
 			{
+				_uiMode = SELLMODE;
 				// -- Change UI control labels
-				
+				_cmdToggleMode ctrlSetText "To Buy Mode";
+				_cmdBuySell ctrlSetText "Sell";
+				_frmItemList ctrlSetText "Selected Inventory";
 			}
 			else // -- Sell mode, change to BUYMODE
-			{
+			{	
+				_uiMode = BUYMODE;
 				// -- Change UI control labels
-				
+				_cmdToggleMode ctrlSetText "To Sell Mode";
+				_cmdBuySell ctrlSetText "Buy";
+				_frmItemList ctrlSetText "Store";
 			};
+			// -- Flag the inventory listbox to update, as it technically has changed.
 			
+		};
+		
+		if (_uiModeChanged) then 
+		{
+			_uiModeChanged = false;
+			// -- the UI mode changed, so thus, we must update the 
 		};
 		
 		if (uiNamespace getVariable 'itemShop_lbxInvSelect_lbxSelChanged') then 
@@ -115,6 +132,14 @@ while {!isnull _dsp} do
 			_selObj = objectFromNetId (_lbxInvSelect lbData (lbCurSel _lbxInvSelect));
 			// -- Get the inventory of that selected object.
 			_selInventory = _selObj getVariable 'inventory'; 
+			
+			if (_uiMode) then // -- it's BUYMODE
+			{
+				
+			} else {// -- Sell mode
+				// -- Update the item listbox with the new array.
+			};
+			
 		};
 		
 		if (uiNamespace getVariable 'itemShop_lbxInventoryStore_lbxSelChanged') then 
