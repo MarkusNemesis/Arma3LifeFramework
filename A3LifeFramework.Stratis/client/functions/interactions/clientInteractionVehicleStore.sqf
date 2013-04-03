@@ -22,7 +22,7 @@ _dialogHandler = createdialog "ui_vehicleStore";
     _text = '';
     _vCName = _x1 select 0;
     _vTName = '';
-    _vPrice = -1;
+    _vPrice = 0;
     _vStock = 0;
     
     // -- Get the vehicle price.
@@ -83,7 +83,7 @@ while {dialog && alive player} do
 	        // Leave last
 	        _lbSelPrev = _lbSel;
 	    };
-	    
+	    // todo REFACTOR the below. It makes me look bad....
 		buttonsetaction [1993, format ["[%1, %2, %3, %4] call MV_Client_fnc_int_BuyVehicle; closedialog 0;", str netID _sObj, _lbSel, _sPrice, (_sArr select _lbSel) select 1]]; // NetID, Index, price, stock
     };
     // ---- Leave last

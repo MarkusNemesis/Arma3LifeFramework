@@ -21,10 +21,11 @@ Params: [objBoat]
 */
 diag_log format ['MV: serverItemEventFishingRecallNet: %1', _this];
 
-private ['_fBoat', '_pobj', '_rReason', '_fBoatVol', '_fBoatInv', '_fBoatVolMax', '_fBoatRemVol', '_nInv', '_cVol'];
+private ['_fBoat', '_pobj', '_rReason', '_fBoatVol', '_fBoatInv', '_fBoatVolMax', '_fBoatRemVol', '_nArr', '_nInv', '_cVol'];
 _fBoat = _this select 0;
 _pobj = _this select 1;
 _rReason = _this select 2;
+_cVol = 0;
 
 // ---- Empty net's inventory to boat's inventory.
 // -- Get boat's max volume and current volume.
@@ -33,7 +34,8 @@ _fBoatVol = [_fBoatInv] call MV_Shared_fnc_GetCurrentInventoryVolume;
 _fBoatVolMax = ([typeof _fBoat] call MV_Shared_fnc_GetVehicleArrayInfo) select 4;
 _fBoatRemVol = _fBoatVolMax - _fBoatVol;
 // -- Get the net's inventory.
-_nInv = ([netID _fBoat, "NetDeployed"] call MV_Server_fnc_GetMissionVariable) select 2;
+_nArr = [netID _fBoat, "NetDeployed"] call MV_Server_fnc_GetMissionVariable;
+_nInv = (_nArr) select 2;
 {
 	private ['_fishType', '_fishVol', '_qty', '_tvol'];
 	_fishType = _x select 0;
@@ -42,18 +44,19 @@ _nInv = ([netID _fBoat, "NetDeployed"] call MV_Server_fnc_GetMissionVariable) se
 	_qty = 0;
 	if (_fBoatRemVol < _fishVol) exitwith 
 	{// -- Boat's inventory doesn't have enough room for all of this fish.
-		_tvol =  floor (_fBoatRemVol / 100);
-		if (_tvol > 0) then 
+		_qty =  floor (_fBoatRemVol / 100);
+		if (_qty > 0) then 
 		{
-			[_fBoat, _fishType, _tvol] call MV_Server_fnc_AddInventoryItem;
-			_cVol = _cVol + _tvol;
+			[_fBoat, _fishType, _qty] call MV_Server_fnc_AddInventoryItem;
+			_cVol = _cVol + (_qty * 100);
+			_rReason = 'f';
 		};
 	};
 	// -- else carry on.
 	_qty = floor (_fishVol / 100);
 	[_fBoat, _fishType, _qty] call MV_Server_fnc_AddInventoryItem;
 	_fBoatRemVol = _fBoatRemVol - (_qty * 100);
-	_cVol = _cVol + _qty;
+	_cVol = _cVol + (_qty * 100);
 } foreach _nInv;
 
 // -- Recall the net
@@ -66,11 +69,16 @@ switch (_rReason) do
 	// -- Recall
 	case 'r':
 	{
-		[_pobj, "UseItemEvent", [_iName, 'DNetCyc', [false, 'r', _cVol]]] call MV_Server_fnc_SendClientMessage;
+		[_pobj, "UseItemEvent", [_nArr select 1, 'DNetCyc', [false, 'r', _cVol]]] call MV_Server_fnc_SendClientMessage;
 	};
 	// -- Full
 	case 'f':
 	{
-		[_pobj, "UseItemEvent", [_iName, 'DNetCyc', [false, 'f', _cVol]]] call MV_Server_fnc_SendClientMessage;
+		[_pobj, "UseItemEvent", [_nArr select 1, 'DNetCyc', [false, 'f', _cVol]]] call MV_Server_fnc_SendClientMessage;
+	};
+	default 
+	{
+		// -- send error to player that they've left their position as driver of the boat or gone too fast, or too shallow or that the net is full and that the net has been recalled.
+		[_pobj, "UseItemEvent", [_nArr select 1, 'DNetCyc', [false, _rReason]]] call MV_Server_fnc_SendClientMessage;
 	};
 };

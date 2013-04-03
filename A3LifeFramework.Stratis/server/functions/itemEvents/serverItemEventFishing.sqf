@@ -93,14 +93,8 @@ if (_remNetVol < BASECATCHVOL) then {_isValid = [false, 'r']};
 
 if (!(_isValid select 0)) exitwith 
 {
-	private ['_iName'];
-	_iName = _netVar select 1;
-	
 	// -- Recall the net
-	[_fBoat, _pobj, 'na'] call MV_Server_fnc_IEvent_FishingRecallNet;
-	
-	// -- send error to player that they've left their position as driver of the boat or gone too fast, or too shallow or that the net is full and that the net has been recalled.
-	[_pobj, "UseItemEvent", [_iName, 'DNetCyc', _isValid]] call MV_Server_fnc_SendClientMessage;
+	[_fBoat, _pobj, _isValid select 1] call MV_Server_fnc_IEvent_FishingRecallNet;
 };
 
 // -- Passed validation. Now to calculate yield of fish in this cycle.
@@ -108,7 +102,7 @@ private ['_gridAbundance', '_speedMul', '_catchMul', '_cCatch'];
 _gridAbundance = 1; // -- TODO implement actual grid abundance system.
 _speedMul = (_bSpeed / MAXNETSPEED);
 _catchMul = _speedMul * _gridAbundance;
-
+_cCatch = 0;
 // -- Add the fish from this cycle to the net's array. This loop will add in order of lowest depth to highest. It will also only add up to the depth the net goes down to.
 diag_log format ["_catchMul: %1 across %2 types of fish.", _catchMul, (_mDepth / 10)+ 1];
 diag_log format ["_gridAbundance: %1, _speedMul: %2, _catchMul: %3", _gridAbundance, _speedMul, _catchMul];
@@ -128,23 +122,20 @@ for "_i" from 0 to (_mDepth / 10) do
 		diag_log format ['Updating entry in net array: %1, %2', _x select 0, _cVol];
 		_netInventory set [_i, [_x select 0, _cVol]];
 	};
+	_cCatch = _cCatch + _cVol;
 };
 // -- Set the net's new inventory
 _netVar set [2, _netInventory];
 _fBoat setVariable ['NetDeployed', _netVar, true];
 [netid _fBoat, ['NetDeployed', _netVar]] call MV_Server_fnc_SetMissionVariable;
 
-// -- Send client message about cycle's results.
-_cCatch = 0;
-{_cCatch = _cCatch + (_x select 1);} foreach _netInventory;
-
 // -- Leave last
 if (_cCatch >= _netMaxVol) then 
 {// -- Net is full, output it to the vehicle's inventory.
-	[_fBoat, _pobj, 'f'] call MV_Server_fnc_IEvent_FishingRecallNet;
+	[_fBoat, _pobj, 'r'] call MV_Server_fnc_IEvent_FishingRecallNet;
 } else {
-	_cCatch = round (_cCatch - _netVol);
-	[_pobj, "UseItemEvent", [_netVar select 1, 'DNetCyc', [true, _cCatch, _netMaxVol - _cCatch]]] call MV_Server_fnc_SendClientMessage;
+	// -- Send client message about cycle's results.
+	[_pobj, "UseItemEvent", [_netVar select 1, 'DNetCyc', [true, round (_cCatch - _netVol), round (_netMaxVol - _cCatch)]]] call MV_Server_fnc_SendClientMessage;
 	// -- Readd to the event array to run in 5 seconds time.
 	['MV_Server_fnc_IEvent_Fishing', [netid _pObj, netID _fBoat, _cPos], time + 5] call MV_Server_fnc_AddEvent;
 };

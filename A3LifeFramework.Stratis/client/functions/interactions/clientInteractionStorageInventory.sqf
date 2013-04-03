@@ -44,8 +44,8 @@ lbSetCurSel [2009, 0];
 lbSetCurSel [2010, 0];
 
 // -- Set volume labels.
-ctrlSetText [2013, format ["Volume: %1 / %2 cc [%3%4]", _playerInvVol, _playerMaxVol, (_playerInvVol / _playerMaxVol) * 100, "%"]];
-ctrlSetText [2014, format ["Volume: %1 / %2 cc [%3%4]", _storageInvVol, _storageMaxVol, (_storageInvVol / _storageMaxVol) * 100, "%"]];
+ctrlSetText [2013, format ["Volume: %1 / %2 cc [%3%4]", _playerInvVol, _playerMaxVol, round ((_playerInvVol / _playerMaxVol) * 100), "%"]];
+ctrlSetText [2014, format ["Volume: %1 / %2 cc [%3%4]", _storageInvVol, _storageMaxVol, round ((_storageInvVol / _storageMaxVol) * 100), "%"]];
 
 // -- Set storage frame title
 if ((typeof _storageObj) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then {ctrlSetText [2022, STR_MV_DG_PILE]} else {ctrlSetText [2022, typeof _storageObj]};

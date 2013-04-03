@@ -95,6 +95,7 @@ class ui_inventory
 		y = 8 * GUI_GRID_H + GUI_GRID_Y;
 		w = 6 * GUI_GRID_W;
 		h = 1 * GUI_GRID_H;
+		text = 1;
 	};
 	class lblQty: MV_Label
 	{
