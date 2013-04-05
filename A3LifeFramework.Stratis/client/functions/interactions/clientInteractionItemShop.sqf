@@ -36,6 +36,9 @@ _fNo = diag_frameno;
 
 _uiMode = BUYMODE;
 
+// -- Display the dialog:
+createDialog "ui_itemShop";
+
 // -- Get all controls
 private ['_lbxInvSelect', '_lbxInventoryStore', '_stxtInfo', '_cmdToggleMode', '_cmdBuySell', '_txtQty', '_frmItemList'];
 _lbxInvSelect = 			_dsp displayCtrl 2023;
@@ -69,7 +72,7 @@ _lbxInvSelect lbSetData [_tIndex, netId player];
 	_tDist = round (player distance _tObj);
 	if (_tDist < INVRANGE) then 
 	{
-		_tIndex = _lbxInvSelect lbadd (format ['%1, Dist: %2m', _tObj getVariable 'vName'], _tDist); // todo maybe just show vehicle's classname? vname may be too long.
+		_tIndex = _lbxInvSelect lbadd (format ['%1, Dist: %2m', _tObj getVariable 'vName', _tDist]); // todo maybe just show vehicle's classname? vname may be too long.
 		_lbxInvSelect lbSetData [_tIndex, _x];
 	};
 } foreach _pKeychain;
@@ -117,41 +120,52 @@ while {!isnull _dsp} do
 				_frmItemList ctrlSetText "Store";
 			};
 			// -- Flag the inventory listbox to update, as it technically has changed.
-			
+			uiNamespace setVariable ['itemShop_lbxInventoryStore_lbxSelChanged', true];
 		};
-		
+		/*
 		if (_uiModeChanged) then 
 		{
 			_uiModeChanged = false;
 			// -- the UI mode changed, so thus, we must update the 
 		};
-		
+		*/
 		if (uiNamespace getVariable 'itemShop_lbxInvSelect_lbxSelChanged') then 
-		{
+		{// -- User has selected a new inventory to buy/sell to/from
 			uiNamespace setVariable ['itemShop_lbxInvSelect_lbxSelChanged', false];
 			_selObj = objectFromNetId (_lbxInvSelect lbData (lbCurSel _lbxInvSelect));
-			// -- Get the inventory of that selected object.
-			_selInventory = _selObj getVariable 'inventory'; 
-			
 			if (_uiMode) then // -- it's BUYMODE
-			{
-				
+			{// -- Get the inventory as if a store.
+				_selInventory = _selObj getVariable 'storeArray';
 			} else {// -- Sell mode
-				// -- Update the item listbox with the new array.
+				// -- Get the inventory of that selected object.
+				_selInventory = _selObj getVariable 'inventory'; 
 			};
-			
+			// -- Iterate through array and output to item listbox
+			{
+				private ['_tiName', '_tiQty', '_tiVal'];
+				_tiName = _x select 0;
+				_tiQty = _x select 1;
+				// -- Get base value of item from static items array. Could implement a method of supply and demand in future.
+				_tiVal = ([_tiName] call MV_Shared_fnc_GetItemInformation) select 2;
+				// -- If it's not buy mode, then the values of items are 10% less for clients selling into the store.
+				if (!_uiMode) then {_tiVal = floor (_tiVal * 0.9)};
+				_lbxInventoryStore lbadd format ["%1, Stock: %2, $%3", _tiName, _tiQty, _tiVal];
+			} foreach _selInventory;
 		};
 		
 		if (uiNamespace getVariable 'itemShop_lbxInventoryStore_lbxSelChanged') then 
 		{
 			uiNamespace setVariable ['itemShop_lbxInventoryStore_lbxSelChanged', false];
 			// -- Selection in the items listbox has changed. Get object data (from selection index, within the stores array and items array mission vars)
-			
+			// TODO flag selected item update to true.
 		};
 		
 		if (uiNamespace getVariable 'itemShop_txtQtyChanged') then 
 		{
 			uiNamespace setVariable ['itemShop_txtQtyChanged', false];
+			// -- Parse the number, floor it, reset it.
+			_txtQty ctrlSetText (floor (parseNumber (ctrlText _txtQty)));
+			// -- TODO update selected item info box. Add box's own specific bool flag for this. This flag causes ALL information that it displays to be updated. Must be called last in this loop to ensure it's caught.
 		};
 		
 		if (uiNamespace getVariable 'itemShop_cmdBuySell') then 

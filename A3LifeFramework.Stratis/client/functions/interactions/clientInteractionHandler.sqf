@@ -27,6 +27,11 @@ switch (_iType) do
     	[_iObj] spawn MV_Client_fnc_int_VehicleStore;
     };
     
+	case "typeItemStore":
+	{
+		[_iObj] spawn MV_Client_fnc_int_ItemShop;
+	};
+	
     // Unlock vehicle
     case "typeVehicle":
     {

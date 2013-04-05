@@ -18,5 +18,6 @@ MV_Client_fnc_int_ItemUseEvents = Compile preprocessFileLineNumbers "client\func
 MV_Client_fnc_int_DropItem = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionDropItem.sqf";
 MV_Client_fnc_int_StorageInventory = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionStorageInventory.sqf";
 MV_Client_fnc_int_ATM = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionATM.sqf";
+MV_Client_fnc_int_ItemShop = Compile preprocessFileLineNumbers "client\functions\interactions\clientInteractionItemShop.sqf";
 
 // MV_Client_fnc_int_ = Compile preprocessFileLineNumbers "client\functions\interactions\";

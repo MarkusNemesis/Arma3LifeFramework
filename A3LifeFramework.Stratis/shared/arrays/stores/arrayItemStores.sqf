@@ -23,7 +23,7 @@ private ['_Array_Store_Items'];
 // Don't forget to end each entry with a comma, EXCEPT the last entry.
 _Array_Store_Items = [
 	// -- Item stores
-	[ItemStoreCiv1, [ ["Blowfish", 0], ["Whiting", 0], ["Herring", 0], ["Sardines", 0], ["Atlantic Bonito", 0], ["Anchovies", 0], ["European Hake", 0], ["Gilt-Headed Bream", 0], ["European Seabass", 0], ["Atlantic Bluefin Tuna", 0]], [civilian], "CivStore", objNull, "Stratis International Fish Exports", true];
+	[ItemStoreCiv1, [ ["Blowfish", 0], ["Whiting", 0], ["Herring", 0], ["Sardines", 0], ["Atlantic Bonito", 0], ["Anchovies", 0], ["European Hake", 0], ["Gilt-Headed Bream", 0], ["European Seabass", 0], ["Atlantic Bluefin Tuna", 0]], [civilian], "CivStore", "Stratis International Fish Exports", objNull,  true, false]
 ]; // End array
 
 missionNamespace setVariable ["Array_Store_Items", _Array_Store_Items];

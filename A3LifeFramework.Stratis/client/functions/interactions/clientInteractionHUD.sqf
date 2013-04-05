@@ -44,11 +44,20 @@ if (_cTarg getVariable "isInteractable") then
 			};
 		};
 		
+		// TODO determine if you can 'or' in a case parameter, so that I can merge this with vehicle store. ELSE refactor the isinteractable flags to have more type data.
+		case "typeItemStore":
+		{
+			// -- Check if the player can interact with this type of object.
+			_iFilter = _cTarg getVariable "interactFilter";
+			if (!(Client_PlayerSide in _iFilter or "ALL" in _iFilter)) exitwith {};
+            _iText = localize "STR_MV_INT_HUD_SHOP";
+		};
+		
 		case "typeVehicleStore": // or "typeItemStore" etc.
 		{
-		// -- Check if the player can interact with this type of object.
-		_iFilter = _cTarg getVariable "interactFilter";
-		if (!(Client_PlayerSide in _iFilter or "ALL" in _iFilter)) exitwith {};
+			// -- Check if the player can interact with this type of object.
+			_iFilter = _cTarg getVariable "interactFilter";
+			if (!(Client_PlayerSide in _iFilter or "ALL" in _iFilter)) exitwith {};
             _iText = localize "STR_MV_INT_HUD_SHOP";
 		};
 		
@@ -64,7 +73,7 @@ if (_cTarg getVariable "isInteractable") then
 		
 	};
     
-	// -- For now, we'll only show "Press E to interact". Future may expand functionality. IE, Item objects, "Press E to pickup"
+	// -- Display the mid-screen interact hover text.
     10 cutRsc ["ui_interactHUDText", "PLAIN", 0];
     _dialog = uiNamespace getVariable "Client_UI_interactFloatyText";
     if (!isNull _dialog) then

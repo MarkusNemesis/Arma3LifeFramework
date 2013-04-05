@@ -10,6 +10,7 @@ diag_log format ["MV: Shared: Initialising Arrays"];
 
 // Stores
 call compile preprocessfile "shared\arrays\stores\arrayVehicleStores.sqf";
+call compile preprocessfile "shared\arrays\stores\arrayItemStores.sqf";
 
 // Vehicles
 call compile preprocessfile "shared\arrays\vehicles\arrayVehicles.sqf";

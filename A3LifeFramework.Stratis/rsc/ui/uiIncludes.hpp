@@ -1147,5 +1147,6 @@ class RscControlsGroup
 #include "ui_inventory.hpp"
 #include "ui_inventoryStorageInteract.hpp"
 #include "ui_atmInteract.hpp"
+#include "ui_itemShop.hpp"
 
 //#include ""
