@@ -15,7 +15,7 @@ _iArr = missionNamespace getVariable "Array_Items";
     //diag_log format ["%1 vs %2", _iName, _x2 select 0];
     if (_iName == (_x select 0)) exitwith
     {
-        _vPrice = _x select 1; // Get price from item array
+        _vPrice = _x select 2; // Get price from item array
     };
 } foreach _iArr;
 

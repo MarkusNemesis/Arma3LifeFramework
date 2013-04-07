@@ -42,18 +42,18 @@ class MV_ListBox : RscListbox
 	colorBackground[] = {MV_COLOUR_DARKMIDGREY};
 	colorText[] = {MV_COLOUR_MAROON};
 	
-	arrowEmpty = "#(argb,8,8,3)color(0.75, 0, 0, 1)";
-	arrowFull = "#(argb,8,8,3)color(0.75, 0, 0, 1)";
+	arrowEmpty = "#(rgb,8,8,1)color(0.75,0,0,1)";
+	arrowFull = "#(rgb,8,8,1)color(0.75,0,0,1)";
 	
 	class ScrollBar
 	 {
 		color[] = {MV_COLOUR_DARKMIDGREY};
 		colorActive[] = {MV_COLOUR_DARKMIDGREY};
 		colorDisabled[] = {MV_COLOUR_DARKGREY};
-		thumb = "#(argb,8,8,3)color(0.1, 0.1, 0.1, 1)";
-		arrowEmpty = "#(argb,8,8,3)color(0.75, 0, 0, 1)";
-		arrowFull = "#(argb,8,8,3)color(0.75, 0, 0, 1)";
-		border = "#(argb,8,8,3)color(0.25, 0.25, 0.25, 1)";
+		thumb = "#(rgb,8,8,1)color(0.1,0.1,0.1,1)";
+		arrowEmpty = "#(rgb,8,8,1)color(0.75,0,0,1)";
+		arrowFull = "#(rgb,8,8,1)color(0.75,0,0,1)";
+		border = "#(rgb,8,8,1)color(0.25,0.25,0.25,1)";
 		shadow = 0;
 	 };
 };

@@ -81,9 +81,10 @@ class ui_itemShop
 		y = 1 * GUI_GRID_H + GUI_GRID_Y;
 		w = 8 * GUI_GRID_W;
 		h = 8.1 * GUI_GRID_H;
+		sizeEx = 0.7 * GUI_GRID_H;
 		onLBSelChanged = "uiNamespace setVariable ['itemShop_lbxInvSelect_lbxSelChanged', true];";
 	};
-	class frmItemList: MV_GUIFrame
+	class MVFRM4: MV_GUIFrame
 	{// -- frame for selected inventory / store stock.
 		idc = 2029;
 		text = "Inventory/Store"; //--- ToDo: Localize;
@@ -138,6 +139,13 @@ class ui_itemShop
 		y = 7 * GUI_GRID_H + GUI_GRID_Y;
 		w = 11.8 * GUI_GRID_W;
 		h = 17 * GUI_GRID_H;
+		class Attributes 
+		{
+			color = "#C00000";
+			size = 0.75;
+			align = "left";
+			valign = "middle";
+		};
 	};
 	class lblQty: MV_Label
 	{// -- Text input for quantity to buy/sell
@@ -155,6 +163,7 @@ class ui_itemShop
 		y = 2 * GUI_GRID_H + GUI_GRID_Y;
 		w = 13.5 * GUI_GRID_W;
 		h = 22 * GUI_GRID_H;
+		sizeEx = 0.7 * GUI_GRID_H;
 		onLBSelChanged = "uiNamespace setVariable ['itemShop_lbxInventoryStore_lbxSelChanged', true];";
 	};
 	////////////////////////////////////////////////////////
