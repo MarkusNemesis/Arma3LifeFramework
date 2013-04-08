@@ -107,8 +107,8 @@ switch (_eType) do
 			case "nr": {["ERROR", localize "STR_MV_INT_ERRORINVENTORYTOOFAR"] spawn MV_Client_fnc_int_MessageBox;};
 			case "if": {["ERROR", localize "STR_MV_INT_ERRORNOFUNDS"] spawn MV_Client_fnc_int_MessageBox;};
 			case "nv": {["ERROR", localize "STR_MV_INT_ERRORNOVOL"] spawn MV_Client_fnc_int_MessageBox;};
-			case "ss": {systemChat (format [localize "STR_MV_INT_SUCCESSSELLITEM", _iQty, _iName, _vParams select 4]);player switchMove (missionNamespace getVariable "MV_Shared_ANIMATION_BUY";};
-			case "sb": {systemChat (format [localize "STR_MV_INT_SUCCESSBUYITEM", _iQty, _iName, _vParams select 4]);player switchMove (missionNamespace getVariable "MV_Shared_ANIMATION_BUY";};
+			case "ss": {systemChat (format [localize "STR_MV_INT_SUCCESSSELLITEM", _iQty, _iName, _vParams select 4]); player switchMove MV_Shared_ANIMATION_BUY;};
+			case "sb": {systemChat (format [localize "STR_MV_INT_SUCCESSBUYITEM", _iQty, _iName, _vParams select 4]); player switchMove MV_Shared_ANIMATION_BUY;};
 		};
 	};
 	

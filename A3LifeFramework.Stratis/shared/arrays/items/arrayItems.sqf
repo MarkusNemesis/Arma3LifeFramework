@@ -28,7 +28,7 @@ _Array_Items = [
 	['Small Spare Tyre Kit', 	10000, 250, [1, 0.1, 15], 'MV_Client_fnc_Use_TestUse', "Replaces a small land vehicle's wheels with flimsy replacements for temporary use."], // Args: Repair scale 1 (vehicle size), repair coverage (0.1 = wheels) and repair time 15s
 	['Light Repair Kit', 		15000, 400, [1, 0.25, 15], 'MV_Client_fnc_Use_RepairKitUse', "Repairs small land and sea vehicles to running condition. Use only for cursory repairs."], // Args: Repair scale 1 (vehicle size), repair coverage (0.25 = fuel, engine, wheels) and repair time 15s
 	['Fishing net (Small)', 	10000, 75, [20, 'sml', 12500], 'MV_Client_fnc_Use_FishingNetUse', "A small fishing net, for use on small boats / dinghys. Perfect for the casual fisherman or budding entrepreneur."], // Args: Fish depth: 20, Size, (sml, med, lar), net catch volume
-	// -- Fish: Note: Fish volume is hardcoded as 100 in other scripts. Changes in volumes must be done here AND whereever else.
+	// -- Fish: Note: Fish volume is hardcoded as 100 in other scripts. Changes in volumes must be done here AND whereever else. TODO make fish volumes non-static. ie, higher valued fish will have larger volumes.
 	['Atlantic Bluefin Tuna', 	100, 100, [90], 'MV_Client_fnc_Use_NoUse', 'A unit of fish'], // Args: Depth: int
 	['European Seabass', 		100, 90, [80], 'MV_Client_fnc_Use_NoUse', 'A unit of fish'], // Args: Depth: int
 	['Gilt-Headed Bream', 		100, 80, [70], 'MV_Client_fnc_Use_NoUse', 'A unit of fish'], // Args: Depth: int

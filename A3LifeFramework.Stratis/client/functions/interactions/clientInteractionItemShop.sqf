@@ -162,7 +162,7 @@ while {!isnull _dsp} do
 		{
 			uiNamespace setVariable ['itemShop_cmdBuySell', false];
 			// -- The user wants to buy/sell something!
-			private ['_tHasItem', '_tSHasItem', '_tHasFunds', '_tCanFit', '_tInRange', '_tinv', '_tiName', '_tQty' '_tiInfo', '_tiMaxStock'];
+			private ['_tHasItem', '_tSHasItem', '_tHasFunds', '_tCanFit', '_tInRange', '_tinv', '_tiName', '_tQty', '_tiInfo', '_tiMaxStock'];
 			_tHasItem = false;
 			_tSHasItem = false;
 			_tHasFunds = false;
@@ -204,7 +204,7 @@ while {!isnull _dsp} do
 				_tiPriceTotal = (_tiInfo select 2) * _tQty;
 				_tinv = _sArr;
 				// -- Can the player afford this item?
-				_tHasFunds = [_tinv, 'Money', _tiPriceTotal] call MV_Shared_fnc_InventoryHasItem;
+				if ((player getVariable "money") >= _tiPriceTotal) then {_tHasFunds = true;};
 				// -- Has the selected inventory got the required volume? TODO create 'canFit' shared function.
 				if (isplayer _selObj) then {_invSpace = MV_Shared_PLAYERVOLUME} else {_invSpace = [typeof _selObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
 				_invSpace = _invSpace - ([_selInventory] call MV_Shared_fnc_GetCurrentInventoryVolume);
@@ -233,7 +233,7 @@ while {!isnull _dsp} do
 			if (!_tInRange) exitwith {["ERROR", localize "STR_MV_INT_ERRORINVENTORYTOOFAR"] spawn MV_Client_fnc_int_MessageBox;}; // -- error out, player attempting to buy items too far away for selected inventory.
 			
 			// -- Validation passed. Send event to the server. Format: [playerObj, actionType, storeObj, [Args]] Args format buy: [iName, Qty, destInventoryObj] Args format sell: [iName, Qty, fromInventoryObj]
-			["ItemStoreAction", [netID player, _uimode, netID _sObj, [_tiName, _tQty, netid _selInventory]]] call MV_Client_fnc_SendServerMessage;
+			["ItemStoreAction", [netID player, _uimode, netID _sObj, [_tiName, _tQty, netid _selObj]]] call MV_Client_fnc_SendServerMessage;
 			closeDialog 0;
 		};
 		
@@ -357,7 +357,7 @@ while {!isnull _dsp} do
 			if (!_uiMode) then 
 			{
 				// -- Check if they can afford this transaction.
-				if ([(player getVariable "Inventory"), "Money", (_tiVal * _tiQty)] call MV_Shared_fnc_InventoryHasItem) then 
+				if ((player getVariable "money") >= (_tiVal * _tiQty)) then 
 				{
 					_tcanAfford = parseText "<t color='#00FF00'>Yes</t>";
 				} else {

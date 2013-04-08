@@ -125,7 +125,7 @@ class ui_itemShop
 	class cmdToggleMode: MV_Button
 	{// -- Switches the mode of the UI between buy and sell modes.
 		idc = 2026;
-		text = "To Buy Mode"; //--- ToDo: Localize;
+		text = "To Sell Mode"; //--- ToDo: Localize;
 		x = 1 * GUI_GRID_W + GUI_GRID_X;
 		y = 10 * GUI_GRID_H + GUI_GRID_Y;
 		w = 8 * GUI_GRID_W;
