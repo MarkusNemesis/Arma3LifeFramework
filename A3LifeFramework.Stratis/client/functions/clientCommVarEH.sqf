@@ -47,7 +47,7 @@ switch (_eType) do
 			private ['_reason'];
 			_reason = (_vParams select 1);
 			if (_reason == 'i') exitwith {["Error", format [localize "STR_MV_INT_ERRORNOITEM", _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
-			if (_reason == 'q') exitwith {["Error", format [localize "STR_MV_INT_ERRORINVALIDQTY", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
+			if (_reason == 'q') exitwith {["Error", format [localize "STR_MV_INT_ERRORUSEINVALIDQTY", _vParams select 3, _vParams select 2]] spawn MV_Client_fnc_int_MessageBox;};
 		}
 		else
 		{
@@ -107,6 +107,8 @@ switch (_eType) do
 			case "nr": {["ERROR", localize "STR_MV_INT_ERRORINVENTORYTOOFAR"] spawn MV_Client_fnc_int_MessageBox;};
 			case "if": {["ERROR", localize "STR_MV_INT_ERRORNOFUNDS"] spawn MV_Client_fnc_int_MessageBox;};
 			case "nv": {["ERROR", localize "STR_MV_INT_ERRORNOVOL"] spawn MV_Client_fnc_int_MessageBox;};
+			case "ss": {systemChat (format [localize "STR_MV_INT_SUCCESSSELLITEM", _iQty, _iName, _vParams select 4]);player switchMove (missionNamespace getVariable "MV_Shared_ANIMATION_BUY";};
+			case "sb": {systemChat (format [localize "STR_MV_INT_SUCCESSBUYITEM", _iQty, _iName, _vParams select 4]);player switchMove (missionNamespace getVariable "MV_Shared_ANIMATION_BUY";};
 		};
 	};
 	

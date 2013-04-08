@@ -5,6 +5,8 @@ Skype: markus.davey
 Desc: CommVars are semi-public variables defined by the server, where client <> server communication can take place.
 Contains a switch that handles events. 
 Format: ["eventType", [Params,array,etc]];
+TODO TODO TODO TODO Refactor so that commVar 'player' object references are ALL done via the EH's passing of the variable's name. Resolve this to a player object via a securely stored array of [SlotName, CommvarName]. 
+Doing so removes risk of players maliciously causing events to occur on the server, for other players than themselves. http://community.bistudio.com/wiki/addPublicVariableEventHandler _this select 0: variable name
 */
 
 private ['_vValue', '_eType', '_vParams'];
@@ -22,7 +24,7 @@ switch (_eType) do
         _sObj = objectFromNetId (_vParams select 0);
         _vIndex = _vParams select 1;
         _pObj = objectFromNetId (_vParams select 2);
-		_sArr = [netId _sObj, "storeArray"] call MV_Server_fnc_GetMissionVariable; // _sObj getVariable "storeArrayServer";
+		_sArr = [netId _sObj, "storeArray"] call MV_Server_fnc_GetMissionVariable;
         _vCName = (_sArr select _vIndex) select 0;
         _vPrice = [_vCName] call MV_Shared_fnc_VehicleGetPrice;
         diag_log format ["MV: serverCommVarEH sending event: %1, %2, %3, %4", _vCName, _vPrice, _sObj, _pObj];
@@ -88,6 +90,7 @@ switch (_eType) do
 		['MV_Server_fnc_TransferItem', [netid _Obj, _iName, _qty, netid _pileObj]] call MV_Server_fnc_AddEvent;
 	};
 	
+	// TODO refactor this so that it doesn't need to be this way. Major security risk.
 	case "RemoveItem":
 	{
 		private ['_pObj', '_iName', '_qty'];

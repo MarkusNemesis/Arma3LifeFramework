@@ -14,13 +14,12 @@ _pObj = _this select 3;
 _spawnMarker = [netId _sObj, "spawnObject"] call MV_Server_fnc_GetMissionVariable select 0; //_sObj getVariable "spawnObjectServer";
 _sStock = false;
 
-// -- Deduct money from player
+// -- Check if player has enough money.
 _pFunds = [_pObj] call MV_Server_fnc_GetPlayerFunds;
 if (_pFunds < _vPrice) exitwith {
     diag_log format ["ERROR: serverBuyVehicle: Player %1 has insufficient funds to purchase %2.", name _pObj, _vCName];
     [_pObj, "BuyVehicleReturn", [false,'funds']] call MV_Server_fnc_SendClientMessage;
 };
-[_pObj, _pFunds - _vPrice] call MV_Server_fnc_SetPlayerFunds;
 
 // -- Update store's stock level
 _sStock = [_sobj, [_vCName, -1]] call MV_Server_fnc_AdjustStoreStock; // Hardcoded -1 as you can only buy cars singularly.
@@ -29,6 +28,9 @@ if (!_sStock) exitwith {
     diag_log format ["ERROR: serverBuyVehicle: Player %1 has insufficient stock to purchase %2.", name _pObj, _vCName];
     [_pObj, "BuyVehicleReturn", [false,'stock']] call MV_Server_fnc_SendClientMessage;
 };
+
+// -- Deduct money from player
+[_pObj, _pFunds - _vPrice] call MV_Server_fnc_SetPlayerFunds;
 
 // -- Spawn the vehicle! Spawns on the store's spawn marker.
 private ['_spVeh', '_sPos', '_kChain', '_vNID', '_vInfo'];

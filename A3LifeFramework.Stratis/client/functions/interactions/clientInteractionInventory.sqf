@@ -65,7 +65,7 @@ while {!isnull (findDisplay 1410)} do
 			// -- Validate qty
 			if (_qty <= 0 or _qty > (_iArrayEntry select 1)) exitwith
 			{
-				["Error", format [localize "STR_MV_INT_ERRORINVALIDQTY", _qty, _iName]] spawn MV_Client_fnc_int_MessageBox;
+				["Error", format [localize "STR_MV_INT_ERRORUSEINVALIDQTY", _qty, _iName]] spawn MV_Client_fnc_int_MessageBox;
 			};
 			closeDialog 0;
 			// -- Send event to server for the use of this item

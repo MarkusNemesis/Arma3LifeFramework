@@ -2,17 +2,21 @@
 Created: 24/03/2013
 Author: Markus Davey
 Skype: markus.davey
-Desc: Adds an item + specified quantity from a user's inventory.
+Desc: Adds an item + specified quantity from an object's inventory.
 Params: [User, item, quantity]
 Return: null
-Example: [_pObj, "Money", _qty] call MV_Server_fnc_AddInventoryItem;
+Example: [_Obj, "Money", _qty] call MV_Server_fnc_AddInventoryItem;
 */
 
-private ['_pObj', '_iName', '_qty', '_iInv', '_id'];
-_pObj = _this select 0;
+private ['_Obj', '_iName', '_qty', '_iInv', '_id'];
+_Obj = _this select 0;
 _iName = _this select 1;
 _qty = _this select 2;
-_id = netID _pObj;
+
+// -- If we're adding money to a player object, then divert to MV_Server_fnc_AddPlayerFunds.
+if (_iName == "Money" && isPlayer _Obj) exitwith {[_Obj, _qty] call MV_Server_fnc_AddPlayerFunds};
+
+_id = netID _Obj;
 if (_qty < 1) then {_qty = 1;};
 
 // -- Get the object's inventory.
@@ -36,5 +40,7 @@ if (!_found) then // -- Item wasn't found, so add it to the array.
 	_iInv set [count _iInv, [_iName, _qty]];
 };
 
+
+
 [_id, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
-_pObj setVariable ["Inventory", _iInv, true];
+_Obj setVariable ["Inventory", _iInv, true];

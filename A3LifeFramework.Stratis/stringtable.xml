@@ -33,6 +33,10 @@
 		  <English>You cannot sell %1 %2 to this store, as that item has a stock limit of %3</English>
 		</Key>
 		
+		<Key ID="STR_MV_INT_ERRORSTOCKMAX2">
+		  <English>You cannot sell %1 %2 to this store, as that would exceed the store's stock limit of that item.</English>
+		</Key>
+		
 		<Key ID="STR_MV_INT_ERRORINVENTORYTOOFAR">
 		  <English>You cannot do this, as the selected inventory is simply too far away.</English>
 		</Key>
@@ -53,7 +57,7 @@
 		  <English>You cannot use the item %1 in this way</English>
 		</Key>
 
-		<Key ID="STR_MV_INT_ERRORINVALIDQTY">
+		<Key ID="STR_MV_INT_ERRORUSEINVALIDQTY">
 		  <English>You cannot use %1 of item %2. Please use a valid quantity</English>
 		</Key>
 
@@ -107,6 +111,14 @@
 		
 		<Key ID="STR_MV_INT_FAILATMTRANSACTION">
 		  <English>You failed to complete the transaction, as you have not entered a valid amount of money.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_SUCCESSSELLITEM">
+		  <English>You successfully sell %1 %2(s) for $%3</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_SUCCESSBUYITEM">
+		  <English>You successfully buy %1 %2(s) for $%3</English>
 		</Key>
 		
 		<Key ID="STR_MV_INT_HUD_UNLOCK">

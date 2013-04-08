@@ -11,7 +11,7 @@ private ['_sObj', '_args', '_sType', '_aSuccess'];
 _sObj = _this select 0;
 _args = _this select 1;
 // Fetch interactType from serverside
-_sType = [netId _sObj, "interactType"] call MV_Server_fnc_GetMissionVariable select 0; //_sObj getVariable "interactTypeServer";
+_sType = [netId _sObj, "interactType"] call MV_Server_fnc_GetMissionVariable select 0; 
 _aSuccess = false;
 
 switch (_sType) do
@@ -20,7 +20,7 @@ switch (_sType) do
 	{
         private ['_sArr', '_cName', '_qty'];
 		// -- Get store array
-		_sArr = [netID _sObj, "storeArray"] call MV_Server_fnc_GetMissionVariable; // _sObj getVariable "storeArrayServer";
+		_sArr = [netID _sObj, "storeArray"] call MV_Server_fnc_GetMissionVariable;
         // -- Get Classname of item, qty
         _cName = _args select 0;
         _qty = _args select 1; // Positive to add, negative to remove.
@@ -35,8 +35,29 @@ switch (_sType) do
             };
         } foreach _sArr;
         // -- Update the server and public values for the store array
-		
-		
+        _sObj setVariable ["storeArray", _sArr, true];
+		[netID _sObj, ["storeArray", _sArr]] call MV_Server_fnc_SetMissionVariable;
+	};
+	
+	case "typeItemStore":
+	{
+		private ['_sArr', '_iName', '_qty'];
+		// -- Get store array
+		_sArr = [netID _sObj, "storeArray"] call MV_Server_fnc_GetMissionVariable;
+        // -- Get Classname of item, qty
+        _iName = _args select 0;
+        _qty = _args select 1; // Positive to add, negative to remove.
+        // -- Find item name within store array
+        {
+            // -- assign a new value to the index
+            if ((_x select 0) == _iName) exitwith {
+                if ((_x select 1) + _qty >= 0) then {
+                	_x set [1, (_x select 1) + _qty];
+                    _aSuccess = true;
+                };
+            };
+        } foreach _sArr;
+        // -- Update the server and public values for the store array
         _sObj setVariable ["storeArray", _sArr, true];
 		[netID _sObj, ["storeArray", _sArr]] call MV_Server_fnc_SetMissionVariable;
 	};
