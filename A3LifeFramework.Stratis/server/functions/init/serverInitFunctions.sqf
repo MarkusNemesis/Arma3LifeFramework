@@ -43,5 +43,8 @@ MV_Server_fnc_IEvent_FishingRecallNet = Compile preprocessFileLineNumbers "Serve
 // -- ATM interaction
 MV_Server_fnc_ATMAction = Compile preprocessFileLineNumbers "Server\functions\serverATMAction.sqf";
 
+// -- Item store interaction
+MV_Server_fnc_ItemStoreAction = Compile preprocessFileLineNumbers "Server\functions\serverItemStoreAction.sqf";
+
 
 //MV_Server_fnc_ = Compile preprocessFileLineNumbers "Server\functions\";

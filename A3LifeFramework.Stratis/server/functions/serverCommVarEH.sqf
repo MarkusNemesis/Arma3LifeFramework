@@ -30,6 +30,18 @@ switch (_eType) do
         diag_log Server_EventArray;
     };
     
+	// -- Client is doing an item store action.
+	case "ItemStoreAction":
+    {
+		private ['_pObj', '_aMode', '_iStore', '_iaArgs'];
+		_pObj = objectFromNetId (_vParams select 0);
+		_aMode = _vParams select 1;
+		_iStore = objectFromNetId (_vParams select 2);
+		_iaArgs = _vParams select 3;
+		// -- Add the event.
+		['MV_Server_fnc_ItemStoreAction', [_pObj, _aMode, _iStore, _iaArgs]] call MV_Server_fnc_AddEvent;
+	};
+	
     // -- Client has sent garbage for the collector.
     case "AddGarbage":
 	{
@@ -97,7 +109,7 @@ switch (_eType) do
 		_intRange = (missionNamespace getVariable "INT_RANGE");
 		_remoteKeyRange = (missionNamespace getVariable "REMOTE_KEY_RANGE");
 		if (_lType == 'remote') then {_validDistance = _remoteKeyRange} else {_validDistance = _intRange};
-		_pChain = [getPlayerUID _pObj, "keychain"] call MV_Server_fnc_GetMissionVariable;
+		_pChain = [netid _pObj, "keychain"] call MV_Server_fnc_GetMissionVariable;
 		if ((_vParams select 1) in _pChain) then
 		{
 			if (_pObj distance _veh > _validDistance) exitwith {}; // -- User is too far away from vehicle to interact with it.

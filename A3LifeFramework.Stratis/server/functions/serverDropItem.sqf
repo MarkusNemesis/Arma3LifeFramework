@@ -10,16 +10,14 @@ Desc: Handles the dropping of items. Called by the serverCommVarEH, under event 
 Params: [_Obj, _iName, _qty]
 */
 diag_log format ["MV: serverDropItem: %1", _this];
-private ['_Obj' ,'_iName', '_qty', '_hasItem', '_id', '_pInv'];
+private ['_Obj' ,'_iName', '_qty', '_hasItem', '_pInv'];
 _Obj = _this select 0;
 _iName = _this select 1;
 _qty = _this select 2;
-_id = '';
 
 if (_qty <= 0) exitwith {diag_log format ["MV: serverDropItem: ADMIN: Object %1 attempted to drop %2 of item %3, which they do not have!", name _Obj, _qty, _iName];};
 
-if (isPlayer _Obj) then {_id = getPlayerUID _Obj;} else {_id = netId _Obj;};
-_pInv = [_id, "Inventory"] call MV_Server_fnc_GetMissionVariable;
+_pInv = [netId _Obj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 
 if (!isnil "_pInv") then
 {

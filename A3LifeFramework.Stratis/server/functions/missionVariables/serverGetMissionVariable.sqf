@@ -6,15 +6,19 @@ Desc: Simply gets a missionNamespace subarray from the user's personal missionNa
 1. Iterate through the user's misisonnamespace array in search of the specific array type.
 1.1 If found, assign _x to a variable and return it
 2. If not found, return objNull.
-Params: ['netID/UID', 'arrayType'];
+Params: ['netID', 'arrayType'];
 Return: ['arrayType1', [content, of, variable]];
 
 Example: [id, "ArrayType"] call MV_Server_fnc_GetMissionVariable;
 */
 diag_log format ['MV: serverGetVariable: %1', _this];
-private ['_ID', '_aType', '_mVarName', '_aReturn'];
+private ['_ID', '_aType', '_obj', '_mVarName', '_aReturn'];
 _ID = _this select 0;
 _aType = _this select 1;
+// -- Am I dealing with a player?
+_obj = (objectFromNetId _ID);
+if (isPlayer _obj) then {_ID = getPlayerUID _obj};
+
 _mVarName = format ["%1_missionVar", _ID];
 _aReturn = objNull;
 // -- Get this user's array.

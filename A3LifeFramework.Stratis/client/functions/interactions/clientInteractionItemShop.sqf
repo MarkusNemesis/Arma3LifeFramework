@@ -22,12 +22,13 @@ _uiMode = What mode the UI is in, default false, for buying items from the store
 _selObj = the object that has been selected in the inventory selection list.
 _selInventory = The inventory of the selected inventory.
 Params: [storeObj]
+TODO TODO TODO TODO Optimise this script! It's very loopy in here.
 */
 #define INVRANGE 20
 
 disableSerialization;
 
-private ['_sObj', '_dsp', '_fNo', '_sArr', '_uiMode', '_uiModeChanged', '_selObj', '_selInventory'];
+private ['_sObj', '_dsp', '_fNo', '_sArr', '_uiMode', '_selObj', '_selInventory'];
 
 // -- Display the dialog:
 createDialog "ui_itemShop";
@@ -52,7 +53,7 @@ _frmItemList =			_dsp displayCtrl 2029;
 // -- Init UINamespace variables.
 uiNamespace setVariable ['itemShop_cmdToggleMode', false];
 uiNamespace setVariable ['itemShop_lbxInvSelect_lbxSelChanged', true];
-uiNamespace setVariable ['itemShop_lbxInventoryStore_lbxSelChanged', true];
+uiNamespace setVariable ['itemShop_lbxInventoryStore_lbxSelChanged', false];
 uiNamespace setVariable ['itemShop_txtQtyChanged', false];
 uiNamespace setVariable ['itemShop_cmdBuySell', false];
 uiNamespace setVariable ['itemShop_stxtInfo_update', true];
@@ -120,14 +121,6 @@ while {!isnull _dsp} do
 			uiNamespace setVariable ['itemShop_stxtInfo_update', true];
 		};
 		
-		/*
-		if (_uiModeChanged) then 
-		{
-			_uiModeChanged = false;
-			// -- the UI mode changed, so thus, we must update the 
-		};
-		*/
-		
 		if (uiNamespace getVariable 'itemShop_lbxInvSelect_lbxSelChanged') then 
 		{// -- User has selected a new inventory to buy/sell to/from
 			uiNamespace setVariable ['itemShop_lbxInvSelect_lbxSelChanged', false];
@@ -138,7 +131,7 @@ while {!isnull _dsp} do
 				_bDisplayUserInventory = true; // -- Set flag to display new user inventory selection's inventory.
 			} else {
 				_selObj = objectFromNetId (_lbxInvSelect lbData (lbCurSel _lbxInvSelect));
-				_selInventory = _selObj getVariable 'inventory';
+				_selInventory = _selObj getVariable "Inventory";
 				// -- flag the 'selected item' infobox to update.
 				uiNamespace setVariable ['itemShop_stxtInfo_update', true];
 			};
@@ -147,7 +140,7 @@ while {!isnull _dsp} do
 		if (uiNamespace getVariable 'itemShop_lbxInventoryStore_lbxSelChanged') then 
 		{
 			uiNamespace setVariable ['itemShop_lbxInventoryStore_lbxSelChanged', false];
-			// -- Selection in the items listbox has changed. Get object data (from selection index, within the stores array and items array mission vars)
+			// -- Selection in the items listbox has changed.
 			
 			// -- Update selected item box.
 			uiNamespace setVariable ['itemShop_stxtInfo_update', true];
@@ -159,7 +152,7 @@ while {!isnull _dsp} do
 			// -- Parse the number, floor it, re set it.
 			private ['_tqtyText'];
 			_tqtyText = (floor (parseNumber (ctrlText _txtQty)));
-			if (_tqtyText == 0) then {_tqtyText = ''} else {_tqtyText = str _tqtyText};
+			if (_tqtyText <= 0) then {_tqtyText = ''} else {_tqtyText = str _tqtyText};
 			_txtQty ctrlSetText (_tqtyText);
 			// -- update selected item info box.
 			uiNamespace setVariable ['itemShop_stxtInfo_update', true];
@@ -168,7 +161,80 @@ while {!isnull _dsp} do
 		if (uiNamespace getVariable 'itemShop_cmdBuySell') then 
 		{
 			uiNamespace setVariable ['itemShop_cmdBuySell', false];
-			//
+			// -- The user wants to buy/sell something!
+			private ['_tHasItem', '_tSHasItem', '_tHasFunds', '_tCanFit', '_tInRange', '_tinv', '_tiName', '_tQty' '_tiInfo', '_tiMaxStock'];
+			_tHasItem = false;
+			_tSHasItem = false;
+			_tHasFunds = false;
+			_tCanFit = false;
+			_tStockMax = true;
+			_tInRange = false;
+			_tiName = _lbxInventoryStore lbData (lbCurSel _lbxInventoryStore); // -- Get the selected item's name.
+			_tiInfo = [_tiName] call MV_Shared_fnc_GetItemInformation;
+			_tQty = parseNumber (ctrlText _txtQty);
+			_tiMaxStock = 0;
+			if (_uimode) then // -- Sell mode
+			{
+				private ['_tisExporter'];
+				_tinv = _selObj getVariable "Inventory";
+				_tisExporter = _sObj getVariable 'isExporter';
+				
+				// -- Check if this quantity doesn't go over the store's max volume.
+				if (!_tisExporter) then 
+				{// TODO put this foreach into a shared function that returns: [boolCanDo, qty, maxqty, qtyTillMax]
+					{
+						if ((_x select 0) == _tiName) exitwith 
+						{
+							private ['_xQty'];
+							_xQty = _x select 1;
+							_tiMaxStock = _x select 2;
+							if ((_tiMaxStock - _xQty) > _tQty) then {_tStockMax = false};
+						}; 
+					} foreach _sArr;
+				} else {_tStockMax = false;};
+				
+				// -- Has the user got the item.
+				_tHasItem = [_tinv, _tiName, _tQty] call MV_Shared_fnc_InventoryHasItem;
+				
+				// -- Stores have infinite money, and volume. So thus, set these to true.
+				_tHasFunds = true;
+				_tCanFit = true;
+			} else { // -- Buy mode
+				private ['_tiPriceTotal', '_invSpace'];
+				_tiPriceTotal = (_tiInfo select 2) * _tQty;
+				_tinv = _sArr;
+				// -- Can the player afford this item?
+				_tHasFunds = [_tinv, 'Money', _tiPriceTotal] call MV_Shared_fnc_InventoryHasItem;
+				// -- Has the selected inventory got the required volume? TODO create 'canFit' shared function.
+				if (isplayer _selObj) then {_invSpace = MV_Shared_PLAYERVOLUME} else {_invSpace = [typeof _selObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
+				_invSpace = _invSpace - ([_selInventory] call MV_Shared_fnc_GetCurrentInventoryVolume);
+				
+				if (((_tiInfo select 1) * _tiQty) <= _invSpace) then 
+				{
+					_tCanFit = true;
+				};
+				
+				// -- You're buying, so thus stock limits aren't an issue. Neither is whether you already have that item. Thus, flag '_tStockMax' as false and _tHasItem as true.
+				_tStockMax = false;
+				_tHasItem = true;
+			};
+			// -- Has the store got the item.
+			_tSHasItem = [_sArr, _tiName, 0] call MV_Shared_fnc_InventoryHasItem;
+			
+			// -- Is the selected inventory within range of the store.
+			if ((_sObj distance _selObj) <= INVRANGE) then {_tInRange = true};
+			
+			// -- If any errors, feed back to the player.
+			if (!_tHasItem) exitwith {["ERROR", localize "STR_MV_INT_ERRORNOSTOCK"] spawn MV_Client_fnc_int_MessageBox;}; // -- error out, hasn't got item in qty.
+			if (!_tSHasItem) exitwith {["ERROR", localize "STR_MV_INT_ERRORDOESNOTSTOCK"] spawn MV_Client_fnc_int_MessageBox;}; // -- error out, store doesn't stock this item.
+			if (!_tHasFunds) exitwith {["ERROR", localize "STR_MV_INT_ERRORNOFUNDS"] spawn MV_Client_fnc_int_MessageBox;}; // -- error out, player hasn't got the funds to do this transaction.
+			if (!_tCanFit) exitwith {["ERROR", localize "STR_MV_INT_ERRORNOVOL"] spawn MV_Client_fnc_int_MessageBox;}; // -- error out, player attempting to buy items too large for selected inventory.
+			if (_tStockMax) exitwith {["ERROR", format [localize "STR_MV_INT_ERRORSTOCKMAX", _tQty, _tiName, _tiMaxStock]] spawn MV_Client_fnc_int_MessageBox;}; // -- error out, player attempting to sell item qty that'll overflow the store's stock of that item.
+			if (!_tInRange) exitwith {["ERROR", localize "STR_MV_INT_ERRORINVENTORYTOOFAR"] spawn MV_Client_fnc_int_MessageBox;}; // -- error out, player attempting to buy items too far away for selected inventory.
+			
+			// -- Validation passed. Send event to the server. Format: [playerObj, actionType, storeObj, [Args]] Args format buy: [iName, Qty, destInventoryObj] Args format sell: [iName, Qty, fromInventoryObj]
+			["ItemStoreAction", [netID player, _uimode, netID _sObj, [_tiName, _tQty, netid _selInventory]]] call MV_Client_fnc_SendServerMessage;
+			closeDialog 0;
 		};
 		
 		if (_bDisplayUserInventory) then 
@@ -177,7 +243,7 @@ while {!isnull _dsp} do
 			// -- Displays the user's inventory, in the store list box.
 			_selObj = objectFromNetId (_lbxInvSelect lbData (lbCurSel _lbxInvSelect));
 			// -- Get the inventory of that selected object.
-			_selInventory = _selObj getVariable 'inventory';
+			_selInventory = _selObj getVariable "Inventory";
 			// -- Iterate through array and output to item listbox
 			lbclear _lbxInventoryStore;
 			{
@@ -291,7 +357,7 @@ while {!isnull _dsp} do
 			if (!_uiMode) then 
 			{
 				// -- Check if they can afford this transaction.
-				if ([(player getVariable 'inventory'), "Money", (_tiVal * _tiQty)] call MV_Shared_fnc_InventoryHasItem) then 
+				if ([(player getVariable "Inventory"), "Money", (_tiVal * _tiQty)] call MV_Shared_fnc_InventoryHasItem) then 
 				{
 					_tcanAfford = parseText "<t color='#00FF00'>Yes</t>";
 				} else {
@@ -308,7 +374,6 @@ while {!isnull _dsp} do
 				_tcanAfford = "N/A";
 				_tcanFit = "N/A";
 			};
-			
 			
 			// -- Create the array that'll be interated to create the final text.
 			_ttArray = [

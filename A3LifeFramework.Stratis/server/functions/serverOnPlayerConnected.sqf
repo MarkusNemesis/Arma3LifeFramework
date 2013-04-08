@@ -37,8 +37,6 @@ call compile format ["%1_CommVar = [];", _slotName];
 format ["%1_CommVar", _slotName] addPublicVariableEventHandler {[_this select 1] call MV_Server_fnc_CommVarEH;};
 diag_log format ["PublicVar set: %1_CommVar", _slotName];
 
-
-
 // ---- Check if the player has played before in this session. iterate through Server_PlayerRegistry
 private ['_found', '_prIndex'];
 _found = false;

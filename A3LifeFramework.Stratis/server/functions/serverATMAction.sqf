@@ -17,13 +17,14 @@ Params:
 Return: 
 */
 
-private ['_pObj', '_qty', '_action', '_pbMoney', '_pwMoney'];
+private ['_pObj', '_qty', '_action', '_pbMoney', '_pwMoney', '_pNID'];
 _pobj = _this select 0;
 _qty = _this select 1;
 _action = _this select 2;
+_pNID = netid _pObj;
 
-_pwMoney = ([getPlayerUID _pObj, "money"] call MV_Server_fnc_GetMissionVariable) select 0;
-_pbMoney = ([getPlayerUID _pObj, "bankmoney"] call MV_Server_fnc_GetMissionVariable) select 0;
+_pwMoney = ([_pNID, "money"] call MV_Server_fnc_GetMissionVariable) select 0;
+_pbMoney = ([_pNID, "bankmoney"] call MV_Server_fnc_GetMissionVariable) select 0;
 
 switch (_action) do
 {
@@ -31,7 +32,7 @@ switch (_action) do
 	{
 		if (_qty < 0 || _qty > _pbMoney) exitwith {diag_log format ["MV: serverATMAction: ADMIN: Error! player %1 attempted to withdraw $%2, bypassing client validation!", name _pObj, _qty];[_pObj, "ATMActionReturn", [false, _action]] call MV_Server_fnc_SendClientMessage;};
 		// -- Subtract the money from the player's bank account.
-		[getPlayerUID _pObj, ["bankmoney", [(_pbMoney - _qty)]]] call MV_Server_fnc_SetMissionVariable;
+		[_pNID, ["bankmoney", [(_pbMoney - _qty)]]] call MV_Server_fnc_SetMissionVariable;
 		_pObj setVariable ["bankmoney", (_pbMoney - _qty), true];
 		// -- Validation passed, carry out transaction.
 		[_pObj, _pwMoney + _qty] call MV_Server_fnc_SetPlayerFunds;
@@ -45,7 +46,7 @@ switch (_action) do
 		[_pObj, _pwMoney - _qty] call MV_Server_fnc_SetPlayerFunds;
 		
 		// -- Validation passed, carry out transaction.
-		[getPlayerUID _pObj, ["bankmoney", [(_pbMoney + _qty)]]] call MV_Server_fnc_SetMissionVariable;
+		[_pNID, ["bankmoney", [(_pbMoney + _qty)]]] call MV_Server_fnc_SetMissionVariable;
 		_pObj setVariable ["bankmoney", (_pbMoney + _qty), true];
 		[_pObj, "ATMActionReturn", [true, _action, _qty]] call MV_Server_fnc_SendClientMessage;
 	};

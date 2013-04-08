@@ -12,17 +12,11 @@ private ['_pObj', '_iName', '_qty', '_iInv', '_id'];
 _pObj = _this select 0;
 _iName = _this select 1;
 _qty = _this select 2;
-_id = 0;
+_id = netID _pObj;
 if (_qty < 1) then {_qty = 1;};
 // -- Get the object's inventory.
+_iInv = [_id, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 
-if ([_pObj] call MV_Shared_fnc_isPlayerOnFoot) then {
-	_id = getPlayerUID _pObj;
-	_iInv = [getPlayerUID _pObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
-} else {
-	_id = netID _pObj;
-	_iInv = [_id, "Inventory"] call MV_Server_fnc_GetMissionVariable;
-};
 
 // -- Find the entry in the inventory.
 {

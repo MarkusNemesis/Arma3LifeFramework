@@ -90,6 +90,26 @@ switch (_eType) do
 		};
 	};
 	
+	// -- ItemStoreActionReturn
+	case "ISAR":
+	{// -- ni, nsi, ms, nr, if, nv
+		private ['_reason', '_iName', '_iQty', '_invObj'];
+		_reason = _vParams select 0;
+		_iName = _vParams select 1;
+		_iQty = _vParams select 2;
+		_invObj = objectFromNetId (_vParams select 3);
+		
+		switch (_reason) do
+		{
+			case "ni": {["ERROR", localize "STR_MV_INT_ERRORNOSTOCK"] spawn MV_Client_fnc_int_MessageBox;};
+			case "nsi": {["ERROR", localize "STR_MV_INT_ERRORDOESNOTSTOCK"] spawn MV_Client_fnc_int_MessageBox;};
+			case "ms": {["ERROR", format [localize "STR_MV_INT_ERRORSTOCKMAX2", _iQty, _iName]] spawn MV_Client_fnc_int_MessageBox;};
+			case "nr": {["ERROR", localize "STR_MV_INT_ERRORINVENTORYTOOFAR"] spawn MV_Client_fnc_int_MessageBox;};
+			case "if": {["ERROR", localize "STR_MV_INT_ERRORNOFUNDS"] spawn MV_Client_fnc_int_MessageBox;};
+			case "nv": {["ERROR", localize "STR_MV_INT_ERRORNOVOL"] spawn MV_Client_fnc_int_MessageBox;};
+		};
+	};
+	
 	case "silentLock":
 	{ // -- Called when the server wants to unlock a vehicle that is within this user's locality.
 		private ['_veh'];

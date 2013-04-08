@@ -76,7 +76,7 @@ _Array_Store_Vehicles = missionNamespace getVariable "Array_Store_Vehicles";
 _Array_Store_Items = missionNamespace getVariable "Array_Store_Items";
 //[KeeperObjName, [ ["ItemName", intBaseStock], [etc, etc] ], [AccessArray], themeName, storeName, ammoCrate, boolHasMarker, boolIsExporter];
 {
-    private ['_oObj', '_sArr', '_accArr', '_theme', '_mTxt', '_spawnObject', '_hasMarker'];
+    private ['_oObj', '_sArr', '_accArr', '_theme', '_mTxt', '_isExporter', '_spawnObject', '_hasMarker'];
     _oObj = _x select 0;
     _sArr = _x select 1;
     _accArr = _x select 2;
@@ -84,6 +84,7 @@ _Array_Store_Items = missionNamespace getVariable "Array_Store_Items";
     _mTxt = _x select 4; 
     _spawnObject = _x select 5;
     _hasMarker = _x select 6;
+	_isExporter = _x select 7;
 	
     // -- Set Public Variables
     _oObj setVariable ["isInteractable", true, true]; // Whether the object is interactable.
@@ -91,7 +92,7 @@ _Array_Store_Items = missionNamespace getVariable "Array_Store_Items";
 	_oObj setVariable ["storeArray", _sArr, true]; // Contains what the store sells.
 	_oObj setVariable ["interactFilter", _accArr, true]; // Contains the 'sides' that can interact with this object
     _oObj setVariable ["mouseOverText", _mTxt, true]; // Text that shows on mouse over.
-    // -- TODO set isExporter into var and missionvar.
+	_oObj setVariable ["isExporter", _isExporter, true]; // Whether selling to this store increments it's stock amount or not.
     
     // -- Set Serverside Variables
 	private ['_sNetID'];
@@ -105,6 +106,7 @@ _Array_Store_Items = missionNamespace getVariable "Array_Store_Items";
 	[_sNetID, ["storeArray", _sArr]] call MV_Server_fnc_SetMissionVariable;
 	[_sNetID, ["interactFilter", _accArr]] call MV_Server_fnc_SetMissionVariable;
 	[_sNetID, ["mouseOverText", [_mTxt]]] call MV_Server_fnc_SetMissionVariable;
+	[_sNetID, ["isExporter", [_isExporter]]] call MV_Server_fnc_SetMissionVariable;
 	[_sNetID, ["spawnObject", [_spawnObject]]] call MV_Server_fnc_SetMissionVariable;
 	
 	// [_sNetID, []] call MV_Server_fnc_SetMissionVariable;

@@ -14,11 +14,12 @@ _objA = objectFromNetId (_this select 0);
 _iName = _this select 1;
 _qty = _this select 2;
 _objB = objectFromNetId (_this select 3);
-_oAID = 0;
-_oBID = 0;
+_oAID = _this select 0;
+_oBID = _this select 3;
 _arrPlayers = [];
-if ([_objA] call MV_Shared_fnc_isPlayerOnFoot) then {_oAID = getPlayerUID _objA; _arrPlayers = _arrPlayers + [_objA];} else {_oAID = _this select 0};
-if ([_objB] call MV_Shared_fnc_isPlayerOnFoot) then {_oBID = getPlayerUID _objB; _arrPlayers = _arrPlayers + [_objB];} else {_oBID = _this select 3};
+// -- Which objects are players?
+if ([_objA] call MV_Shared_fnc_isPlayerOnFoot) then {_arrPlayers = _arrPlayers + [_objA];};
+if ([_objB] call MV_Shared_fnc_isPlayerOnFoot) then {_arrPlayers = _arrPlayers + [_objB];};
 
 // -- Check if _objA has the item that is to be sent.
 private ['_objAInv', '_hasItem'];

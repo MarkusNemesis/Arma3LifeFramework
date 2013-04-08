@@ -17,7 +17,7 @@ _intRange = (missionNamespace getVariable "INT_RANGE");
 
 diag_log format ["MV: serverItemUseEvents: pObj: %1, iName: %2, action: %3, args: %4", _pObj, _iName, _action, _aArgs];
 
-_pInventory = [getPlayerUID _pObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
+_pInventory = [netid _pObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 
 // -- Check if user has said object in inventory
 _itemArray = [_iName, _pInventory] call MV_Shared_fnc_SearchInventory;

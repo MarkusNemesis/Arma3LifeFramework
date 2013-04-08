@@ -15,6 +15,7 @@ Skype: markus.davey
 Desc: All custom inventory items are defined here.
 Format: ['itemName', volumeCC, basePrice, [Args,Array], 'useFunction', "ItemInformationString"]
 All item 'use' functions MUST return true/false. true = item consumed, false = not.
+TODO try fetching static data from an html file via htmlLoad. May not be possible due to headless nature of the server. http://community.bistudio.com/wiki/htmlLoad
 */
 
 // TODO localise item descriptions.

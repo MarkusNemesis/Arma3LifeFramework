@@ -1,4 +1,4 @@
-/* sharedHasItem script
+/* sharedInventoryHasItem script
 Created: 23/03/2013
 Author: Markus Davey
 Skype: markus.davey

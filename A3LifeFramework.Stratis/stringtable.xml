@@ -16,11 +16,27 @@
 		<Key ID="STR_MV_INT_ERRORNOSTOCK">
 		  <English>There is not enough of this item in stock</English>
 		</Key>
+		
+		<Key ID="STR_MV_INT_ERRORDOESNOTSTOCK">
+		  <English>This store doesn't sell this item, nor do they wish to.</English>
+		</Key>
 
 		<Key ID="STR_MV_INT_ERRORNOFUNDS">
 		  <English>You do not have enough money to buy this item</English>
 		</Key>
-
+		
+		<Key ID="STR_MV_INT_ERRORNOVOL">
+		  <English>You do not have enough room to transact that quantity of items into that inventory</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_ERRORSTOCKMAX">
+		  <English>You cannot sell %1 %2 to this store, as that item has a stock limit of %3</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_ERRORINVENTORYTOOFAR">
+		  <English>You cannot do this, as the selected inventory is simply too far away.</English>
+		</Key>
+		
 		<Key ID="STR_MV_INT_ERRORBUYVEHICLE">
 		  <English>Insufficient %1, please try again later</English>
 		</Key>
