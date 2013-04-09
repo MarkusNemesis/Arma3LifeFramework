@@ -11,7 +11,7 @@ _sQty = _this select 1;
 _pNID = netid _pObj;
 //_diff = ([_pNID, "Money"] call MV_Server_fnc_GetMissionVariable) - _sQty;
 
-(_this select 0) setVariable ["Money", _this select 1, true];
+(_pObj) setVariable ["Money", _sQty, true];
 [_pNID, ["Money", [_sQty]]] call MV_Server_fnc_SetMissionVariable;
 
 _iInv = [_pNID, "Inventory"] call MV_Server_fnc_GetMissionVariable;

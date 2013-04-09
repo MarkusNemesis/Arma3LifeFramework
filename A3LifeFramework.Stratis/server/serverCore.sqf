@@ -65,7 +65,7 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here, wi
         _runPrior = 1;
         //diag_log format ["Server: Mainloop tick time avg: %1ms", (_avgTTime / _pRange) * 1000];
         _tTime = diag_ticktime - _tTime;
-        Server_Health = format ["Server: Mainloop tick time avg: %1ms. FrameNo: %2", (_tTime / _pRange) * 1000, diag_frameno];
+        Server_Health = format ["Server: Mainloop tick time avg: %1ms. FrameNo: %2", round ((_tTime / _pRange) * 1000), diag_frameno];
 		publicVariable "Server_Health";
         _tTime = diag_ticktime;
 		if ((diag_frameno - _pFrame) > 1) then {diag_log format ["MV: serverCore: WARN: Loop skipped %1 frames!", diag_frameno - _pFrame];};

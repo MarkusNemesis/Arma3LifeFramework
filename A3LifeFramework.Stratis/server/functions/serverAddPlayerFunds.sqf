@@ -7,11 +7,12 @@ Params: [pObj, qty]
 
 TODO add validation so that only players can have this run on them, not objects.
 */
-private ['_pObj','_sQty', '_iInv', '_pNID', '_found'];
+private ['_pObj','_sQty', '_curFunds', '_iInv', '_pNID', '_found'];
 _pObj = _this select 0;
 _sQty = _this select 1;
 _pNID = netid _pObj;
-_sQty = _sQty + ([_pNID, "Money"] call MV_Server_fnc_GetMissionVariable);
+_curFunds = ([_pNID, "Money"] call MV_Server_fnc_GetMissionVariable) select 0;
+_sQty = _sQty + _curFunds;
 
 _pObj setVariable ["Money", _sQty, true];
 [_pNID, ["Money", [_sQty]]] call MV_Server_fnc_SetMissionVariable;

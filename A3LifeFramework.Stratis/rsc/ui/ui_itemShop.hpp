@@ -49,8 +49,8 @@ class ui_itemShop
 		h = 25 * GUI_GRID_H;
 	};
 	class MVFRM1: MV_GUIFrame
-	{
-		idc = -1;
+	{// -- Displays the store's name.
+		idc = 2030;
 		text = "StoreName"; //--- ToDo: Localize;
 		x = 11.4 * GUI_GRID_W + GUI_GRID_X;
 		y = 0.4 * GUI_GRID_H + GUI_GRID_Y;
@@ -169,4 +169,6 @@ class ui_itemShop
 	////////////////////////////////////////////////////////
 	// GUI EDITOR OUTPUT END
 	////////////////////////////////////////////////////////
+	
+	// -- Highest idc is 2030 ------------------------
 };

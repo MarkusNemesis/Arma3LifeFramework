@@ -41,7 +41,7 @@ _sArr = _sObj getVariable "storeArray";
 _uiMode = false; // False = BUY mode, true = Sell mode.
 
 // -- Get all controls
-private ['_lbxInvSelect', '_lbxInventoryStore', '_stxtInfo', '_cmdToggleMode', '_cmdBuySell', '_txtQty', '_frmItemList'];
+private ['_lbxInvSelect', '_lbxInventoryStore', '_stxtInfo', '_cmdToggleMode', '_cmdBuySell', '_txtQty', '_frmItemList', '_frmStoreNameFrame'];
 _lbxInvSelect = 			_dsp displayCtrl 2023;
 _lbxInventoryStore = 		_dsp displayCtrl 2028;
 _stxtInfo =	 			_dsp displayCtrl 2027;
@@ -49,6 +49,7 @@ _cmdToggleMode =			_dsp displayCtrl 2026;
 _cmdBuySell = 				_dsp displayCtrl 2025;
 _txtQty =					_dsp displayCtrl 2024;
 _frmItemList =			_dsp displayCtrl 2029;
+_frmStoreNameFrame = 		_dsp displayCtrl 2030;
 
 // -- Init UINamespace variables.
 uiNamespace setVariable ['itemShop_cmdToggleMode', false];
@@ -209,10 +210,7 @@ while {!isnull _dsp} do
 				if (isplayer _selObj) then {_invSpace = MV_Shared_PLAYERVOLUME} else {_invSpace = [typeof _selObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
 				_invSpace = _invSpace - ([_selInventory] call MV_Shared_fnc_GetCurrentInventoryVolume);
 				
-				if (((_tiInfo select 1) * _tiQty) <= _invSpace) then 
-				{
-					_tCanFit = true;
-				};
+				if (((_tiInfo select 1) * _tQty) <= _invSpace) then {_tCanFit = true;};
 				
 				// -- You're buying, so thus stock limits aren't an issue. Neither is whether you already have that item. Thus, flag '_tStockMax' as false and _tHasItem as true.
 				_tStockMax = false;
@@ -271,6 +269,9 @@ while {!isnull _dsp} do
 			// -- set cursel index 0 on store array listbox.
 			_lbxInventoryStore lbSetCurSel 0;
 			
+			// -- Set storename frame label
+			_frmStoreNameFrame ctrlSetText (_selObj getVariable 'vName');
+			
 			// -- flag the 'selected item' infobox to update.
 			uiNamespace setVariable ['itemShop_stxtInfo_update', true];
 		};
@@ -291,6 +292,9 @@ while {!isnull _dsp} do
 			
 			// -- set cursel index 0 on store array listbox.
 			_lbxInventoryStore lbSetCurSel 0;
+			
+			// -- Set storename frame label
+			_frmStoreNameFrame ctrlSetText (_sObj getVariable "mouseOverText");
 			
 			// -- flag the 'selected item' infobox to update.
 			uiNamespace setVariable ['itemShop_stxtInfo_update', true];

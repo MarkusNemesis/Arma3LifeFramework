@@ -18,7 +18,12 @@ _ID = _this select 0;
 _args = _this select 1;
 // -- Am I dealing with a player?
 _obj = (objectFromNetId _ID);
-if (isPlayer _obj) then {_ID = getPlayerUID _obj};
+
+if ([_obj] call MV_Shared_fnc_isPlayerOnFoot) then 
+{
+	_ID = getPlayerUID _obj;
+};
+
 
 _mVarName = format ["%1_missionVar", _ID];
 _found = false;

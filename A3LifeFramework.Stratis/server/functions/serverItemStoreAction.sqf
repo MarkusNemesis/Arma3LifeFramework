@@ -32,7 +32,7 @@ _iQty = _iaArgs select 1;
 
 if (_iQty <= 0) exitwith {diag_log "Warn: Invalid qty sell/buy";}; // TODO error back to player, invalid qty.
 
-switch (_iaType) do
+switch (_aMode) do
 {
 	case true: // -- Sell mode
 	{
@@ -47,32 +47,32 @@ switch (_iaType) do
 		*/
 		private ['_tiIsMaxStock', '_tisrcInv', '_tisExporter'];
 		_tiIsMaxStock = true;
-		_tisExporter = [netID _strObj, "isExporter"] call MV_Server_fnc_GetMissionVariable; 
+		_tisExporter = [netID _strObj, "isExporter"] call MV_Server_fnc_GetMissionVariable select 0; 
 		//
 		// -- Check if store has the item, so thus, can also have that item sold to them.
-		if (![_sArr, _iName, 0] call MV_Shared_fnc_InventoryHasItem) exitwith {[_pobj, "ISAR", ['nsi', [_iName, _iQty, netid _tisrcInv]]] call MV_Server_fnc_SendClientMessage;};
+		if (!([_sArr, _iName, 0] call MV_Shared_fnc_InventoryHasItem)) exitwith {[_pobj, "ISAR", ['ds', [_iName, _iQty, netid _iSrcObj]]] call MV_Server_fnc_SendClientMessage;};
 		
 		// -- Check if selected inventory has item + qty
 		_tisrcInv = [netID _iSrcObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
-		if (![_tisrcInv, _iName, _iQty] call MV_Shared_fnc_InventoryHasItem) exitwith {[_pobj, "ISAR", ['ni', [_iName, _iQty, netid _tisrcInv]]] call MV_Server_fnc_SendClientMessage;};
+		if (!([_tisrcInv, _iName, _iQty] call MV_Shared_fnc_InventoryHasItem)) exitwith {[_pobj, "ISAR", ['ni', [_iName, _iQty, netid _iSrcObj]]] call MV_Server_fnc_SendClientMessage;};
 		
 		// -- Check if sale will put item over max item stock. TODO put this foreach into a shared function that returns: [boolCanDo, qty, maxqty, qtyTillMax]
 		if (!_tisExporter) then 
 		{
 			{
-				if ((_x select 0) == _tiName) exitwith 
+				if ((_x select 0) == _iName) exitwith 
 				{
 					private ['_xQty'];
 					_xQty = _x select 1;
 					_tiMaxStock = _x select 2;
-					if ((_tiMaxStock - _xQty) > _tQty) then {_tiIsMaxStock = false};
+					if ((_tiMaxStock - _xQty) > _iQty) then {_tiIsMaxStock = false};
 				}; 
 			} foreach _sArr;
 		} else {_tiIsMaxStock = false};
-		if (_tiIsMaxStock) exitwith {[_pobj, "ISAR", ['ms', [_iName, _iQty, netid _tisrcInv]]] call MV_Server_fnc_SendClientMessage;};
+		if (_tiIsMaxStock) exitwith {[_pobj, "ISAR", ['ms', [_iName, _iQty, netid _iSrcObj]]] call MV_Server_fnc_SendClientMessage;};
 		
 		// -- Check if source inventory is within 20m of the store keeper.
-		if ((_strObj distance _iSrcObj) > 20) exitwith {[_pobj, "ISAR", ['nr', [_iName, _iQty, netid _tisrcInv]]] call MV_Server_fnc_SendClientMessage;};
+		if ((_strObj distance _iSrcObj) > 20) exitwith {[_pobj, "ISAR", ['nr', [_iName, _iQty, netid _iSrcObj]]] call MV_Server_fnc_SendClientMessage;};
 		
 		// -- Passed validation, actually do the transaction.
 		/* selling from selectedInventory TO the store.
@@ -86,9 +86,9 @@ switch (_iaType) do
 		[_iSrcObj, _iName, _iQty] call MV_Server_fnc_RemoveInventoryItem;
 		// -- Add qty to stock in the store.
 		[_strObj, [_iName, _iQty]] call MV_Server_fnc_AdjustStoreStock;
-		// -- Give (itemValue * qty) to user.
-		_tiInfo = [_tiName] call MV_Shared_fnc_GetItemInformation;
-		_ttPrice = (_tiInfo select 2) * _iQty;
+		// -- Give (itemValue * qty) * 0.9 to user.
+		_tiInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
+		_ttPrice = ((_tiInfo select 2) * _iQty) * 0.9; // -- Remove 10% value for selling.
 		[_pObj, _ttPrice] call MV_Server_fnc_AddPlayerFunds;
 		// -- Report back to user about their successful transaction
 		[_pobj, "ISAR", ['ss', [_iName, _iQty, netid _iSrcObj, _ttPrice]]] call MV_Server_fnc_SendClientMessage;
@@ -110,12 +110,12 @@ switch (_iaType) do
 		_pInv = [netID _pObj, "Inventory"] call MV_Server_fnc_GetMissionVariable; 
 		//
 		// -- Check if store has the item AND the required Qty.
-		if (![_tisrcInv, _iName, _iQty] call MV_Shared_fnc_InventoryHasItem) exitwith {[_pobj, "ISAR", ['nsi', [_iName, _iQty, netid _iDestObj]]] call MV_Server_fnc_SendClientMessage;};
+		if (!([_sArr, _iName, _iQty] call MV_Shared_fnc_InventoryHasItem)) exitwith {[_pobj, "ISAR", ['nsi', [_iName, _iQty, netid _iDestObj]]] call MV_Server_fnc_SendClientMessage;};
 		
 		// -- Check if player has sufficient funds for this transaction.
-		_tiInfo = [_tiName] call MV_Shared_fnc_GetItemInformation;
+		_tiInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
 		_tiTPrice = (_tiInfo select 2) * _iQty;
-		if (![_pInv, "Money", _tiTPrice] call MV_Shared_fnc_InventoryHasItem) exitwith {[_pobj, "ISAR", ['if', [_iName, _iQty, netid _iDestObj]]] call MV_Server_fnc_SendClientMessage;};
+		if (!([_pInv, "Money", _tiTPrice] call MV_Shared_fnc_InventoryHasItem)) exitwith {[_pobj, "ISAR", ['if', [_iName, _iQty, netid _iDestObj]]] call MV_Server_fnc_SendClientMessage;};
 		
 		// -- Check if destination object is in range.
 		if ((_strObj distance _iDestObj) > 20) exitwith {[_pobj, "ISAR", ['nr', [_iName, _iQty, netid _iDestObj]]] call MV_Server_fnc_SendClientMessage;};
@@ -123,8 +123,8 @@ switch (_iaType) do
 		// -- Check if destObj has enough inventory space.
 		_destInv = [netID _iDestObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 		if (isplayer _iDestObj) then {_destVol = MV_Shared_PLAYERVOLUME} else {_destVol = [typeof _iDestObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
-		_destVol = _destVol - ([_selInventory] call MV_Shared_fnc_GetCurrentInventoryVolume);
-		if (!((_tiInfo select 1) * _iQty) <= _destVol) exitwith {[_pobj, "ISAR", ['nv', [_iName, _iQty, netid _iDestObj]]] call MV_Server_fnc_SendClientMessage;};
+		_destVol = _destVol - ([_destInv] call MV_Shared_fnc_GetCurrentInventoryVolume);
+		if (!(((_tiInfo select 1) * _iQty) <= _destVol)) exitwith {[_pobj, "ISAR", ['nv', [_iName, _iQty, netid _iDestObj]]] call MV_Server_fnc_SendClientMessage;};
 		
 		// -- Passed validation, actually do the transaction.
 		/* Buying FROM the store, TO the selected inventory.

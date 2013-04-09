@@ -81,7 +81,7 @@ finishMissionInit;
 if (!isServer) then {call MV_Shared_fnc_GetPlayers;};
 
 // TODO Remove this before final DEBUG
-[] spawn {while {true} do {hint Server_Health; sleep 0.25;};};
+if (name player == "Radioman") then {[] spawn {while {true} do {hint Server_Health; sleep 0.25;};};};
 
 // -- Only start when the server has finished initializing the player's connection.
 waitUntil {player getvariable "clientInitCompleteAck"};
@@ -93,6 +93,7 @@ waitUntil {player getvariable "clientInitCompleteAck"};
 _runTime = diag_tickTime - _runTime;
 diag_log format ["MV: CLIENT INIT: FINISHED, Time taken: %1", _runTime];
 //
+titleText ["Loading...", "BLACK FADED"];
 endLoadingScreen;
 //
 call compile preprocessFileLineNumbers "Client\clientCore.sqf";

@@ -11,18 +11,23 @@ Return: ['arrayType1', [content, of, variable]];
 
 Example: [id, "ArrayType"] call MV_Server_fnc_GetMissionVariable;
 */
-diag_log format ['MV: serverGetVariable: %1', _this];
+diag_log format ['MV: serverGetVariable: %1, Object: %2', _this, objectFromNetId (_this select 0)];
 private ['_ID', '_aType', '_obj', '_mVarName', '_aReturn'];
 _ID = _this select 0;
 _aType = _this select 1;
 // -- Am I dealing with a player?
 _obj = (objectFromNetId _ID);
-if (isPlayer _obj) then {_ID = getPlayerUID _obj};
+if (isPlayer _obj) then {
+	if ([_obj] call MV_Shared_fnc_isPlayerOnFoot) then 
+	{
+		_ID = getPlayerUID _obj;
+	};
+};
 
 _mVarName = format ["%1_missionVar", _ID];
 _aReturn = objNull;
 // -- Get this user's array.
-//diag_log format ["MV: User's varname is: %1", _mVarName];
+diag_log format ["MV: serverGetVariable: User's varname is: %1", _mVarName];
 _mArray = missionNamespace getVariable _mVarName;
 {
 	if ((_x select 0) == (_aType)) exitwith 

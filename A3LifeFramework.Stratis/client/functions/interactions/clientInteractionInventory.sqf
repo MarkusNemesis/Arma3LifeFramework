@@ -41,8 +41,8 @@ while {!isnull (findDisplay 1410)} do
 			{
 				private ['_iDesc', '_iUnits', '_estVal', '_sTxt'];
 				_iDesc = parseText format ["%1:<br />%2<br />", localize "STR_MV_DG_DESC",_infoArr select 5];
-				_iUnits = parseText format ["%1:<br />%2<br />", localize "STR_MV_DG_VOLUME", _infoArr select 1];
-				_estVal = parseText format ["%1:<br />%2<br />", localize "STR_MV_DG_APPROXVALUE", _infoArr select 2];
+				_iUnits = parseText format ["%1:<br />%2 (cc)<br />", localize "STR_MV_DG_VOLUME", _infoArr select 1];
+				_estVal = parseText format ["%1:<br />$%2<br />", localize "STR_MV_DG_APPROXVALUE", _infoArr select 2];
 				
 				_sTxt = composeText [_iUnits, _estVal, _iDesc];
 				((findDisplay 1410) displayctrl 2003) ctrlSetStructuredText _sTxt;
