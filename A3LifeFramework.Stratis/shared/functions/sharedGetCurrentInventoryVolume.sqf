@@ -7,7 +7,7 @@ Tallies up the volume of all the objects currently in the passed inventory.
 Params: [_objInventory]
 Return: volumeInCC
 */
-
+diag_log format ["MV: sharedGetCurrentInventoryVolume: %1", _this];
 private ['_iArray', '_rVol'];
 _iArray = _this select 0;
 _rVol = 0;
@@ -18,6 +18,6 @@ _rVol = 0;
 	_rVol = _rVol + (_tItemVol * _tiQty);
 } foreach _iArray;
 
-
+diag_log format ["MV: sharedGetCurrentInventoryVolume: Return: %1", _rVol];
 // Return
 _rVol

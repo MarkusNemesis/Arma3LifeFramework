@@ -30,7 +30,7 @@ if (!_sStock) exitwith {
 };
 
 // -- Deduct money from player
-[_pObj, _pFunds - _vPrice] call MV_Server_fnc_SetPlayerFunds;
+[_pObj, "Money", _vPrice] call MV_Server_fnc_RemoveInventoryItem;//[_pObj, _pFunds - _vPrice] call MV_Server_fnc_SetPlayerFunds;
 
 // -- Spawn the vehicle! Spawns on the store's spawn marker.
 private ['_spVeh', '_sPos', '_kChain', '_vNID', '_vInfo'];

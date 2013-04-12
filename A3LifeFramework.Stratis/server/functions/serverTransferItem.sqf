@@ -34,23 +34,25 @@ if (!_hasItem) exitwith {
 
 // -- Check if _objB has enough volume to accept the items.
 private ['_objBInv', '_ObjBVol', '_ObjBMaxVol', '_transVol'];
-if ((typeOf _ObjB) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then 
-{
-	_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PILEVOLUME");
-} else {
-	if ([_objB] call MV_Shared_fnc_isPlayerOnFoot) exitWith {_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PLAYERVOLUME");};
+//if ((typeOf _ObjB) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then 
+//{
+//	_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PILEVOLUME");
+//} else {
 
-	if (_ObjB isKindOf "LandVehicle" or _ObjB isKindOf "Air" or _ObjB isKindOf "Ship") exitwith
-	{
-		private ['_vInfo'];
-		// -- Find the _objB vehicle in the vehicles array.
-		_vInfo = [typeof _ObjB] call MV_Shared_fnc_GetVehicleArrayInfo;
-		if (!isnil '_vInfo') then {_ObjBMaxVol = _vInfo select 4;};
-	};
-};
+//if ([_objB] call MV_Shared_fnc_isPlayerOnFoot) then {
+	_ObjBMaxVol = ([netid _objB, "storageVolume"] call MV_Server_fnc_GetMissionVariable) select 0;
+//} else {
+//	if (_ObjB isKindOf "LandVehicle" or _ObjB isKindOf "Air" or _ObjB isKindOf "Ship") exitwith
+//	{
+//		private ['_vInfo'];
+//		// -- Find the _objB vehicle in the vehicles array.
+//		_vInfo = [typeof _ObjB] call MV_Shared_fnc_GetVehicleArrayInfo;
+//		if (!isnil '_vInfo') then {_ObjBMaxVol = _vInfo select 4;};
+//	};
+//};
 
 if (isnil '_objBMaxVol') exitwith {
-	diag_log format ["MV: serverTransferItem: _objBMaxVol is nil"];
+	diag_log format ["MV: serverTransferItem: ERROR: _objBMaxVol is nil"];
 	{[_x, "TransferItemReturn", [false , 'ni']] call MV_Server_fnc_SendClientMessage;} foreach _arrPlayers;
 };
 
@@ -58,6 +60,7 @@ _objBInv = [_oBID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 _ObjBVol = [_objBInv] call MV_Shared_fnc_GetCurrentInventoryVolume;
 
 _transVol = (([_iName] call MV_Shared_fnc_GetItemInformation) select 1) * _qty;
+diag_log format ["%1, %2, %3, %4", _ObjBMaxVol, _objBInv, _ObjBVol, _transVol];
 if (((_ObjBMaxVol - _ObjBVol) - _transVol) < 0) exitwith {
 	diag_log format ["MV: serverTransferItem: _ObjBVol is insufficient to hold the transfer of %2. CurVol: %3, MaxVol %4, TVol: %5", _iName, _ObjBVol, _ObjBMaxVol, _transVol];
 	{[_x, "TransferItemReturn", [false , 'v', _iName, _qty, _transVol]] call MV_Server_fnc_SendClientMessage;} foreach _arrPlayers;
@@ -71,3 +74,10 @@ if (((_ObjBMaxVol - _ObjBVol) - _transVol) < 0) exitwith {
 
 // -- Transfer completed, and variables are synced and set. Send message to the player that transfer succeeded.
 {[_x, "TransferItemReturn", [true , _iName, _qty, netID _objA, netid _ObjB]] call MV_Server_fnc_SendClientMessage;} foreach _arrPlayers;
+
+// -- Check if ObjB is a pile, and if it has anything in it's inventory. If it has nothing, delete it.
+if ((typeOf _ObjB) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then 
+{
+	_objBInv = [_oBID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
+	if (count _objBInv == 0) then {[_ObjB] call MV_Server_fnc_DeleteWorldObject;};
+};

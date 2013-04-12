@@ -55,13 +55,19 @@ if (!_found) then // -- If the player has connected for the first time this roun
 	// -- Init the player's missionNamespace array.
 	missionNamespace setVariable [format ["%1_missionVar", _uid], []];
 	// -- Init first time joiner
-    _pObj setVariable ["Money", MV_Params_GPStartFunds, true];
+    //_pObj setVariable ["Money", MV_Params_GPStartFunds, true];
     _pObj setVariable ["BankMoney", 0, true];
     _pObj setVariable ["KeyChain", [], true];
 	_pObj setVariable ["storageVolume", (missionNamespace getVariable "MV_Shared_PLAYERVOLUME"), true];
 	
     // -- Serverside values
-	[_uid, ["Money", [MV_Params_GPStartFunds]]] call MV_Server_fnc_SetMissionVariable;
+	//[_uid, ["Money", [MV_Params_GPStartFunds]]] call MV_Server_fnc_SetMissionVariable;
+	private ['_iInv'];
+	_iInv = [["Money", MV_Params_GPStartFunds], ["Fishing net (Small)", 1]]; // -- TODO Remove this, as it's for debugging.
+
+	[_uid, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
+	_pObj setVariable ["Inventory", _iInv, true];
+	//
 	[_uid, ["BankMoney", [0]]] call MV_Server_fnc_SetMissionVariable;
 	[_uid, ["KeyChain", []]] call MV_Server_fnc_SetMissionVariable;
 	[_uid, ["storageVolume", [(missionNamespace getVariable "MV_Shared_PLAYERVOLUME")]]] call MV_Server_fnc_SetMissionVariable;
@@ -77,23 +83,15 @@ else // -- otherwise, they've been here before, so lets pick them back up where 
 	// -- Update player registry slotname
 	Server_PlayerRegistry set [_prIndex, [_id, _name, _uid, _slotname]];
 	
-	// -- TODO maybe disallow 'money' to be returned, as it could be used to exploit drug trafficking. 
-    _pObj setVariable ["Money", ([_uid, "Money"] call MV_Server_fnc_GetMissionVariable) select 0, true];
+	// TODO set player's inventory as blank in both missionvar and setvariable
     _pObj setVariable ["BankMoney", ([_uid, "BankMoney"] call MV_Server_fnc_GetMissionVariable) select 0, true];
     _pObj setVariable ["KeyChain", [_uid, "KeyChain"] call MV_Server_fnc_GetMissionVariable, true];
     
 	// [_uid, "ArrayType"] call MV_Server_fnc_GetMissionVariable
 };
 // -- Init player's inventory as empty. They've joined so thus have lost whatever they had before.
-private ['_iMoney', '_iInv'];
 
-_iMoney = [_uid, "Money"] call MV_Server_fnc_GetMissionVariable select 0;
 
-// _iInv = [["Money", _iMoney]];
-_iInv = [["Money", _iMoney], ["Fishing net (Small)", 1]]; // -- TODO Remove this, as it's for debugging.
-
-[_uid, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
-_pObj setVariable ["Inventory", _iInv, true];
 //
 _pObj setvehicleinit "this enablesimulation true; this allowdamage true;";
 processinitcommands;

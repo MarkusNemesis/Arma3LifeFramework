@@ -9,6 +9,8 @@ Desc: Precompiles functions and makes them available. There are restricted to th
 MV_Server_fnc_AddGarbage = Compile preprocessFileLineNumbers "server\functions\garbageCollector\serverAddGarbage.sqf";
 MV_Server_fnc_RunGarbageCollector = Compile preprocessFileLineNumbers "Server\functions\garbageCollector\serverRunGarbageCollector.sqf";
 MV_Server_fnc_UpdateGarbageObject = Compile preprocessFileLineNumbers "Server\functions\garbageCollector\serverUpdateGarbageObject.sqf";
+MV_Server_fnc_DeleteWorldObject = Compile preprocessFileLineNumbers "Server\functions\garbageCollector\serverDeleteWorldObject.sqf";
+
 
 // -- Get/Set Server variables
 MV_Server_fnc_SetMissionVariable = Compile preprocessFileLineNumbers "Server\functions\missionVariables\serverSetMissionVariable.sqf";
@@ -22,8 +24,8 @@ MV_Server_fnc_BuyVehicle = Compile preprocessFileLineNumbers "Server\functions\s
 MV_Server_fnc_AddEvent = Compile preprocessFileLineNumbers "Server\functions\serverAddEvent.sqf";
 MV_Server_fnc_RemoveEvent = Compile preprocessFileLineNumbers "Server\functions\serverRemoveEvent.sqf";
 MV_Server_fnc_GetPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverGetPlayerFunds.sqf";
-MV_Server_fnc_SetPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverSetPlayerFunds.sqf";
-MV_Server_fnc_AddPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverAddPlayerFunds.sqf";
+//MV_Server_fnc_SetPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverSetPlayerFunds.sqf"; defunct
+//MV_Server_fnc_AddPlayerFunds = Compile preprocessFileLineNumbers "Server\functions\serverAddPlayerFunds.sqf"; defunct
 MV_Server_fnc_AdjustStoreStock = Compile preprocessFileLineNumbers "Server\functions\serverAdjustStoreStock.sqf";
 MV_Server_fnc_SendClientMessage = Compile preprocessFileLineNumbers "Server\functions\serverSendClientMessage.sqf";
 

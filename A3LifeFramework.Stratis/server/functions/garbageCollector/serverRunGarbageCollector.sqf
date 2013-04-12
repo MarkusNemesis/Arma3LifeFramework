@@ -18,9 +18,8 @@ Desc: Iterates through the entire garbage array and deletes from the mission obj
         // -- If the unit is occupied by a player, and they're both alive, reset the garbage collection timer.
         if (damage _unit < 1 && _isOccupied) exitwith {[_unit] call MV_Server_fnc_UpdateGarbageObject};
         
-        unassignVehicle _unit; // Maybe replace with leaveVehicle. Functionality is unclear.
-		_unit setPos [0,0,0];
-		deleteVehicle _unit;
+		// -- Remove the object.
+        [_x] call MV_Server_fnc_DeleteWorldObject;
         Server_GarbageCollection set [_foreachindex, objnull];
     	Server_GarbageCollection = Server_GarbageCollection - [objnull];
     };

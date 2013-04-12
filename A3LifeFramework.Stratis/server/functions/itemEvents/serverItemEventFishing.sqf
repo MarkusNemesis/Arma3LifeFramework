@@ -31,7 +31,7 @@ also updates the boat's net entry. Format: _veh setVariable 'NetDeployed' [isDep
 Capturable fish are listed in a static array in this script. This could change to be more intelligent in future. Each point in the array is symbolises 10 metres of depth.
 The array starts from 0 depth.
 
-This event adds its self back to the event array with a trigger time of time + 5, if it passes validation.
+This event adds its self back to the event array with a trigger time of time + 10, if it passes validation.
 Params: ['_pObj', '_fBoat', '_prevPos', '_cPos']
 */
 
@@ -51,9 +51,11 @@ diag_log format ['MV: serverItemEventFishing: isDeployed: %1', _netVar select 0]
 if (!(_netVar select 0)) exitwith {}; // -- Exit gracefully, as the user has stopped fishing in one way shape or form.
 
 // -- Constants
-#define BASECATCHVOL 500 // -- cc
-_fishArr = ['Blowfish', 'Whiting', 'Herring', 'Sardines', 'Atlantic Bonito', 'Anchovies', 'European Hake', 'Gilt-Headed Bream', 'European Seabass', 'Atlantic Bluefin Tuna'];
 #define MAXNETSPEED 18
+#define CYCLETIME 10
+#define BASECATCHVOL 1000 // -- cc
+_fishArr = ['Blowfish', 'Whiting', 'Herring', 'Sardines', 'Atlantic Bonito', 'Anchovies', 'European Hake', 'Gilt-Headed Bream', 'European Seabass', 'Atlantic Bluefin Tuna'];
+
 
 // -- Validate if player is driver of the boat.
 if (_pObj != driver _fBoat) then {
@@ -62,7 +64,7 @@ if (_pObj != driver _fBoat) then {
 };
 
 // -- Check user's speed
-_bSpeed = ((_prevPos distance _cPos) / 5) * 3.6; // -- Result is in ms, so * 3.6 brings it up to KM/h.
+_bSpeed = ((_prevPos distance _cPos) / CYCLETIME) * 3.6; // -- Result is in ms, so * 3.6 brings it up to KM/h.
 if (_bSpeed > MAXNETSPEED) then {diag_log "User went too fast."; _isValid = [false, 'tf'];};
 
 diag_log format ["Distance: %1, Speed: %2", (_prevPos distance _cPos), _bSpeed];
@@ -136,6 +138,6 @@ if (_cCatch >= _netMaxVol) then
 } else {
 	// -- Send client message about cycle's results.
 	[_pobj, "UseItemEvent", [_netVar select 1, 'DNetCyc', [true, round (_cCatch - _netVol), round (_netMaxVol - _cCatch)]]] call MV_Server_fnc_SendClientMessage;
-	// -- Readd to the event array to run in 5 seconds time.
-	['MV_Server_fnc_IEvent_Fishing', [netid _pObj, netID _fBoat, _cPos], time + 5] call MV_Server_fnc_AddEvent;
+	// -- Readd to the event array to run in CYCLETIME seconds time.
+	['MV_Server_fnc_IEvent_Fishing', [netid _pObj, netID _fBoat, _cPos], time + CYCLETIME] call MV_Server_fnc_AddEvent;
 };

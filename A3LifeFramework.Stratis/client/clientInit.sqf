@@ -93,7 +93,7 @@ waitUntil {player getvariable "clientInitCompleteAck"};
 _runTime = diag_tickTime - _runTime;
 diag_log format ["MV: CLIENT INIT: FINISHED, Time taken: %1", _runTime];
 //
-titleText ["Loading...", "BLACK FADED"];
 endLoadingScreen;
+titleText ["Loading...", "BLACK FADED", 30];
 //
 call compile preprocessFileLineNumbers "Client\clientCore.sqf";

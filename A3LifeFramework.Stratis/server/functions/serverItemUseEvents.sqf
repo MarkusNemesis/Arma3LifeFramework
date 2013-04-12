@@ -70,7 +70,7 @@ switch (_action) do
 		// -- Return to the player that the item use was successful.
 		[_pObj, "UseItemEvent", [_iName, "DNet", _aArgs]] call MV_Server_fnc_SendClientMessage;
 		// -- Add the item use event to the server mainloop event array.
-		['MV_Server_fnc_IEvent_Fishing', [netID _pObj, netID _veh, getPosASL _pObj, getPosASL _pObj], time + 5] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_IEvent_Fishing', [netID _pObj, netID _veh, getPosASL _pObj, getPosASL _pObj], time + 10] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "RecallNet":

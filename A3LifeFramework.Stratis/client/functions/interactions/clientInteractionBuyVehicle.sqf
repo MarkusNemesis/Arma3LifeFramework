@@ -13,7 +13,7 @@ _sObj = objectFromNetId (_this select 0);
 _vIndex = _this select 1;
 _vPrice = _this select 2;
 _vStock = _this select 3;
-_pMoney = player getVariable "Money";
+_pMoney = (["Money", player getVariable "Inventory"] call MV_Shared_fnc_SearchInventory) select 1;//player getVariable "Money";
 
 //diag_log format ["BuyVehicle: Obj: %1, Index: %2, Price: %3, "]
 

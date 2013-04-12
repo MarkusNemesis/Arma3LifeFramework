@@ -18,11 +18,12 @@ Params: [ATMobject]
 
 disableSerialization;
 //
-private ['_atm', '_pwBalance', '_pbBalance','_fno', '_iRange'];
+private ['_atm', '_pInv', '_pwBalance', '_pbBalance','_fno', '_iRange'];
 _atm = _this select 0;
 _iRange = (missionNamespace getVariable "INT_RANGE");
+_pInv = player getVariable "Inventory";
 // -- Get player's balances
-_pwBalance = player getVariable "money";
+_pwBalance = (["Money", _pInv] call MV_Shared_fnc_SearchInventory) select 1;//player getVariable "money";
 _pbBalance = player getVariable "bankmoney";
 
 createDialog "ui_atmInteract";

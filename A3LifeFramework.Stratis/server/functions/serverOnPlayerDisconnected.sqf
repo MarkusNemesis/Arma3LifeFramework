@@ -17,6 +17,8 @@ diag_log Server_PlayerRegistry;
     if (_id == _x select 0) exitwith {call compile format ["_slot = %1", _x select 3]};
 } foreach Server_PlayerRegistry;
 
+if (isNull _slot) exitwith {diag_log format ["MV: serverOnPlayerDisconnected: ERROR: %1's slot has not been found!", _name]};
+
 // Run cleanup code below
 waituntil {alive _slot};
 _slot setposASL getposASL Shared_SpawnHaven;

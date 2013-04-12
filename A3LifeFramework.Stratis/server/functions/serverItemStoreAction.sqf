@@ -89,7 +89,7 @@ switch (_aMode) do
 		// -- Give (itemValue * qty) * 0.9 to user.
 		_tiInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
 		_ttPrice = ((_tiInfo select 2) * _iQty) * 0.9; // -- Remove 10% value for selling.
-		[_pObj, _ttPrice] call MV_Server_fnc_AddPlayerFunds;
+		[_pObj, "Money", _ttPrice] call MV_Server_fnc_AddInventoryItem;//[_pObj, _ttPrice] call MV_Server_fnc_AddPlayerFunds;
 		// -- Report back to user about their successful transaction
 		[_pobj, "ISAR", ['ss', [_iName, _iQty, netid _iSrcObj, _ttPrice]]] call MV_Server_fnc_SendClientMessage;
 		
@@ -122,7 +122,7 @@ switch (_aMode) do
 		
 		// -- Check if destObj has enough inventory space.
 		_destInv = [netID _iDestObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
-		if (isplayer _iDestObj) then {_destVol = MV_Shared_PLAYERVOLUME} else {_destVol = [typeof _iDestObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
+		_destvol = ([netid _iDestObj, "storageVolume"] call MV_Server_fnc_GetMissionVariable) select 0; //if (isplayer _iDestObj) then {_destVol = MV_Shared_PLAYERVOLUME} else {_destVol = [typeof _iDestObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
 		_destVol = _destVol - ([_destInv] call MV_Shared_fnc_GetCurrentInventoryVolume);
 		if (!(((_tiInfo select 1) * _iQty) <= _destVol)) exitwith {[_pobj, "ISAR", ['nv', [_iName, _iQty, netid _iDestObj]]] call MV_Server_fnc_SendClientMessage;};
 		
@@ -134,7 +134,7 @@ switch (_aMode) do
 		Report back to user about successful transaction.
 		*/
 		// -- Subtract money from player's inventory.
-		[_pObj, -_tiTPrice] call MV_Server_fnc_AddPlayerFunds;
+		[_pObj, "Money", _tiTPrice] call MV_Server_fnc_RemoveInventoryItem;//[_pObj, -_tiTPrice] call MV_Server_fnc_AddPlayerFunds;
 		// -- Subtract stock from store.
 		[_strObj, [_iName, -_iQty]] call MV_Server_fnc_AdjustStoreStock;
 		// -- Add item + qty to selected inventory's inventory.

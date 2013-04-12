@@ -5,10 +5,10 @@ Skype: markus.davey
 Desc: Spawns the player.
 */
 
-private['_spawnPos'];
+private['_spawnPos', '_spawnDir'];
 
 // -- Hide the world until player is spawned and camera preloaded
-titleText ["Loading...", "BLACK FADED"];
+titleText ["Loading...", "BLACK FADED", 30];
 
 // Test which side the player is, as to how to handle their spawning in.
 switch (Client_PlayerSide) do
@@ -29,8 +29,7 @@ switch (Client_PlayerSide) do
             //diag_log "Spawning for the first time";
             // TODO Play BLUFOR intro
             _spawnPos = getmarkerpos "Spawn_BLU";
-            player setposATL _spawnPos;
-        	player setdir markerDir "Spawn_BLU";
+        	_spawnDir = markerDir "Spawn_BLU";
             Client_SpawnType = "";
         } else {
             // If the player died, spawn them at the hospital. BLUFOR MAY have their own near-base hospital, or a MASH tent or something.
@@ -38,22 +37,22 @@ switch (Client_PlayerSide) do
             //diag_log "Unit has spawned before";
             //
             _spawnPos = getmarkerpos "Spawn_BLU";
-            player setposATL _spawnPos;
-        	player setdir markerDir "Spawn_BLU";
+        	_spawnDir = markerDir "Spawn_BLU";
         };
     };
     
     case civilian:
     {
         _spawnPos = getmarkerpos "Spawn_CIV";
-        player setposATL _spawnPos;
-        player setdir markerDir "Spawn_CIV";
+        _spawnDir = markerDir "Spawn_CIV";
     };
     
     default {diag_log format["[MV ERROR] Player %1 joined non-supported side %2", Client_PlayerName, Client_PlayerSideStr];};
 };
-diag_log format ["MV: clientSpawnPlayer: Spawn pos is: %1", _spawnPos];
+player setposATL _spawnPos;
+player setdir _spawnDir;
+diag_log format ["MV: clientSpawnPlayer: Spawn pos is: %1, current pos is: %2, distance: %3", _spawnPos, getPosATL player, _spawnPos distance (getPosATL player)];
 waitUntil {preloadCamera _spawnPos};
-titleText ["Loading Complete!", "BLACK IN", 0];
+titleText ["Loading Complete!", "BLACK IN", 1];
 // Leave last --------- Set player as spawned.
 Client_PlayerSpawned = true;

@@ -82,11 +82,11 @@ switch (_eType) do
 			_objB = objectFromNetId (_vParams select 4);
 			_pileCName = (missionNamespace getVariable "MV_Shared_DROPPILECLASS");
 			// -- If it's an item pile, output the item pile name. Else, name of player.
-			if ((typeOf _objA) == _pileCName) then {_objA = "Item Pile"} else {_objA = name _objA;};
-			if ((typeOf _objB) == _pileCName) then {_objB = "Item Pile"} else {_objB = name _objB;};
+			if ((typeOf _objA) == _pileCName) then {_objA = "Item Pile"} else {if (isPlayer _objA) then {_objA = name _objA;} else {_objA getVariable 'vName'};};
+			if ((typeOf _objB) == _pileCName) then {_objB = "Item Pile"} else {if (isPlayer _objB) then {_objB = name _objB;} else {_objB getVariable 'vName'};};
 			systemChat format [localize "STR_MV_INT_SUCCESSPILETRANSFER",_qty, _iName, _objA, _objB];
 			// -- Set cooldown
-			Client_TransactionCooldown = time + 3;
+			Client_TransactionCooldown = time + 1;
 		};
 	};
 	

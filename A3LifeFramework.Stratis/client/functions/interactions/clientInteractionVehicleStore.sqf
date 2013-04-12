@@ -46,7 +46,7 @@ private ['_fNo', '_lbSel', '_lbSelPrev', '_pMoney', '_pMoneyPrev', '_sCName', '_
 _fNo = diag_frameno;
 _lbSel = lbCurSel 1992;
 _lbSelPrev = -1;
-_pMoney = player getVariable "Money";
+_pMoney = (["Money", player getVariable "Inventory"] call MV_Shared_fnc_SearchInventory) select 1;//player getVariable "Money";
 _pMoneyPrev = -1;
 _sCName = '';
 _sPrice = "ERROR";
@@ -58,7 +58,7 @@ while {dialog && alive player} do
     if (!Client_isMessageBox) then // Don't run if there's a messagebox open.
     {
 	    // ---- Current Money Changed
-	    _pMoney = player getVariable "Money";
+	    _pMoney = (["Money", player getVariable "Inventory"] call MV_Shared_fnc_SearchInventory) select 1;//player getVariable "Money";
 	    if (_pMoney != _pMoneyPrev) then
 	    {
 			ctrlSetText [1994, format ["Current Money: $%1", _pMoney]];

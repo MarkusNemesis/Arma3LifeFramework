@@ -205,9 +205,9 @@ while {!isnull _dsp} do
 				_tiPriceTotal = (_tiInfo select 2) * _tQty;
 				_tinv = _sArr;
 				// -- Can the player afford this item?
-				if ((player getVariable "money") >= _tiPriceTotal) then {_tHasFunds = true;};
+				if (((["Money", player getVariable "Inventory"] call MV_Shared_fnc_SearchInventory) select 1) >= _tiPriceTotal) then {_tHasFunds = true;};
 				// -- Has the selected inventory got the required volume? TODO create 'canFit' shared function.
-				if (isplayer _selObj) then {_invSpace = MV_Shared_PLAYERVOLUME} else {_invSpace = [typeof _selObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
+				_invSpace = _selObj getVariable "storageVolume"; //if (isplayer _selObj) then {_invSpace = MV_Shared_PLAYERVOLUME} else {_invSpace = [typeof _selObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
 				_invSpace = _invSpace - ([_selInventory] call MV_Shared_fnc_GetCurrentInventoryVolume);
 				
 				if (((_tiInfo select 1) * _tQty) <= _invSpace) then {_tCanFit = true;};
@@ -321,7 +321,7 @@ while {!isnull _dsp} do
 			Can afford?: bool(if totalCost < playerMoney) yes/no // Maybe use green/red text to indicate this.
 			Can fit?: bool(if totalvol < invCurvol) yes/no // Maybe use green/red text to indicate this.
 			*/
-			if (lbSize _lbxInventoryStore < 0) exitwith {_stxtInfo ctrlSetStructuredText "No Item Selected...";}; // -- Don't run when list box is empty.
+			if (lbSize _lbxInventoryStore == 0) exitwith {_stxtInfo ctrlSetStructuredText "No Item Selected...";}; // -- Don't run when list box is empty.
 			
 			private ['_tcurSel', '_tsText', '_tiInfo', '_tiName', '_tiVol', '_tiQty', '_tiVal', '_invSpace', '_tiStock', '_tinStock', '_tcanAfford', '_tcanFit', '_ttArray'];
 			_tcurSel = lbCurSel _lbxInventoryStore;
@@ -334,7 +334,7 @@ while {!isnull _dsp} do
 			_tiVal = _tiInfo select 2;
 			if (_uiMode) then {_tiVal = floor (_tiVal * 0.9)}; // -- We're selling items, so thus, pricing is at 10% less than base.
 			_tiQty = parseNumber (ctrlText _txtQty);
-			if (isplayer _selObj) then {_invSpace = MV_Shared_PLAYERVOLUME} else {_invSpace = [typeof _selObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
+			_invSpace = _selobj getVariable "storageVolume";//if (isplayer _selObj) then {_invSpace = MV_Shared_PLAYERVOLUME} else {_invSpace = [typeof _selObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
 			_invSpace = _invSpace - ([_selInventory] call MV_Shared_fnc_GetCurrentInventoryVolume);
 			
 			// --  If selling. Get the stock of the item from either store array or user's inventory.
@@ -361,7 +361,7 @@ while {!isnull _dsp} do
 			if (!_uiMode) then 
 			{
 				// -- Check if they can afford this transaction.
-				if ((player getVariable "money") >= (_tiVal * _tiQty)) then 
+				if (((["Money", player getVariable "Inventory"] call MV_Shared_fnc_SearchInventory) select 1) >= (_tiVal * _tiQty)) then 
 				{
 					_tcanAfford = parseText "<t color='#00FF00'>Yes</t>";
 				} else {

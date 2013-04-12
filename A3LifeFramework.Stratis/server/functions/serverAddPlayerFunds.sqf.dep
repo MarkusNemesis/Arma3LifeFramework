@@ -11,7 +11,7 @@ private ['_pObj','_sQty', '_curFunds', '_iInv', '_pNID', '_found'];
 _pObj = _this select 0;
 _sQty = _this select 1;
 _pNID = netid _pObj;
-_curFunds = ([_pNID, "Money"] call MV_Server_fnc_GetMissionVariable) select 0;
+_curFunds = (["Money", ([_pNID, "Inventory"] call MV_Server_fnc_GetMissionVariable)] call MV_Shared_fnc_SearchInventory) select 1;//([_pNID, "Money"] call MV_Server_fnc_GetMissionVariable) select 0;
 _sQty = _sQty + _curFunds;
 
 _pObj setVariable ["Money", _sQty, true];
