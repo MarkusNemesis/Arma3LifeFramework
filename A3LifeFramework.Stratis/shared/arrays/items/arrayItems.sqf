@@ -41,4 +41,10 @@ _Array_Items = [
 	['Blowfish', 				100, 10, [0], 'MV_Client_fnc_Use_NoUse', 'A unit of fish']   // Args: Depth: int
 ]; // End array
 
-missionNamespace setVariable ["Array_Items", _Array_Items];
+
+if (isServer) then 
+{
+	(call M_S_fnc_GLV) setVariable ["Array_Items", _Array_Items];
+} else {
+	missionNamespace setVariable ["Array_Items", _Array_Items];
+};

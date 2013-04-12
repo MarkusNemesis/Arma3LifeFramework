@@ -15,6 +15,8 @@ MV_Server_fnc_DeleteWorldObject = Compile preprocessFileLineNumbers "Server\func
 // -- Get/Set Server variables
 MV_Server_fnc_SetMissionVariable = Compile preprocessFileLineNumbers "Server\functions\missionVariables\serverSetMissionVariable.sqf";
 MV_Server_fnc_GetMissionVariable = Compile preprocessFileLineNumbers "Server\functions\missionVariables\serverGetMissionVariable.sqf";
+M_S_fnc_GLV = Compile preprocessFileLineNumbers "Server\functions\missionVariables\serverGetLocVar.sqf";
+
 
 MV_Server_fnc_OnPlayerConnected = Compile preprocessFileLineNumbers "Server\functions\serverOnPlayerConnected.sqf";
 MV_Server_fnc_OnPlayerDisconnected = Compile preprocessFileLineNumbers "Server\functions\serverOnPlayerDisconnected.sqf";

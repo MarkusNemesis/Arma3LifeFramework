@@ -39,9 +39,9 @@ _spVeh = createVehicle [_vCName, _sPos, [], 0, "CAN_COLLIDE"];
 _spVeh setdir (markerdir _spawnMarker);
 _spVeh lock true;
 
-// -- init vehicle's missionNamespace variable
+// -- init vehicle's serverSide variable
 _vNID = netid _spVeh;
-missionNamespace setVariable [format ["%1_missionVar", _vNID], []];
+(call M_S_fnc_GLV) setVariable [format ["%1_missionVar", _vNID], []];
 
 _vInfo = [_vCName] call MV_Shared_fnc_GetVehicleArrayInfo;
 

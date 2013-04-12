@@ -7,10 +7,12 @@ setVariable must be public.
 Stores have multiple interactTypes: typeVehicleStore, typeItemStore, etc. All define how the client handles them on interaction.
 */
 
-private ['_Array_Store_Vehicles', '_Array_Store_Items'];
+private ['_sLoc', '_Array_Store_Vehicles', '_Array_Store_Items'];
+
+_sLoc = (call M_S_fnc_GLV);
 
 // ------------------- Init vehicle stores -------------------
-_Array_Store_Vehicles = missionNamespace getVariable "Array_Store_Vehicles";
+_Array_Store_Vehicles = _sLoc getVariable "Array_Store_Vehicles";
 //[ownerObj, [[VehiclesToSell, StockLevel]], [AccessArray], themeName, StoreName];
 {
     private ['_oObj', '_sArr', '_accArr', '_theme', '_mTxt', '_spawnObject', '_hasMarker'];
@@ -35,7 +37,7 @@ _Array_Store_Vehicles = missionNamespace getVariable "Array_Store_Vehicles";
 	_sNetID = netId _oObj;
 	
 	// -- init the object's mission variable
-	missionNamespace setVariable [format ["%1_missionVar", _sNetID], []];
+	_sLoc setVariable [format ["%1_missionVar", _sNetID], []];
 	
 	[_sNetID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
 	[_sNetID, ["interactType", ["typeVehicleStore"]]] call MV_Server_fnc_SetMissionVariable;
@@ -73,7 +75,7 @@ _Array_Store_Vehicles = missionNamespace getVariable "Array_Store_Vehicles";
 } foreach _Array_Store_Vehicles;
 
 // ------------------- Init Item stores -------------------
-_Array_Store_Items = missionNamespace getVariable "Array_Store_Items";
+_Array_Store_Items = _sLoc getVariable "Array_Store_Items";
 //[KeeperObjName, [ ["ItemName", intBaseStock], [etc, etc] ], [AccessArray], themeName, storeName, ammoCrate, boolHasMarker, boolIsExporter];
 {
     private ['_oObj', '_sArr', '_accArr', '_theme', '_mTxt', '_isExporter', '_spawnObject', '_hasMarker'];
@@ -99,7 +101,7 @@ _Array_Store_Items = missionNamespace getVariable "Array_Store_Items";
 	_sNetID = netId _oObj;
 	
 	// -- init the object's mission variable
-	missionNamespace setVariable [format ["%1_missionVar", _sNetID], []];
+	_sLoc setVariable [format ["%1_missionVar", _sNetID], []];
 	
 	[_sNetID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
 	[_sNetID, ["interactType", ["typeItemStore"]]] call MV_Server_fnc_SetMissionVariable;

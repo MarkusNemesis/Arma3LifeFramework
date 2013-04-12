@@ -26,4 +26,10 @@ _Array_Store_Items = [
 	[ItemStoreCiv1, [ ["Blowfish", 0, 1000], ["Whiting", 0, 1000], ["Herring", 0, 1000], ["Sardines", 0, 1000], ["Atlantic Bonito", 0, 1000], ["Anchovies", 0, 1000], ["European Hake", 0, 1000], ["Gilt-Headed Bream", 0, 1000], ["European Seabass", 0, 1000], ["Atlantic Bluefin Tuna", 0, 1000]], [civilian], "CivStore", "Stratis International Fish Exports", objNull,  true, false]
 ]; // End array
 
-missionNamespace setVariable ["Array_Store_Items", _Array_Store_Items];
+
+if (isServer) then 
+{
+	(call M_S_fnc_GLV) setVariable ["Array_Store_Items", _Array_Store_Items];
+} else {
+	missionNamespace setVariable ["Array_Store_Items", _Array_Store_Items];
+};

@@ -10,7 +10,8 @@ Desc: Handles the dropping of items. Called by the serverCommVarEH, under event 
 Params: [_Obj, _iName, _qty]
 */
 diag_log format ["MV: serverDropItem: %1", _this];
-private ['_Obj' ,'_iName', '_qty', '_hasItem', '_pInv'];
+private ['_lObj', '_Obj' ,'_iName', '_qty', '_hasItem', '_pInv'];
+_lObj = (call M_S_fnc_GLV);
 _Obj = _this select 0;
 _iName = _this select 1;
 _qty = _this select 2;
@@ -29,21 +30,21 @@ if (!isnil "_pInv") then
 		[_Obj, _iName, _qty] call MV_Server_fnc_RemoveInventoryItem;
 		diag_log "MV: serverDropItem: Creating pile.";
 		// -- Create the pile and assign it it's inventory.
-		_Pile = createVehicle [(missionNamespace getVariable "MV_Shared_DROPPILECLASS"), getposATL _obj, [], 0, "CAN_COLLIDE"];
+		_Pile = createVehicle [(_lObj getVariable "MV_Shared_DROPPILECLASS"), getposATL _obj, [], 0, "CAN_COLLIDE"];
 		// -- Set global publics
 		_Pile setVariable ['isInteractable', true, true];
 		_Pile setVariable ['interactType', "typePile", true];
 		_Pile setVariable ['Inventory', [[_iName, _qty]], true];
-		_Pile setVariable ['storageVolume', (missionNamespace getVariable "MV_Shared_PILEVOLUME"), true];
+		_Pile setVariable ['storageVolume', (_lObj getVariable "MV_Shared_PILEVOLUME"), true];
 		
-		// -- Set server missionNamespace variables
+		// -- Set server _lObj variables
 		private ['_pID'];
 		_pID = netID _Pile;
-		missionNamespace setVariable [format ["%1_missionVar", _pID], []];
+		_lObj setVariable [format ["%1_missionVar", _pID], []];
 		[_pID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
 		[_pID, ["interactType", ['typePile']]] call MV_Server_fnc_SetMissionVariable;
 		[_pID, ["Inventory", [[_iName, _qty]]]] call MV_Server_fnc_SetMissionVariable;
-		[_pID, ["storageVolume", [(missionNamespace getVariable "MV_Shared_PILEVOLUME")]]] call MV_Server_fnc_SetMissionVariable;
+		[_pID, ["storageVolume", [(_lObj getVariable "MV_Shared_PILEVOLUME")]]] call MV_Server_fnc_SetMissionVariable;
 		
 		// -- Set vehicle init.
 		_Pile setvehicleinit "this allowDamage false;";

@@ -6,7 +6,8 @@ Desc: Runs when a player connects to the server. Stores their name, slotname, et
 */
 
 //
-private ['_id','_name','_uid', '_slotName', '_retryCount', '_pObj'];
+private ['_lObj', '_id','_name','_uid', '_slotName', '_retryCount', '_pObj'];
+_lObj = (call M_S_fnc_GLV);
 _id = _this select 0;
 _name = _this select 1;
 _uid = _this select 2;
@@ -52,13 +53,13 @@ if (!_found) then // -- If the player has connected for the first time this roun
     diag_log format ["MV: serverOnPlayerConnected: Player %1 has joined for the first time. UID: %2", _name, _uid];
 	// ---- Add player to the Server_PlayerRegistry
 	Server_PlayerRegistry set [count Server_PlayerRegistry, [_id, _name, _uid, _slotname]];
-	// -- Init the player's missionNamespace array.
-	missionNamespace setVariable [format ["%1_missionVar", _uid], []];
+	// -- Init the player's _lObj array.
+	_lObj setVariable [format ["%1_missionVar", _uid], []];
 	// -- Init first time joiner
     //_pObj setVariable ["Money", MV_Params_GPStartFunds, true];
     _pObj setVariable ["BankMoney", 0, true];
     _pObj setVariable ["KeyChain", [], true];
-	_pObj setVariable ["storageVolume", (missionNamespace getVariable "MV_Shared_PLAYERVOLUME"), true];
+	_pObj setVariable ["storageVolume", (_lObj getVariable "MV_Shared_PLAYERVOLUME"), true];
 	
     // -- Serverside values
 	//[_uid, ["Money", [MV_Params_GPStartFunds]]] call MV_Server_fnc_SetMissionVariable;
@@ -70,7 +71,7 @@ if (!_found) then // -- If the player has connected for the first time this roun
 	//
 	[_uid, ["BankMoney", [0]]] call MV_Server_fnc_SetMissionVariable;
 	[_uid, ["KeyChain", []]] call MV_Server_fnc_SetMissionVariable;
-	[_uid, ["storageVolume", [(missionNamespace getVariable "MV_Shared_PLAYERVOLUME")]]] call MV_Server_fnc_SetMissionVariable;
+	[_uid, ["storageVolume", [(_lObj getVariable "MV_Shared_PLAYERVOLUME")]]] call MV_Server_fnc_SetMissionVariable;
 	
 	/*
 	[_uid, []] call MV_Server_fnc_SetMissionVariable;

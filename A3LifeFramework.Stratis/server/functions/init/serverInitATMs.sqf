@@ -17,7 +17,7 @@ Format: [ATMName, positionASL, direction]
 */
 
 private ['_Array_ATMs'];
-_Array_ATMs = missionNamespace getVariable "Array_ATMs";
+_Array_ATMs = (call M_S_fnc_GLV) getVariable "Array_ATMs";
 
 {
 	private ['_atm', '_pos', '_dir'];
@@ -34,7 +34,7 @@ _Array_ATMs = missionNamespace getVariable "Array_ATMs";
 	// -- Set serverside variables
 	private ['_sNetID'];
 	_sNetID = netID _atm;
-	missionNamespace setVariable [format ["%1_missionVar", _sNetID], []];
+	(call M_S_fnc_GLV) setVariable [format ["%1_missionVar", _sNetID], []];
 	[_sNetID, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
 	[_sNetID, ["interactType", ["typeATM"]]] call MV_Server_fnc_SetMissionVariable;
 	

@@ -5,15 +5,23 @@ Skype: markus.davey
 Desc: Gets the player slots and stores them.
 */
 
-private ['_players_blu', '_players_op', '_players_ind', '_players_civ', '_bpc', '_opc', '_ipc', '_cpc'];
+private ['_lObj', '_players_blu', '_players_op', '_players_ind', '_players_civ', '_bpc', '_opc', '_ipc', '_cpc'];
+
+if (isServer) then 
+{
+	_lObj = (call M_S_fnc_GLV);
+} else {
+	_lObj = missionNamespace;
+};
+
 _players_blu = [];
 _players_op = [];
 _players_ind = [];
 _players_civ = [];
-_bpc = (missionNamespace getVariable "BLU_PLAYERCOUNT");
-_opc = (missionNamespace getVariable "OP_PLAYERCOUNT");
-_ipc = (missionNamespace getVariable "IND_PLAYERCOUNT");
-_cpc = (missionNamespace getVariable "CIV_PLAYERCOUNT");
+_bpc = (_lObj getVariable "BLU_PLAYERCOUNT");
+_opc = (_lObj getVariable "OP_PLAYERCOUNT");
+_ipc = (_lObj getVariable "IND_PLAYERCOUNT");
+_cpc = (_lObj getVariable "CIV_PLAYERCOUNT");
 // Get them from semi-static arrays instead....
 if (_bpc > 0) then {
 	for "_i" from 1 to _bpc do
@@ -44,16 +52,25 @@ if (_cpc > 0) then {
 	};
 };
 
-
-call compile format ["with missionNamespace do 
+if (isServer) then 
 {
-	MV_Shared_PLAYERS_BLU = %1;
-	MV_Shared_PLAYERS_OP = %2;
-	MV_Shared_PLAYERS_IND = %3;
-	MV_Shared_PLAYERS_CIV = %4;
-};", _players_blu, _players_op, _players_ind, _players_civ];
+	private ['_sLoc'];
+	_sLoc = call M_S_fnc_GLV;
+	_sLoc setVariable ["MV_Shared_PLAYERS_BLU", _players_blu];
+	_sLoc setVariable ["MV_Shared_PLAYERS_OP", _players_op];
+	_sLoc setVariable ["MV_Shared_PLAYERS_IND", _players_ind];
+	_sLoc setVariable ["MV_Shared_PLAYERS_CIV", _players_civ];
+} else {
+	call compile format ["with missionNamespace do 
+	{
+		MV_Shared_PLAYERS_BLU = %1;
+		MV_Shared_PLAYERS_OP = %2;
+		MV_Shared_PLAYERS_IND = %3;
+		MV_Shared_PLAYERS_CIV = %4;
+	};", _players_blu, _players_op, _players_ind, _players_civ];
 
-diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_BLU");
-diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_OP");
-diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_IND");
-diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_CIV");
+	diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_BLU");
+	diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_OP");
+	diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_IND");
+	diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_CIV");
+};

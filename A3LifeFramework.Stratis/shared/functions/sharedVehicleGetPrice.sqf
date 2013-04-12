@@ -10,7 +10,12 @@ private ['_cName', '_vPrice', '_arrV'];
 
 _cName = _this select 0;
 _vPrice = 0;
-_arrV = missionNamespace getVariable "Array_Vehicles";
+if (isServer) then 
+{
+	_arrV = (call M_S_fnc_GLV) getVariable "Array_Vehicles";
+} else {
+	_arrV = missionNamespace getVariable "Array_Vehicles";
+};
 {
     //diag_log format ["%1 vs %2", _cName, _x2 select 0];
     if (_cName == (_x select 0)) exitwith

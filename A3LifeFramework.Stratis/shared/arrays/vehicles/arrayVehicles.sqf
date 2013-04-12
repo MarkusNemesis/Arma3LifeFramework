@@ -18,6 +18,9 @@ _Array_Vehicles = [
     ["C_Rubberboat", 2000, true,1, 37500]
 ]; // End of array
 
-missionNamespace setVariable ["Array_Vehicles", _Array_Vehicles];
-
-//missionNamespace getVariable "Array_Vehicles";
+if (isServer) then 
+{
+	(call M_S_fnc_GLV) setVariable ["Array_Vehicles", _Array_Vehicles];
+} else {
+	missionNamespace setVariable ["Array_Vehicles", _Array_Vehicles];
+};

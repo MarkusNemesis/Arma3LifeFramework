@@ -21,5 +21,9 @@ _Array_Store_Vehicles = [
     [BoatStoreCiv1, [["C_Rubberboat", 30, 60]], [civilian], "CivStore", localize "STR_MV_STORES_BOATSTORECIV1", "BoatStoreCiv1_Spawn", true]
 ]; // End array
 
-missionNamespace setVariable ["Array_Store_Vehicles", _Array_Store_Vehicles];
-//missionNamespace getVariable "Array_Store_Vehicles";
+if (isServer) then 
+{
+	(call M_S_fnc_GLV) setVariable ["Array_Store_Vehicles", _Array_Store_Vehicles];
+} else {
+	missionNamespace setVariable ["Array_Store_Vehicles", _Array_Store_Vehicles];
+};

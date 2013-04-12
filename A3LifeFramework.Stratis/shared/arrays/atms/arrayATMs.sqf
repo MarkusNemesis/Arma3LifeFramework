@@ -23,7 +23,14 @@ _Array_ATMs = [
 	[ATM1, [2884.44,6081.8,4.51421], 210.238]
 ];
 
-missionNamespace setVariable ["Array_ATMs", _Array_ATMs];
+if (isServer) then 
+{
+	(call M_S_fnc_GLV) setVariable ["Array_ATMs", _Array_ATMs];
+} else {
+	missionNamespace setVariable ["Array_ATMs", _Array_ATMs]; // TODO put in client locObj handling.
+};
+
+
 
 /*
 position[]={2884.44,4.51421,6081.8};

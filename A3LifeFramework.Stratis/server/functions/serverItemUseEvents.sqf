@@ -7,12 +7,13 @@ If the item isn't found, or specifics aren't met, then the server will send a me
 Params: playerObj, itemName, actionStr, actionArgsArray
 Return: 
 */
-private ['_pObj', '_iName', '_action', '_aArgs', '_itemArray', '_pInventory', '_intRange'];
+private ['_lObj', '_pObj', '_iName', '_action', '_aArgs', '_itemArray', '_pInventory', '_intRange'];
+_lObj = (call M_S_fnc_GLV);
 _pObj = _this select 0;
 _iName = _this select 1;
 _action = _this select 2;
 _aArgs = _this select 3;
-_intRange = (missionNamespace getVariable "INT_RANGE");
+_intRange = (_lObj getVariable "INT_RANGE");
 // -- Get player's inventory.
 
 diag_log format ["MV: serverItemUseEvents: pObj: %1, iName: %2, action: %3, args: %4", _pObj, _iName, _action, _aArgs];

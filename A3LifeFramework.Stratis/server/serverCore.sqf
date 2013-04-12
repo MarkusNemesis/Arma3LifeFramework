@@ -15,7 +15,7 @@ _runPrior = 1;
 _pFrame = diag_frameno;
 _avgTTime = 0;
 _tTime = diag_ticktime;
-_pRange = (missionNamespace getVariable "PRIOR_RANGE");
+_pRange = ((call M_S_fnc_GLV) getVariable "PRIOR_RANGE");
 diag_log "MV: STARTING SERVER MAINLOOP";
 while {true} do // This is the main loop. EVERYTHING serverside happens here, with the exception of event handler calls.
 {

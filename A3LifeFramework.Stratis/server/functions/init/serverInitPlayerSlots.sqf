@@ -9,9 +9,9 @@ Each slot has their own commvar, format: Slotname_CommVar
 It's used for all actions that require server action, with the exception of garbage collection. 
 Return: Null
 */
-private ["_players"];
-
-_players = _this select 0;
+private ['_sLoc' ,"_players"];
+_sLoc = (call M_S_fnc_GLV);
+_players = [(_sLoc getVariable "MV_Shared_PLAYERS_BLU") + (_sLoc getVariable "MV_Shared_PLAYERS_OP") + (_sLoc getVariable "MV_Shared_PLAYERS_IND") + (_sLoc getVariable "MV_Shared_PLAYERS_CIV")];
 
 {
     // -- Disable AI

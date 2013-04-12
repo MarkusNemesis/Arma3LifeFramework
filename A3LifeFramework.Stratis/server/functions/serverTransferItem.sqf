@@ -8,8 +8,8 @@ If ObjA or B is a player, then a message will be sent to both, saying what has h
 Params: ['_objA', '_iName', '_qty', '_objB']
 */
 
-private ['_objA', '_iName', '_qty', '_objB', '_oAID', '_oBID', '_arrPlayers'];
-
+private ['_lObj', '_objA', '_iName', '_qty', '_objB', '_oAID', '_oBID', '_arrPlayers'];
+_lObj = (call M_S_fnc_GLV);
 _objA = objectFromNetId (_this select 0);
 _iName = _this select 1;
 _qty = _this select 2;
@@ -34,9 +34,9 @@ if (!_hasItem) exitwith {
 
 // -- Check if _objB has enough volume to accept the items.
 private ['_objBInv', '_ObjBVol', '_ObjBMaxVol', '_transVol'];
-//if ((typeOf _ObjB) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then 
+//if ((typeOf _ObjB) == (Server_LocObj getVariable "MV_Shared_DROPPILECLASS")) then 
 //{
-//	_ObjBMaxVol = (missionNamespace getVariable "MV_Shared_PILEVOLUME");
+//	_ObjBMaxVol = (misServer_LocObjtVariable "MV_Shared_PILEVOLUME");
 //} else {
 
 //if ([_objB] call MV_Shared_fnc_isPlayerOnFoot) then {
@@ -76,7 +76,7 @@ if (((_ObjBMaxVol - _ObjBVol) - _transVol) < 0) exitwith {
 {[_x, "TransferItemReturn", [true , _iName, _qty, netID _objA, netid _ObjB]] call MV_Server_fnc_SendClientMessage;} foreach _arrPlayers;
 
 // -- Check if ObjB is a pile, and if it has anything in it's inventory. If it has nothing, delete it.
-if ((typeOf _ObjB) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then 
+if ((typeOf _ObjB) == (_lObj getVariable "MV_Shared_DROPPILECLASS")) then 
 {
 	_objBInv = [_oBID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 	if (count _objBInv == 0) then {[_ObjB] call MV_Server_fnc_DeleteWorldObject;};

@@ -2,7 +2,7 @@
 Created: 20/03/2013
 Author: Markus Davey
 Skype: markus.davey
-Desc: Checks with the missionNamespace record of the user's inventory, as for whether they have the item, and the quantity required in their inventory.
+Desc: Checks with the Server_LocObj record of the user's inventory, as for whether they have the item, and the quantity required in their inventory.
 Return: Sends clientMessage whether true or false "UseItemReturn"
 */
 

@@ -10,6 +10,13 @@ _runTime =+ diag_tickTime;
 
 diag_log "MV: SERVER INIT: STARTED";
 
+// -- Create map location for serverside only variable storage. Variable name is created by random number generator. 
+private ['_slocN', '_sLoc'];
+_slocN = format ['%1%2%3', (profileName), (round (random 10000)), round serverTime];
+call compile format ["%1 = createLocation ['NameVillage', [0, 0, 0], 1, 1];", _slocN];
+uiNamespace setVariable ["Server_LocObj", _slocN];
+diag_log format ["MV: ServerInit: Location Var name generated: %1", _slocN];
+
 // Init server functions
 call compile preprocessFile "server\functions\init\serverInitFunctions.sqf";
 
@@ -31,7 +38,7 @@ Server_PropsArray = []; // Contains all the static world props.
 OnPlayerConnected "[_id, _name, _uid] execVM ""Server\functions\serverOnPlayerConnected.sqf"";";
 
 // OnPlayerDisconnected
-OnPlayerDisconnected "[_id, _name, _uid] execVM ""Server\functions\serverOnPlayerDisconnected.sqf""; diag_log 'Running OPDC';";
+OnPlayerDisconnected "[_id, _name, _uid] execVM ""Server\functions\serverOnPlayerDisconnected.sqf"";";
 
 // Create spawn haven
 private ["_vName", "_object"];
@@ -53,7 +60,7 @@ call compile preprocessFile "server\functions\init\serverInitATMs.sqf";
 // Init playerslots
 call MV_Shared_fnc_GetPlayers;
 
-[MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV] call Compile preprocessFile "Server\functions\init\ServerInitPlayerSlots.sqf";
+call Compile preprocessFile "Server\functions\init\ServerInitPlayerSlots.sqf";
 
 
 // YOU MUST Leave this last. This calls the serverCore mainloop.

@@ -9,7 +9,8 @@ TODO TODO TODO TODO Refactor so that commVar 'player' object references are ALL 
 Doing so removes risk of players maliciously causing events to occur on the server, for other players than themselves. http://community.bistudio.com/wiki/addPublicVariableEventHandler _this select 0: variable name
 */
 
-private ['_vValue', '_eType', '_vParams'];
+private ['_lObj', '_vValue', '_eType', '_vParams'];
+_lObj = (call M_S_fnc_GLV);
 _vValue = _this select 0;
 _eType = _vValue select 0;
 _vParams = _vValue select 1;
@@ -109,8 +110,8 @@ switch (_eType) do
 		_lType = _vParams select 2;
 		// -- Check if the player has this vehicle in their keychain.
 		private ['_pChain', '_validDistance', '_intRange', '_remoteKeyRange'];
-		_intRange = (missionNamespace getVariable "INT_RANGE");
-		_remoteKeyRange = (missionNamespace getVariable "REMOTE_KEY_RANGE");
+		_intRange = (_lObj getVariable "INT_RANGE");
+		_remoteKeyRange = (_lObj getVariable "REMOTE_KEY_RANGE");
 		if (_lType == 'remote') then {_validDistance = _remoteKeyRange} else {_validDistance = _intRange};
 		_pChain = [netid _pObj, "keychain"] call MV_Server_fnc_GetMissionVariable;
 		if ((_vParams select 1) in _pChain) then

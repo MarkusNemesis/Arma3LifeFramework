@@ -8,7 +8,12 @@ Return: Item array entry
 */
 private ['_iName', '_return', '_sArray'];
 _iName = _this select 0;
-_sArray = missionNamespace getVariable "Array_Items";
+if (isServer) then 
+{
+	_sArray = (call M_S_fnc_GLV) getVariable "Array_Items";
+} else {
+	_sArray = missionNamespace getVariable "Array_Items";
+};
 _return = [];
 
 {
