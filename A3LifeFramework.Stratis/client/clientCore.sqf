@@ -10,12 +10,11 @@ This can off-set non time-critical functions, and leave more room for other more
 */
 
 private ["_pFrame", "_runPrior", '_pRange', '_iRange'];
-
 //
 _runPrior = 1;
 _pFrame = diag_frameno;
-_pRange = (missionNamespace getVariable "PRIOR_RANGE");
-_iRange = (missionNamespace getVariable "INT_RANGE"); // -- Interaction range.
+_pRange = ((["PRIOR_RANGE"] call MV_Client_fnc_GetMissionVariable) select 0);
+_iRange = ((["INT_RANGE"] call MV_Client_fnc_GetMissionVariable) select 0);
 diag_log "MV: STARTING CLIENT MAINLOOP";
 while {true} do // This is the main loop. EVERYTHING clientside happens here.
 {
@@ -66,7 +65,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
             if (Client_CustomKeysEnabled) then
             {
 				// -- Interaction Floaty text
-	            [] call MV_Client_fnc_int_HUD;
+	            [_iRange] call MV_Client_fnc_int_HUD;
             };
 	    };
     };
@@ -100,7 +99,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
     
     // Leave this last.
     _runPrior = _runPrior + 1;
-    if (_runPrior > PRIOR_RANGE) then {_runPrior = 1;};
+    if (_runPrior > _pRange) then {_runPrior = 1;};
     _pFrame = diag_frameno;
 	Sleep 0.001;
     waituntil {diag_frameno > _pFrame}; // Main loop runs once per tick.Let the scheduler recycle

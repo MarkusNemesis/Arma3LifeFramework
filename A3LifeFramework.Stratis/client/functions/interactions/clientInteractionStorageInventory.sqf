@@ -48,7 +48,7 @@ ctrlSetText [2013, format ["Volume: %1 / %2 cc [%3%4]", _playerInvVol, _playerMa
 ctrlSetText [2014, format ["Volume: %1 / %2 cc [%3%4]", _storageInvVol, _storageMaxVol, round ((_storageInvVol / _storageMaxVol) * 100), "%"]];
 
 // -- Set storage frame title
-if ((typeof _storageObj) == (missionNamespace getVariable "MV_Shared_DROPPILECLASS")) then {ctrlSetText [2022, STR_MV_DG_PILE]} else {ctrlSetText [2022, typeof _storageObj]};
+if ((typeof _storageObj) == ((["MV_Shared_DROPPILECLASS"] call MV_Client_fnc_GetMissionVariable) select 0)) then {ctrlSetText [2022, STR_MV_DG_PILE]} else {ctrlSetText [2022, typeof _storageObj]};
 
 // -- Predefine uiNamespace variables
 uiNamespace setVariable ['inventoryStorage_cmdToStorage', false];

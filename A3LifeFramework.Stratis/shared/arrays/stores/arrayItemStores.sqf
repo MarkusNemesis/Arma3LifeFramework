@@ -31,5 +31,5 @@ if (isServer) then
 {
 	(call M_S_fnc_GLV) setVariable ["Array_Store_Items", _Array_Store_Items];
 } else {
-	missionNamespace setVariable ["Array_Store_Items", _Array_Store_Items];
+	(call M_C_fnc_GLV) setVariable ["Array_Store_Items", _Array_Store_Items];
 };

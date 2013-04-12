@@ -14,7 +14,7 @@ if (isServer) then
 {
 	_iArr = (call M_S_fnc_GLV) getVariable "Array_Items";
 } else {
-	_iArr = missionNamespace getVariable "Array_Items";
+	_iArr = (call M_C_fnc_GLV) getVariable "Array_Items";
 };
 {
     //diag_log format ["%1 vs %2", _iName, _x2 select 0];

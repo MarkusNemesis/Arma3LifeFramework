@@ -27,7 +27,7 @@ if (isServer) then
 {
 	(call M_S_fnc_GLV) setVariable ["Array_ATMs", _Array_ATMs];
 } else {
-	missionNamespace setVariable ["Array_ATMs", _Array_ATMs]; // TODO put in client locObj handling.
+	(call M_C_fnc_GLV) setVariable ["Array_ATMs", _Array_ATMs];
 };
 
 

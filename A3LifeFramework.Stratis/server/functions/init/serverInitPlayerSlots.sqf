@@ -11,7 +11,7 @@ Return: Null
 */
 private ['_sLoc' ,"_players"];
 _sLoc = (call M_S_fnc_GLV);
-_players = [(_sLoc getVariable "MV_Shared_PLAYERS_BLU") + (_sLoc getVariable "MV_Shared_PLAYERS_OP") + (_sLoc getVariable "MV_Shared_PLAYERS_IND") + (_sLoc getVariable "MV_Shared_PLAYERS_CIV")];
+_players = (_sLoc getVariable "MV_Shared_PLAYERS_BLU") + (_sLoc getVariable "MV_Shared_PLAYERS_OP") + (_sLoc getVariable "MV_Shared_PLAYERS_IND") + (_sLoc getVariable "MV_Shared_PLAYERS_CIV");
 
 {
     // -- Disable AI

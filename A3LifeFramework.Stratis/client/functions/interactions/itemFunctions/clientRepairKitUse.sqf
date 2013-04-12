@@ -12,7 +12,7 @@ private ['_iName', '_qty', '_args', '_return', '_intRange'];
 _iName = _this select 0;
 _qty = _this select 1;
 _args = _this select 2;
-_intRange = (missionNamespace getVariable "INT_RANGE");
+_intRange = ((["INT_RANGE"] call MV_Client_fnc_GetMissionVariable) select 0);
 
 // -- Body:
 private ['_repairScale', '_rTarg', '_vInfo', '_rTime'];

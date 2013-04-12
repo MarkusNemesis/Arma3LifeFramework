@@ -12,10 +12,7 @@ _shift = _this select 2;
 _ctrl = _this select 3;
 _alt = _this select 4;
 _handled = false;
-_intRange = (missionNamespace getVariable "INT_RANGE");
 //diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
-
-
 
 if (Client_CustomKeysEnabled) then 
 {
@@ -37,6 +34,7 @@ if (Client_CustomKeysEnabled) then
         // If the player is on foot and pressing E
 		if (vehicle player == player) then
 		{
+			_intRange = ((["INT_RANGE"] call MV_Client_fnc_GetMissionVariable) select 0);
             if (player distance _target > _intRange) exitwith {};
 	        private ['_isInteractable'];
 	        _isInteractable = _target getVariable "isInteractable";

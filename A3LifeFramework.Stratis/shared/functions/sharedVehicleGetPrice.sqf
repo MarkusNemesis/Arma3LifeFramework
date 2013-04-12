@@ -14,7 +14,7 @@ if (isServer) then
 {
 	_arrV = (call M_S_fnc_GLV) getVariable "Array_Vehicles";
 } else {
-	_arrV = missionNamespace getVariable "Array_Vehicles";
+	_arrV = (call M_C_fnc_GLV) getVariable "Array_Vehicles";
 };
 {
     //diag_log format ["%1 vs %2", _cName, _x2 select 0];

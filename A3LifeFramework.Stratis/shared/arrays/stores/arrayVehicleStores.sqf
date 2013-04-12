@@ -25,5 +25,5 @@ if (isServer) then
 {
 	(call M_S_fnc_GLV) setVariable ["Array_Store_Vehicles", _Array_Store_Vehicles];
 } else {
-	missionNamespace setVariable ["Array_Store_Vehicles", _Array_Store_Vehicles];
+	(call M_C_fnc_GLV) setVariable ["Array_Store_Vehicles", _Array_Store_Vehicles];
 };

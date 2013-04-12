@@ -6,8 +6,9 @@ Desc: Runs when a player connects to the server. Stores their name, slotname, et
 */
 
 //
-private ['_lObj', '_id','_name','_uid', '_slotName', '_retryCount', '_pObj'];
+private ['_lObj', '_playersArray', '_id','_name','_uid', '_slotName', '_retryCount', '_pObj'];
 _lObj = (call M_S_fnc_GLV);
+_playersArray = (call MV_Shared_fnc_GetPlayers);//;(_lObj getVariable "MV_Shared_PLAYERS_BLU") + (_lObj getVariable "MV_Shared_PLAYERS_OP") + (_lObj getVariable "MV_Shared_PLAYERS_IND") + (_lObj getVariable "MV_Shared_PLAYERS_CIV");
 _id = _this select 0;
 _name = _this select 1;
 _uid = _this select 2;
@@ -18,7 +19,7 @@ diag_log format ["MV: serverOnPlayerConnected: %1, %2, %3", _id, _name, _uid];
 // ---- Ensure player name __SERVER__ is ignored.
 if (_name == "__SERVER__") exitwith {};
 
-call MV_Shared_fnc_GetPlayers;
+//call MV_Shared_fnc_GetPlayers;
 
 // ---- Find the player's slot name.
 _retryCount = 0;
@@ -26,10 +27,10 @@ while {_slotname == "" && _retryCount < 30} do
 {
 	{
 	    if ((getPlayerUID _x) == _uid) exitwith {_slotname = str _x; _pObj = _x};
-	} foreach (MV_Shared_PLAYERS_BLU + MV_Shared_PLAYERS_OP + MV_Shared_PLAYERS_IND + MV_Shared_PLAYERS_CIV);
+	} foreach _playersArray;
     _retryCount = _retryCount + 1;
     sleep 0.5;
-	call MV_Shared_fnc_GetPlayers;
+	_playersArray = (call MV_Shared_fnc_GetPlayers);
 };
 if (_slotname == "") exitwith {diag_log format ["MV: serverOnPlayerConnected: CRITICAL ERROR: %1, %2, %3 FAILED TO GET SLOT", _id, _name, _uid];};
 

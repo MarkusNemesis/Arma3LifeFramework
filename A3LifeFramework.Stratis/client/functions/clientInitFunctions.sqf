@@ -8,6 +8,10 @@ Return:
 
 // Get/Set client variables
 
+// Variables handling
+MV_Client_fnc_SetMissionVariable = Compile preprocessFileLineNumbers "client\functions\clientVariables\clientSetMissionVariable.sqf";
+MV_Client_fnc_GetMissionVariable = Compile preprocessFileLineNumbers "client\functions\clientVariables\clientGetMissionVariable.sqf";
+M_C_fnc_GLV = Compile preprocessFileLineNumbers "client\functions\clientVariables\clientGetLocVar.sqf";
 
 // General
 MV_Client_fnc_AddEvent = Compile preprocessFileLineNumbers "client\functions\clientAddEvent.sqf";

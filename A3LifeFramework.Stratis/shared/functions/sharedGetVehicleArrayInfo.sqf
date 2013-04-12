@@ -14,7 +14,7 @@ if (isServer) then
 {
 	_vArray = (call M_S_fnc_GLV) getVariable "Array_Vehicles";
 } else {
-	_vArray = missionNamespace getVariable "Array_Vehicles";
+	_vArray = (call M_C_fnc_GLV) getVariable "Array_Vehicles";
 };
 { if ((_x select 0) == _vClass) exitwith {_return = _x;}; } foreach _vArray;
 

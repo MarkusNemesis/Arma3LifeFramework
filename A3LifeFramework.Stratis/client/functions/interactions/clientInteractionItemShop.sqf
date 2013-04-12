@@ -321,7 +321,7 @@ while {!isnull _dsp} do
 			Can afford?: bool(if totalCost < playerMoney) yes/no // Maybe use green/red text to indicate this.
 			Can fit?: bool(if totalvol < invCurvol) yes/no // Maybe use green/red text to indicate this.
 			*/
-			if (lbSize _lbxInventoryStore == 0) exitwith {_stxtInfo ctrlSetStructuredText "No Item Selected...";}; // -- Don't run when list box is empty.
+			if (lbSize _lbxInventoryStore == 0) exitwith {_stxtInfo ctrlSetStructuredText (text "No Item Selected...");}; // -- Don't run when list box is empty.
 			
 			private ['_tcurSel', '_tsText', '_tiInfo', '_tiName', '_tiVol', '_tiQty', '_tiVal', '_invSpace', '_tiStock', '_tinStock', '_tcanAfford', '_tcanFit', '_ttArray'];
 			_tcurSel = lbCurSel _lbxInventoryStore;

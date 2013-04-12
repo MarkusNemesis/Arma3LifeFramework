@@ -5,13 +5,13 @@ Skype: markus.davey
 Desc: Gets the player slots and stores them.
 */
 
-private ['_lObj', '_players_blu', '_players_op', '_players_ind', '_players_civ', '_bpc', '_opc', '_ipc', '_cpc'];
+private ['_lObj', '_players_blu', '_players_op', '_players_ind', '_players_civ', '_bpc', '_opc', '_ipc', '_cpc', '_aReturn'];
 
 if (isServer) then 
 {
 	_lObj = (call M_S_fnc_GLV);
 } else {
-	_lObj = missionNamespace;
+	_lObj = (call M_C_fnc_GLV);
 };
 
 _players_blu = [];
@@ -52,25 +52,20 @@ if (_cpc > 0) then {
 	};
 };
 
+
+private ['_sLoc'];
 if (isServer) then 
 {
-	private ['_sLoc'];
 	_sLoc = call M_S_fnc_GLV;
-	_sLoc setVariable ["MV_Shared_PLAYERS_BLU", _players_blu];
-	_sLoc setVariable ["MV_Shared_PLAYERS_OP", _players_op];
-	_sLoc setVariable ["MV_Shared_PLAYERS_IND", _players_ind];
-	_sLoc setVariable ["MV_Shared_PLAYERS_CIV", _players_civ];
 } else {
-	call compile format ["with missionNamespace do 
-	{
-		MV_Shared_PLAYERS_BLU = %1;
-		MV_Shared_PLAYERS_OP = %2;
-		MV_Shared_PLAYERS_IND = %3;
-		MV_Shared_PLAYERS_CIV = %4;
-	};", _players_blu, _players_op, _players_ind, _players_civ];
-
-	diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_BLU");
-	diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_OP");
-	diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_IND");
-	diag_log (missionNamespace getVariable "MV_Shared_PLAYERS_CIV");
+	_sLoc = call M_C_fnc_GLV;
 };
+
+_sLoc setVariable ["MV_Shared_PLAYERS_BLU", _players_blu];
+_sLoc setVariable ["MV_Shared_PLAYERS_OP", _players_op];
+_sLoc setVariable ["MV_Shared_PLAYERS_IND", _players_ind];
+_sLoc setVariable ["MV_Shared_PLAYERS_CIV", _players_civ];
+
+_aReturn = _players_blu + _players_op + _players_ind + _players_civ;
+
+_aReturn

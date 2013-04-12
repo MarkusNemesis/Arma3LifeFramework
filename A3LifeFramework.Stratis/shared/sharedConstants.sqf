@@ -4,8 +4,7 @@ Author: Markus Davey
 Skype: markus.davey
 Desc: Initialises variables that are shared between the client and server namespaces.
 Stored in Client_LocObj/Server_LocObj to allow them to be write protected.
-In future: Use 'with' to define all these things, vs putting them through 'setvariable' a hundred times. http://community.bistudio.com/wiki/with
-Get these variables via (missionNamespace getVariable "VarNameHere")
+Get these variables via (_lObj getVariable "VarNameHere")
 */
 
 private ["_runTime", "_i", '_lObj'];
@@ -15,7 +14,7 @@ if (isServer) then
 {
 	_lObj = (call M_S_fnc_GLV);
 } else {
-	_lObj = missionNamespace;
+	_lObj = (call M_C_fnc_GLV);
 };
 
 // Constants

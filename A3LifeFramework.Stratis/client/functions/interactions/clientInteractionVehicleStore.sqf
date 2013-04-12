@@ -4,6 +4,8 @@ Author: Markus Davey
 Skype: markus.davey
 Desc: 
 Return:
+
+TODO TODO TODO Refactor this entire thing. In fact, pretty much write it all again. 
 */
 //[ownerObj, [[VehiclesToSell, StockLevel]], [AccessArray], themeName, StoreName];
 private ['_dialogHandler','_sObj', '_sArr', '_sName'];
@@ -50,7 +52,7 @@ _pMoney = (["Money", player getVariable "Inventory"] call MV_Shared_fnc_SearchIn
 _pMoneyPrev = -1;
 _sCName = '';
 _sPrice = "ERROR";
-_vArray = missionNamespace getVariable "Array_Vehicles";
+_vArray = (["Array_Vehicles"] call MV_Client_fnc_GetMissionVariable);
 
 // -- On first run, all fields in this loop will be run. Effectively initialising the controls.
 while {dialog && alive player} do
@@ -83,7 +85,7 @@ while {dialog && alive player} do
 	        // Leave last
 	        _lbSelPrev = _lbSel;
 	    };
-	    // todo REFACTOR the below. It makes me look bad....
+	    // todo REFACTOR the below. It makes me look bad.... and it's stupidly old code. 
 		buttonsetaction [1993, format ["[%1, %2, %3, %4] call MV_Client_fnc_int_BuyVehicle; closedialog 0;", str netID _sObj, _lbSel, _sPrice, (_sArr select _lbSel) select 1]]; // NetID, Index, price, stock
     };
     // ---- Leave last

@@ -33,7 +33,7 @@ switch (_eType) do
             // -- Purchase was successful, hint to the client.
             hint localize "STR_MV_INT_VEHPURCHASESUCCESS";
             Client_VehicleBuyCooldown = time + 10; // -- Add 10 second cooldown for buying vehicles.
-			player switchMove (missionNamespace getVariable "MV_Shared_ANIMATION_BUY"); // TODO make this broadcast over network. Though, tbh, it can just stay client 'fluff'.
+			player switchMove ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0); // TODO make this broadcast over network. Though, tbh, it can just stay client 'fluff'.
         };
     };
 	
@@ -74,16 +74,16 @@ switch (_eType) do
 		}
 		else
 		{ // -- Succeeded.
-			uiNamespace setVariable ["inventoryStorage_updateLists", true]; // [true , _iName, _qty, netID _objA, netid _ObjB]
+			uiNamespace setVariable ["inventoryStorage_updateLists", true];
 			private ['_iName', '_qty', '_objA', '_objB', '_pileCName'];
 			_iName = _vParams select 1;
 			_qty = _vParams select 2;
 			_objA = objectFromNetId (_vParams select 3);
 			_objB = objectFromNetId (_vParams select 4);
-			_pileCName = (missionNamespace getVariable "MV_Shared_DROPPILECLASS");
+			_pileCName = ((["MV_Shared_DROPPILECLASS"] call MV_Client_fnc_GetMissionVariable) select 0);
 			// -- If it's an item pile, output the item pile name. Else, name of player.
-			if ((typeOf _objA) == _pileCName) then {_objA = "Item Pile"} else {if (isPlayer _objA) then {_objA = name _objA;} else {_objA getVariable 'vName'};};
-			if ((typeOf _objB) == _pileCName) then {_objB = "Item Pile"} else {if (isPlayer _objB) then {_objB = name _objB;} else {_objB getVariable 'vName'};};
+			if ((typeOf _objA) == _pileCName) then {_objA = "Item Pile"} else {if (isPlayer _objA) then {_objA = name _objA;} else {_objA = _objA getVariable 'vName'};};
+			if ((typeOf _objB) == _pileCName) then {_objB = "Item Pile"} else {if (isPlayer _objB) then {_objB = name _objB;} else {_objB = _objB getVariable 'vName'};};
 			systemChat format [localize "STR_MV_INT_SUCCESSPILETRANSFER",_qty, _iName, _objA, _objB];
 			// -- Set cooldown
 			Client_TransactionCooldown = time + 1;
@@ -151,7 +151,7 @@ switch (_eType) do
 		if (_success) then {
 			_qty = _vParams select 2;
 			systemChat format [_sString, _qty];
-			player switchMove (missionNamespace getVariable "MV_Shared_ANIMATION_BUY"); // TODO maybe put this across the network.... maybe.
+			player switchMove ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0);// TODO maybe put this across the network.... maybe.
 		} else {
 			systemChat format [localize 'STR_MV_INT_FAILATMTRANSACTION', _qty];
 		};

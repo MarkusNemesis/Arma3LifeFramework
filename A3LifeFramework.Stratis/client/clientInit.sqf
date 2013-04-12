@@ -11,6 +11,13 @@ _runTime =+ diag_tickTime;
 waitUntil {!isNull player}; // Make sure the player exists before starting.
 diag_log "MV: CLIENT INIT: STARTED";
 
+// -- Create map location for clientside only variable storage. Variable name is created by random number generator. 
+private ['_slocN', '_sLoc'];
+_slocN = format ['%1%2%3', (profileName), (round (random 10000)), round ((diag_ticktime) * 100)];
+call compile format ["%1 = createLocation ['NameVillage', [0, 0, 0], 1, 1];", _slocN];
+uiNamespace setVariable ["Client_LocObj", _slocN];
+diag_log format ["MV: clientInit: Location Var name generated: %1", _slocN];
+
 // Init client functions
 call compile preprocessFile "Client\functions\clientInitFunctions.sqf";
 
@@ -41,7 +48,7 @@ Client_VehicleBuyCooldown = time; // Used to limit how often players can buy veh
 Client_InVehicle = false; // Used for updating the garbage collector on vehicle interactions.
 Client_Vehicle = objnull;
 Client_UsingItem = false;
-Client_TransactionCooldown = time; // -- used to limit how often players can transfer/drop items. Limit is set at author's discretion. 
+Client_TransactionCooldown = time; // -- used to limit how often this player can transfer/drop items. Limit is set at author's discretion. 
 
 // Declare client's commVar
 call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
@@ -75,7 +82,7 @@ finishMissionInit;
 //
 
 // -- Start KeyDown event handler
-(findDisplay 46) displayAddEventHandler ["KeyDown","_this call MV_Client_fnc_OnKeyPressEH;"];
+(findDisplay 46) displayAddEventHandler ["KeyDown","private ['_return']; _return = (_this call MV_Client_fnc_OnKeyPressEH); _return"];
 
 // ---- Gets the player names.
 if (!isServer) then {call MV_Shared_fnc_GetPlayers;};

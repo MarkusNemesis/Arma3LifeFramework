@@ -12,7 +12,7 @@ if (isServer) then
 {
 	_sArray = (call M_S_fnc_GLV) getVariable "Array_Items";
 } else {
-	_sArray = missionNamespace getVariable "Array_Items";
+	_sArray = (call M_C_fnc_GLV) getVariable "Array_Items";
 };
 _return = [];
 

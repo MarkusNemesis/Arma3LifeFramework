@@ -7,7 +7,7 @@ Desc: Simply gets a Server_LocObj subarray from the user's personal Server_LocOb
 1.1 If found, assign _x to a variable and return it
 2. If not found, return objNull.
 Params: ['netID', 'arrayType'];
-Return: ['arrayType1', [content, of, variable]];
+Return: [[content, of, variable]];
 
 Example: [id, "ArrayType"] call MV_Server_fnc_GetMissionVariable;
 */

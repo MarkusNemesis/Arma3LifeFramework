@@ -2,25 +2,28 @@
 Created: 02/03/2013
 Author: Markus Davey
 Skype: markus.davey
-Desc: If it's a server and dedicated, it'll only run the serverInit. If the server is not dedicated, the client init will also run. 
-If it's not a server, it's a client and runs the clientInit.
-NOTE: Lots of functionality is broken due to hosting as both a client and server, as client <> server messages do not work.
+Desc: Starts the mission. If you're a client, you run as a client, if you're a server, you run as a server.
+PLEASE NOTE: HOSTING AS A HOST CLIENT WILL NOT WORK WITH THIS MISSION. RUNNING LIKE THIS BREAKS MANY FEATURES AND SO THUS IS PURPOSEFULLY DISABLED.
 Return:
 */
 
 Client_InitComplete = false;
 Server_InitComplete = false;
 enableEnvironment false;
+// -- If server, start server side.
 if (isServer) then 
 {
-    execVM "server\serverInit.sqf"; 
-    if (!isDedicated) then 
-	{
-        waituntil {Server_InitComplete};
-    	execVM "client\clientInit.sqf";
-    }; // 'server' is a client hosting the mission. Run both main loops. 
+    if (!isDedicated) exitwith {titleText ["NOTE: HOSTING AS A HOST CLIENT WILL NOT WORK WITH THIS MISSION. RUNNING LIKE THIS BREAKS MANY FEATURES AND SO THUS IS PURPOSEFULLY DISABLED.", "BLACK FADED", 4096];};
+	execVM "server\serverInit.sqf"; 
 };
 
-if (!isServer) then {
+// -- If not server, but has interface, start client side.
+if (!isServer /*&& hasInterface*/) then {
     execVM "client\clientInit.sqf";
 };
+
+/* -- If not server and doesn't hasinterface, then run Headless Client script.
+if (!isServer && !hasInterface) then {
+    execVM "headlessclient\hcInit.sqf";
+};
+*/

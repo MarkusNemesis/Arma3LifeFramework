@@ -8,7 +8,7 @@ Desc: Handles the display of text when mousing over an interactable object.
 private ['_cTarg', '_iType', '_iFilter', '_dialog', '_iText', '_intRange'];
 disableSerialization;
 _cTarg = cursorTarget;
-_intRange = (missionNamespace getVariable "INT_RANGE");
+_intRange = _this select 0; //_intRange = ((["INT_RANGE"] call MV_Client_fnc_GetMissionVariable) select 0);
 // -- Check if player is within interaction range of this object.
 if (_cTarg distance player > _intRange) exitwith {};
 
