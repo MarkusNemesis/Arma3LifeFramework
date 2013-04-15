@@ -76,7 +76,16 @@ if (((_ObjBMaxVol - _ObjBVol) - _transVol) < 0) exitwith {
 {[_x, "TransferItemReturn", [true , _iName, _qty, netID _objA, netid _ObjB]] call MV_Server_fnc_SendClientMessage;} foreach _arrPlayers;
 
 // -- Check if ObjB is a pile, and if it has anything in it's inventory. If it has nothing, delete it.
-if ((typeOf _ObjB) == (_lObj getVariable "MV_Shared_DROPPILECLASS")) then 
+private ['_dpClass'];
+_dpClass = (_lObj getVariable "MV_Shared_DROPPILECLASS");
+
+if (((typeOf _ObjA) == _dpClass)) then //(typeOf _ObjA == _dpClass) TODODODODODODOD
+{
+	_objAInv = [_oAID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
+	if (count _objAInv == 0) then {[_ObjA] call MV_Server_fnc_DeleteWorldObject;};
+};
+
+if (((typeOf _ObjB) == _dpClass)) then //(typeOf _ObjA == _dpClass) TODODODODODODOD
 {
 	_objBInv = [_oBID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 	if (count _objBInv == 0) then {[_ObjB] call MV_Server_fnc_DeleteWorldObject;};

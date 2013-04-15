@@ -34,7 +34,8 @@ if (!_sStock) exitwith {
 
 // -- Spawn the vehicle! Spawns on the store's spawn marker.
 private ['_spVeh', '_sPos', '_kChain', '_vNID', '_vInfo'];
-_sPos = (getmarkerpos _spawnMarker); //findemptyposition[0, 3, _vCName];
+_sPos = (getmarkerpos _spawnMarker);
+_sPos = [(_sPos select 0) + random 5, (_sPos select 1) + random 5, (_sPos select 2)];
 _spVeh = createVehicle [_vCName, _sPos, [], 0, "CAN_COLLIDE"];
 _spVeh setdir (markerdir _spawnMarker);
 _spVeh lock true;

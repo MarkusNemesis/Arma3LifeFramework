@@ -4,7 +4,7 @@ Author: Markus Davey
 Skype: markus.davey
 Desc: Handles the display of text when mousing over an interactable object.
 */
-
+if (player getVariable 'isStunned') exitwith {};
 private ['_cTarg', '_iType', '_iFilter', '_dialog', '_iText', '_intRange'];
 disableSerialization;
 _cTarg = cursorTarget;
@@ -81,5 +81,5 @@ if (_cTarg getVariable "isInteractable") then
     	(_dialog displayctrl 2000) ctrlSetStructuredText (composeText [_iText]);
     } else {diag_log "ERROR: InteractionHUD Display is null!"};
 } else {
-    cutRsc ["", "PLAIN", 0];
+    10 cutRsc ["", "PLAIN", 0];
 };

@@ -8,7 +8,7 @@ Desc: Runs when a player connects to the server. Stores their name, slotname, et
 //
 private ['_lObj', '_playersArray', '_id','_name','_uid', '_slotName', '_retryCount', '_pObj'];
 _lObj = (call M_S_fnc_GLV);
-_playersArray = (call MV_Shared_fnc_GetPlayers);//;(_lObj getVariable "MV_Shared_PLAYERS_BLU") + (_lObj getVariable "MV_Shared_PLAYERS_OP") + (_lObj getVariable "MV_Shared_PLAYERS_IND") + (_lObj getVariable "MV_Shared_PLAYERS_CIV");
+_playersArray = (call MV_Shared_fnc_GetPlayers);
 _id = _this select 0;
 _name = _this select 1;
 _uid = _this select 2;
@@ -35,9 +35,10 @@ while {_slotname == "" && _retryCount < 30} do
 if (_slotname == "") exitwith {diag_log format ["MV: serverOnPlayerConnected: CRITICAL ERROR: %1, %2, %3 FAILED TO GET SLOT", _id, _name, _uid];};
 
 // -- Init Player CommVar
-call compile format ["%1_CommVar = [];", _slotName];
-format ["%1_CommVar", _slotName] addPublicVariableEventHandler {[_this select 1] call MV_Server_fnc_CommVarEH;};
-diag_log format ["PublicVar set: %1_CommVar", _slotName];
+private ['_commVarStr'];
+_commVarStr = format ["%1_CommVar", _slotName];
+call compile format ["%1 = []; '%1' addPublicVariableEventHandler {['%2', _this select 1] call MV_Server_fnc_CommVarEH;};", _commVarStr, _slotName];
+diag_log format ["PublicVar set: %1", _commVarStr];
 
 // ---- Check if the player has played before in this session. iterate through Server_PlayerRegistry
 private ['_found', '_prIndex'];
@@ -86,6 +87,7 @@ else // -- otherwise, they've been here before, so lets pick them back up where 
 	Server_PlayerRegistry set [_prIndex, [_id, _name, _uid, _slotname]];
 	
 	// TODO set player's inventory as blank in both missionvar and setvariable
+	_pObj setVariable ["Inventory", ([_uid, "Inventory"] call MV_Server_fnc_GetMissionVariable), true];
     _pObj setVariable ["BankMoney", ([_uid, "BankMoney"] call MV_Server_fnc_GetMissionVariable) select 0, true];
     _pObj setVariable ["KeyChain", [_uid, "KeyChain"] call MV_Server_fnc_GetMissionVariable, true];
     

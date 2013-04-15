@@ -38,18 +38,6 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
 		};
     } foreach Client_EventArray;
 	
-	/* Old event loop.
-    {
-        private ['_fname', '_args', '_priority'];
-        _fname = _x select 0;
-        _args = _x select 1;
-        _priority = _x select 2;
-		if (isnil '_fname') exitwith {[_forEachIndex] call MV_Client_fnc_RemoveEvent;}; // -- Event is a null event, and thus removed.
-        call compile format ["_args call %1", _fname]; //_args call _fName;
-        diag_log format ["Running event from array: %1 , %2", _fname, _args];
-        [_forEachIndex] call MV_Client_fnc_RemoveEvent;
-    } foreach Client_EventArray;
-    */
     /* -- Check if the player is spawned
     if (Client_PlayerSpawned) then
     {
@@ -81,6 +69,7 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
     {
         if (Client_PlayerSpawned) then
 	    {
+			if (!(alive player)) exitwith {};
 			// -- 'reveal's to the player all interactable objects within interact distance (5 m)
 	        [_iRange] call MV_Client_fnc_InteractableAwareness;
             // --  check if player is in a vehicle, and wasn't before to update vehicle's garbage collection delay.

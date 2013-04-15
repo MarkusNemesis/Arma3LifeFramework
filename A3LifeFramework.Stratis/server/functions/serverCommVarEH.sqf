@@ -4,17 +4,20 @@ Author: Markus Davey
 Skype: markus.davey
 Desc: CommVars are semi-public variables defined by the server, where client <> server communication can take place.
 Contains a switch that handles events. 
+_tPlayer is the player that sent the message.
 Format: ["eventType", [Params,array,etc]];
 TODO TODO TODO TODO Refactor so that commVar 'player' object references are ALL done via the EH's passing of the variable's name. Resolve this to a player object via a securely stored array of [SlotName, CommvarName]. 
 Doing so removes risk of players maliciously causing events to occur on the server, for other players than themselves. http://community.bistudio.com/wiki/addPublicVariableEventHandler _this select 0: variable name
 */
 
-private ['_lObj', '_vValue', '_eType', '_vParams'];
+private ['_lObj', '_tPlayer', '_vValue', '_eType', '_vParams'];
 _lObj = (call M_S_fnc_GLV);
-_vValue = _this select 0;
+diag_log (_this select 0);
+_tPlayer = (call compile (_this select 0));
+_vValue = _this select 1;
 _eType = _vValue select 0;
 _vParams = _vValue select 1;
-diag_log format ["MV: serverCommVarEH: %1", _vValue];
+diag_log format ["MV: serverCommVarEH: %1", _this];
 
 switch (_eType) do
 {
@@ -29,7 +32,7 @@ switch (_eType) do
         _vCName = (_sArr select _vIndex) select 0;
         _vPrice = [_vCName] call MV_Shared_fnc_VehicleGetPrice;
         diag_log format ["MV: serverCommVarEH sending event: %1, %2, %3, %4", _vCName, _vPrice, _sObj, _pObj];
-        ['MV_Server_fnc_BuyVehicle', [_vCName, _vPrice, _sObj, _pObj]] call MV_Server_fnc_AddEvent;
+        ['MV_Server_fnc_BuyVehicle', [_vCName, _vPrice, _sObj, _tPlayer]] call MV_Server_fnc_AddEvent;
         diag_log Server_EventArray;
     };
     
@@ -42,7 +45,7 @@ switch (_eType) do
 		_iStore = objectFromNetId (_vParams select 2);
 		_iaArgs = _vParams select 3;
 		// -- Add the event.
-		['MV_Server_fnc_ItemStoreAction', [_pObj, _aMode, _iStore, _iaArgs]] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_ItemStoreAction', [_tPlayer, _aMode, _iStore, _iaArgs]] call MV_Server_fnc_AddEvent;
 	};
 	
     // -- Client has sent garbage for the collector.
@@ -67,7 +70,7 @@ switch (_eType) do
 		_iName = _vParams select 1;
 		_qty = _vParams select 2;
 		//[_pObj, _iName, _qty] call MV_Server_fnc_ValidateItemUse;
-		['MV_Server_fnc_ValidateItemUse', [_pObj, _iName, _qty]] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_ValidateItemUse', [_tPlayer, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "DropItem":
@@ -77,18 +80,18 @@ switch (_eType) do
 		_iName = _vParams select 1;
 		_qty = _vParams select 2;
 		//[_Obj, _iName, _qty] call MV_Server_fnc_DropItem;
-		['MV_Server_fnc_DropItem', [_Obj, _iName, _qty]] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_DropItem', [_tPlayer, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "TransferItem":
 	{
 		private ['_Obj', '_iName', '_qty', '_pileObj'];
-		_Obj = objectFromNetId (_vParams select 0);
+		_Obj = /*objectFromNetId*/ (_vParams select 0);
 		_iName = _vParams select 1;
 		_qty = _vParams select 2;
-		_pileObj = objectFromNetId (_vParams select 3);
+		_pileObj = /*objectFromNetId*/ (_vParams select 3);
 		//[_Obj, _iName, _qty, _pileObj] call MV_Server_fnc_TransferItem;
-		['MV_Server_fnc_TransferItem', [netid _Obj, _iName, _qty, netid _pileObj]] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_TransferItem', [_Obj, _iName, _qty, _pileObj]] call MV_Server_fnc_AddEvent;
 	};
 	
 	// TODO refactor this so that it doesn't need to be this way. Major security risk.
@@ -99,7 +102,7 @@ switch (_eType) do
 		_iName = _vParams select 1;
 		_qty = _vParams select 2;
 		//[_pObj, _iName, _qty] call MV_Server_fnc_RemoveInventoryItem;
-		['MV_Server_fnc_RemoveInventoryItem', [_pObj, _iName, _qty]] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_RemoveInventoryItem', [_tPlayer, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "lockRequest":
@@ -113,10 +116,10 @@ switch (_eType) do
 		_intRange = (_lObj getVariable "INT_RANGE");
 		_remoteKeyRange = (_lObj getVariable "REMOTE_KEY_RANGE");
 		if (_lType == 'remote') then {_validDistance = _remoteKeyRange} else {_validDistance = _intRange};
-		_pChain = [netid _pObj, "keychain"] call MV_Server_fnc_GetMissionVariable;
+		_pChain = [netid _tPlayer, "keychain"] call MV_Server_fnc_GetMissionVariable;
 		if ((_vParams select 1) in _pChain) then
 		{
-			if (_pObj distance _veh > _validDistance) exitwith {}; // -- User is too far away from vehicle to interact with it.
+			if (_tPlayer distance _veh > _validDistance) exitwith {}; // -- User is too far away from vehicle to interact with it.
 			if (_lType == 'remote') then {
 				// -- Remote lock code here.
 			};
@@ -126,11 +129,11 @@ switch (_eType) do
 				[_veh, "silentLock", [netID _veh]] call MV_Server_fnc_SendClientMessage;
 			};
 			// -- Send message to unlock request client that the vehicle is now un/locked.
-			[_pObj, "lockReturn", [netID _veh]] call MV_Server_fnc_SendClientMessage;
+			[_tPlayer, "lockReturn", [netID _veh]] call MV_Server_fnc_SendClientMessage;
 		};
 	};
 	
-	// -- Called when an item is wanting to do an action, ie, 'repair' or 'stun' etc. Validates item ownership before execution.
+	// -- Called when an item is wanting to do an action, ie, 'repair' etc. Validates item ownership before execution.
 	case "UseItemEvent":
 	{
 		private ['_pObj', '_iName', '_action', '_aArgs'];
@@ -138,8 +141,8 @@ switch (_eType) do
 		_iName = _vParams select 1;
 		_action = _vParams select 2;
 		_aArgs = _vParams select 3; // -- args like 'qty' or vehicle etc. and Anything item specific.
-		diag_log format ["MV: serverCommVarEH: UseItemEvent: pobj: %1, iName: %2, action: %3, aArgs: %4", _pObj, _iName, _action, _aArgs];
-		[_pObj, _iName, _action, _aArgs] call MV_Server_fnc_ItemUseEvents;
+		diag_log format ["MV: serverCommVarEH: UseItemEvent: pobj: %1, iName: %2, action: %3, aArgs: %4", _tPlayer, _iName, _action, _aArgs];
+		[_tPlayer, _iName, _action, _aArgs] call MV_Server_fnc_ItemUseEvents;
 	};
 	
 	// -- Called when a player is wanting to either deposit or withdraw money from an ATM.
@@ -150,8 +153,18 @@ switch (_eType) do
 		_qty = _vParams select 1;
 		_action = _vParams select 2;
 		// -- add to event queue, as this needs to be done in series.
-		['MV_Server_fnc_ATMAction', [_pObj, _qty, _action]] call MV_Server_fnc_AddEvent;
+		['MV_Server_fnc_ATMAction', [_tPlayer, _qty, _action]] call MV_Server_fnc_AddEvent;
 	};
+	
+	case "stunPlayer":
+	{
+		private ['_action', '_hitby', '_args'];
+		_action = _vParams select 0;
+		_hitby = objectFromNetId (_vParams select 1);
+		_args = _vParams select 2;
+		[_tPlayer, _action, _hitby, _args] call MV_Server_fnc_StunPlayer;
+	};
+	
 };
 
 

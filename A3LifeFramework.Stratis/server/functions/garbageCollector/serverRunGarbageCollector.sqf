@@ -19,7 +19,7 @@ Desc: Iterates through the entire garbage array and deletes from the mission obj
         if (damage _unit < 1 && _isOccupied) exitwith {[_unit] call MV_Server_fnc_UpdateGarbageObject};
         
 		// -- Remove the object.
-        [_x] call MV_Server_fnc_DeleteWorldObject;
+        [_x select 0] call MV_Server_fnc_DeleteWorldObject;
         Server_GarbageCollection set [_foreachindex, objnull];
     	Server_GarbageCollection = Server_GarbageCollection - [objnull];
     };

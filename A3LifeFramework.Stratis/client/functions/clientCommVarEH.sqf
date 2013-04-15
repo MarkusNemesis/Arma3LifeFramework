@@ -33,7 +33,7 @@ switch (_eType) do
             // -- Purchase was successful, hint to the client.
             hint localize "STR_MV_INT_VEHPURCHASESUCCESS";
             Client_VehicleBuyCooldown = time + 10; // -- Add 10 second cooldown for buying vehicles.
-			player switchMove ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0); // TODO make this broadcast over network. Though, tbh, it can just stay client 'fluff'.
+			["AnimationEvent", [netID player, ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0), 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
         };
     };
 	
@@ -93,13 +93,13 @@ switch (_eType) do
 	// -- ItemStoreActionReturn
 	case "ISAR":
 	{// -- ni, nsi, ms, nr, if, nv
-		private ['_reason', '_isarArgs', '_iName', '_iQty', '_invObj'];
+		private ['_reason', '_isarArgs', '_iName', '_iQty', '_invObj', '_buyAnim'];
 		_reason = _vParams select 0;
 		_isarArgs = _vParams select 1;
 		_iName = _isarArgs select 0;
 		_iQty = _isarArgs select 1;
 		_invObj = objectFromNetId (_isarArgs select 2);
-		
+		_buyAnim = ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0);
 		switch (_reason) do
 		{
 			case "ni": {["ERROR", localize "STR_MV_INT_ERRORNOSTOCK"] spawn MV_Client_fnc_int_MessageBox;};
@@ -109,8 +109,8 @@ switch (_eType) do
 			case "if": {["ERROR", localize "STR_MV_INT_ERRORNOFUNDS"] spawn MV_Client_fnc_int_MessageBox;};
 			case "nv": {["ERROR", localize "STR_MV_INT_ERRORNOVOL"] spawn MV_Client_fnc_int_MessageBox;};
 			case "ds": {["ERROR", localize "STR_MV_INT_ERRORDOESNOTSTOCK"] spawn MV_Client_fnc_int_MessageBox;};
-			case "ss": {systemChat (format [localize "STR_MV_INT_SUCCESSSELLITEM", _iQty, _iName, _isarArgs select 3]); player switchMove MV_Shared_ANIMATION_BUY;};
-			case "sb": {systemChat (format [localize "STR_MV_INT_SUCCESSBUYITEM", _iQty, _iName, _isarArgs select 3]); player switchMove MV_Shared_ANIMATION_BUY;};
+			case "ss": {systemChat (format [localize "STR_MV_INT_SUCCESSSELLITEM", _iQty, _iName, _isarArgs select 3]); ["AnimationEvent", [netID player, _buyAnim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;};
+			case "sb": {systemChat (format [localize "STR_MV_INT_SUCCESSBUYITEM", _iQty, _iName, _isarArgs select 3]); ["AnimationEvent", [netID player, _buyAnim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;};
 		};
 	};
 	
@@ -151,10 +151,42 @@ switch (_eType) do
 		if (_success) then {
 			_qty = _vParams select 2;
 			systemChat format [_sString, _qty];
-			player switchMove ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0);// TODO maybe put this across the network.... maybe.
+			["AnimationEvent", [netID player, ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0), 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
 		} else {
 			systemChat format [localize 'STR_MV_INT_FAILATMTRANSACTION', _qty];
 		};
 	};
 	
+	case "stunPlayerReturn":
+	{
+		private ['_action', '_pStun'];
+		_action = _vParams select 0;
+		switch (_action) do
+		{
+			case 'ss':
+			{
+				_pStun = objectFromNetId (_vParams select 1);
+				systemChat format ["You successfully hit %1 with a stun round.", name _pStun]; // TODO localise.
+			};
+			case 'ms':
+			{
+				_pStun = objectFromNetId (_vParams select 1);
+				systemChat format ["You smack %1 over the head, temporarily stunning them.", name _pStun]; // TODO localise.
+			};
+			case 'us': // Unstun
+			{
+				diag_log "MV: clientCommVarEH: stunPlayerReturn: 'us' called.";
+				disableUserInput false;
+				player setVariable ['isStunned', false];
+				12 cutText ["", "PLAIN"];
+				if (!(alive player)) exitwith {};
+				if (player != (vehicle player)) then
+				{// todo get config 'drive' animation.
+					["AnimationEvent", [netID player, "driver_offroad01", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;//player switchMove "KIA_Driver_High01";
+				} else { // on foot
+					["AnimationEvent", [netID player, "AmovPpneMstpSnonWnonDnon", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;//player switchMove "AmovPpneMstpSnonWnonDnon";
+				};
+			};
+		};
+	};
 };

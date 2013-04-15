@@ -49,7 +49,7 @@ Client_InVehicle = false; // Used for updating the garbage collector on vehicle 
 Client_Vehicle = objnull;
 Client_UsingItem = false;
 Client_TransactionCooldown = time; // -- used to limit how often this player can transfer/drop items. Limit is set at author's discretion. 
-
+player setVariable ['isStunned', false];
 // Declare client's commVar
 call compile format ["%1_CommVar = '';", Client_PlayerSlotStr];
 format ["%1_CommVar", Client_PlayerSlotStr] addPublicVariableEventHandler {[_this select 1] call MV_Client_fnc_CommVarEH};

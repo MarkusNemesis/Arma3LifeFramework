@@ -6,18 +6,18 @@ Desc: Broadcasts information over the PublicMessageBroadcast public variable.  F
 Params: ['_strType', '_arrArgs']
 Example: ["AnimationEvent", [strNetID, strAnimation, strTransitionType]] call MV_Shared_fnc_SendPublicMessage;
 */
-diag_log format ["MV: sharedSendPublicMessage: %1", PublicMessageBroadcast];
+
 private ['_strType', '_arrArgs'];
 _strType = _this select 0;
 _arrArgs = _this select 1;
 
 PublicMessageBroadcast = [_strType, _arrArgs];
-
+diag_log format ["MV: sharedSendPublicMessage: %1", PublicMessageBroadcast];
 publicVariable "PublicMessageBroadcast";
 
 // -- If it's a client player, then run the event handler manually.
 if (!isServer) then
 {
 	diag_log "Client is calling it's own PublicCommVarEH";
-	call MV_Client_fnc_PublicCommVarEH;
+	_this call MV_Client_fnc_PublicCommVarEH;
 };

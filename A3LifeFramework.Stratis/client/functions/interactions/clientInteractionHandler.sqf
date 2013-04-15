@@ -38,7 +38,7 @@ switch (_iType) do
 		if (locked _iObj > 1) exitwith {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED"}; // notify the player that the vehicle is locked
 		if (_shift) then 
 		{
-			[_iObj] spawn MV_Client_fnc_int_StorageInventory;
+			if ((netID _iObj) in (player getVariable "KeyChain")) then {[_iObj] spawn MV_Client_fnc_int_StorageInventory};
 		}
 		else
 		{

@@ -5,13 +5,14 @@ Skype: markus.davey
 Desc: This script is called every time a key is pressed. Annoying, I know.
 */
 
-private ["_control", "_key", "_shift", "_ctrl", "_alt", '_handled', '_intRange'];
+private ["_control", "_key", "_shift", "_ctrl", "_alt", '_handled', '_intRange', '_isStunned'];
 _control = _this select 0;
 _key = _this select 1;
 _shift = _this select 2;
 _ctrl = _this select 3;
 _alt = _this select 4;
 _handled = false;
+_isStunned = player getVariable 'isStunned';
 //diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
 
 if (Client_CustomKeysEnabled) then 
@@ -30,7 +31,7 @@ if (Client_CustomKeysEnabled) then
     // ---------------- Interact key [E] ----------------
     if (_key == 18) then
     {
-        if (dialog) exitwith{}; // Cannot use interact key whilst in a dialog.
+        if (dialog || _isStunned) exitwith{}; // Cannot use interact key whilst in a dialog or stunned.
         // If the player is on foot and pressing E
 		if (vehicle player == player) then
 		{
@@ -66,6 +67,7 @@ if (Client_CustomKeysEnabled) then
     // ---------------- Lock key [L] ----------------
     if (_key == 38) then
     {
+		if (_isStunned) exitwith {};
         if (vehicle player == player) then
 		{// -- On foot
 	        [_target, 'key'] call MV_Client_fnc_int_ToggleVehicleLock;
@@ -84,6 +86,7 @@ if (Client_CustomKeysEnabled) then
 	// ---------------- Inventory key [2] ----------------
 	if (_key == 3) then
 	{
+		if (_isStunned) exitwith {};
 		if (!dialog) then {
 			[] spawn MV_Client_fnc_int_Inventory;
 			_handled = true;

@@ -51,5 +51,9 @@ MV_Server_fnc_ATMAction = Compile preprocessFileLineNumbers "Server\functions\se
 // -- Item store interaction
 MV_Server_fnc_ItemStoreAction = Compile preprocessFileLineNumbers "Server\functions\serverItemStoreAction.sqf";
 
+// -- Stun player
+MV_Server_fnc_StunPlayer = Compile preprocessFileLineNumbers "Server\functions\serverStunPlayer.sqf";
+MV_Server_fnc_UnStunPlayer = Compile preprocessFileLineNumbers "Server\functions\serverUnStunPlayer.sqf";
+
 
 //MV_Server_fnc_ = Compile preprocessFileLineNumbers "Server\functions\";

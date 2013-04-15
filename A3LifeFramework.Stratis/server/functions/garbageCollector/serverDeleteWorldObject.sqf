@@ -20,11 +20,11 @@ TODO implement 'onRemove' script and store in created objects.
 Params: [Obj, garbagecollectorAction]
 Return: 
 */
-
+diag_log format ["MV: serverDeleteWorldObject: %1", _this];
 private ['_dObj', '_gcA'];
 
 _dObj = _this select 0; // object
-_gcA = _this select 1; // bool
+//_gcA = _this select 1; // bool
 
 // -- Remove object from garbage collector, if not a gcA (garbage collector Action) TODO
 
@@ -36,11 +36,11 @@ _gcA = _this select 1; // bool
 
 
 // -- Remove the object
-private ['_crew'];
-_crew = crew (_dObj);
+private ['_crw'];
+_crw = crew _dObj;
 {
-	if (!isPlayer _x && damage _x < 1) then {[_x] call MV_Server_fnc_DeleteWorldObject;} else {_x action ["getOut", _dObj]; unassignVehicle _x;};
-} foreach _crew;
+	if ((!isPlayer _x) && (damage _x < 1)) then {[_x] call MV_Server_fnc_DeleteWorldObject;} else {_x action ["getOut", _dObj]; unassignVehicle _x;};
+} foreach _crw;
 
 unassignVehicle _dObj; // Maybe replace with leaveVehicle. Functionality is unclear.
 _dObj setPos [-1000,-1000,-1000];
