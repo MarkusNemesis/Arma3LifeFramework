@@ -31,14 +31,6 @@ if (_projectile == "B_9x21_Ball") then // -- washit by a potential stun weapon.
 	// -- Check if the shooter has a rook.
 	if ((handgunWeapon _hitby) == "hgun_Rook40_F") then // If user was hit by a stun rook, then stun the player.
 	{
-		/*
-		nullify damage
-		set fatigue to max
-		send network animation
-		disable user input
-		set a flag that disables 'onKeyPress' EH, or similar.
-		TODO TODO TODO
-		*/
 		// -- Remove damage from the round
 		_dmg = 0;
 		if (_washit getVariable 'isStunned') exitwith {};
@@ -47,8 +39,8 @@ if (_projectile == "B_9x21_Ball") then // -- washit by a potential stun weapon.
 		_washit setFatigue 1;
 		// -- Play network animation AcinPercMstpSnonWnonDnon_agony
 		if (_washit != (vehicle _washit)) then 
-		{
-			["AnimationEvent", [netID _washit, "KIA_Driver_High01", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
+		{// -- Todo, implement animation switch akin to that in unstunReturn, once I get an answer from http://forums.bistudio.com/showthread.php?153176-Getting-vehicle-cargo-death-animation-states-from-vehicle-config
+			["AnimationEvent", [netID _washit, "Die", 'playAction']] call MV_Shared_fnc_SendPublicMessage;
 		} else {
 			["AnimationEvent", [netID _washit, "AcinPercMstpSnonWnonDnon_agony", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
 		};

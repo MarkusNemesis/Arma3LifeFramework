@@ -17,7 +17,7 @@ _found = _netID in (player getVariable "KeyChain");
 
 if (_found) then
 {
-	if (!local _obj) exitwith {["lockRequest", [netId player, netId _obj, _lType]] call MV_Client_fnc_SendServerMessage;};
+	if (!local _obj) exitwith {["lockRequest", [netId _obj, _lType]] call MV_Client_fnc_SendServerMessage;};
     if (locked _obj > 1) then {
     	_obj lock false;
         systemchat format ["MV: %1 Unlocked", typeof _obj]; 

@@ -51,7 +51,6 @@ class ui_itemShop
 	class MVFRM1: MV_GUIFrame
 	{// -- Displays the store's name.
 		idc = 2030;
-		text = "StoreName"; //--- ToDo: Localize;
 		x = 11.4 * GUI_GRID_W + GUI_GRID_X;
 		y = 0.4 * GUI_GRID_H + GUI_GRID_Y;
 		w = 28.2 * GUI_GRID_W;
@@ -68,7 +67,7 @@ class ui_itemShop
 	class MVFRM2: MV_GUIFrame
 	{// -- Select inventory frame
 		idc = -1;
-		text = "Select Inventory"; //--- ToDo: Localize;
+		text = "Select Inventory";
 		x = 0.5 * GUI_GRID_W + GUI_GRID_X;
 		y = 0.4 * GUI_GRID_H + GUI_GRID_Y;
 		w = 9 * GUI_GRID_W;
@@ -87,7 +86,6 @@ class ui_itemShop
 	class MVFRM4: MV_GUIFrame
 	{// -- frame for selected inventory / store stock.
 		idc = 2029;
-		text = "Inventory/Store"; //--- ToDo: Localize;
 		x = 11.4 * GUI_GRID_W + GUI_GRID_X;
 		y = 1.2 * GUI_GRID_H + GUI_GRID_Y;
 		w = 14.6 * GUI_GRID_W;
@@ -106,7 +104,7 @@ class ui_itemShop
 	class cmdBuySell: MV_Button
 	{// -- Buys/sells the selected item at the entered qty.
 		idc = 2025;
-		text = "Buy"; //--- ToDo: Localize;
+		text = "Buy";
 		x = 27 * GUI_GRID_W + GUI_GRID_X;
 		y = 4 * GUI_GRID_H + GUI_GRID_Y;
 		w = 8.9 * GUI_GRID_W;
@@ -116,7 +114,7 @@ class ui_itemShop
 	class MVFRM3: MV_GUIFrame
 	{// -- Mode frame.
 		idc = -1;
-		text = "Mode"; //--- ToDo: Localize;
+		text = "Mode";
 		x = 0.5 * GUI_GRID_W + GUI_GRID_X;
 		y = 9.4 * GUI_GRID_H + GUI_GRID_Y;
 		w = 9 * GUI_GRID_W;
@@ -125,7 +123,7 @@ class ui_itemShop
 	class cmdToggleMode: MV_Button
 	{// -- Switches the mode of the UI between buy and sell modes.
 		idc = 2026;
-		text = "To Sell Mode"; //--- ToDo: Localize;
+		text = "To Sell Mode";
 		x = 1 * GUI_GRID_W + GUI_GRID_X;
 		y = 10 * GUI_GRID_H + GUI_GRID_Y;
 		w = 8 * GUI_GRID_W;
@@ -150,7 +148,7 @@ class ui_itemShop
 	class lblQty: MV_Label
 	{// -- Text input for quantity to buy/sell
 		idc = -1;
-		text = "Quantity:"; //--- ToDo: Localize;
+		text = "Quantity:";
 		x = 27.1 * GUI_GRID_W + GUI_GRID_X;
 		y = 1.9 * GUI_GRID_H + GUI_GRID_Y;
 		w = 9 * GUI_GRID_W;

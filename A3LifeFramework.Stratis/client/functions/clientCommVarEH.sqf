@@ -98,10 +98,11 @@ switch (_eType) do
 		_isarArgs = _vParams select 1;
 		_iName = _isarArgs select 0;
 		_iQty = _isarArgs select 1;
-		_invObj = objectFromNetId (_isarArgs select 2);
+		//_invObj = objectFromNetId (_isarArgs select 2);
 		_buyAnim = ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0);
 		switch (_reason) do
 		{
+			case "iq": {["ERROR", localize "STR_MV_INT_ERRORINVALIDQTY"] spawn MV_Client_fnc_int_MessageBox;};
 			case "ni": {["ERROR", localize "STR_MV_INT_ERRORNOSTOCK"] spawn MV_Client_fnc_int_MessageBox;};
 			case "nsi": {["ERROR", localize "STR_MV_INT_ERRORNOSTOCK"] spawn MV_Client_fnc_int_MessageBox;};
 			case "ms": {["ERROR", format [localize "STR_MV_INT_ERRORSTOCKMAX2", _iQty, _iName]] spawn MV_Client_fnc_int_MessageBox;};
@@ -166,12 +167,12 @@ switch (_eType) do
 			case 'ss':
 			{
 				_pStun = objectFromNetId (_vParams select 1);
-				systemChat format ["You successfully hit %1 with a stun round.", name _pStun]; // TODO localise.
+				systemChat format [localize "STR_MV_INT_STUN_SSTUN", name _pStun];
 			};
 			case 'ms':
 			{
 				_pStun = objectFromNetId (_vParams select 1);
-				systemChat format ["You smack %1 over the head, temporarily stunning them.", name _pStun]; // TODO localise.
+				systemChat format [localize "STR_MV_INT_STUN_MSTUN", name _pStun];
 			};
 			case 'us': // Unstun
 			{
@@ -181,10 +182,29 @@ switch (_eType) do
 				12 cutText ["", "PLAIN"];
 				if (!(alive player)) exitwith {};
 				if (player != (vehicle player)) then
-				{// todo get config 'drive' animation.
-					["AnimationEvent", [netID player, "driver_offroad01", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;//player switchMove "KIA_Driver_High01";
+				{
+					private ['_cName', '_anim', '_tveh'];
+					_tveh = vehicle player;
+					_cName = typeof _tveh;
+					switch ((assignedVehicleRole player) select 0) do
+					{
+						case "Driver":
+						{
+							// -- Get driver's base animation.
+							_anim = getText (configfile >> "CfgVehicles" >> _cName >> "driverAction");
+						};
+						case "Cargo":
+						{
+							private ['_tvCargo', '_tv'];
+							_tvCargo = assignedCargo _tveh;
+							_anim = getArray (configfile >> "CfgVehicles" >> _cName >> "cargoAction");
+							_anim = _anim select (_tvCargo find player);
+						};
+					};
+					
+					["AnimationEvent", [netID player, _anim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
 				} else { // on foot
-					["AnimationEvent", [netID player, "AmovPpneMstpSnonWnonDnon", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;//player switchMove "AmovPpneMstpSnonWnonDnon";
+					["AnimationEvent", [netID player, "AmovPpneMstpSnonWnonDnon", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
 				};
 			};
 		};

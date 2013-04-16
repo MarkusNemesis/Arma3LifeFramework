@@ -24,16 +24,19 @@ diag_log format ["MV: serverDeleteWorldObject: %1", _this];
 private ['_dObj', '_gcA'];
 
 _dObj = _this select 0; // object
-//_gcA = _this select 1; // bool
+if ((count _this) > 1) then {_gcA = _this select 1;} else {_gcA = false;}; // bool
 
-// -- Remove object from garbage collector, if not a gcA (garbage collector Action) TODO
-
+// -- Remove object from garbage collector, if not a gcA (garbage collector Action).***
+if (!_gcA) then // Remove from GC array.
+{
+	[netid _dObj] call MV_Server_fnc_DeleteGarbageCollectionEntry;
+};
 
 // -- Run object's 'onRemove' function from it's mission var. TODO
 
 
-// -- Remove the object's variable array. TODO
-
+// -- Remove the object's variable array.
+[netId _dObj] call MV_Server_fnc_RemoveObjectMissionVariableArray;
 
 // -- Remove the object
 private ['_crw'];
@@ -44,4 +47,5 @@ _crw = crew _dObj;
 
 unassignVehicle _dObj; // Maybe replace with leaveVehicle. Functionality is unclear.
 _dObj setPos [-1000,-1000,-1000];
+diag_log format ["MV: serverDeleteWorldObject: Deleting %1", _dObj];
 deleteVehicle _dObj;

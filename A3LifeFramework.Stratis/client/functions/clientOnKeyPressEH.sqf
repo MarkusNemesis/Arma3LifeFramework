@@ -12,7 +12,7 @@ _shift = _this select 2;
 _ctrl = _this select 3;
 _alt = _this select 4;
 _handled = false;
-_isStunned = player getVariable 'isStunned';
+_isStunned = player getVariable 'isStunned'; // TODO if isstunned, then only allow specific keys to be used. ie only allow ESC to be pressed. Maybe others. Replaces 'disableUserInput true'
 //diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
 
 if (Client_CustomKeysEnabled) then 

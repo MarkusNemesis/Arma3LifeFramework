@@ -6,8 +6,6 @@ Desc: CommVars are semi-public variables defined by the server, where client <> 
 Contains a switch that handles events. 
 _tPlayer is the player that sent the message.
 Format: ["eventType", [Params,array,etc]];
-TODO TODO TODO TODO Refactor so that commVar 'player' object references are ALL done via the EH's passing of the variable's name. Resolve this to a player object via a securely stored array of [SlotName, CommvarName]. 
-Doing so removes risk of players maliciously causing events to occur on the server, for other players than themselves. http://community.bistudio.com/wiki/addPublicVariableEventHandler _this select 0: variable name
 */
 
 private ['_lObj', '_tPlayer', '_vValue', '_eType', '_vParams'];
@@ -24,14 +22,13 @@ switch (_eType) do
     // -- Client is buying a vehicle
     case "BuyVehicle":
     {
-        private ['_sObj', '_vIndex', '_pObj', '_vCName', '_sArr', '_vPrice', '_sPos'];
+        private ['_sObj', '_vIndex', '_vCName', '_sArr', '_vPrice', '_sPos'];
         _sObj = objectFromNetId (_vParams select 0);
         _vIndex = _vParams select 1;
-        _pObj = objectFromNetId (_vParams select 2);
 		_sArr = [netId _sObj, "storeArray"] call MV_Server_fnc_GetMissionVariable;
         _vCName = (_sArr select _vIndex) select 0;
         _vPrice = [_vCName] call MV_Shared_fnc_VehicleGetPrice;
-        diag_log format ["MV: serverCommVarEH sending event: %1, %2, %3, %4", _vCName, _vPrice, _sObj, _pObj];
+        diag_log format ["MV: serverCommVarEH sending event: %1, %2, %3, %4", _vCName, _vPrice, _sObj, _tPlayer];
         ['MV_Server_fnc_BuyVehicle', [_vCName, _vPrice, _sObj, _tPlayer]] call MV_Server_fnc_AddEvent;
         diag_log Server_EventArray;
     };
@@ -39,11 +36,10 @@ switch (_eType) do
 	// -- Client is doing an item store action.
 	case "ItemStoreAction":
     {
-		private ['_pObj', '_aMode', '_iStore', '_iaArgs'];
-		_pObj = objectFromNetId (_vParams select 0);
-		_aMode = _vParams select 1;
-		_iStore = objectFromNetId (_vParams select 2);
-		_iaArgs = _vParams select 3;
+		private ['_aMode', '_iStore', '_iaArgs'];
+		_aMode = _vParams select 0;
+		_iStore = objectFromNetId (_vParams select 1);
+		_iaArgs = _vParams select 2;
 		// -- Add the event.
 		['MV_Server_fnc_ItemStoreAction', [_tPlayer, _aMode, _iStore, _iaArgs]] call MV_Server_fnc_AddEvent;
 	};
@@ -65,21 +61,18 @@ switch (_eType) do
 	// -- Called when a user is requesting to initiate the use of an item.
 	case "UseItem":
 	{
-		private ['_pObj', '_iName', '_qty'];
-		_pObj = objectFromNetId (_vParams select 0);
-		_iName = _vParams select 1;
-		_qty = _vParams select 2;
+		private ['_iName', '_qty'];
+		_iName = _vParams select 0;
+		_qty = _vParams select 1;
 		//[_pObj, _iName, _qty] call MV_Server_fnc_ValidateItemUse;
 		['MV_Server_fnc_ValidateItemUse', [_tPlayer, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "DropItem":
 	{
-		private ['_Obj', '_iName', '_qty'];
-		_Obj = objectFromNetId (_vParams select 0);
-		_iName = _vParams select 1;
-		_qty = _vParams select 2;
-		//[_Obj, _iName, _qty] call MV_Server_fnc_DropItem;
+		private ['_iName', '_qty'];
+		_iName = _vParams select 0;
+		_qty = _vParams select 1;
 		['MV_Server_fnc_DropItem', [_tPlayer, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
@@ -94,30 +87,26 @@ switch (_eType) do
 		['MV_Server_fnc_TransferItem', [_Obj, _iName, _qty, _pileObj]] call MV_Server_fnc_AddEvent;
 	};
 	
-	// TODO refactor this so that it doesn't need to be this way. Major security risk.
 	case "RemoveItem":
 	{
-		private ['_pObj', '_iName', '_qty'];
-		_pObj = objectFromNetId (_vParams select 0);
-		_iName = _vParams select 1;
-		_qty = _vParams select 2;
-		//[_pObj, _iName, _qty] call MV_Server_fnc_RemoveInventoryItem;
+		private ['_iName', '_qty'];
+		_iName = _vParams select 0;
+		_qty = _vParams select 1;
 		['MV_Server_fnc_RemoveInventoryItem', [_tPlayer, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	
 	case "lockRequest":
 	{
-		private ['_pObj', '_veh', '_lType']; // -- _lType is the 'locking type', be it 'remote' or 'key'. Dictates whether to check for int distance, or remote distance. TODO implement remote locking.
-		_pObj = objectFromNetId (_vParams select 0);
-		_veh = objectFromNetId (_vParams select 1);
-		_lType = _vParams select 2;
+		private ['_veh', '_lType']; // -- _lType is the 'locking type', be it 'remote' or 'key'. Dictates whether to check for int distance, or remote distance. TODO implement remote locking.
+		_veh = objectFromNetId (_vParams select 0);
+		_lType = _vParams select 1;
 		// -- Check if the player has this vehicle in their keychain.
 		private ['_pChain', '_validDistance', '_intRange', '_remoteKeyRange'];
 		_intRange = (_lObj getVariable "INT_RANGE");
 		_remoteKeyRange = (_lObj getVariable "REMOTE_KEY_RANGE");
 		if (_lType == 'remote') then {_validDistance = _remoteKeyRange} else {_validDistance = _intRange};
 		_pChain = [netid _tPlayer, "keychain"] call MV_Server_fnc_GetMissionVariable;
-		if ((_vParams select 1) in _pChain) then
+		if ((netid _veh) in _pChain) then
 		{
 			if (_tPlayer distance _veh > _validDistance) exitwith {}; // -- User is too far away from vehicle to interact with it.
 			if (_lType == 'remote') then {
@@ -136,11 +125,10 @@ switch (_eType) do
 	// -- Called when an item is wanting to do an action, ie, 'repair' etc. Validates item ownership before execution.
 	case "UseItemEvent":
 	{
-		private ['_pObj', '_iName', '_action', '_aArgs'];
-		_pObj = objectFromNetId (_vParams select 0);
-		_iName = _vParams select 1;
-		_action = _vParams select 2;
-		_aArgs = _vParams select 3; // -- args like 'qty' or vehicle etc. and Anything item specific.
+		private ['_iName', '_action', '_aArgs'];
+		_iName = _vParams select 0;
+		_action = _vParams select 1;
+		_aArgs = _vParams select 2; // -- args like 'qty' or vehicle etc. and Anything item specific.
 		diag_log format ["MV: serverCommVarEH: UseItemEvent: pobj: %1, iName: %2, action: %3, aArgs: %4", _tPlayer, _iName, _action, _aArgs];
 		[_tPlayer, _iName, _action, _aArgs] call MV_Server_fnc_ItemUseEvents;
 	};
@@ -149,9 +137,8 @@ switch (_eType) do
 	case "atmAction":
 	{
 		private ['_pObj', '_qty', '_action'];
-		_pObj = objectFromNetId (_vParams select 0);
-		_qty = _vParams select 1;
-		_action = _vParams select 2;
+		_qty = _vParams select 0;
+		_action = _vParams select 1;
 		// -- add to event queue, as this needs to be done in series.
 		['MV_Server_fnc_ATMAction', [_tPlayer, _qty, _action]] call MV_Server_fnc_AddEvent;
 	};

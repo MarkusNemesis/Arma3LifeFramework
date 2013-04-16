@@ -23,6 +23,6 @@ switch (_type) do
 		if (_aType in _aTypes) exitwith {
 			call compile format ["_aObj %1 _anim;", _aType];
 		};
-		diag_log "PCV error: _aType not in _aTypes.";
+		diag_log "MV: clientPublicCommVarEH: Message: ERROR: _aType not in _aTypes.";
 	};
 };

@@ -24,7 +24,4 @@ if (_vStock <= 0) exitwith {[localize "STR_MV_INT_INFORMATION", localize "STR_MV
 if (_pMoney < _vPrice) exitwith {[localize "STR_MV_INT_INFORMATION", localize "STR_MV_INT_ERRORNOFUNDS"] spawn MV_Client_fnc_int_MessageBox;};
 
 // -- Item is in stock, and user has enough money, send event to server.
-//_eString = call compile format ["[""BuyVehicle"", [%1, %2, %3]]", str (_this select 0), _vIndex, Client_PlayerSlotStr];
-
-//[_eString] call MV_Client_fnc_SendServerMessage;
-["BuyVehicle", [(_this select 0), _vIndex, netID player]] call MV_Client_fnc_SendServerMessage;
+["BuyVehicle", [(_this select 0), _vIndex]] call MV_Client_fnc_SendServerMessage;

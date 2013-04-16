@@ -19,7 +19,8 @@ MV_Shared_fnc_SendPublicMessage = Compile preprocessFileLineNumbers "shared\func
 MV_Shared_fnc_isPlayerOnFoot = Compile preprocessFileLineNumbers "shared\functions\sharedisPlayerOnFoot.sqf";
 MV_Shared_fnc_ItemGetPrice = Compile preprocessFileLineNumbers "shared\functions\sharedItemGetPrice.sqf";
 MV_Shared_fnc_VehicleGetInventoryVolume = Compile preprocessFileLineNumbers "shared\functions\sharedVehicleGetInventoryVolume.sqf";
-
+MV_Shared_fnc_StoreCanAcceptSellQty = Compile preprocessFileLineNumbers "shared\functions\sharedStoreCanAcceptSellQty.sqf";
+MV_Shared_fnc_GetRemainingInventoryVolume = Compile preprocessFileLineNumbers "shared\functions\sharedGetRemainingInventoryVolume.sqf";
 
 // -- Item use functions
 MV_Shared_fnc_ItemRepairVehicle = Compile preprocessFileLineNumbers "shared\functions\itemsFunctions\sharedItemRepairVehicle.sqf";

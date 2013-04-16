@@ -17,6 +17,10 @@
 		  <English>There is not enough of this item in stock</English>
 		</Key>
 		
+		<Key ID="STR_MV_INT_ERRORINVALIDQTY">
+		  <English>You failed to enter a valid quantity.</English>
+		</Key>
+		
 		<Key ID="STR_MV_INT_ERRORDOESNOTSTOCK">
 		  <English>This store doesn't sell this item, nor do they wish to.</English>
 		</Key>
@@ -143,6 +147,14 @@
 	
 		<Key ID="STR_MV_INT_HUD_ATM">
 		  <English>Press E to use the ATM</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_STUN_SSTUN">
+		  <English>You successfully hit %1 with a stun round.</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_STUN_MSTUN">
+		  <English>You smack %1 over the head, temporarily stunning them.</English>
 		</Key>
 	
 	</Package>

@@ -36,7 +36,7 @@ createDialog "ui_atmInteract";
 uiNamespace setVariable ['atm_cmdWithdraw', false];
 uiNamespace setVariable ['atm_cmdDeposit', false];
 diag_log "ATM UI init done. Running loop.";
-while {!isnull (findDisplay 1412)} do
+while {!isnull (findDisplay 1412)&& alive player} do
 {
 	if (_fNo < diag_frameno) then // -- Run once per frame.
 	{
@@ -49,7 +49,7 @@ while {!isnull (findDisplay 1412)} do
 			_qty = round (parseNumber ctrlText 2019);
 			if (_qty < 1 || _qty > _pbBalance) exitwith {["ERROR", localize "STR_MV_INT_FAILATMTRANSACTION"] spawn MV_Client_fnc_int_MessageBox;};
 			// -- Send server message.
-			["atmAction", [netID player ,_qty, 'withdraw']] call MV_Client_fnc_SendServerMessage;
+			["atmAction", [_qty, 'withdraw']] call MV_Client_fnc_SendServerMessage;
 			closeDialog 0;
 		};
 		
@@ -61,7 +61,7 @@ while {!isnull (findDisplay 1412)} do
 			_qty = round (parseNumber ctrlText 2019);
 			if (_qty < 1 || _qty > _pwBalance) exitwith {["ERROR", localize "STR_MV_INT_FAILATMTRANSACTION"] spawn MV_Client_fnc_int_MessageBox;};
 			// -- Send server message.
-			["atmAction", [netID player ,_qty, 'deposit']] call MV_Client_fnc_SendServerMessage;
+			["atmAction", [_qty, 'deposit']] call MV_Client_fnc_SendServerMessage;
 			closeDialog 0;
 		};
 	};

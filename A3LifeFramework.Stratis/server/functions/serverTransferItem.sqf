@@ -76,17 +76,23 @@ if (((_ObjBMaxVol - _ObjBVol) - _transVol) < 0) exitwith {
 {[_x, "TransferItemReturn", [true , _iName, _qty, netID _objA, netid _ObjB]] call MV_Server_fnc_SendClientMessage;} foreach _arrPlayers;
 
 // -- Check if ObjB is a pile, and if it has anything in it's inventory. If it has nothing, delete it.
-private ['_dpClass'];
+private ['_dpClass', '_dpile', '_dpInv', '_dpID'];
 _dpClass = (_lObj getVariable "MV_Shared_DROPPILECLASS");
 
-if (((typeOf _ObjA) == _dpClass)) then //(typeOf _ObjA == _dpClass) TODODODODODODOD
+if (((typeOf _ObjA) == _dpClass)) then 
 {
-	_objAInv = [_oAID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
-	if (count _objAInv == 0) then {[_ObjA] call MV_Server_fnc_DeleteWorldObject;};
+	_dpile = _ObjA;
+	_dpID = _oAID;
+} else {
+	if (((typeOf _ObjB) == _dpClass)) then
+	{
+		_dpile = _ObjB;
+		_dpID = _oBID;
+	};
 };
 
-if (((typeOf _ObjB) == _dpClass)) then //(typeOf _ObjA == _dpClass) TODODODODODODOD
+if (!isnil '_dpile') then
 {
-	_objBInv = [_oBID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
-	if (count _objBInv == 0) then {[_ObjB] call MV_Server_fnc_DeleteWorldObject;};
+	_dpInv = [_dpID, "Inventory"] call MV_Server_fnc_GetMissionVariable;
+	if (count _dpInv == 0) then {[_dpile] call MV_Server_fnc_DeleteWorldObject;};
 };

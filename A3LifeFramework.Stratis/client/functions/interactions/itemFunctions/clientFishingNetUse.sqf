@@ -38,7 +38,7 @@ if (_isDeployed) exitwith
 {
 	// -- Recall the net.
 	//systemChat "You pull in the net and stow in back into it's box in your inventory.";
-	["UseItemEvent", [netID player, _iName, 'RecallNet', [netId _useVehicle]]] call MV_Client_fnc_SendServerMessage;
+	["UseItemEvent", [_iName, 'RecallNet', [netId _useVehicle]]] call MV_Client_fnc_SendServerMessage;
 	Client_UsingItem = false;
 };
 
@@ -62,7 +62,7 @@ diag_log format ['_nDepth: %1, _mDepth: %2', _nDepth, _mDepth];
 if (_nDepth < _mDepth) exitwith {["Error", format [localize "STR_MV_ITEM_FISHNETUSETOOSHALLOW", _mDepth]] spawn MV_Client_fnc_int_MessageBox;diag_log 'Too shallow!';Client_UsingItem = false;};
 	
 // -- Passed validation. Send server message to deploy the net.
-["UseItemEvent", [netID player, _iName, 'DeployNet', [netId _useVehicle]]] call MV_Client_fnc_SendServerMessage;
+["UseItemEvent", [_iName, 'DeployNet', [netId _useVehicle]]] call MV_Client_fnc_SendServerMessage;
 
 // -- Leave last
 Client_UsingItem = false;

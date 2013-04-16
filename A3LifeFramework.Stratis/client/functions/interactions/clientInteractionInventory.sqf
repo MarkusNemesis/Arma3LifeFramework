@@ -28,7 +28,7 @@ uiNamespace setVariable ['inventory_lbxSelChanged', true];
 uiNamespace setVariable ['inventory_cmdUse', false];
 uiNamespace setVariable ['inventory_cmdDrop', false];
 //
-while {!isnull (findDisplay 1410)} do
+while {!isnull (findDisplay 1410)&& alive player} do
 {
 	if (_fNo < diag_frameno) then // -- Run once per frame.
 	{
@@ -69,7 +69,7 @@ while {!isnull (findDisplay 1410)} do
 			};
 			closeDialog 0;
 			// -- Send event to server for the use of this item
-			["UseItem", [netID player ,_iName, _qty]] call MV_Client_fnc_SendServerMessage;
+			["UseItem", [_iName, _qty]] call MV_Client_fnc_SendServerMessage;
 		};
 		
 		if (uiNamespace getVariable 'inventory_cmdDrop') then

@@ -68,11 +68,11 @@ if (!Client_UsingItem) exitwith {systemChat localize 'STR_MV_ITEM_REPAIRKITFAILE
 if (local _rTarg) then {
 	[_rAmount, _rTarg] call MV_Shared_fnc_ItemRepairVehicle;
 } else {
-	["UseItemEvent", [netID player, _iName, 'RKRep', [netId _rTarg]]] call MV_Client_fnc_SendServerMessage;
+	["UseItemEvent", [_iName, 'RKRep', [netId _rTarg]]] call MV_Client_fnc_SendServerMessage;
 };
 
 // -- Remove item from player inventory
-["RemoveItem", [netID player, _iName, _qty]] call MV_Client_fnc_SendServerMessage;
+["RemoveItem", [_iName, _qty]] call MV_Client_fnc_SendServerMessage;
 
 //
 Client_UsingItem = false;

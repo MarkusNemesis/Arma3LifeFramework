@@ -55,7 +55,7 @@ uiNamespace setVariable ['inventoryStorage_cmdToStorage', false];
 uiNamespace setVariable ['inventoryStorage_cmdToInventory', false];
 uiNamespace getVariable ["inventoryStorage_updateLists", false];
 diag_log (findDisplay 1411);
-while {!isnull (findDisplay 1411)} do
+while {!isnull (findDisplay 1411) && alive player} do
 {
 	if (_fNo < diag_frameno) then // -- Run once per frame.
 	{

@@ -30,7 +30,7 @@ _sArr = [netID _strObj, "storeArray"] call MV_Server_fnc_GetMissionVariable;
 _iName = _iaArgs select 0;
 _iQty = _iaArgs select 1;
 
-if (_iQty <= 0) exitwith {diag_log "Warn: Invalid qty sell/buy";}; // TODO error back to player, invalid qty.
+if (_iQty <= 0) exitwith {[_pobj, "ISAR", ['iq', [_iName, _iQty]]] call MV_Server_fnc_SendClientMessage;};
 
 switch (_aMode) do
 {
@@ -56,18 +56,10 @@ switch (_aMode) do
 		_tisrcInv = [netID _iSrcObj, "Inventory"] call MV_Server_fnc_GetMissionVariable;
 		if (!([_tisrcInv, _iName, _iQty] call MV_Shared_fnc_InventoryHasItem)) exitwith {[_pobj, "ISAR", ['ni', [_iName, _iQty, netid _iSrcObj]]] call MV_Server_fnc_SendClientMessage;};
 		
-		// -- Check if sale will put item over max item stock. TODO put this foreach into a shared function that returns: [boolCanDo, qty, maxqty, qtyTillMax]
+		// -- Check if sale will put item over max item stock.
 		if (!_tisExporter) then 
 		{
-			{
-				if ((_x select 0) == _iName) exitwith 
-				{
-					private ['_xQty'];
-					_xQty = _x select 1;
-					_tiMaxStock = _x select 2;
-					if ((_tiMaxStock - _xQty) > _iQty) then {_tiIsMaxStock = false};
-				}; 
-			} foreach _sArr;
+			_tiIsMaxStock = !(([_iName, _iQty, _sArr] call MV_Shared_fnc_StoreCanAcceptSellQty) select 0);
 		} else {_tiIsMaxStock = false};
 		if (_tiIsMaxStock) exitwith {[_pobj, "ISAR", ['ms', [_iName, _iQty, netid _iSrcObj]]] call MV_Server_fnc_SendClientMessage;};
 		

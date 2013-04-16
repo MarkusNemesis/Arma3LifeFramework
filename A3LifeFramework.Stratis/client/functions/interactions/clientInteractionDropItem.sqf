@@ -31,7 +31,7 @@ _hasItem = [_pInv, _iName, _qty] call MV_Shared_fnc_InventoryHasItem;
 
 if (_hasItem) then
 {	// -- Send server message to have the server validate data and then drop the item.
-	["DropItem", [netID player ,_iName, _qty]] call MV_Client_fnc_SendServerMessage;
+	["DropItem", [_iName, _qty]] call MV_Client_fnc_SendServerMessage;
 } else {
 	// -- Player doesn't have this item, so, error out.
 	["ERROR", format [localize "STR_MV_INT_ERRORDROPNOITEM", _iName, _qty]] spawn MV_Client_fnc_int_MessageBox;

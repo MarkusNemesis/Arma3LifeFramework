@@ -22,7 +22,6 @@ _uiMode = What mode the UI is in, default false, for buying items from the store
 _selObj = the object that has been selected in the inventory selection list.
 _selInventory = The inventory of the selected inventory.
 Params: [storeObj]
-TODO TODO TODO TODO Optimise this script! It's very loopy in here.
 */
 #define INVRANGE 20
 
@@ -89,7 +88,7 @@ _lbxInvSelect lbSetData [_tIndex, netId player];
 _lbxInvSelect lbSetCurSel 0;
 
 diag_log format ['MV: clientInteractionItemShop: is display null: %1', isnull _dsp];
-while {!isnull _dsp} do
+while {!isnull _dsp && alive player} do
 {
 	if (_fNo < diag_frameno) then // -- Run once per frame.
 	{
@@ -182,16 +181,8 @@ while {!isnull _dsp} do
 				
 				// -- Check if this quantity doesn't go over the store's max volume.
 				if (!_tisExporter) then 
-				{// TODO put this foreach into a shared function that returns: [boolCanDo, qty, maxqty, qtyTillMax]
-					{
-						if ((_x select 0) == _tiName) exitwith 
-						{
-							private ['_xQty'];
-							_xQty = _x select 1;
-							_tiMaxStock = _x select 2;
-							if ((_tiMaxStock - _xQty) > _tQty) then {_tStockMax = false};
-						}; 
-					} foreach _sArr;
+				{
+					_tStockMax = !(([_tiName, _tQty, _sArr] call MV_Shared_fnc_StoreCanAcceptSellQty) select 0);
 				} else {_tStockMax = false;};
 				
 				// -- Has the user got the item.
@@ -204,12 +195,12 @@ while {!isnull _dsp} do
 				private ['_tiPriceTotal', '_invSpace'];
 				_tiPriceTotal = (_tiInfo select 2) * _tQty;
 				_tinv = _sArr;
+				
 				// -- Can the player afford this item?
 				if (((["Money", player getVariable "Inventory"] call MV_Shared_fnc_SearchInventory) select 1) >= _tiPriceTotal) then {_tHasFunds = true;};
-				// -- Has the selected inventory got the required volume? TODO create 'canFit' shared function.
-				_invSpace = _selObj getVariable "storageVolume"; //if (isplayer _selObj) then {_invSpace = MV_Shared_PLAYERVOLUME} else {_invSpace = [typeof _selObj] call MV_Shared_fnc_VehicleGetInventoryVolume;};
-				_invSpace = _invSpace - ([_selInventory] call MV_Shared_fnc_GetCurrentInventoryVolume);
 				
+				// -- Has the selected inventory got the required volume? 
+				_invSpace = [_selObj, _selInventory] call MV_Shared_fnc_GetRemainingInventoryVolume;
 				if (((_tiInfo select 1) * _tQty) <= _invSpace) then {_tCanFit = true;};
 				
 				// -- You're buying, so thus stock limits aren't an issue. Neither is whether you already have that item. Thus, flag '_tStockMax' as false and _tHasItem as true.
@@ -231,7 +222,7 @@ while {!isnull _dsp} do
 			if (!_tInRange) exitwith {["ERROR", localize "STR_MV_INT_ERRORINVENTORYTOOFAR"] spawn MV_Client_fnc_int_MessageBox;}; // -- error out, player attempting to buy items too far away for selected inventory.
 			
 			// -- Validation passed. Send event to the server. Format: [playerObj, actionType, storeObj, [Args]] Args format buy: [iName, Qty, destInventoryObj] Args format sell: [iName, Qty, fromInventoryObj]
-			["ItemStoreAction", [netID player, _uimode, netID _sObj, [_tiName, _tQty, netid _selObj]]] call MV_Client_fnc_SendServerMessage;
+			["ItemStoreAction", [_uimode, netID _sObj, [_tiName, _tQty, netid _selObj]]] call MV_Client_fnc_SendServerMessage;
 			closeDialog 0;
 		};
 		
