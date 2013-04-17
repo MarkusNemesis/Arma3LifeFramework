@@ -1,4 +1,14 @@
-/* serverCore script
+/* 
+Copyright (c) 2013 by Markus Davey.
+
+This work is licensed under the 
+Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License. 
+To view a copy of this license, 
+visit http://creativecommons.org/licenses/by-nc-nd/3.0/.
+
+//
+
+serverCore script
 Created: 01/03/2013
 Author: Markus Davey
 Skype: markus.davey
@@ -29,8 +39,8 @@ while {true} do // This is the main loop. EVERYTHING serverside happens here, wi
 			if (!isnil '_fname') then {
 				if (_eTime < time) then { // -- Call only when it's ready to be.
 					diag_log format ["MV: SERVER: Running event from array: %1 , %2. Frame: %3, EventCount: %4", _fname, _args, diag_frameno, count Server_EventArray];
+					[_forEachIndex] call MV_Server_fnc_RemoveEvent; // -- Removes before running, as, if it causes an error, the mainloop will reboot, and thankfully not catch the same bugged event and crash infinitely.
 					call compile format ["_args call %1", _fname];
-					[_forEachIndex] call MV_Server_fnc_RemoveEvent;
 				}; 
 			} else {
 				[_forEachIndex] call MV_Server_fnc_RemoveEvent;

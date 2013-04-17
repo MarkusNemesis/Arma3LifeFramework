@@ -103,4 +103,11 @@ diag_log format ["MV: CLIENT INIT: FINISHED, Time taken: %1", _runTime];
 endLoadingScreen;
 titleText ["Loading...", "BLACK FADED", 30];
 //
-call compile preprocessFileLineNumbers "Client\clientCore.sqf";
+private ['_mainloop', '_lHandle'];
+_mainloop = compile preprocessFileLineNumbers "Client\clientCore.sqf";
+_lHandle = [] spawn _mainloop;
+while {true} do
+{
+	waitUntil {sleep 1; scriptDone _lHandle}; // -- Handles whether the mainloop has died and thus, starts it back up again.
+	_lHandle = [] spawn _mainloop;
+};

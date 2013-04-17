@@ -13,7 +13,7 @@ diag_log format ["MV: clientCommVarEH: %1", _vValue];
 
 switch (_eType) do
 {
-	// -- Called when the server sends a variable update. Used to sync variable changes by the server, to that respective client. SYNCS ONLY TO ONE CLIENT, NOT ALL.
+	// -- Called when the server sends a variable update. Used to sync variable changes by the server, to that respective client. SYNCS ONLY TO ONE CLIENT, NOT ALL. not in use.
 	case "vU":
 	{
 		private ['_variable', '_args'];
@@ -209,4 +209,6 @@ switch (_eType) do
 			};
 		};
 	};
+	
+// -- Leave last
 };

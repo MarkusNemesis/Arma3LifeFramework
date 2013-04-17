@@ -64,7 +64,6 @@ switch (_eType) do
 		private ['_iName', '_qty'];
 		_iName = _vParams select 0;
 		_qty = _vParams select 1;
-		//[_pObj, _iName, _qty] call MV_Server_fnc_ValidateItemUse;
 		['MV_Server_fnc_ValidateItemUse', [_tPlayer, _iName, _qty]] call MV_Server_fnc_AddEvent;
 	};
 	

@@ -93,4 +93,19 @@ switch (_action) do
 			systemchat _eString;
 		};
 	};
+	
+	case "beRestrained":
+	{
+		// -- Switches player move to 'InBaseMoves_HandsBehindBack2', as they're now restrained. Notifies player that player name has restrained you.
+		private ['_restrainer'];
+		_restrainer = objectFromNetId ((player getVariable 'isRestrained') select 1) select 1;
+		
+		// -- Switch animation to 'InBaseMoves_HandsBehindBack2'. Which is the restrained animation.
+		["AnimationEvent", [netID player, "InBaseMoves_HandsBehindBack2", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
+		
+		// -- Message to client that they have been restrained.
+		systemChat format ["You have been restrained by %1.", name _restrainer];
+	};
+	
+// -- Leave last
 };
