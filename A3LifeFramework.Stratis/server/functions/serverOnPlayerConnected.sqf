@@ -66,7 +66,7 @@ if (!_found) then // -- If the player has connected for the first time this roun
     // -- Serverside values
 	//[_uid, ["Money", [MV_Params_GPStartFunds]]] call MV_Server_fnc_SetMissionVariable;
 	private ['_iInv'];
-	_iInv = [["Money", MV_Params_GPStartFunds], ["Fishing net (Small)", 1]]; // -- TODO Remove this, as it's for debugging.
+	_iInv = [["Money", MV_Params_GPStartFunds], ["Zip-cuffs", 10]]; // -- TODO Remove this, as it's for debugging.
 
 	[_uid, ["Inventory", _iInv]] call MV_Server_fnc_SetMissionVariable;
 	_pObj setVariable ["Inventory", _iInv, true];
@@ -87,7 +87,7 @@ else // -- otherwise, they've been here before, so lets pick them back up where 
 	Server_PlayerRegistry set [_prIndex, [_id, _name, _uid, _slotname]];
 	
 	// TODO set player's inventory as blank in both missionvar and setvariable
-	_pObj setVariable ["Inventory", ([_uid, "Inventory"] call MV_Server_fnc_GetMissionVariable), true];
+	_pObj setVariable ["Inventory", ([_uid, "Inventory"] call MV_Server_fnc_GetMissionVariable), true]; // DEBUG loads player inventory, even though it should be clear. For testing.
     _pObj setVariable ["BankMoney", ([_uid, "BankMoney"] call MV_Server_fnc_GetMissionVariable) select 0, true];
     _pObj setVariable ["KeyChain", [_uid, "KeyChain"] call MV_Server_fnc_GetMissionVariable, true];
     
@@ -95,6 +95,16 @@ else // -- otherwise, they've been here before, so lets pick them back up where 
 };
 // -- Init player's inventory as empty. They've joined so thus have lost whatever they had before.
 
+// -- Set public object variables
+_pObj setVariable ['isInteractable', true, true];
+_pObj setVariable ['interactType', 'typePlayer', true];
+_pObj setVariable ['isStunned', false, true];
+_pObj setVariable ['isRestrained', [false], true];
+//
+[_uid, ["isInteractable", [true]]] call MV_Server_fnc_SetMissionVariable;
+[_uid, ["interactType", ['typePlayer']]] call MV_Server_fnc_SetMissionVariable;
+[_uid, ["isStunned", [false]]] call MV_Server_fnc_SetMissionVariable;
+[_uid, ["isRestrained", [false]]] call MV_Server_fnc_SetMissionVariable;
 
 //
 _pObj setvehicleinit "this enablesimulation true; this allowdamage true;";

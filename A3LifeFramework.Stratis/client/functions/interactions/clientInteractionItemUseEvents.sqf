@@ -30,7 +30,7 @@ switch (_action) do
 	{
 		private ['_iInfo'];
 		_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
-		systemChat format ["You successfully deployed the net. Be sure to stay just below %1 KM/h and at a depth greater than %2, or you'll be forced to recall your net.", 18, (_iInfo select 3) select 0];
+		['s', format ["You successfully deployed the net. Be sure to stay just below %1 KM/h and at a depth greater than %2, or you'll be forced to recall your net.", 18, (_iInfo select 3) select 0]] call MV_Client_fnc_SChatMsg;
 		// -- TODO add 'fish finder', water depth gauge and net capacity bar/metre.
 	};
 	
@@ -46,65 +46,103 @@ switch (_action) do
 			_remVol = _aArgs select 2;
 			_iName = ((vehicle player) getVariable 'NetDeployed') select 1;
 			_iInfo = [_iName] call MV_Shared_fnc_GetItemInformation;
-			systemChat format [localize 'STR_MV_ITEM_FISHNETUSECATCHVALID', _cCatch, _remVol];
+			['i', format [localize 'STR_MV_ITEM_FISHNETUSECATCHVALID', _cCatch, _remVol]] call MV_Client_fnc_SChatMsg;
 		}
 		else
 		{
 			// -- Not valid, so error out.
 			private ['_eType', '_eString'];
 			_eType = _aArgs select 1;
-			_eString = '';
+			_eString = [];
 			switch (_eType) do
 			{
 				case 'ofl':
 				{
-					_eString = localize 'STR_MV_ITEM_FISHNETOVERFLOW';
+					_eString = ['e', localize 'STR_MV_ITEM_FISHNETOVERFLOW'];
 				};
 				
 				case 'tf':
 				{
-					_eString = localize 'STR_MV_ITEM_FISHNETTOOFAST';
+					_eString = ['e', localize 'STR_MV_ITEM_FISHNETTOOFAST'];
 				};
 				
 				case 'shl':
 				{
-					_eString = localize 'STR_MV_ITEM_FISHNETTOOSHALLOW';
+					_eString = ['e', localize 'STR_MV_ITEM_FISHNETTOOSHALLOW'];
 				};
 				
 				case 'nd':
 				{
-					_eString = localize 'STR_MV_ITEM_FISHNETNOTDRIVER';
+					_eString = ['e', localize 'STR_MV_ITEM_FISHNETNOTDRIVER'];
 				};
 				
 				case 'r':
 				{
 					private ['_cVol'];
 					_cVol = _aArgs select 2;
-					_eString = format [localize 'STR_MV_ITEM_FISHNETRECALL', _cVol];
+					_eString = ['n' ,format [localize 'STR_MV_ITEM_FISHNETRECALL', _cVol]];
 				};
 				
 				case 'f':
 				{
 					private ['_cVol'];
 					_cVol = _aArgs select 2;
-					_eString = format [localize 'STR_MV_ITEM_FISHNETRECALLFULLINV', _cVol];
+					_eString = ['n', format [localize 'STR_MV_ITEM_FISHNETRECALLFULLINV', _cVol]];
 				};
 			};
-			systemchat _eString;
+			_eString call MV_Client_fnc_SChatMsg;
 		};
 	};
 	
 	case "beRestrained":
 	{
 		// -- Switches player move to 'InBaseMoves_HandsBehindBack2', as they're now restrained. Notifies player that player name has restrained you.
-		private ['_restrainer'];
-		_restrainer = objectFromNetId ((player getVariable 'isRestrained') select 1) select 1;
+		private ['_restrainer', '_anim'];
+		_restrainer = objectFromNetId (((player getVariable 'isRestrained') select 1) select 1);
+		_anim = ((["MV_Shared_ANIMATION_RESTRAINED"] call MV_Client_fnc_GetMissionVariable) select 0);
 		
 		// -- Switch animation to 'InBaseMoves_HandsBehindBack2'. Which is the restrained animation.
-		["AnimationEvent", [netID player, "InBaseMoves_HandsBehindBack2", 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
+		["AnimationEvent", [netID player, _anim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
 		
 		// -- Message to client that they have been restrained.
-		systemChat format ["You have been restrained by %1.", name _restrainer];
+		['n', format [localize "STR_MV_ITEM_RESTRAINED", name _restrainer]] call MV_Client_fnc_SChatMsg;
+	};
+	
+	case "hasRestrained":
+	{
+		// -- Switches player move to restraining animation, and notifies player of successful restraining.
+		private ['_success'];
+		_success = _aArgs select 0;
+		if (!_success) exitwith 
+		{
+			private ['_reason'];
+			_reason = _aArgs select 1;
+			switch (_reason) do
+			{
+				case "td": // Target dead
+				{
+					['f', localize "STR_MV_ITEM_ERRORRESTRAINDEAD"] call MV_Client_fnc_SChatMsg;
+				};
+				case "ns": // Target not stunned
+				{
+					['f', localize "STR_MV_ITEM_ERRORRESTRAINNOTSTUNNED"] call MV_Client_fnc_SChatMsg;
+				};
+				case "tf": // Target too far away.
+				{
+					['f', localize "STR_MV_ITEM_ERRORRESTRAINTOOFAR"] call MV_Client_fnc_SChatMsg;
+				};
+			};
+		};
+		//
+		private ['_restrainee', '_anim'];
+		_restrainee = objectFromNetId (_aArgs select 1);
+		_anim = ((["MV_Shared_ANIMATION_RESTRAIN"] call MV_Client_fnc_GetMissionVariable) select 0);
+		
+		// -- Switch animation to 'InBaseMoves_HandsBehindBack2'. Which is the restrained animation.
+		["AnimationEvent", [netID player, _anim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
+		
+		// -- Message to client that they have been restrained.
+		['s', format [localize "STR_MV_ITEM_RESTRAIN", name _restrainee]] call MV_Client_fnc_SChatMsg;
 	};
 	
 // -- Leave last

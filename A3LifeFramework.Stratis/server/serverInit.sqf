@@ -66,11 +66,14 @@ call Compile preprocessFile "Server\functions\init\ServerInitPlayerSlots.sqf";
 // YOU MUST Leave this last. This calls the serverCore mainloop.
 _runTime = diag_tickTime - _runTime;
 diag_log format ["MV: SERVER INIT: FINISHED, Time taken: %1", _runTime];
-private ['_mainloop', '_lHandle'];
+private ['_mainloop', '_lHandle', '_timesRecovered'];
 _mainloop = compile preprocessFile "server\serverCore.sqf";
 _lHandle = [] spawn _mainloop;
+_timesRecovered = 0;
 while {true} do
 {
 	waitUntil {sleep 1; scriptDone _lHandle}; // -- Handles whether the mainloop has died and thus, starts it back up again.
 	_lHandle = [] spawn _mainloop;
+	diag_log format ["WARN: SERVER MAINLOOP RECOVERED. Times recovered: %1", _timesRecovered];
+	_timesRecovered = _timesRecovered + 1;
 };

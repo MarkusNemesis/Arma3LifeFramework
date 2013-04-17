@@ -2,17 +2,19 @@
 Created: 12/03/2013
 Author: Markus Davey
 Skype: markus.davey
-Desc: This script is called every time a key is pressed. Annoying, I know.
+Desc: This script is called every time a key is pressed.
 */
 
-private ["_control", "_key", "_shift", "_ctrl", "_alt", '_handled', '_intRange', '_isStunned'];
+private ["_control", "_key", "_shift", "_ctrl", "_alt", '_handled', '_intRange', '_isStunned', '_isRestrained'];
 _control = _this select 0;
 _key = _this select 1;
 _shift = _this select 2;
 _ctrl = _this select 3;
 _alt = _this select 4;
 _handled = false;
-_isStunned = player getVariable 'isStunned'; // TODO if isstunned, then only allow specific keys to be used. ie only allow ESC to be pressed. Maybe others. Replaces 'disableUserInput true'
+// TODO if isstunned, then only allow specific keys to be used. ie only allow ESC to be pressed. Maybe others. Replaces 'disableUserInput true'
+_isStunned = player getVariable 'isStunned';
+_isRestrained = if (count (player getVariable 'isRestrained') > 1) then {true} else {false};
 //diag_log format ["Key Pressed: Key: %1, Shift: %2, Ctrl: %3, Alt: %4", _key, _shift, _ctrl, _alt];
 
 if (Client_CustomKeysEnabled) then 
@@ -31,7 +33,7 @@ if (Client_CustomKeysEnabled) then
     // ---------------- Interact key [E] ----------------
     if (_key == 18) then
     {
-        if (dialog || _isStunned) exitwith{}; // Cannot use interact key whilst in a dialog or stunned.
+        if (dialog || _isStunned || _isRestrained) exitwith{}; // Cannot use interact key whilst in a dialog or stunned.
         // If the player is on foot and pressing E
 		if (vehicle player == player) then
 		{
@@ -55,11 +57,11 @@ if (Client_CustomKeysEnabled) then
             {
 				if (_shift) exitWith 
 				{
-					if (netId (vehicle player) in (player getVariable "KeyChain")) then {[(vehicle player)] spawn MV_Client_fnc_int_StorageInventory} else {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED";};
+					if (netId (vehicle player) in (player getVariable "KeyChain")) then {[(vehicle player)] spawn MV_Client_fnc_int_StorageInventory} else {['e', localize "STR_MV_INT_ERRORCANNOTEXITLOCKED"] call MV_Client_fnc_SChatMsg;};
 					_handled = true;
 				};
                 player action ["getOut", vehicle player];
-            } else {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED";}; // notify the player that the vehicle is locked};
+            } else {['e', localize "STR_MV_INT_ERRORCANNOTEXITLOCKED"] call MV_Client_fnc_SChatMsg;}; // notify the player that the vehicle is locked};
 			_handled = true;
 		};
 	};
@@ -67,7 +69,7 @@ if (Client_CustomKeysEnabled) then
     // ---------------- Lock key [L] ----------------
     if (_key == 38) then
     {
-		if (_isStunned) exitwith {};
+		if (_isStunned || _isRestrained) exitwith {};
         if (vehicle player == player) then
 		{// -- On foot
 	        [_target, 'key'] call MV_Client_fnc_int_ToggleVehicleLock;
@@ -86,7 +88,7 @@ if (Client_CustomKeysEnabled) then
 	// ---------------- Inventory key [2] ----------------
 	if (_key == 3) then
 	{
-		if (_isStunned) exitwith {};
+		if (_isStunned || _isRestrained) exitwith {};
 		if (!dialog) then {
 			[] spawn MV_Client_fnc_int_Inventory;
 			_handled = true;

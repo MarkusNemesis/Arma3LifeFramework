@@ -43,7 +43,7 @@ switch (_action) do
 	{
 		if (_qty < 0 || _qty > _pwMoney) exitwith {diag_log format ["MV: serverATMAction: ADMIN: Error! player %1 attempted to deposit $%2, bypassing client validation!", name _pObj, _qty];[_pObj, "ATMActionReturn", [false, _action]] call MV_Server_fnc_SendClientMessage;};
 		// -- Subtract the money from the player's wallet.
-		[_pObj, "Money", _qty] call MV_Server_fnc_RemoveInventoryItem;//[_pObj, _pwMoney - _qty] call MV_Server_fnc_SetPlayerFunds;
+		[_pObj, "Money", _qty] call MV_Server_fnc_RemoveInventoryItem;
 		
 		// -- Validation passed, carry out transaction.
 		[_pNID, ["bankmoney", [(_pbMoney + _qty)]]] call MV_Server_fnc_SetMissionVariable;

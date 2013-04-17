@@ -1,14 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project name="A3LifeMissionFramework">
 	<Package name="General">
+		<Key ID="STR_MISSION_NAME">
+		  <English>A3LifeMissionFramework</English>
+		</Key>
 		
+		<Key ID="STR_MISSION_NAMEABBR">
+		  <English>A3LMF</English>
+		</Key>
 	</Package>
-  
-	<Package name="Interactions">
-		<Key ID="STR_MV_INT_INFORMATION">
+	
+	<Package name="Messages">
+		<Key ID="STR_MV_MSGPREFIX_INFO">
 		  <English>Information</English>
 		</Key>
-
+		
+		<Key ID="STR_MV_MSGPREFIX_WARN">
+		  <English>Warning</English>
+		</Key>
+		
+		<Key ID="STR_MV_MSGPREFIX_ERROR">
+		  <English>Error</English>
+		</Key>
+		
+		<Key ID="STR_MV_MSGPREFIX_SUCCESS">
+		  <English>Success</English>
+		</Key>
+		
+		<Key ID="STR_MV_MSGPREFIX_FAIL">
+		  <English>Failed</English>
+		</Key>
+		
+		<Key ID="STR_MV_MSGPREFIX_NOTICE">
+		  <English>Notice</English>
+		</Key>
+	</Package>
+	
+  	<Package name="Interactions">
+		<Key ID="STR_MV_INT_LOCKUNLOCKED">
+		  <English>%1 Unlocked</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_LOCKLOCKED">
+		  <English>%1 Locked</English>
+		</Key>
+		
 		<Key ID="STR_MV_INT_ERRORCOOLDOWN">
 		  <English>You can only purchase one vehicle every 10 seconds</English>
 		</Key>
@@ -54,7 +90,7 @@
 		</Key>
 
 		<Key ID="STR_MV_INT_ERRORCANNOTEXITLOCKED">
-		  <English>NOTICE: You cannot do that with this vehicle, as it is locked</English>
+		  <English>You cannot do that with this vehicle, as it is locked</English>
 		</Key>
 
 		<Key ID="STR_MV_INT_ERRORITEMNOUSE">
@@ -156,7 +192,15 @@
 		<Key ID="STR_MV_INT_STUN_MSTUN">
 		  <English>You smack %1 over the head, temporarily stunning them.</English>
 		</Key>
-	
+		
+		<Key ID="STR_MV_INT_HUD_PLAYER">
+		  <English>Press E to interact with %1</English>
+		</Key>
+		
+		<Key ID="STR_MV_INT_HUD_PLAYERRESTRAIN">
+		  <English>Press Shift-E to restrain</English>
+		</Key>
+		
 	</Package>
   
 	<Package name="Items">
@@ -232,89 +276,133 @@
 		  <English>Your net catches %1 cc of fish. The net has %2 cc remaining to be filled.</English>
 		</Key>
 		
+		<Key ID="STR_MV_ITEM_RESTRAINATTEMPT">
+		  <English>You attempt to restrain %1.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_ERRORRESTRAINNOPLAYER">
+		  <English>You fail to restrain that person, as they are not a player.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_ERRORRESTRAINDEAD">
+		  <English>You fail to restrain that person, as they are dead.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_ERRORRESTRAINNOTSTUNNED">
+		  <English>You fail to restrain that person, as they are wriggling about too much.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_ERRORRESTRAINTOOFAR">
+		  <English>You fail to restrain that person, as they are too far away.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_RESTRAINED">
+		  <English>You have been restrained by %1.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_RESTRAIN">
+		  <English>You have restrained %1.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_UNRESTRAIN">
+		  <English>You have been unrestrained.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_BREAKRESTRAIN">
+		  <English>You break out of your restraints! You hope no one saw you.</English>
+		</Key>
+		
+		<Key ID="STR_MV_ITEM_PICKRESTRAIN">
+		  <English>You pick the lock on these restraints.</English>
+		</Key>
+		
 	</Package>
   
   <Package name="DialogText">
-	<Key ID="STR_MV_DG_INVENTORY">
-      <English>Inventory</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_ITEMS">
-      <English>Items</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_QTY">
-      <English>Quantity</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_USE">
-      <English>Use</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_DROP">
-      <English>Drop</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_ACTIONS">
-      <English>Actions</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_VOLUME">
-      <English>Volume (cc)</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_DESC">
-      <English>Description</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_APPROXVALUE">
-      <English>Approx. Value</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_BUY">
-      <English>Buy</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_TOINVENTORY">
-      <English>&lt;- To Inventory</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_TOPILE">
-      <English>To Pile -&gt;</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_PILE">
-      <English>Pile</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_TRANSFERITEMS">
-      <English>Transfer Items</English>
-    </Key>
+		<Key ID="STR_MV_DG_INFORMATION">
+		  <English>Information</English>
+		</Key>
+  
+		<Key ID="STR_MV_DG_INVENTORY">
+		  <English>Inventory</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_ITEMS">
+		  <English>Items</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_QTY">
+		  <English>Quantity</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_USE">
+		  <English>Use</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_DROP">
+		  <English>Drop</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_ACTIONS">
+		  <English>Actions</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_VOLUME">
+		  <English>Volume (cc)</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_DESC">
+		  <English>Description</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_APPROXVALUE">
+		  <English>Approx. Value</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_BUY">
+		  <English>Buy</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_TOINVENTORY">
+		  <English>&lt;- To Inventory</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_TOPILE">
+		  <English>To Pile -&gt;</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_PILE">
+		  <English>Pile</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_TRANSFERITEMS">
+		  <English>Transfer Items</English>
+		</Key>
 
-	<Key ID="STR_MV_DG_ATMTITLE">
-      <English>Stratibank: ATM</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_WITHDRAW">
-      <English>Withdraw</English>
-    </Key>
-	
-	<Key ID="STR_MV_DG_DEPOSIT">
-      <English>Deposit</English>
-    </Key>
+		<Key ID="STR_MV_DG_ATMTITLE">
+		  <English>Stratibank: ATM</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_WITHDRAW">
+		  <English>Withdraw</English>
+		</Key>
+		
+		<Key ID="STR_MV_DG_DEPOSIT">
+		  <English>Deposit</English>
+		</Key>
   </Package>
   
   
-  <Package name="StoreNames">
-	<Key ID="STR_MV_STORES_CARSTORECIV1">
-      <English>Jamie's Used Autos</English>
-    </Key>
-	<Key ID="STR_MV_STORES_CARSTORECOP1">
-      <English>UN Vehicle Quartermaster</English>
-    </Key>
-	<Key ID="STR_MV_STORES_BOATSTORECIV1">
-      <English>'No-Holes' Inflatables</English>
-    </Key>
+	<Package name="StoreNames">
+		<Key ID="STR_MV_STORES_CARSTORECIV1">
+		  <English>Jamie's Used Autos</English>
+		</Key>
+		<Key ID="STR_MV_STORES_CARSTORECOP1">
+		  <English>UN Vehicle Quartermaster</English>
+		</Key>
+		<Key ID="STR_MV_STORES_BOATSTORECIV1">
+		  <English>'No-Holes' Inflatables</English>
+		</Key>
 	
 	</Package>
 </Project>

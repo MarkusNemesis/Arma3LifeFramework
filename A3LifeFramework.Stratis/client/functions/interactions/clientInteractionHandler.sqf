@@ -35,7 +35,7 @@ switch (_iType) do
     // Unlock vehicle
     case "typeVehicle":
     {
-		if (locked _iObj > 1) exitwith {systemChat localize "STR_MV_INT_ERRORCANNOTEXITLOCKED"}; // notify the player that the vehicle is locked
+		if (locked _iObj > 1) exitwith {['e', localize "STR_MV_INT_ERRORCANNOTEXITLOCKED"] call MV_Client_fnc_SChatMsg;}; // notify the player that the vehicle is locked
 		if (_shift) then 
 		{
 			if ((netID _iObj) in (player getVariable "KeyChain")) then {[_iObj] spawn MV_Client_fnc_int_StorageInventory};
@@ -67,4 +67,24 @@ switch (_iType) do
 	{
 		[_iObj] spawn MV_Client_fnc_int_ATM;
 	};
+	
+	case "typePlayer":
+	{
+		if (_shift) then 
+		{
+			private ['_cuffTypes', '_cuffs', '_pInv'];
+			_cuffs = [];
+			_cuffTypes = ["Zip-cuffs", "Handcuffs"];
+			_pInv = player getVariable "Inventory";
+			// -- Check if player has handcuffs.
+			{
+				_cuffs = [_x, _pInv] call MV_Shared_fnc_SearchInventory;
+				if (count _cuffs > 0) exitwith {};// -- Found some cuffs!
+			} foreach _cuffTypes;
+			["UseItem", [_cuffs select 0, 1]] call MV_Client_fnc_SendServerMessage;
+		} else {
+			['e', "Feature currently not implemented."] call MV_Client_fnc_SChatMsg;
+		};
+	};
+	
 }; //End switch

@@ -91,10 +91,11 @@ switch (_action) do
 	
 	case "restrain":
 	{
-		private ['_tgt', 'isStunned'];
+		private ['_tgt', '_isStunned'];
 		_tgt = objectFromNetId (_aArgs select 0);
-		_isStunned = [netid _tgt, "isStunned"] call MV_Server_fnc_GetMissionVariable;
+		_isStunned = ([netid _tgt, "isStunned"] call MV_Server_fnc_GetMissionVariable) select 0;
 		// -- Validate
+		if (!isplayer _tgt) exitwith {}; // -- Not a player. TODO chat error out.
 		if (!alive _tgt) exitwith {}; // -- Target is not alive. You can't restrain the dead.... TODO chat error out.
 		if (!_isStunned) exitwith {}; // -- Target is not stunned or not consenting to restraint you can't restrain someone who is fidgetting like this! TODO chat error out. add support for consentual restraining. Must use unique object variable, as to not allow exploits.
 		if ((_pObj distance _tgt) > _intRange) exitwith {}; // -- Restrainee is too far away. TODO chat error out.
@@ -103,8 +104,14 @@ switch (_action) do
 		[netid _tgt, ['isRestrained', [true, [side _pObj, netid _pObj]]]] call MV_Server_fnc_SetMissionVariable;
 		_tgt setVariable ['isRestrained', [true, [side _pObj, netid _pObj]], true];
 		
+		// -- Remove item.
+		[_pObj, _iName, 1] call MV_Server_fnc_RemoveInventoryItem;
+		
 		// -- Send _tgt a client UseItemEvent message. 'beRestrained'
 		[_tgt, "UseItemEvent", [_iName, 'beRestrained', []]] call MV_Server_fnc_SendClientMessage;
+		
+		// -- send restrainer a client useItemEvent message 'hasRestrained'
+		[_pObj, "UseItemEvent", [_iName, 'hasRestrained', [true, netid _tgt]]] call MV_Server_fnc_SendClientMessage;
 	};
 	
 // -- Leave last

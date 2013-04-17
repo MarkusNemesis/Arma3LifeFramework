@@ -18,54 +18,34 @@ if (isServer) then
 };
 
 // Constants
-//PRIOR_RANGE = 8; // Dictates the valid ranges of event priorities
 _lObj setVariable ["PRIOR_RANGE", 8];
 
-/* Player slots
-MV_Shared_PLAYERS_BLU = [];
-MV_Shared_PLAYERS_OP = [];
-MV_Shared_PLAYERS_IND = [];
-MV_Shared_PLAYERS_CIV = [];
-*/
-
+// Player slots
 _lObj setVariable ["MV_Shared_PLAYERS_BLU", []];
 _lObj setVariable ["MV_Shared_PLAYERS_OP", []];
 _lObj setVariable ["MV_Shared_PLAYERS_IND", []];
 _lObj setVariable ["MV_Shared_PLAYERS_CIV", []];
 
-/* -- player slots per side
-BLU_PLAYERCOUNT = 10;
-OP_PLAYERCOUNT = 0;
-IND_PLAYERCOUNT = 0;
-CIV_PLAYERCOUNT = 35;
-*/
-
+// -- player slots per side
 _lObj setVariable ["BLU_PLAYERCOUNT", 10];
 _lObj setVariable ["OP_PLAYERCOUNT", 0];
 _lObj setVariable ["IND_PLAYERCOUNT", 0];
 _lObj setVariable ["CIV_PLAYERCOUNT", 35];
 
-/* -- Interaction range
-INT_RANGE = 4;
-REMOTE_KEY_RANGE = 20;
-*/
+// -- Interaction range
 _lObj setVariable ["INT_RANGE", 4];
 _lObj setVariable ["REMOTE_KEY_RANGE", 20];
 
-/* -- Static volumes
-MV_Shared_PLAYERVOLUME = 25000; // -- 25,000 cc
-MV_Shared_PILEVOLUME = 100000; // -- 100,000 cc
-*/
+// -- Static volumes
 _lObj setVariable ["MV_Shared_PLAYERVOLUME", 25000];
 _lObj setVariable ["MV_Shared_PILEVOLUME", 100000];
 
-
 // -- Animations
-//MV_Shared_ANIMATION_BUY = "AinvPercMstpSnonWnonDnon_Putdown_AmovPercMstpSnonWnonDnon";
 _lObj setVariable ["MV_Shared_ANIMATION_BUY", "AinvPercMstpSnonWnonDnon_Putdown_AmovPercMstpSnonWnonDnon"];
+_lObj setVariable ["MV_Shared_ANIMATION_RESTRAIN", "AinvPercMstpSnonWnonDnon_Putdown_AmovPercMstpSnonWnonDnon"];
+_lObj setVariable ["MV_Shared_ANIMATION_RESTRAINED", "InBaseMoves_HandsBehindBack2"];
 
 // -- Game object classes
-//MV_Shared_DROPPILECLASS = "Land_Sack_F";
 _lObj setVariable ["MV_Shared_DROPPILECLASS", "Land_Sack_F"];
 //_lObj setVariable ["MV_Shared_ATMCLASS", "Land_CashDesk_F"]; // Commented due to ATMs not being of fixed class.
 

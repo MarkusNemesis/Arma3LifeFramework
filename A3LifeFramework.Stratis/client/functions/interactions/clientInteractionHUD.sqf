@@ -8,7 +8,7 @@ if (player getVariable 'isStunned') exitwith {};
 private ['_cTarg', '_iType', '_iFilter', '_dialog', '_iText', '_intRange'];
 disableSerialization;
 _cTarg = cursorTarget;
-_intRange = _this select 0; //_intRange = ((["INT_RANGE"] call MV_Client_fnc_GetMissionVariable) select 0);
+_intRange = _this select 0;
 // -- Check if player is within interaction range of this object.
 if (_cTarg distance player > _intRange) exitwith {};
 
@@ -69,6 +69,15 @@ if (_cTarg getVariable "isInteractable") then
 		case "typeATM":
 		{
 			_iText = localize "STR_MV_INT_HUD_ATM";
+		};
+		
+		case "typePlayer":
+		{
+			_iText = format [localize "STR_MV_INT_HUD_PLAYER", name _cTarg];
+			if (_cTarg getVariable 'isStunned') then
+			{
+				_iText = composeText [_iText, lineBreak, localize 'STR_MV_INT_HUD_PLAYERRESTRAIN'];
+			};
 		};
 		
 	};

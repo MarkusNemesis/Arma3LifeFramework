@@ -19,12 +19,13 @@ This helps distribute functions across a spectrum of how often a function is ran
 This can off-set non time-critical functions, and leave more room for other more important events.
 */
 
-private ["_pFrame", "_runPrior", '_pRange', '_iRange'];
+private ["_pFrame", "_runPrior", '_pRange', '_iRange', '_restrainAnim'];
 //
 _runPrior = 1;
 _pFrame = diag_frameno;
 _pRange = ((["PRIOR_RANGE"] call MV_Client_fnc_GetMissionVariable) select 0);
 _iRange = ((["INT_RANGE"] call MV_Client_fnc_GetMissionVariable) select 0);
+_restrainAnim = ((["MV_Shared_ANIMATION_RESTRAINED"] call MV_Client_fnc_GetMissionVariable) select 0);
 diag_log "MV: STARTING CLIENT MAINLOOP";
 while {true} do // This is the main loop. EVERYTHING clientside happens here.
 {
@@ -82,6 +83,16 @@ while {true} do // This is the main loop. EVERYTHING clientside happens here.
 			if (!(alive player)) exitwith {};
 			// -- 'reveal's to the player all interactable objects within interact distance (5 m)
 	        [_iRange] call MV_Client_fnc_InteractableAwareness;
+			// -- If player is restrained. Check to ensure they're in the restrained pose, as long as they're not in a vehicle. TODO move this to own function?
+			private ['_isRestrained'];
+			_isRestrained = if (count (player getVariable 'isRestrained') > 1) then {true} else {false};
+			if (_isRestrained && (vehicle player == player)) then
+			{
+				if ((animationState player) != _restrainAnim) then
+				{
+					["AnimationEvent", [netID player, _restrainAnim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
+				};
+			};
             // --  check if player is in a vehicle, and wasn't before to update vehicle's garbage collection delay.
             if (vehicle player != player) then // -- Player is in vehicle.
             {

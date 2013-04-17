@@ -37,7 +37,6 @@ diag_log format ['_isDeployed: %1', _isDeployed];
 if (_isDeployed) exitwith 
 {
 	// -- Recall the net.
-	//systemChat "You pull in the net and stow in back into it's box in your inventory.";
 	["UseItemEvent", [_iName, 'RecallNet', [netId _useVehicle]]] call MV_Client_fnc_SendServerMessage;
 	Client_UsingItem = false;
 };

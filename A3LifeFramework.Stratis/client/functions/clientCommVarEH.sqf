@@ -84,7 +84,7 @@ switch (_eType) do
 			// -- If it's an item pile, output the item pile name. Else, name of player.
 			if ((typeOf _objA) == _pileCName) then {_objA = "Item Pile"} else {if (isPlayer _objA) then {_objA = name _objA;} else {_objA = _objA getVariable 'vName'};};
 			if ((typeOf _objB) == _pileCName) then {_objB = "Item Pile"} else {if (isPlayer _objB) then {_objB = name _objB;} else {_objB = _objB getVariable 'vName'};};
-			systemChat format [localize "STR_MV_INT_SUCCESSPILETRANSFER",_qty, _iName, _objA, _objB];
+			['s', format [localize "STR_MV_INT_SUCCESSPILETRANSFER",_qty, _iName, _objA, _objB]] call MV_Client_fnc_SChatMsg;
 			// -- Set cooldown
 			Client_TransactionCooldown = time + 1;
 		};
@@ -110,8 +110,8 @@ switch (_eType) do
 			case "if": {["ERROR", localize "STR_MV_INT_ERRORNOFUNDS"] spawn MV_Client_fnc_int_MessageBox;};
 			case "nv": {["ERROR", localize "STR_MV_INT_ERRORNOVOL"] spawn MV_Client_fnc_int_MessageBox;};
 			case "ds": {["ERROR", localize "STR_MV_INT_ERRORDOESNOTSTOCK"] spawn MV_Client_fnc_int_MessageBox;};
-			case "ss": {systemChat (format [localize "STR_MV_INT_SUCCESSSELLITEM", _iQty, _iName, _isarArgs select 3]); ["AnimationEvent", [netID player, _buyAnim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;};
-			case "sb": {systemChat (format [localize "STR_MV_INT_SUCCESSBUYITEM", _iQty, _iName, _isarArgs select 3]); ["AnimationEvent", [netID player, _buyAnim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;};
+			case "ss": {['s', (format [localize "STR_MV_INT_SUCCESSSELLITEM", _iQty, _iName, _isarArgs select 3])] call MV_Client_fnc_SChatMsg; ["AnimationEvent", [netID player, _buyAnim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;};
+			case "sb": {['s', (format [localize "STR_MV_INT_SUCCESSBUYITEM", _iQty, _iName, _isarArgs select 3])] call MV_Client_fnc_SChatMsg; ["AnimationEvent", [netID player, _buyAnim, 'switchMove']] call MV_Shared_fnc_SendPublicMessage;};
 		};
 	};
 	
@@ -127,9 +127,9 @@ switch (_eType) do
 		private ['_veh'];
 		_veh = objectFromNetId (_vParams select 0);
 		if (locked _veh > 1) then {
-			systemchat format ["MV: %1 Unlocked", typeof _veh];
+			['n', format [localize "STR_MV_INT_LOCKUNLOCKED", typeOf _veh]] call MV_Client_fnc_SChatMsg;
 		} else {
-			systemchat format ["MV: %1 Locked", typeof _veh]; 
+			['n', format [localize "STR_MV_INT_LOCKLOCKED", typeOf _veh]] call MV_Client_fnc_SChatMsg;
 		};
 	};
 	
@@ -151,10 +151,10 @@ switch (_eType) do
 		if (_action == 'withdraw') then {_sString = localize 'STR_MV_INT_SUCCESSATMWITHDRAW'} else {_sString = localize 'STR_MV_INT_SUCCESSATMDEPOSIT'};
 		if (_success) then {
 			_qty = _vParams select 2;
-			systemChat format [_sString, _qty];
+			['s', format [_sString, _qty]] call MV_Client_fnc_SChatMsg;
 			["AnimationEvent", [netID player, ((["MV_Shared_ANIMATION_BUY"] call MV_Client_fnc_GetMissionVariable) select 0), 'switchMove']] call MV_Shared_fnc_SendPublicMessage;
 		} else {
-			systemChat format [localize 'STR_MV_INT_FAILATMTRANSACTION', _qty];
+			['f', format [localize 'STR_MV_INT_FAILATMTRANSACTION', _qty]] call MV_Client_fnc_SChatMsg;
 		};
 	};
 	
@@ -167,12 +167,12 @@ switch (_eType) do
 			case 'ss':
 			{
 				_pStun = objectFromNetId (_vParams select 1);
-				systemChat format [localize "STR_MV_INT_STUN_SSTUN", name _pStun];
+				['s', format [localize "STR_MV_INT_STUN_SSTUN", name _pStun]] call MV_Client_fnc_SChatMsg;
 			};
 			case 'ms':
 			{
 				_pStun = objectFromNetId (_vParams select 1);
-				systemChat format [localize "STR_MV_INT_STUN_MSTUN", name _pStun];
+				['s', format [localize "STR_MV_INT_STUN_MSTUN", name _pStun]] call MV_Client_fnc_SChatMsg;
 			};
 			case 'us': // Unstun
 			{
@@ -181,6 +181,7 @@ switch (_eType) do
 				player setVariable ['isStunned', false];
 				12 cutText ["", "PLAIN"];
 				if (!(alive player)) exitwith {};
+				if ((player getVariable 'isRestrained' select 0)) exitwith {}; // -- If player is restrained, don't allow it to be switched out of.
 				if (player != (vehicle player)) then
 				{
 					private ['_cName', '_anim', '_tveh'];

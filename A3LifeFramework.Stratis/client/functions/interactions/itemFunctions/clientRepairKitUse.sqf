@@ -58,7 +58,7 @@ while {time < _eTime} do
 	_fNo = diag_frameno;
 };
 // -- If the client got interrupted, this'll be false. So, exit the script.
-if (!Client_UsingItem) exitwith {systemChat localize 'STR_MV_ITEM_REPAIRKITFAILEDINTERRUPTED';};
+if (!Client_UsingItem) exitwith {['f', localize 'STR_MV_ITEM_REPAIRKITFAILEDINTERRUPTED'] call MV_Client_fnc_SChatMsg;};
 
 // -- Leave last
 // -- Reset user animation

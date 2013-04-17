@@ -20,9 +20,9 @@ if (_found) then
 	if (!local _obj) exitwith {["lockRequest", [netId _obj, _lType]] call MV_Client_fnc_SendServerMessage;};
     if (locked _obj > 1) then {
     	_obj lock false;
-        systemchat format ["MV: %1 Unlocked", typeof _obj]; 
+        ['n', format [localize "STR_MV_INT_LOCKUNLOCKED", typeof _obj]] call MV_Client_fnc_SChatMsg;
     } else {
     	_obj lock true;
-        systemchat format ["MV: %1 Locked", typeof _obj]; 
+        ['n', format [localize "STR_MV_INT_LOCKLOCKED", typeof _obj]] call MV_Client_fnc_SChatMsg;
     };
 };
