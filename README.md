@@ -7,6 +7,7 @@ If you wish to use this mission, or any content within, you MUST ask the author 
 
 This mission is subject to the terms of the license below.
 ==========================================================
+```
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
@@ -21,6 +22,7 @@ This mission is subject to the terms of the license below.
 
   0. You just DO WHAT THE FUCK YOU WANT TO.
 
+```
 Author contact details
 ======================
 Skype: Markus.Davey
