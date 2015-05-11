@@ -3,7 +3,9 @@ Arma3LifeFramework
 
 A highly editable base mission for the soon-to-be Arma 3 Life communities.
 
-If you wish to use this mission, or any content within, you MUST ask the author for permission first.
+If you wish to use this mission, or any content within, you may ask the author for permission first,
+Or, you can just use it and if you feel like it, give me a mention in the comments somewhere or whatever.
+Feel free to contact me if you need help understanding the code or if you want to show off your creations.
 
 This mission is subject to the terms of the license below.
 ==========================================================
